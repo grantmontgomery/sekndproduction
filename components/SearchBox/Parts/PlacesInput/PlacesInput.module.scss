@@ -1,0 +1,43 @@
+.places {
+  display: grid;
+  grid-template-areas: "label label" "places search";
+  grid-template-columns: calc(200% / 3) calc(100% / 3);
+  grid-template-rows: 50% 50%;
+  & label {
+    grid-area: label;
+    font-size: 2.5vh;
+    font-weight: bold;
+    display: block;
+    height: fit-content;
+    width: fit-content;
+    margin-left: 5%;
+    top: 50%;
+    position: relative;
+    transform: translate(0, -50%);
+  }
+  & input {
+    font-size: 1em;
+    width: 80%;
+    border: none;
+    background: transparent;
+    margin-left: 7.5%;
+    position: relative;
+    border-bottom: solid 0.2vh black;
+    top: 50%;
+    transform: translate(0, -50%);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 6.5vw;
+  }
+  & button {
+    height: 90%;
+    width: 80%;
+    grid-area: search;
+    margin-left: 0;
+    margin-right: auto;
+    margin-top: 0;
+    cursor: pointer;
+    background: transparent;
+    margin-bottom: auto;
+  }
+}

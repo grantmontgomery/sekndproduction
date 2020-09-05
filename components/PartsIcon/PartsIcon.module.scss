@@ -1,0 +1,32 @@
+.partsIcon {
+  display: block;
+  position: relative;
+  height: 9vw;
+  width: auto;
+  max-height: 6vh;
+  margin-right: 5%;
+  z-index: 2;
+  top: 50%;
+  cursor: pointer;
+  transform: translate(0, -50%);
+}
+
+.st0 {
+  stroke: #000000;
+  stroke-miterlimit: 10;
+}
+.st1 {
+  fill: #ffffff;
+  transition: 250ms ease-in-out;
+}
+
+.st2 {
+  fill: black;
+  transition: 250ms ease-in-out;
+}
+
+// @media (orientation: landscape) {
+//   .partsIcon {
+//     display: none;
+//   }
+// }

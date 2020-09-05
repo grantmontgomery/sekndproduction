@@ -1,0 +1,19 @@
+.searchIcon {
+  position: relative;
+  top: 50%;
+  display: block;
+  transform: translate(0, -50%);
+  margin-right: 2.5%;
+  margin-left: auto;
+  fill: black;
+  max-height: 5vh;
+  cursor: pointer;
+  width: auto;
+  height: 7vw;
+}
+
+@media (orientation: landscape) {
+  .searchIcon {
+    height: 40%;
+  }
+}
