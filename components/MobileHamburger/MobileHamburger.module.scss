@@ -1,0 +1,58 @@
+.hamburger {
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
+  margin-left: 5%;
+  margin-right: auto;
+  max-width: 5.5vh;
+  max-height: 5.5vh;
+  width: 8vw;
+  transform-origin: center;
+  height: 8vw;
+  display: flex;
+  flex-flow: column nowrap;
+  transition: 250ms ease-out;
+  z-index: 2;
+  & div {
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: auto;
+    height: 0.25vh;
+    border-top: 0.25vh solid black;
+    transition: 250ms ease-out;
+  }
+  & .topLine {
+    transform-origin: top left;
+  }
+  & .bottomLine {
+    transform-origin: bottom left;
+  }
+  &.exit {
+    & .topLine {
+      width: calc(400% / 3);
+      transform: rotate(45deg);
+      position: absolute;
+      margin-top: 0;
+      top: 0;
+    }
+    & .middleLine {
+      width: 0;
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+    }
+    & .bottomLine {
+      width: calc(400% / 3);
+      transform: rotate(-45deg);
+      margin-bottom: 0;
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}
+
+@media (orientation: landscape) {
+  .hamburger {
+    display: none;
+  }
+}

@@ -1,0 +1,46 @@
+.linksWrapper {
+  display: flex;
+  flex-flow: column nowrap;
+  width: fit-content;
+  height: fit-content;
+  justify-content: space-between;
+  align-content: center;
+  list-style: none;
+  text-align: center;
+  margin-left: auto;
+  position: relative;
+  padding: 0;
+  margin-right: auto;
+  top: 20%;
+  & li {
+    color: white;
+    margin-top: 3vh;
+    font-size: 6vw;
+  }
+  &.landscape {
+    display: none;
+  }
+}
+
+@media (orientation: landscape) {
+  .linksWrapper {
+    &.landscape {
+      display: flex;
+      margin: 0;
+      flex-flow: row nowrap;
+      top: 50%;
+      transform: translate(0, -50%);
+      position: relative;
+      & li {
+        font-size: 3vh;
+        margin-right: 2vw;
+        margin-left: 2vw;
+        margin-top: 0;
+        margin-bottom: 0;
+        position: relative;
+
+        color: black;
+      }
+    }
+  }
+}

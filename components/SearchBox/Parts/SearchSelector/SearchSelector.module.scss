@@ -1,0 +1,126 @@
+.searchSelector {
+  display: flex;
+  flex-flow: row nowrap;
+  height: 100%;
+  width: 100%;
+  grid-area: selector;
+  justify-content: space-evenly;
+  & .selector {
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    border: solid 0.2vh black;
+    border-radius: 2.5vw;
+    background: transparent;
+    height: 10vh;
+    cursor: pointer;
+    width: 25vw;
+    padding: 0;
+    border-style: solid;
+    display: flex;
+    flex-flow: column nowrap;
+    padding: 0;
+    text-align: center;
+    align-content: center;
+    transition: 250ms ease-out;
+    outline: none;
+    &:focus {
+      outline: none;
+      border: solid 0.2vh green;
+      transition: 250ms ease-out;
+
+      & .allSVG {
+        & svg {
+          fill: green;
+        }
+      }
+      & svg {
+        fill: green;
+      }
+      & label {
+        color: green;
+      }
+    }
+    & .allSVG {
+      display: flex;
+      height: fit-content;
+      width: fit-content;
+      margin-top: 1vh;
+      margin-bottom: auto;
+      position: relative;
+      margin-right: auto;
+      margin-left: auto;
+      flex-flow: row nowrap;
+      & svg {
+        margin: 0;
+        display: block;
+        height: 4.5vh;
+        width: auto;
+      }
+    }
+    & svg {
+      margin-top: 1vh;
+      margin-bottom: auto;
+      height: 5vh;
+      width: auto;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    & label {
+      display: block;
+      margin-right: auto;
+      margin-left: auto;
+      font-size: 2vh;
+      margin-top: auto;
+      margin-bottom: 1vh;
+    }
+    &.highlighted {
+      border: solid 0.2vh green;
+      transition: 250ms ease-out;
+
+      & .allSVG {
+        & svg {
+          fill: green;
+        }
+      }
+      & svg {
+        fill: green;
+      }
+      & label {
+        color: green;
+      }
+    }
+  }
+}
+
+@media (orientation: landscape) {
+  .searchSelector {
+    & .selector {
+      border: solid 0.2vh black;
+      border-radius: 0;
+      height: 80%;
+      width: 25%;
+
+      & .allSVG {
+        margin-top: 1vh;
+        height: fit-content;
+
+        & svg {
+          height: 4vh;
+        }
+      }
+      & svg {
+        margin-top: 1vh;
+
+        height: 5vh;
+        width: auto;
+      }
+      & label {
+        margin-top: 0.5vh;
+        font-size: 2vh;
+        margin-bottom: 1vh;
+      }
+    }
+  }
+}

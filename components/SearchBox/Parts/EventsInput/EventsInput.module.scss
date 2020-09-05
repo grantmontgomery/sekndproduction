@@ -1,0 +1,42 @@
+.events {
+  display: grid;
+  grid-template-areas: "label" "selector";
+  grid-template-columns: 100%;
+  grid-template-rows: 50% 50%;
+  height: 100%;
+  width: 100%;
+  grid-area: events;
+  & label {
+    grid-area: label;
+    font-size: 2.5vh;
+    font-weight: bold;
+    display: block;
+    height: fit-content;
+    width: fit-content;
+    margin-left: 5%;
+    top: 50%;
+    position: relative;
+    transform: translate(0, -50%);
+  }
+  & select {
+    font-size: 1em;
+    grid-area: selector;
+    width: 80%;
+    border: none;
+    border-bottom: solid 0.2vh black;
+    margin-left: 5%;
+    height: 7.5vw;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    &:focus {
+      outline: none;
+    }
+
+    & optgroup {
+      & option {
+        font-size: 3.5vw;
+      }
+    }
+  }
+}

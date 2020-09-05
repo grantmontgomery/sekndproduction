@@ -1,0 +1,92 @@
+.nav {
+  width: 100vw;
+  height: 11vh;
+  background: white;
+  position: fixed;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  top: 0;
+  z-index: 3;
+  box-shadow: 0 0.25vh 4vh #00000015;
+  & .logoLink {
+    cursor: pointer;
+    display: block;
+    height: 7vw;
+    width: auto;
+    max-height: 40%;
+    top: 50%;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.parts-enter {
+  transform: translate(100%);
+  transition: 250ms ease-out;
+  &.parts-enter-active {
+    transform: translate(0%);
+    transition: 250ms ease-out;
+  }
+}
+
+.parts-exit {
+  transform: translate(0%);
+  transition: 250ms ease-out;
+  &.parts-exit-active {
+    transform: translate(100%);
+    transition: 250ms ease-out;
+  }
+}
+
+.links-enter {
+  // transform: translate(-100%);
+  transition: 250ms;
+  opacity: 0;
+  &.links-enter-active {
+    // transform: translate(0);
+    transition: 250ms ease-out;
+    opacity: 1;
+  }
+}
+
+.links-exit {
+  transition: 250ms ease-out;
+  opacity: 1;
+  &.links-exit-active {
+    transition: 250ms ease-out;
+    opacity: 0;
+  }
+}
+
+.search-enter {
+  transform: translate(-50%, -100%);
+  transition: 250ms ease-out;
+  &.search-enter-active {
+    transform: translate(-50%, 0);
+    transition: 250ms ease-out;
+  }
+}
+
+.search-exit {
+  transform: translate(-50%, 0);
+  transition: 250ms ease-out;
+  &.search-exit-active {
+    transform: translate(-50%, -100%);
+    transition: 250ms ease-out;
+  }
+}
+
+@media (orientation: landscape) {
+  .nav {
+    .logoLink {
+      position: relative;
+      margin-left: 5%;
+      left: 0%;
+      top: 50%;
+      transform: translate(0, -50%);
+      margin-right: 5%;
+    }
+  }
+}
