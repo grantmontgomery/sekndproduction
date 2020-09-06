@@ -12,9 +12,8 @@
   & .logoLink {
     cursor: pointer;
     display: block;
-    height: 7vw;
+    height: min(7vw, 40%);
     width: auto;
-    max-height: 40%;
     top: 50%;
     position: absolute;
     left: 50%;

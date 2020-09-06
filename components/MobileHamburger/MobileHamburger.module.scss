@@ -4,11 +4,10 @@
   transform: translate(0, -50%);
   margin-left: 5%;
   margin-right: auto;
-  max-width: 5.5vh;
-  max-height: 5.5vh;
-  width: 8vw;
+
+  width: min(9vw, 5.5vh);
   transform-origin: center;
-  height: 8vw;
+  height: min(9vw, 5.5vh);
   display: flex;
   flex-flow: column nowrap;
   transition: 250ms ease-out;

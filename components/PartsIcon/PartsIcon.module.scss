@@ -1,9 +1,8 @@
 .partsIcon {
   display: block;
   position: relative;
-  height: 9vw;
+  height: min(9vw, 6vh);
   width: auto;
-  max-height: 6vh;
   margin-right: 5%;
   z-index: 2;
   top: 50%;
