@@ -1,0 +1,66 @@
+.main {
+  width: 90vw;
+  position: absolute;
+  top: 11vh;
+  left: 50%;
+  transform: translate(-50%);
+  height: 89vh;
+  display: flex;
+  flex-flow: column nowrap;
+  & .grid {
+    margin-top: 5%;
+    background: green;
+    height: 40vh;
+  }
+  & .partsBar {
+    display: none;
+    background: red;
+  }
+  & .mobileBar {
+    height: 30vh;
+    background: lightblue;
+    width: 100%;
+  }
+  & .scheduledBar {
+    display: none;
+  }
+}
+
+@media (orientation: landscape) {
+  .main {
+    display: grid;
+    width: max(min(90vw, 1400px), 750px);
+
+    grid-template-areas: "parts grid scheduled";
+    grid-template-columns: auto 50% auto;
+    grid-template-rows: 100%;
+    grid-gap: 2.5%;
+    & .mobileBar {
+      display: none;
+    }
+    & .grid {
+      position: relative;
+      height: 90%;
+      width: 100%;
+      grid-area: grid;
+    }
+    & .partsBar {
+      margin-top: 11%;
+      position: relative;
+      grid-area: parts;
+      display: block;
+      width: 100%;
+      position: relative;
+      background: red;
+      height: 90%;
+    }
+    & .scheduledBar {
+      position: relative;
+      display: block;
+      margin-top: 11%;
+      width: 100%;
+      height: 90%;
+      background: blue;
+    }
+  }
+}

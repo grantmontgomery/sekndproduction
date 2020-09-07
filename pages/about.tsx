@@ -6,7 +6,7 @@ export default function About() {
   return (
     <React.Fragment>
       <Layout></Layout>
-      <div>My about page</div>
+      <main>My about page</main>
     </React.Fragment>
   );
 }
