@@ -82,7 +82,11 @@
       display: block;
       & .partsWrapper {
         & .colorInput {
-          width: max(70%, 170px);
+          width: max(70%, 130px);
+          & button {
+            height: max(25px, 3vh);
+            width: max(25px, 3vh);
+          }
         }
       }
       & .modal {
