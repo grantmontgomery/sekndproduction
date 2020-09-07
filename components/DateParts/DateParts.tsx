@@ -7,11 +7,11 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
         <header>
           <label htmlFor="">Date Parts</label>
           <div className={css.colorInput}>
-            <input type="radio" />
-            <input type="radio" />
-            <input type="radio" />
-            <input type="radio" />
-            <input type="radio" />
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
+            <button></button>
           </div>
           <input
             type="text"

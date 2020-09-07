@@ -7,7 +7,6 @@ import {
   PlacesInput,
 } from "./Parts";
 import css from "./SearchBox.module.scss";
-import { EventEmitter } from "events";
 
 export const SearchBox: React.FC = () => {
   return (
@@ -17,6 +16,7 @@ export const SearchBox: React.FC = () => {
       <WhenInput></WhenInput>
       <EventsInput></EventsInput>
       <PlacesInput></PlacesInput>
+      <button className={css.searchButton}>Search</button>
     </div>
   );
 };

@@ -12,19 +12,34 @@
   grid-auto-columns: 100%;
   grid-template-rows: 20% 20% 20% 20% 20%;
   z-index: 2;
+  & .searchButton {
+    display: none;
+  }
 }
 
 @media (orientation: landscape) {
   .searchBox {
     left: 50%;
     transform: translate(-50%);
-    width: min(75vw, 1200px);
+    width: max(min(75vw, 1200px), 800px);
     grid-template-rows: 25% auto;
     height: 50vh;
     grid-template-areas: "selector selector" "where when" "events when" "places search";
-    // grid-auto-columns: calc(200% / 3) calc(100% / 3);
     grid-auto-columns: 60% 40%;
-
     grid-template-rows: 20% calc(80% / 3) calc(80% / 3) calc(80% / 3);
+    & .searchButton {
+      display: block;
+      grid-area: search;
+      position: relative;
+      height: 50%;
+      font-size: 2vh;
+      width: 35%;
+      cursor: pointer;
+      top: 50%;
+      background: none;
+      transform: translate(0, -50%);
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
