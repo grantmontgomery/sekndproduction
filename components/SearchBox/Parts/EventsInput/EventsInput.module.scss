@@ -19,7 +19,7 @@
     transform: translate(0, -50%);
   }
   & select {
-    font-size: 1em;
+    font-size: max(1em, 3vw);
     grid-area: selector;
     width: 80%;
     border: none;
@@ -36,6 +36,49 @@
     & optgroup {
       & option {
         font-size: 3.5vw;
+      }
+    }
+  }
+}
+
+@media (orientation: landscape) {
+  .events {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
+    width: 100%;
+    & label {
+      grid-area: label;
+      font-size: 2vh;
+      font-weight: bold;
+      display: block;
+      height: fit-content;
+      width: fit-content;
+      margin-left: 10%;
+      white-space: nowrap;
+      top: 50%;
+      position: relative;
+      transform: translate(0, -50%);
+    }
+    & select {
+      font-size: 2vh;
+      grid-area: selector;
+      width: 40%;
+      border: none;
+      border-bottom: solid 0.2vh black;
+      margin-left: 2%;
+      height: 25%;
+      position: relative;
+      top: 50%;
+      transform: translate(0, -50%);
+      &:focus {
+        outline: none;
+      }
+
+      & optgroup {
+        & option {
+          font-size: 2vh;
+        }
       }
     }
   }

@@ -20,7 +20,7 @@
   }
   & input {
     grid-area: text;
-    font-size: min(max(1em, 2vw), 3.5vw);
+    font-size: max(1em, 3vw);
     width: 80%;
     overflow: hidden;
     text-overflow: ellipsis;

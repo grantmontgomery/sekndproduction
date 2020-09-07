@@ -16,7 +16,7 @@
     transform: translate(0, -50%);
   }
   & input {
-    font-size: 1em;
+    font-size: max(1em, 3vw);
     width: 80%;
     border: none;
     background: transparent;
@@ -34,10 +34,48 @@
     width: 80%;
     grid-area: search;
     margin-left: 0;
+    font-size: 2.5vh;
     margin-right: auto;
     margin-top: 0;
     cursor: pointer;
     background: transparent;
     margin-bottom: auto;
+  }
+}
+
+@media (orientation: landscape) {
+  .places {
+    display: flex;
+    flex-flow: row nowrap;
+    & label {
+      grid-area: label;
+      font-size: 2vh;
+      font-weight: bold;
+      display: block;
+      height: fit-content;
+      width: fit-content;
+      margin-left: 10%;
+      top: 50%;
+      position: relative;
+      white-space: nowrap;
+      transform: translate(0, -50%);
+    }
+    & input {
+      font-size: 2vh;
+      width: 40%;
+      border: none;
+      background: transparent;
+      margin-left: 2%;
+      position: relative;
+      border-bottom: solid 0.2vh black;
+      top: 50%;
+      transform: translate(0, -50%);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      height: 25%;
+    }
+    & button {
+      display: none;
+    }
   }
 }
