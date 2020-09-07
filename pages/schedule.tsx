@@ -1,6 +1,7 @@
 import * as React from "react";
 import css from "../styles/Schedule.module.scss";
-import { Layout, ScheduleGrid } from "../components";
+import { Layout, ScheduleGrid, DateParts } from "../components";
+import { DatePart } from "../components/DatePart/indext";
 
 export default function Schedule() {
   return (
@@ -10,7 +11,9 @@ export default function Schedule() {
         <section className={css.grid}>
           <ScheduleGrid></ScheduleGrid>
         </section>
-        <section className={css.partsBar}></section>
+        <section className={css.partsBar}>
+          <DateParts location="schedulePage"></DateParts>
+        </section>
         <section className={css.mobileBar}></section>
         <section className={css.scheduledBar}></section>
       </main>

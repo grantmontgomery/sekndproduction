@@ -8,6 +8,7 @@
   grid-template-columns: 50% 50%;
   grid-template-rows: 100%;
   grid-template-areas: "modal parts";
+
   & .partsWrapper {
     grid-area: parts;
     background: white;
@@ -74,6 +75,20 @@
 @media (orientation: landscape) {
   .dateParts {
     grid-template-columns: auto max(20%, 200px);
+    &.schedulePage {
+      position: relative;
+      height: 100%;
+      width: 100%;
+      display: block;
+      & .partsWrapper {
+        & .colorInput {
+          width: max(70%, 170px);
+        }
+      }
+      & .modal {
+        display: none;
+      }
+    }
     & .partsWrapper {
       grid-area: parts;
       background: white;
