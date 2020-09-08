@@ -12,5 +12,19 @@
     position: relative;
     margin-left: auto;
     margin-right: 5%;
+    cursor: pointer;
+    & span {
+      display: block;
+      top: 50%;
+      transform: translate(0, -50%);
+      position: relative;
+      height: fit-content;
+      font-size: 2.5vh;
+      color: white;
+      padding: 0;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 }
