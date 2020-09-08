@@ -8,6 +8,7 @@ import { SearchIcon } from "../SearchIcon";
 import { SearchBox } from "../SearchBox";
 import { NavLinks } from "../NavLinks";
 import { PartsIcon } from "../PartsIcon";
+import { AccountDisplay } from "../AccountDisplay";
 import css from "./Nav.module.scss";
 
 export type NavState = {
@@ -122,13 +123,12 @@ export const Nav: React.FC = () => {
           </svg>
         </Link>
         <NavLinks orientation="landscape"></NavLinks>
-
         <MobileHamburger
           displayLinks={displayLinks}
           links={links}
           stopWindowScroll={stopWindowScroll}
         ></MobileHamburger>
-
+        <AccountDisplay></AccountDisplay>
         <SearchIcon
           displaySearchBox={displaySearchBox}
           searchBox={searchBox}
