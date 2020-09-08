@@ -6,6 +6,11 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
       <div className={css.partsWrapper}>
         <header>
           <label htmlFor="">Date Parts</label>
+          <input
+            type="text"
+            placeholder="Another Idea?"
+            className={css.partInput}
+          />
           <div className={css.colorInput}>
             <button></button>
             <button></button>
@@ -13,11 +18,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
             <button></button>
             <button></button>
           </div>
-          <input
-            type="text"
-            placeholder="Another Idea?"
-            className={css.partInput}
-          />
+          <button className={css.add}>Add</button>
         </header>
         <div className={css.partsList}></div>
       </div>

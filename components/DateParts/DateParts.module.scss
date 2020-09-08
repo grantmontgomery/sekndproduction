@@ -15,25 +15,34 @@
     display: flex;
     flex-flow: column nowrap;
     & header {
-      display: flex;
-      flex-flow: column nowrap;
-      align-content: left;
+      display: grid;
+      grid-template-rows: 25% 25% 25% 25%;
+      grid-template-columns: 100%;
+      grid-template-areas: "title" "input" "color" "add";
+      grid-gap: 1vh;
       position: relative;
-      justify-content: space-between;
-      height: fit-content;
+      height: 25%;
       width: 100%;
       padding: 5%;
       top: 2.5%;
       position: relative;
       & label {
+        grid-area: title;
         display: block;
         font-size: 2.75vh;
-        margin-bottom: 2vh;
+        height: fit-content;
+        top: 50%;
+        position: relative;
+        transform: translate(0, -50%);
       }
       & .colorInput {
-        margin-bottom: 2vh;
+        grid-area: color;
         display: flex;
-        width: min(100%, 300px);
+        width: max(100%, 300px);
+        position: relative;
+        height: fit-content;
+        top: 50%;
+        transform: translate(0, -50%);
         flex-flow: row nowrap;
         justify-content: space-between;
         & button {
@@ -47,15 +56,33 @@
       }
       & .partInput {
         display: block;
+        grid-area: input;
         border: none;
         border-bottom: solid 0.2vh black;
         width: 90%;
         font-size: max(1em, 3vw);
+        position: relative;
+        top: 50%;
+        transform: translate(0, -50%);
         overflow: hidden;
         text-overflow: ellipsis;
         &:focus {
           outline: none;
         }
+      }
+      & .add {
+        grid-area: add;
+        height: 90%;
+        top: 50%;
+        transform: translate(0, -50%);
+        width: 90%;
+        margin-left: auto;
+        cursor: pointer;
+        margin-right: auto;
+        position: relative;
+        text-align: center;
+        align-content: center;
+        font-size: 1.75vh;
       }
     }
     & .partsList {
@@ -81,11 +108,16 @@
       width: 100%;
       display: block;
       & .partsWrapper {
-        & .colorInput {
-          width: max(70%, 130px);
-          & button {
-            height: max(25px, 3vh);
-            width: max(25px, 3vh);
+        & header {
+          & .colorInput {
+            width: max(100%, 130px);
+            & button {
+              height: max(25px, 3vh);
+              width: max(25px, 3vh);
+            }
+          }
+          & .add {
+            cursor: pointer;
           }
         }
       }
@@ -99,8 +131,10 @@
       display: flex;
       flex-flow: column nowrap;
       & header {
-        display: flex;
-        flex-flow: column nowrap;
+        display: grid;
+        grid-template-rows: calc(100% / 3) calc(100% / 3) calc(100% / 3);
+        grid-template-columns: 75% 25%;
+        grid-template-areas: "title title" "input input" "color add";
         align-content: left;
         position: relative;
         justify-content: space-between;
@@ -112,10 +146,8 @@
         & label {
           display: block;
           font-size: 2.75vh;
-          margin-bottom: 2vh;
         }
         & .colorInput {
-          margin-bottom: 2vh;
           display: flex;
           width: 100%;
           flex-flow: row nowrap;
@@ -140,6 +172,9 @@
           &:focus {
             outline: none;
           }
+        }
+        & .add {
+          cursor: pointer;
         }
       }
       & .partsList {

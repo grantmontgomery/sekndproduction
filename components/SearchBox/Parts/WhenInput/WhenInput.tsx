@@ -7,8 +7,8 @@ export const WhenInput: React.FC = () => {
   return (
     <div className={css.when}>
       <label htmlFor="">When are you meeting?</label>
-      {/* <DatePicker></DatePicker>
-      <DatePicker></DatePicker> */}
+      <DatePicker></DatePicker>
+      <DatePicker></DatePicker>
     </div>
   );
 };
