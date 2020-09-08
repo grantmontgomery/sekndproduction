@@ -1,0 +1,1 @@
+export { GridSquare } from "./GridSquare";

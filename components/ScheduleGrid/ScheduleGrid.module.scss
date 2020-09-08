@@ -1,4 +1,11 @@
 .gridWrapper {
   height: 100%;
   width: 100%;
+  overflow-x: scroll;
+  & .innerGrid {
+    height: 100%;
+    width: 400%;
+  }
+  &::-webkit-scrollbar-thumb {
+  }
 }
