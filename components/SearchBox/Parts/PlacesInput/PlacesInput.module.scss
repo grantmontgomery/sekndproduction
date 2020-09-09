@@ -28,6 +28,9 @@
     overflow: hidden;
     text-overflow: ellipsis;
     height: 6.5vw;
+    &:focus {
+      outline: none;
+    }
   }
   & button {
     height: 90%;
