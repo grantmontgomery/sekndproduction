@@ -9,6 +9,8 @@ import {
 import Link from "next/link";
 import css from "./SearchBox.module.scss";
 
+export type InputChange = (key: string, input: string) => void;
+
 interface SearchQuery {
   searchType: string;
   eventsCategory: string;
@@ -44,6 +46,7 @@ export const SearchBox: React.FC = () => {
     yelpCategories: "",
   });
 
+  console.log(searchQuery);
   const setDynamicPage: () => string = () => {
     return "";
   };
@@ -59,10 +62,21 @@ export const SearchBox: React.FC = () => {
     );
   };
 
+  const handleInputChange: InputChange = (key, input) => {
+    return setSearchQuery((state) => ({
+      ...state,
+      [key]: input,
+    }));
+  };
+
   return (
     <div className={css.searchBox}>
       <SearchSelector></SearchSelector>
-      <WhereInput></WhereInput>
+      <WhereInput
+        handleInputChange={handleInputChange}
+        placeType={searchQuery.placeType}
+        radius={searchQuery.radius}
+      ></WhereInput>
       <WhenInput></WhenInput>
       <EventsInput></EventsInput>
       <PlacesInput></PlacesInput>
