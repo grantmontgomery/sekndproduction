@@ -1,11 +1,33 @@
 import * as React from "react";
+import type { InputChange } from "../../SearchBox";
+import InputProps from "../../SearchBox";
 import css from "./EventsInput.module.scss";
 
-export const EventsInput: React.FC = () => {
+type Props = Pick<InputProps, "handleInputChange" | "eventsCategory">;
+
+export const EventsInput: React.FC<Props> = ({
+  handleInputChange,
+  eventsCategory,
+}) => {
+  const handleChange: (
+    event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    field: string
+  ) => void = (event, field) => {
+    return handleInputChange(
+      field,
+      (event.target as HTMLInputElement | HTMLSelectElement).value
+    );
+  };
+
   return (
     <div className={css.events}>
       <label htmlFor="">What type of events are you looking for?</label>
-      <select name="" id="">
+      <select
+        name=""
+        id=""
+        value={eventsCategory}
+        onChange={(event) => handleChange(event, "eventsCategory")}
+      >
         <optgroup>
           <option value="">Category (Optional)</option>
           <option value="All">All</option>

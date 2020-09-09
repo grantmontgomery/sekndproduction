@@ -1,7 +1,13 @@
 import * as React from "react";
+import InputProps from "../../SearchBox";
 import css from "./PlacesInput.module.scss";
 
-export const PlacesInput: React.FC = () => {
+type Props = Pick<InputProps, "handleInputChange" | "placeType">;
+
+export const PlacesInput: React.FC<Props> = ({
+  handleInputChange,
+  placeType,
+}) => {
   return (
     <div className={css.places}>
       <label htmlFor="">What type of places are you looking for?</label>
