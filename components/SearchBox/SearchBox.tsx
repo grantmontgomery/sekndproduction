@@ -9,13 +9,51 @@ import {
 import Link from "next/link";
 import css from "./SearchBox.module.scss";
 
-interface State {}
+interface SearchQuery {
+  searchType: string;
+  eventsCategory: string;
+  radius: string;
+  startTime: number;
+  endTime: number;
+  placeType: string;
+  endDate: string;
+  startDate: string;
+  startFormatted: string;
+  endFormatted: string;
+  unixStartDate: string;
+  unixEndDate: string;
+  ticketMasterCategories: string;
+  yelpCategories: string;
+}
+
 export const SearchBox: React.FC = () => {
-  const [state, setState] = React.useState<State>({});
+  const [searchQuery, setSearchQuery] = React.useState<SearchQuery>({
+    searchType: "ALL",
+    eventsCategory: "",
+    radius: "",
+    startTime: 0,
+    endTime: 0,
+    endDate: "",
+    startDate: "",
+    placeType: "",
+    startFormatted: "",
+    endFormatted: "",
+    unixStartDate: "",
+    unixEndDate: "",
+    ticketMasterCategories: "",
+    yelpCategories: "",
+  });
+
+  const setDynamicPage: () => string = () => {
+    return "";
+  };
 
   const linked = () => {
     return (
-      <Link href="/search/[query]" as={`/search/${state}`}>
+      <Link
+        href="/search/[query]"
+        as={`/search/${searchQuery.searchType}+${setDynamicPage()}`}
+      >
         <button>Search</button>
       </Link>
     );

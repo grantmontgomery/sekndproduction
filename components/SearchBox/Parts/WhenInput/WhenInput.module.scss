@@ -21,20 +21,32 @@
     grid-area: to;
     margin-left: 10%;
     margin-right: auto;
+    top: 50%;
+    transform: translate(0, -50%);
     width: 80%;
     border: none;
     font-size: 1em;
+    position: absolute;
     border-bottom: solid 0.2vh black;
+    &:focus {
+      outline: none;
+    }
   }
   & .from {
     grid-area: from;
+    position: absolute;
+    display: inline-block;
     margin-left: 10%;
     font-size: 1em;
-
+    top: 50%;
+    transform: translate(0, -50%);
     margin-right: auto;
     width: 80%;
     border: none;
     border-bottom: solid 0.2vh black;
+    &:focus {
+      outline: none;
+    }
   }
 }
 
@@ -44,7 +56,7 @@
     display: grid;
     grid-template-areas: "label" "from" "to";
     grid-template-columns: 100%;
-    grid-template-rows: calc(100% / 3) calc(100% / 3) calc(100% / 3);
+    grid-template-rows: 50% 25% 25%;
     & label {
       grid-area: label;
       font-size: 2vh;
@@ -52,15 +64,16 @@
       height: fit-content;
       font-weight: bold;
       width: fit-content;
-      margin-left: 5%;
       top: 50%;
+      margin-left: 5%;
+
       position: relative;
       transform: translate(0, -50%);
     }
 
     & .to {
       grid-area: to;
-      margin-left: 10%;
+      margin-left: 5%;
       margin-right: auto;
       width: 80%;
       border: none;
@@ -69,7 +82,7 @@
     }
     & .from {
       grid-area: from;
-      margin-left: 10%;
+      margin-left: 5%;
       font-size: 2vh;
       margin-right: auto;
       width: 80%;
