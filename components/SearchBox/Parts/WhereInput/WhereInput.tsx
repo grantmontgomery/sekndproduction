@@ -27,7 +27,7 @@ export const WhereInput: React.FC<Props> = ({
         type="text"
         placeholder="Los Angeles / 90015"
         value={location}
-        onChange={(event) => handleChange(event, "where")}
+        onChange={(event) => handleChange(event, "location")}
       />
       <select
         name="radius"

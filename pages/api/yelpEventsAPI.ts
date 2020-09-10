@@ -20,7 +20,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     Object.keys(params).forEach((key) =>
       yelpEvents.searchParams.append(key, params[key])
     );
-    if (req.body.categories) {
+    if (req.body.categories !== "") {
       yelpEvents.searchParams.append("categories", req.body.categories);
     }
 
@@ -47,5 +47,5 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       .then((data) => res.send(data))
       .catch((err) => res.send(err));
   }
-  return res.status(200).end("Hello World");
+  return res.status(200).end("Yelp Events API");
 };
