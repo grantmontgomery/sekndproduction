@@ -1,7 +1,6 @@
 import * as React from "react";
 import css from "../styles/Schedule.module.scss";
 import { Layout, ScheduleGrid, DateParts } from "../components";
-import { DatePart } from "../components/DatePart/indext";
 
 export default function Schedule() {
   return (
