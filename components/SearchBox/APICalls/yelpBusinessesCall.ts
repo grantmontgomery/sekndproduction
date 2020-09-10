@@ -20,8 +20,10 @@ export const yelpBusinessesCall: ({
         term: placeType,
       }),
     });
-    const responseJson: Promise<JSON> = response.json();
-    console.log(responseJson);
+    const responseJson = await response.json();
+
+    const { businesses } = responseJson;
+    console.log(businesses);
   } catch (err) {
     console.log(err);
   }
