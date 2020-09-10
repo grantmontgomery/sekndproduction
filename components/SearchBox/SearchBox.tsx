@@ -22,7 +22,7 @@ export default interface InputProps {
   handleQueryDate: (key: string, date: Date) => void;
 }
 
-interface SearchQuery {
+export interface SearchQuery {
   searchType: string;
   eventsCategory: string;
   radius: string;
@@ -130,8 +130,8 @@ export const SearchBox: React.FC = () => {
           Test: "Hello this is a test",
         }),
       });
-
-      console.log(response);
+      const json = response.json();
+      console.log(json);
     } catch {
       console.log("error");
     }

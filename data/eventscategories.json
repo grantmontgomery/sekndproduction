@@ -1,0 +1,44 @@
+{
+  "TicketMaster": {
+    "Miscellaneous": "KZFzniwnSyZfZ7v7n1",
+    "Sports": "KZFzniwnSyZfZ7v7nE",
+    "Music": "KZFzniwnSyZfZ7v7nJ",
+    "Arts & Theatre": "KZFzniwnSyZfZ7v7na",
+    "Film": "KZFzniwnSyZfZ7v7nn"
+  },
+  "Yelp": {
+    "categories": [
+      "food-and-drink",
+      "music",
+      "performing-arts",
+      "visual-arts",
+      "nightlife",
+      "sports-active-life",
+      "film",
+      "festivals-and-fairs",
+      "official-yelp-events"
+    ]
+  },
+  "Shared": {
+    "Music": { "Yelp": ["music"], "TicketMaster": ["KZFzniwnSyZfZ7v7nJ"] },
+    "Arts & Theatre": {
+      "Yelp": ["visual-arts", "performing-arts"],
+      "TicketMaster": ["KZFzniwnSyZfZ7v7na"]
+    },
+    "Film": {
+      "Yelp": ["film"],
+      "TicketMaster": ["KZFzniwnSyZfZ7v7nn"]
+    },
+    "Sports & Active Lifestyle": {
+      "Yelp": ["sports-active-life"],
+      "TicketMaster": ["KZFzniwnSyZfZ7v7nE"]
+    },
+    "Food & Drink": { "Yelp": ["food-and-drink"] },
+    "NightLife": { "Yelp": ["nightlife"] },
+    "Festivals & Fairs": { "Yelp": ["festivals-and-fairs"] },
+    "Misc": {
+      "Yelp": ["official-yelp-events"],
+      "TicketMaster": ["KZFzniwnSyZfZ7v7n1"]
+    }
+  }
+}
