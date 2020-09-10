@@ -2,13 +2,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 type Params = {
   location: string;
-  start_date: string;
-  end_date: string;
-  radius: number;
+  start_date: number;
+  end_date: number;
+  radius: string;
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== "GET") {
+    //url setup
     const yelpEvents: URL = new URL("https://api.yelp.com/v3/events"),
       params: Params = {
         location: req.body.location,
@@ -19,22 +20,32 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     Object.keys(params).forEach((key) =>
       yelpEvents.searchParams.append(key, params[key])
     );
-
     if (req.body.categories) {
       yelpEvents.searchParams.append("categories", req.body.categories);
     }
 
-    console.log(yelpEvents.toString());
+    const yelpUrlString: string = yelpEvents.toString();
 
-    //   fetch(yelpEvents.toString(), {
-    //     headers: {
-    //       Authorization: `Bearer ${process.env.REACT_APP_YELP_API_KEY}`
-    //     }
-    //   })
-    //     .then(res => res.json())
-    //     .then(data => res.send(data))
-    //     .catch(err => res.send(err.message));
-    return res.status(200).end(req.body);
+    //function
+    const yelpdataFetch: (urlString: string) => Promise<any> = async (
+      urlString
+    ) => {
+      try {
+        const yelpResponse: Response = await fetch(urlString, {
+          headers: {
+            Authorization: `Bearer ${process.env.YELP_API_KEY}`,
+          },
+        });
+        const jsonResponse: JSON = await yelpResponse.json();
+        return jsonResponse;
+      } catch (err) {
+        return err;
+      }
+    };
+
+    return yelpdataFetch(yelpUrlString)
+      .then((data) => res.send(data))
+      .catch((err) => res.send(err));
   }
   return res.status(200).end("Hello World");
 };
