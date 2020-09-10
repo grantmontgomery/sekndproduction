@@ -17,7 +17,7 @@ export default interface InputProps {
   placeType: string;
   radius: string;
   eventsCategory: string;
-  where: string;
+  location: string;
   startDate: Date;
   endDate: Date;
   handleQueryDate: (key: string, date: Date) => void;
@@ -27,7 +27,7 @@ export interface SearchQuery {
   searchType: string;
   eventsCategory: string;
   radius: string;
-  where: string;
+  location: string;
   startTime: number;
   endTime: number;
   placeType: string;
@@ -47,7 +47,7 @@ export const SearchBox: React.FC = () => {
     eventsCategory: "",
     radius: "",
     startTime: 0,
-    where: "",
+    location: "",
     endTime: 0,
     endDate: null,
     startDate: null,
@@ -143,7 +143,7 @@ export const SearchBox: React.FC = () => {
       <SearchSelector></SearchSelector>
       <WhereInput
         handleInputChange={handleInputChange}
-        where={searchQuery.where}
+        location={searchQuery.location}
         radius={searchQuery.radius}
       ></WhereInput>
       <WhenInput

@@ -2,7 +2,7 @@ import { SearchQuery } from "../SearchBox";
 
 type Params = Pick<
   SearchQuery,
-  "where" | "unixStartDate" | "unixEndDate" | "eventsCategory" | "radius"
+  "location" | "unixStartDate" | "unixEndDate" | "eventsCategory" | "radius"
 >;
 
 export const yelpEventsCall: ({
@@ -12,22 +12,22 @@ export const yelpEventsCall: ({
   eventsCategory,
   radius,
 }: Params) => Promise<any> = async ({
-  where,
+  location,
   unixStartDate,
   unixEndDate,
   eventsCategory,
   radius,
 }) => {
   try {
-    const response: Response = await fetch("/api/yelpEvents", {
+    const response: Response = await fetch("/api/yelpEventsAPI", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
       method: "POST",
       body: JSON.stringify({
-        location: where,
-        radiusInt: radius,
+        location,
+        radius,
         start_date: unixStartDate,
         end_date: unixEndDate,
         categories: eventsCategory,

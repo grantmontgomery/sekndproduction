@@ -3,10 +3,10 @@ import type { InputChange } from "../../SearchBox";
 import InputProps from "../../SearchBox";
 import css from "./WhereInput.module.scss";
 
-type Props = Pick<InputProps, "where" | "handleInputChange" | "radius">;
+type Props = Pick<InputProps, "location" | "handleInputChange" | "radius">;
 
 export const WhereInput: React.FC<Props> = ({
-  where,
+  location,
   handleInputChange,
   radius,
 }) => {
@@ -26,7 +26,7 @@ export const WhereInput: React.FC<Props> = ({
       <input
         type="text"
         placeholder="Los Angeles / 90015"
-        value={where}
+        value={location}
         onChange={(event) => handleChange(event, "where")}
       />
       <select
@@ -36,10 +36,10 @@ export const WhereInput: React.FC<Props> = ({
       >
         <optgroup>
           <option value="">Radius...</option>
-          <option value="Within 1 mile">Within 1 mile</option>
-          <option value="Within 5 miles">Within 5 miles</option>
-          <option value="Within 10 miles">Within 10 miles</option>
-          <option value="Within 25 miles">Within 25 miles</option>
+          <option value="1610">Within 1 mile</option>
+          <option value="8050">Within 5 miles</option>
+          <option value="16100">Within 10 miles</option>
+          <option value="40250">Within 25 miles</option>
         </optgroup>
       </select>
     </div>

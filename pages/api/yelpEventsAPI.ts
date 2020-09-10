@@ -4,7 +4,7 @@ type Params = {
   location: string;
   start_date: number;
   end_date: number;
-  radius: string;
+  radius: number;
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
@@ -15,7 +15,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
         location: req.body.location,
         start_date: req.body.start_date,
         end_date: req.body.end_date,
-        radius: req.body.radiusInt,
+        radius: req.body.radius,
       };
     Object.keys(params).forEach((key) =>
       yelpEvents.searchParams.append(key, params[key])
