@@ -7,7 +7,7 @@ import {
   PlacesInput,
 } from "./Parts";
 import Link from "next/link";
-import { yelpEventsCall } from "./APICalls";
+import { yelpEventsCall, yelpBusinessesCall } from "./APICalls";
 import css from "./SearchBox.module.scss";
 
 export type InputChange = (key: string, input: string | Date) => void;
@@ -119,25 +119,6 @@ export const SearchBox: React.FC = () => {
     }
   };
 
-  async function ApiTest() {
-    try {
-      const response = await fetch("/aGpi/hello", {
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "text/plain",
-        },
-        method: "POST",
-        body: JSON.stringify({
-          Test: "Hello this is a test",
-        }),
-      });
-      const json = response.json();
-      console.log(json);
-    } catch {
-      console.log("error");
-    }
-  }
-
   return (
     <div className={css.searchBox}>
       <SearchSelector></SearchSelector>
@@ -161,7 +142,9 @@ export const SearchBox: React.FC = () => {
       ></PlacesInput>
       <button
         className={css.searchButton}
-        onClick={() => yelpEventsCall(searchQuery)}
+        onClick={() => (
+          yelpEventsCall(searchQuery), yelpBusinessesCall(searchQuery)
+        )}
       >
         Search
       </button>

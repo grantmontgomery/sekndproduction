@@ -6,7 +6,7 @@ type Params = Pick<
 >;
 
 export const yelpEventsCall: ({
-  where,
+  location,
   unixStartDate,
   unixEndDate,
   eventsCategory,
