@@ -131,7 +131,7 @@ export const SearchBox: React.FC = () => {
         }),
       });
 
-      return response;
+      console.log(response);
     } catch {
       console.log("error");
     }
