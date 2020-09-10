@@ -118,6 +118,25 @@ export const SearchBox: React.FC = () => {
     }
   };
 
+  async function ApiTest() {
+    try {
+      const response = await fetch("/api/hello", {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "text/plain",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          Test: "Hello this is a test",
+        }),
+      });
+
+      return response;
+    } catch {
+      console.log("error");
+    }
+  }
+
   return (
     <div className={css.searchBox}>
       <SearchSelector></SearchSelector>
@@ -139,7 +158,9 @@ export const SearchBox: React.FC = () => {
         handleInputChange={handleInputChange}
         placeType={searchQuery.placeType}
       ></PlacesInput>
-      <button className={css.searchButton}>Search</button>
+      <button className={css.searchButton} onClick={ApiTest}>
+        Search
+      </button>
     </div>
   );
 };

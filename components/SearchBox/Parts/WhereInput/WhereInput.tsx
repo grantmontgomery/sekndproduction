@@ -20,22 +20,6 @@ export const WhereInput: React.FC<Props> = ({
     );
   };
 
-  async function ApiTest() {
-    const response = await fetch("/api/hello", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "text/plain",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        Test: "Hello this is a test",
-      }),
-    });
-
-    return response;
-  }
-
-  ApiTest();
   return (
     <div className={css.where}>
       <label htmlFor="">Where are you meeting?</label>
