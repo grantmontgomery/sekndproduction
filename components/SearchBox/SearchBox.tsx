@@ -148,7 +148,7 @@ export const SearchBox: React.FC = (props) => {
         handleInputChange={handleInputChange}
         placeType={searchQuery.placeType}
       ></PlacesInput>
-      <button
+      {/* <button
         className={css.searchButton}
         onClick={() => (
           yelpEventsCall(searchQuery),
@@ -157,7 +157,13 @@ export const SearchBox: React.FC = (props) => {
         )}
       >
         Search
-      </button>
+      </button> */}
+      <Link
+        href="/search/[queried]"
+        as={`/search/location=${searchQuery.location}+placeType=${searchQuery.placeType}+radius=${searchQuery.radius}`}
+      >
+        <button className={css.searchButton}>Search</button>
+      </Link>
     </div>
   );
 };
