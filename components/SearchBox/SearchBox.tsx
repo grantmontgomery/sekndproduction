@@ -18,6 +18,7 @@ export type InputChange = (key: string, input: string | Date) => void;
 
 export default interface InputProps {
   handleInputChange: InputChange;
+  searchType: string;
   placeType: string;
   radius: string;
   eventsCategory: string;
@@ -71,15 +72,13 @@ export const SearchBox: React.FC = (props) => {
   const linked = () => {
     return (
       <Link
-        href="/search/[query]"
+        href="/search/[queried]"
         as={`/search/${searchQuery.searchType}+${setDynamicPage()}`}
       >
         <button>Search</button>
       </Link>
     );
   };
-
-  console.log(props);
 
   const handleInputChange: InputChange = (key, input) => {
     return setSearchQuery((state) => ({
@@ -127,7 +126,10 @@ export const SearchBox: React.FC = (props) => {
 
   return (
     <div className={css.searchBox}>
-      <SearchSelector></SearchSelector>
+      <SearchSelector
+        searchType={searchQuery.searchType}
+        handleInputChange={handleInputChange}
+      ></SearchSelector>
       <WhereInput
         handleInputChange={handleInputChange}
         location={searchQuery.location}

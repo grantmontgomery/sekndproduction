@@ -1,16 +1,17 @@
 import * as React from "react";
+import InputProps from "../../SearchBox";
 import css from "./SearchSelector.module.scss";
+
+type Props = Pick<InputProps, "searchType" | "handleInputChange">;
 
 type SelectorState = { all: boolean; places: boolean; events: boolean };
 
-export const SearchSelector: React.FC = () => {
+export const SearchSelector: React.FC<Props> = ({
+  searchType,
+  handleInputChange,
+}) => {
   const [highlight, setHighlight] = React.useState<SelectorState>({
     all: false,
-    places: false,
-    events: false,
-  });
-  const [selected, setSelect] = React.useState<SelectorState>({
-    all: true,
     places: false,
     events: false,
   });
@@ -22,7 +23,7 @@ export const SearchSelector: React.FC = () => {
         onMouseEnter={() =>
           setHighlight({ all: true, places: false, events: false })
         }
-        onClick={() => setSelect({ all: true, places: false, events: false })}
+        onClick={() => handleInputChange("searchType", "ALL")}
         onMouseLeave={() => setHighlight((state) => ({ ...state, all: false }))}
       >
         <div className={css.allSVG}>
@@ -79,7 +80,7 @@ export const SearchSelector: React.FC = () => {
         onMouseLeave={() =>
           setHighlight((state) => ({ ...state, places: false }))
         }
-        onClick={() => setSelect({ all: false, places: true, events: false })}
+        onClick={() => handleInputChange("searchType", "PLACES")}
       >
         <svg
           height="512pt"
@@ -104,7 +105,7 @@ export const SearchSelector: React.FC = () => {
         onMouseLeave={() =>
           setHighlight((state) => ({ ...state, events: false }))
         }
-        onClick={() => setSelect({ all: false, places: false, events: true })}
+        onClick={() => handleInputChange("searchType", "EVENTS")}
       >
         <svg
           height="512pt"
