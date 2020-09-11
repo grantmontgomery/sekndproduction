@@ -44,5 +44,5 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
       .then((data) => res.send(data))
       .catch((err) => res.send(err));
   }
-  return res.status(200).end("Yelp Events API");
+  return res.status(200).end("YelpBusinesses API");
 };

@@ -33,8 +33,9 @@ export const yelpEventsCall: ({
         categories: eventsCategory,
       }),
     });
-    const responseJson: Promise<JSON> = response.json();
-    console.log(responseJson);
+    const responseJson = await response.json();
+    const { events } = responseJson;
+    console.log(events);
   } catch (err) {
     console.log(err);
   }

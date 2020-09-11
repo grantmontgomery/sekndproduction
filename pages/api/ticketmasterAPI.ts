@@ -6,6 +6,9 @@ type Params = {
   endDateTime: string;
   unit: string[];
   apikey: string;
+  segmentID?: string;
+  city?: string;
+  postalCode?: string;
 };
 
 export default (req: NextApiRequest, res: NextApiResponse) => {
@@ -14,7 +17,7 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
 
     const { startDateTime, endDateTime, radius, location } = req.body;
     const ticketmasterEvents: URL = new URL(
-        "https://api.yelp.com/v3/businesses/search"
+        "https://app.ticketmaster.com/discovery/v2/events"
       ),
       params: Params = {
         radius,
@@ -26,6 +29,12 @@ export default (req: NextApiRequest, res: NextApiResponse) => {
     Object.keys(params).forEach((key) =>
       ticketmasterEvents.searchParams.append(key, params[key])
     );
+
+    if (isNaN(parseInt(location))) {
+      ticketmasterEvents.searchParams.append("city", location);
+    } else {
+      ticketmasterEvents.searchParams.append("postalCode", location);
+    }
 
     const ticketmasterUrlString: string = ticketmasterEvents.toString();
 

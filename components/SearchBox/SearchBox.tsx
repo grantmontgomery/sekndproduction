@@ -7,7 +7,11 @@ import {
   PlacesInput,
 } from "./Parts";
 import Link from "next/link";
-import { yelpEventsCall, yelpBusinessesCall } from "./APICalls";
+import {
+  yelpEventsCall,
+  yelpBusinessesCall,
+  ticketmasterCall,
+} from "./APICalls";
 import css from "./SearchBox.module.scss";
 
 export type InputChange = (key: string, input: string | Date) => void;
@@ -41,7 +45,7 @@ export interface SearchQuery {
   yelpCategories: string;
 }
 
-export const SearchBox: React.FC = () => {
+export const SearchBox: React.FC = (props) => {
   const [searchQuery, setSearchQuery] = React.useState<SearchQuery>({
     searchType: "ALL",
     eventsCategory: "",
@@ -74,6 +78,8 @@ export const SearchBox: React.FC = () => {
       </Link>
     );
   };
+
+  console.log(props);
 
   const handleInputChange: InputChange = (key, input) => {
     return setSearchQuery((state) => ({
@@ -143,7 +149,9 @@ export const SearchBox: React.FC = () => {
       <button
         className={css.searchButton}
         onClick={() => (
-          yelpEventsCall(searchQuery), yelpBusinessesCall(searchQuery)
+          yelpEventsCall(searchQuery),
+          yelpBusinessesCall(searchQuery),
+          ticketmasterCall(searchQuery)
         )}
       >
         Search
@@ -151,3 +159,18 @@ export const SearchBox: React.FC = () => {
     </div>
   );
 };
+
+export async function getStaticProps() {
+  // Call an external API endpoint to get posts.
+  // You can use any data fetching library
+  const res = await fetch("/api/ticketMasterAPI");
+  const posts = await res.json();
+
+  // By returning { props: posts }, the Blog component
+  // will receive `posts` as a prop at build time
+  return {
+    props: {
+      posts,
+    },
+  };
+}
