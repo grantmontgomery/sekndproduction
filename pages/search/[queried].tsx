@@ -4,11 +4,7 @@ import { yelpBusinessesCall } from "../../apicalls/yelpBusinessesCall";
 
 export default function Queried(props) {
   console.log(props);
-  return (
-    <React.Fragment>
-      <Layout></Layout>
-    </React.Fragment>
-  );
+  return <Layout></Layout>;
 }
 
 Queried.getInitialProps = async ({ query }) => {

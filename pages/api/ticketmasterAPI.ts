@@ -11,52 +11,40 @@ type Params = {
   postalCode?: string;
 };
 
-export const ticketMasterAPI = async (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => {
-  if (req.method !== "GET") {
-    //url setup
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+  try {
+    if (req.method !== "GET") {
+      const { startDateTime, endDateTime, radius, location } = req.body;
+      const ticketmasterEvents: URL = new URL(
+          "https://app.ticketmaster.com/discovery/v2/events"
+        ),
+        params: Params = {
+          radius,
+          startDateTime,
+          endDateTime,
+          unit: ["km"],
+          apikey: process.env.TICKETMASTER_API_KEY,
+        };
+      Object.keys(params).forEach((key) =>
+        ticketmasterEvents.searchParams.append(key, params[key])
+      );
 
-    const { startDateTime, endDateTime, radius, location } = req.body;
-    const ticketmasterEvents: URL = new URL(
-        "https://app.ticketmaster.com/discovery/v2/events"
-      ),
-      params: Params = {
-        radius,
-        startDateTime,
-        endDateTime,
-        unit: ["km"],
-        apikey: process.env.TICKETMASTER_API_KEY,
-      };
-    Object.keys(params).forEach((key) =>
-      ticketmasterEvents.searchParams.append(key, params[key])
-    );
-
-    if (isNaN(parseInt(location))) {
-      ticketmasterEvents.searchParams.append("city", location);
-    } else {
-      ticketmasterEvents.searchParams.append("postalCode", location);
-    }
-
-    const ticketmasterUrlString: string = ticketmasterEvents.toString();
-
-    //function
-    const ticketmasterDataFetch: (urlString: string) => Promise<any> = async (
-      urlString
-    ) => {
-      try {
-        const ticketmasterResponse: Response = await fetch(urlString);
-        const jsonResponse: JSON = await ticketmasterResponse.json();
-        return jsonResponse;
-      } catch (err) {
-        return err;
+      if (isNaN(parseInt(location))) {
+        ticketmasterEvents.searchParams.append("city", location);
+      } else {
+        ticketmasterEvents.searchParams.append("postalCode", location);
       }
-    };
 
-    return ticketmasterDataFetch(ticketmasterUrlString)
-      .then((data) => res.send(data))
-      .catch((err) => res.send(err));
+      const ticketmasterURLString: string = ticketmasterEvents.toString();
+      //function
+
+      const ticketmasterResponse: Response = await fetch(ticketmasterURLString);
+
+      const jsonResponse: JSON = await ticketmasterResponse.json();
+      return res.send(jsonResponse);
+    }
+    return res.status(200).end("Ticket MAster API");
+  } catch (err) {
+    return res.send(err);
   }
-  return res.status(200).end("Ticketmaster API");
 };
