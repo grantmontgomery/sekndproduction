@@ -1,6 +1,8 @@
 import { SearchQuery } from "../SearchBox";
 
-type Params = Pick<SearchQuery, "location" | "radius" | "placeType">;
+// type Params = Pick<SearchQuery, "location" | "radius" | "placeType">;
+
+type Params = { [key: string]: string };
 
 export const yelpBusinessesCall: ({
   location,
@@ -22,9 +24,20 @@ export const yelpBusinessesCall: ({
     });
     const responseJson = await response.json();
 
-    const { businesses } = responseJson;
-    console.log(businesses);
+    const backtoJson = JSON.parse(JSON.stringify(responseJson));
+
+    const { businesses } = backtoJson;
+    return {
+      props: {
+        businesses,
+      },
+    };
   } catch (err) {
-    console.log(err);
+    const response = { err };
+    return {
+      props: {
+        businesses: { response },
+      },
+    };
   }
 };

@@ -71,10 +71,7 @@ export const SearchBox: React.FC = (props) => {
 
   const linked = () => {
     return (
-      <Link
-        href="/search/[queried]"
-        as={`/search/${searchQuery.searchType}+${setDynamicPage()}`}
-      >
+      <Link href="/search/[queried]" as={`/search/${searchQuery}`}>
         <button>Search</button>
       </Link>
     );
@@ -160,25 +157,16 @@ export const SearchBox: React.FC = (props) => {
       </button> */}
       <Link
         href="/search/[queried]"
+<<<<<<< Updated upstream
         as={`/search/location=${searchQuery.location}+placeType=${searchQuery.placeType}+radius=${searchQuery.radius}`}
       >
         <button className={css.searchButton}>Search</button>
+=======
+        as={`/search/location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}`}
+      >
+        <button>Search</button>
+>>>>>>> Stashed changes
       </Link>
     </div>
   );
 };
-
-export async function getStaticProps() {
-  // Call an external API endpoint to get posts.
-  // You can use any data fetching library
-  const res = await fetch("/api/ticketMasterAPI");
-  const posts = await res.json();
-
-  // By returning { props: posts }, the Blog component
-  // will receive `posts` as a prop at build time
-  return {
-    props: {
-      posts,
-    },
-  };
-}

@@ -1,6 +1,7 @@
 import * as React from "react";
 import { GetServerSideProps } from "next";
 import { Layout } from "../../components";
+<<<<<<< Updated upstream
 
 export default function Queried(props) {
   console.log(props);
@@ -8,17 +9,32 @@ export default function Queried(props) {
     <React.Fragment>
       <Layout></Layout>
       <main></main>
+=======
+import { yelpBusinessesCall } from "../../components/SearchBox/APICalls";
+import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
+import { parse } from "path";
+
+export default function Queried({ businesses }) {
+  console.log(businesses);
+  return (
+    <React.Fragment>
+      <Layout></Layout>
+>>>>>>> Stashed changes
     </React.Fragment>
   );
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+<<<<<<< Updated upstream
   const {
     yelpBusinessesAPI,
   }: {
     yelpBusinessesAPI: ({}: { [key: string]: string }) => Error | Promise<any>;
   } = require("../../apicalls/yelpBusinessesAPI");
 
+=======
+>>>>>>> Stashed changes
   const checkURLIsString: string = params.queried.toString();
   const paramValueArray: string[] = checkURLIsString.split("+");
 
@@ -34,9 +50,13 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     }
   });
 
+<<<<<<< Updated upstream
   const results = await yelpBusinessesAPI(searchParamsValues);
 
   return {
     props: { results },
   };
+=======
+  return yelpBusinessesCall(searchParamsValues);
+>>>>>>> Stashed changes
 };
