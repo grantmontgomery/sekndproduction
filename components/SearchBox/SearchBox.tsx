@@ -157,15 +157,9 @@ export const SearchBox: React.FC = (props) => {
       </button> */}
       <Link
         href="/search/[queried]"
-<<<<<<< Updated upstream
-        as={`/search/location=${searchQuery.location}+placeType=${searchQuery.placeType}+radius=${searchQuery.radius}`}
-      >
-        <button className={css.searchButton}>Search</button>
-=======
         as={`/search/location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}`}
       >
         <button>Search</button>
->>>>>>> Stashed changes
       </Link>
     </div>
   );

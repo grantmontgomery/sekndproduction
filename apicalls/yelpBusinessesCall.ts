@@ -1,37 +1,28 @@
-type Query = {
-  [key: string]: string;
-};
+type Params = { [key: string]: string };
 
 export const yelpBusinessesCall: ({
   location,
   radius,
   placeType,
-}: Query) => Error | Promise<any> = async ({ location, radius, placeType }) => {
+}: Params) => Promise<any> = async ({ location, radius, placeType }) => {
   try {
-    const yelpBusinesses: URL = new URL(
-        "https://api.yelp.com/v3/businesses/search"
-      ),
-      params = {
+    const response: Response = await fetch("/api/yelpBusinessesAPI", {
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
         location,
         radius,
         term: placeType,
-      };
-    Object.keys(params).forEach((key) =>
-      yelpBusinesses.searchParams.append(key, params[key])
-    );
-
-    const yelpUrlString: string = yelpBusinesses.toString();
-
-    //function
-
-    const yelpResponse: Response = await fetch(yelpUrlString, {
-      headers: {
-        Authorization: `Bearer ${process.env.YELP_API_KEY}`,
-      },
+      }),
     });
-    const jsonResponse: JSON = await yelpResponse.json();
-    return jsonResponse;
+    const responseJson = await response.json();
+
+    const { businesses } = responseJson;
+    return { businesses };
   } catch (err) {
-    return { err };
+    return { error: err.message };
   }
 };
