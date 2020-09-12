@@ -1,9 +1,9 @@
 import * as React from "react";
 import { GetServerSideProps } from "next";
 import { Layout } from "../../components";
-import { useRouter } from "next/router";
 
-export default function Queried({ businesses }) {
+export default function Queried(props) {
+  console.log(props);
   return (
     <React.Fragment>
       <Layout></Layout>
@@ -13,6 +13,12 @@ export default function Queried({ businesses }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ params }) => {
+  const {
+    yelpBusinessesAPI,
+  }: {
+    yelpBusinessesAPI: ({}: { [key: string]: string }) => Error | Promise<any>;
+  } = require("../../apicalls/yelpBusinessesAPI");
+
   const checkURLIsString: string = params.queried.toString();
   const paramValueArray: string[] = checkURLIsString.split("+");
 
@@ -28,7 +34,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
     }
   });
 
+  const results = await yelpBusinessesAPI(searchParamsValues);
+
   return {
-    props: {},
+    props: { results },
   };
 };

@@ -11,7 +11,10 @@ type Params = {
   postalCode?: string;
 };
 
-export default (req: NextApiRequest, res: NextApiResponse) => {
+export const ticketMasterAPI = async (
+  req: NextApiRequest,
+  res: NextApiResponse
+) => {
   if (req.method !== "GET") {
     //url setup
 
