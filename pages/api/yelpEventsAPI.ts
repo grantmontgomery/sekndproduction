@@ -3,18 +3,21 @@ import { NextApiRequest, NextApiResponse } from "next";
 type Params = {
   location: string;
   radius: string;
-  term: string;
+  start_date: string;
+  end_date: string;
+  categories?: string;
 };
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== "GET") {
-      const { location, radius, term } = req.body;
+      const { location, radius, start_date, end_date, categories } = req.body;
       const yelpEvents: URL = new URL("https://api.yelp.com/v3/events/search"),
         params: Params = {
           location,
           radius,
-          term,
+          start_date,
+          end_date,
         };
       Object.keys(params).forEach((key) =>
         yelpEvents.searchParams.append(key, params[key])

@@ -8,22 +8,26 @@ export default function Queried(props) {
 }
 
 Queried.getInitialProps = async ({ query }) => {
-  const checkURLIsString: string = query.queried.toString();
-  const paramValueArray: string[] = checkURLIsString.split("+");
+  if (query.queried) {
+    const checkURLIsString: string = query.queried.toString();
+    const paramValueArray: string[] = checkURLIsString.split("+");
 
-  const searchParamsValues: { [key: string]: string } = {};
+    const searchParamsValues: { [key: string]: string } = {};
 
-  paramValueArray.forEach((param) => {
-    const indexOfEqual: number = param.search("=");
-    if (indexOfEqual === -1) return;
-    else {
-      const paramKey: string = param.substring(0, indexOfEqual);
-      const paramValue: string = param.substring(indexOfEqual + 1);
-      searchParamsValues[paramKey] = paramValue;
-    }
-  });
+    paramValueArray.forEach((param) => {
+      const indexOfEqual: number = param.search("=");
+      if (indexOfEqual === -1) return;
+      else {
+        const paramKey: string = param.substring(0, indexOfEqual);
+        const paramValue: string = param.substring(indexOfEqual + 1);
+        searchParamsValues[paramKey] = paramValue;
+      }
+    });
 
-  const callResponse = await yelpBusinessesCall(searchParamsValues);
+    const callResponse = await yelpBusinessesCall(searchParamsValues);
 
-  return { props: { results: callResponse } };
+    return { props: { results: callResponse } };
+  } else {
+    return { props: {} };
+  }
 };
