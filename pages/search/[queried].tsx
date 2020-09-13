@@ -3,7 +3,6 @@ import { Layout } from "../../components";
 import { yelpBusinessesCall } from "../../apicalls/yelpBusinessesCall";
 
 export default function Queried(props) {
-  console.log(props);
   return <Layout></Layout>;
 }
 

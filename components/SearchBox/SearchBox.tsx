@@ -7,11 +7,6 @@ import {
   PlacesInput,
 } from "./Parts";
 import Link from "next/link";
-import {
-  yelpEventsCall,
-  yelpBusinessesCall,
-  ticketmasterCall,
-} from "./APICalls";
 import css from "./SearchBox.module.scss";
 
 export type InputChange = (key: string, input: string | Date) => void;
@@ -65,8 +60,79 @@ export const SearchBox: React.FC = (props) => {
     yelpCategories: "",
   });
 
-  const setDynamicPage: () => string = () => {
-    return "";
+  const checkFields: (searchType: string) => JSX.Element = (searchType) => {
+    switch (searchType) {
+      case "ALL":
+        return searchQuery.location !== "" &&
+          searchQuery.startTime !== 0 &&
+          searchQuery.radius !== "" &&
+          searchQuery.endTime !== 0 &&
+          searchQuery.placeType !== "" ? (
+          <Link
+            href="/search/[queried]"
+            as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
+          >
+            <button>Search</button>
+          </Link>
+        ) : (
+          <button onClick={() => alert("please fill out missing fields")}>
+            Search
+          </button>
+        );
+
+      case "PLACES":
+        return searchQuery.location !== "" &&
+          searchQuery.startTime !== 0 &&
+          searchQuery.radius !== "" &&
+          searchQuery.endTime !== 0 &&
+          searchQuery.placeType !== "" ? (
+          <Link
+            href="/search/[queried]"
+            as={`/search/searchType=PLACES+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}`}
+          >
+            <button>Search</button>
+          </Link>
+        ) : (
+          <button onClick={() => alert("please fill out missing fields")}>
+            Search
+          </button>
+        );
+
+      case "EVENTS":
+        return searchQuery.location !== "" &&
+          searchQuery.startTime !== 0 &&
+          searchQuery.radius !== "" &&
+          searchQuery.endTime !== 0 ? (
+          <Link
+            href="/search/[queried]"
+            as={`/search/searchType=EVENTS+location=${searchQuery.location}+radius=${searchQuery.radius}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
+          >
+            <button>Search</button>
+          </Link>
+        ) : (
+          <button onClick={() => alert("please fill out missing fields")}>
+            Search
+          </button>
+        );
+
+      default:
+        return searchQuery.location !== "" &&
+          searchQuery.startTime !== 0 &&
+          searchQuery.radius !== "" &&
+          searchQuery.endTime !== 0 &&
+          searchQuery.placeType !== "" ? (
+          <Link
+            href="/search/[queried]"
+            as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
+          >
+            <button>Search</button>
+          </Link>
+        ) : (
+          <button onClick={() => alert("please fill out missing fields")}>
+            Search
+          </button>
+        );
+    }
   };
 
   const linked = () => {
