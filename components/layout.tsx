@@ -5,6 +5,7 @@ export const Layout: React.FC = ({ children }) => {
   return (
     <React.Fragment>
       <Nav></Nav>
+      {children}
     </React.Fragment>
   );
 };

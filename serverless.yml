@@ -9,3 +9,10 @@ custom:
   name: Seknd
   serverless-nextjs: # <- add here
   assetsBucketName: "my-app-assets-${self:provider.stage}"
+
+plugins:
+  - serverless-nextjs-plugin
+
+package:
+  exclude:
+    - ./**

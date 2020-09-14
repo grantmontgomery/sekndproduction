@@ -4,8 +4,7 @@ import { Layout, ScheduleGrid, DateParts } from "../components";
 
 export default function Schedule() {
   return (
-    <React.Fragment>
-      <Layout></Layout>
+    <Layout>
       <main className={css.main}>
         <section className={css.grid}>
           <ScheduleGrid></ScheduleGrid>
@@ -118,6 +117,6 @@ export default function Schedule() {
         </section>
         <section className={css.scheduledBar}></section>
       </main>
-    </React.Fragment>
+    </Layout>
   );
 }

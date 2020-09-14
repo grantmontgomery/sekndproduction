@@ -1,6 +1,6 @@
 type Params = { [key: string]: string };
 
-export const yelpBusinessesCall: ({
+export const yelpEventsCall: ({
   location,
   radius,
   unixStartDate,
@@ -14,7 +14,7 @@ export const yelpBusinessesCall: ({
   categories,
 }) => {
   try {
-    const response: Response = await fetch("/api/yelpBusinessesAPI", {
+    const response: Response = await fetch("/api/yelpEventsAPI", {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",

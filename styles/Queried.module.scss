@@ -1,0 +1,39 @@
+.queriedPage {
+  height: 70vh;
+  width: 90vw;
+  top: 15vh;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  display: grid;
+  grid-template-rows: 15% auto 15%;
+  grid-template-areas: "query" "results" "header";
+  flex-flow: column nowrap;
+  box-shadow: 0 0.25vh 4vh #00000015;
+  & .queryDisplay {
+    grid-area: query;
+    box-shadow: 0 0.25vh 4vh #00000015;
+  }
+
+  & .header {
+    grid-area: header;
+    box-shadow: 0 0.25vh 4vh #00000015;
+  }
+  & .results {
+    height: auto;
+    grid-area: results;
+    overflow-x: scroll;
+    & .resultsSlider {
+      height: auto;
+      display: flex;
+      flex-flow: column nowrap;
+    }
+  }
+}
+
+@media (orientation: landscape) {
+  .queriedPage {
+    width: max(min(90vw, 1400px), 750px);
+    grid-template-rows: 10% auto;
+  }
+}

@@ -1,9 +1,25 @@
 import * as React from "react";
 import { Layout } from "../../components";
-import { yelpBusinessesCall } from "../../apicalls/yelpBusinessesCall";
+import {
+  yelpBusinessesCall,
+  yelpEventsCall,
+  ticketMasterCall,
+} from "../../apicalls";
+import css from "../../styles/Queried.module.scss";
 
 export default function Queried(props) {
-  return <Layout></Layout>;
+  console.log(props);
+  return (
+    <Layout>
+      <main className={css.queriedPage}>
+        <section className={css.queryDisplay}></section>
+        <section className={css.header}></section>
+        <section className={css.results}>
+          <div className={css.resultsSlider}></div>
+        </section>
+      </main>
+    </Layout>
+  );
 }
 
 Queried.getInitialProps = async ({ query }) => {
