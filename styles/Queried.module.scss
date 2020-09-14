@@ -23,10 +23,12 @@
     height: auto;
     grid-area: results;
     overflow-x: scroll;
+    scroll-behavior: smooth;
     & .resultsSlider {
       height: auto;
       display: flex;
       flex-flow: column nowrap;
+      align-items: center;
     }
   }
 }

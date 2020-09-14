@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layout } from "../../components";
+import { Layout, ResultCard } from "../../components";
 import {
   yelpBusinessesCall,
   yelpEventsCall,
@@ -7,15 +7,18 @@ import {
 } from "../../apicalls";
 import css from "../../styles/Queried.module.scss";
 
-export default function Queried(props) {
-  console.log(props);
+export default function Queried({ props: { results } }) {
   return (
     <Layout>
       <main className={css.queriedPage}>
         <section className={css.queryDisplay}></section>
         <section className={css.header}></section>
         <section className={css.results}>
-          <div className={css.resultsSlider}></div>
+          <div className={css.resultsSlider}>
+            {results.businesses.map((business) => (
+              <ResultCard></ResultCard>
+            ))}
+          </div>
         </section>
       </main>
     </Layout>
@@ -39,10 +42,10 @@ Queried.getInitialProps = async ({ query }) => {
       }
     });
 
-    const callResponse = await yelpBusinessesCall(searchParamsValues);
+    const callResponse: Response = await yelpBusinessesCall(searchParamsValues);
 
-    return { props: { results: callResponse } };
+    return { results: callResponse };
   } else {
-    return { props: {} };
+    return { results: {} };
   }
 };
