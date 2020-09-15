@@ -18,8 +18,8 @@ export default function Queried({ results }): JSX.Element {
           <section className={css.results}>
             <div className={css.resultsSlider}>
               {typeof results === "object"
-                ? results.map((business) => {
-                    return <ResultCard></ResultCard>;
+                ? results.map((item) => {
+                    return <ResultCard key={item.id} item={item}></ResultCard>;
                   })
                 : null}
             </div>
