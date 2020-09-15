@@ -50,8 +50,18 @@ Queried.getInitialProps = async ({ query }): Promise<{ results: any }> => {
     const apiResponse: Promise<
       { [key: string]: any }[] | string
     > = await yelpBusinessesCall(searchParamsValues);
+<<<<<<< HEAD
 
     return { results: apiResponse };
+=======
+<<<<<<< HEAD
+    
+    return { results:apiResponse };
+=======
+
+    return { results: apiResponse };
+>>>>>>> develop
+>>>>>>> 795406955e8c99ff73b957ccbac5beb0d63654d9
   } else {
     return { results: {} };
   }
