@@ -1,3 +1,5 @@
+org: gmontgomery1994
+app: seknd-app
 # serverless.yml
 service: ${self:custom.name}
 provider:

@@ -7,25 +7,30 @@ import {
 } from "../../apicalls";
 import css from "../../styles/Queried.module.scss";
 
-export default function Queried({ props: { results } }) {
-  return (
-    <Layout>
-      <main className={css.queriedPage}>
-        <section className={css.queryDisplay}></section>
-        <section className={css.header}></section>
-        <section className={css.results}>
-          <div className={css.resultsSlider}>
-            {results.businesses.map((business) => (
-              <ResultCard></ResultCard>
-            ))}
-          </div>
-        </section>
-      </main>
-    </Layout>
-  );
+export default function Queried({ results }): JSX.Element {
+  console.log(results);
+  if (results) {
+    return (
+      <Layout>
+        <main className={css.queriedPage}>
+          <section className={css.queryDisplay}></section>
+          <section className={css.header}></section>
+          <section className={css.results}>
+            <div className={css.resultsSlider}>
+              {typeof results === "object"
+                ? results.map((business) => {
+                    return <ResultCard></ResultCard>;
+                  })
+                : null}
+            </div>
+          </section>
+        </main>
+      </Layout>
+    );
+  }
 }
 
-Queried.getInitialProps = async ({ query }) => {
+Queried.getInitialProps = async ({ query }): Promise<{ results: any }> => {
   if (query.queried) {
     const checkURLIsString: string = query.queried.toString();
     const paramValueArray: string[] = checkURLIsString.split("+");
@@ -42,9 +47,9 @@ Queried.getInitialProps = async ({ query }) => {
       }
     });
 
-    const callResponse: Response = await yelpBusinessesCall(searchParamsValues);
+    const apiResponse: Response = await yelpBusinessesCall(searchParamsValues);
 
-    return { results: callResponse };
+    return { results: apiResponse };
   } else {
     return { results: {} };
   }

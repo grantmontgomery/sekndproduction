@@ -20,9 +20,9 @@ export const yelpBusinessesCall: ({
     });
     const responseJson = await response.json();
 
-    const { businesses } = responseJson;
-    return { businesses };
+    const { businesses }: { businesses: JSON } = responseJson;
+    return businesses;
   } catch (err) {
-    return { error: err.message };
+    return err.message;
   }
 };
