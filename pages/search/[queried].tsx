@@ -30,7 +30,7 @@ export default function Queried({ results }): JSX.Element {
   }
 }
 
-Queried.getInitialProps = async ({ query }): Promise<{ results: {}[] |  }> => {
+Queried.getInitialProps = async ({ query }): Promise<{ results: any }> => {
   if (query.queried) {
     const checkURLIsString: string = query.queried.toString();
     const paramValueArray: string[] = checkURLIsString.split("+");
@@ -50,8 +50,8 @@ Queried.getInitialProps = async ({ query }): Promise<{ results: {}[] |  }> => {
     const apiResponse: Promise<
       { [key: string]: any }[] | string
     > = await yelpBusinessesCall(searchParamsValues);
-    
-    return { results:apiResponse };
+
+    return { results: apiResponse };
   } else {
     return { results: {} };
   }
