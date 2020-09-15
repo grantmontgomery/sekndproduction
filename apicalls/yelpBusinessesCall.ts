@@ -20,7 +20,16 @@ export const yelpBusinessesCall: ({
     });
     const responseJson = await response.json();
 
-    const { businesses }: { businesses: JSON } = responseJson;
+    const {
+      businesses,
+    }: { businesses: { [key: string]: any }[] } = responseJson;
+    businesses.forEach(
+      (business) => (
+        (business["type"] = "place"),
+        (business["source"] = "yelp"),
+        (business["inParts"] = false)
+      )
+    );
     return businesses;
   } catch (err) {
     return err.message;
