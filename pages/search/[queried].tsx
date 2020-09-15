@@ -47,7 +47,9 @@ Queried.getInitialProps = async ({ query }): Promise<{ results: any }> => {
       }
     });
 
-    const apiResponse: Response = await yelpBusinessesCall(searchParamsValues);
+    const apiResponse: Promise<
+      { [key: string]: any }[] | string
+    > = await yelpBusinessesCall(searchParamsValues);
 
     return { results: apiResponse };
   } else {
