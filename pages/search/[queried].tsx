@@ -50,6 +50,8 @@ export default function Queried({ results, searchType }): JSX.Element {
     }
   };
 
+  console.log(Array.isArray(results));
+
   return (
     <Layout>
       <main className={css.queriedPage}>
@@ -60,11 +62,11 @@ export default function Queried({ results, searchType }): JSX.Element {
         </section>
         <section className={css.results}>
           <div className={css.resultsSlider}>
-            {/* {results
+            {results && Array.isArray(results)
               ? results.map((item) => {
                   return <ResultCard key={item.id} item={item}></ResultCard>;
                 })
-              : null} */}
+              : null}
             <ResultCard item={{}}></ResultCard>
           </div>
         </section>
