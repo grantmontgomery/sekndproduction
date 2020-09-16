@@ -1,0 +1,1 @@
+export { PlacesPrice } from "./PlacesPrice";

@@ -1,0 +1,13 @@
+.placePrice {
+  display: flex;
+  flex-flow: row nowrap;
+  height: fit-content;
+  width: fit-content;
+  & span {
+    color: lightblue;
+    font-size: max;
+  }
+  & .dark {
+    color: darkblue;
+  }
+}
