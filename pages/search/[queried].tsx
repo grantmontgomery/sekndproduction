@@ -67,7 +67,6 @@ export default function Queried({ results, searchType }): JSX.Element {
                   return <ResultCard key={item.id} item={item}></ResultCard>;
                 })
               : null}
-            <ResultCard item={{}}></ResultCard>
           </div>
         </section>
       </main>

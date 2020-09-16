@@ -1,4 +1,3 @@
-import { sectionFooterSecondaryContent } from "aws-amplify";
 import { PlacesPrice } from "./Parts/PlacesInfo";
 import { ImageBackground } from "./Parts/ImageBackground";
 import * as React from "react";
@@ -39,7 +38,10 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
         source={determineImageBackgroundSource()}
         alt={item.name}
       ></ImageBackground>
-      <span className={css.title}>Title</span>
+      <div className={css.titleBar}>
+        <span className={css.title}>{item.name}</span>
+        {setCardDetails()}
+      </div>
       <button
         className={css.addButton}
         onClick={() =>
@@ -50,7 +52,6 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
       >
         {state.added ? "Remove from Parts -" : "Add to Parts +"}
       </button>
-      {setCardDetails()}
     </div>
   );
 };

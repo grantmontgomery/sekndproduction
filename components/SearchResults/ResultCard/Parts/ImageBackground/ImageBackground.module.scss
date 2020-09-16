@@ -1,8 +1,19 @@
-& .imgBackground {
+.imgBackground {
   height: 100%;
-  width: 100%;
-  z-index: -1;
-  position: relative;
+  width: 105%;
+  object-fit: contain;
+  position: absolute;
+  overflow: hidden;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   & img {
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 }
