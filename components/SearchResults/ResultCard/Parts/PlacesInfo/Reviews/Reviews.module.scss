@@ -1,0 +1,29 @@
+.reviewWrapper {
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+
+  & .starWrapper {
+    display: flex;
+    flex-flow: row nowrap;
+    height: fit-content;
+    width: fit-content;
+    position: relative;
+    align-items: center;
+    & svg {
+      height: 2vh;
+      width: auto;
+      margin-right: 1vw;
+    }
+  }
+  & span {
+    font-size: min(25px, 2vh);
+    color: white;
+    height: fit-content;
+    width: fit-content;
+    display: block;
+    margin-left: 1vw;
+  }
+}

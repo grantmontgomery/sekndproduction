@@ -1,6 +1,5 @@
-import { stringify } from "querystring";
 import * as React from "react";
-import css from "./Review.module.scss";
+import css from "./Reviews.module.scss";
 
 export const Reviews: React.FC<{ reviewCount: number; rating: number }> = ({
   reviewCount,
@@ -16,7 +15,7 @@ export const Reviews: React.FC<{ reviewCount: number; rating: number }> = ({
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 263.08 251.53"
-          style={{ fill: "transparent", stroke: "white" }}
+          style={{ fill: "#707070" }}
         >
           <defs></defs>
           <title>Asset 10</title>
@@ -55,14 +54,12 @@ export const Reviews: React.FC<{ reviewCount: number; rating: number }> = ({
           <g id="Layer_2" data-name="Layer 2">
             <g id="Tracing">
               <path
-                style={{ fill: "white", strokeWidth: "2px", stroke: "white" }}
+                style={{ fill: "#707070" }}
                 d="M206.61,156.56a11.11,11.11,0,0,0-3.19,9.83L215.36,236a11.1,11.1,0,0,1-16.11,11.71l-62.54-32.89a11.07,11.07,0,0,0-10.34,0L63.83,247.74A11.1,11.1,0,0,1,47.72,236l11.94-69.64a11.11,11.11,0,0,0-3.19-9.83L5.87,107.23A11.1,11.1,0,0,1,12,88.29L82,78.13a11.08,11.08,0,0,0,8.36-6.07L121.58,8.69a11.11,11.11,0,0,1,19.92,0l31.27,63.37a11.08,11.08,0,0,0,8.36,6.07l69.93,10.16a11.1,11.1,0,0,1,6.15,18.94Z"
               />
               <path
                 style={{
-                  fill: "transparent",
-                  stroke: "white",
-                  strokeWidth: "2px",
+                  fill: "white",
                 }}
                 d="M132,2.51V213.58a11.19,11.19,0,0,0-5.67,1.27L63.83,247.74A11.1,11.1,0,0,1,47.72,236l11.94-69.64a11.11,11.11,0,0,0-3.19-9.83L5.87,107.23A11.1,11.1,0,0,1,12,88.29L82,78.13a11.08,11.08,0,0,0,8.36-6.07L121.58,8.69A11,11,0,0,1,132,2.51Z"
               />
@@ -72,30 +69,31 @@ export const Reviews: React.FC<{ reviewCount: number; rating: number }> = ({
       );
     };
 
-    const starTypes: JSX.Element[] = [
-      EmptyStar(),
-      EmptyStar(),
-      EmptyStar(),
-      EmptyStar(),
-      EmptyStar(),
-    ];
-
-    const setStars: () => void = () => {
+    const setStars: () => JSX.Element[] = () => {
       let ratingInt: number = Math.floor(rating);
       let remainder: number = rating - ratingInt;
+      const starTypes: JSX.Element[] = [
+        EmptyStar(),
+        EmptyStar(),
+        EmptyStar(),
+        EmptyStar(),
+        EmptyStar(),
+      ];
 
-      return starTypes.forEach((item, index) => {
+      const newStars: JSX.Element[] = starTypes.map((item, index) => {
         if (index < ratingInt) {
-          return (item = FullStar());
+          return FullStar();
         } else {
-          return remainder > 0 ? (item = HalfStar()) : null;
+          return remainder > 0 && index < rating ? HalfStar() : EmptyStar();
         }
       });
+
+      return newStars;
     };
 
     return (
       <div className={css.reviewWrapper}>
-        <div className={css.starWrapper}>{starTypes.map((star) => star)}</div>
+        <div className={css.starWrapper}>{setStars().map((star) => star)}</div>
         <span>{`${reviewCount} Reviews`}</span>
       </div>
     );

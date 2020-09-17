@@ -1,1 +1,0 @@
-export { PlacesPrice } from "./PlacesPrice";

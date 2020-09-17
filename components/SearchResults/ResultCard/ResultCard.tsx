@@ -1,4 +1,4 @@
-import { PlacesPrice } from "./Parts/PlacesInfo";
+import { PriceAndType, Reviews } from "./Parts/PlacesInfo";
 import { ImageBackground } from "./Parts/ImageBackground";
 import * as React from "react";
 import css from "./ResultCard.module.scss";
@@ -46,7 +46,11 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
               }`}
             >
               <span className={css.title}>{item.name}</span>
-              <PlacesPrice price={item.price}></PlacesPrice>
+              <Reviews
+                reviewCount={item.review_count}
+                rating={item.rating}
+              ></Reviews>
+              <PriceAndType price={item.price}></PriceAndType>
               <div className={css.starsWrapper}></div>
             </div>
             {displayMoreDetails()}

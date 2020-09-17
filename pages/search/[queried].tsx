@@ -9,6 +9,7 @@ import css from "../../styles/Queried.module.scss";
 
 export default function Queried({ results, searchType }): JSX.Element {
   const [state, setState] = React.useState({ resultsType: "" });
+
   console.log(results);
   React.useEffect(() => {
     if (searchType) {

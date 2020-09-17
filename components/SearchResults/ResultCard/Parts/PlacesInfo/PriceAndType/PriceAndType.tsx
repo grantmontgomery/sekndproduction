@@ -1,7 +1,7 @@
 import * as React from "react";
-import css from "./PlacesPrice.module.scss";
+import css from "./PriceAndType.module.scss";
 
-export const PlacesPrice: React.FC<{ price: string }> = ({ price }) => {
+export const PriceAndType: React.FC<{ price: string }> = ({ price }) => {
   return price ? (
     <div className={css.placePrice}>
       <span className={css.light}>{price[0]}</span>
