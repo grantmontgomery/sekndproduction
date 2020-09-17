@@ -4,8 +4,13 @@
   height: fit-content;
   width: fit-content;
   & span {
-    color: #7a7a7a;
+    color: #707070;
     font-size: max;
+    font-weight: bold;
+    height: fit-content;
+    margin-right: 0.25vw;
+    width: fit-content;
+    font-size: (30px, 2.5vh);
   }
   & .light {
     color: white;

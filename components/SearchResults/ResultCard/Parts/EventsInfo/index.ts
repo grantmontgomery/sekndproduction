@@ -1,0 +1,1 @@
+export { EventsInfo } from "./EventsInfo";

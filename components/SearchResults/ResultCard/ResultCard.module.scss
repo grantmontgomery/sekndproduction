@@ -1,6 +1,6 @@
 .resultCard {
   height: 23vh;
-  background: white;
+  background: black;
   width: min(min(90%, 500px), 350px);
   margin-top: 2vh;
   border-radius: 3vh;
@@ -8,9 +8,13 @@
   position: relative;
   margin-right: auto;
   overflow: hidden;
+  transition: 250ms ease-out;
   margin-left: auto;
+  &.extended {
+    height: 46vh;
+  }
 
-  & .titleBar {
+  & .infoBar {
     display: flex;
     flex-flow: column nowrap;
     background: linear-gradient(transparent, #000000);
@@ -24,6 +28,11 @@
     width: 100%;
     height: 60%;
     padding-top: 5%;
+    &.extended {
+      height: 30%;
+      padding-top: 5%;
+      bottom: 49%;
+    }
     & .title {
       position: relative;
       height: fit-content;
@@ -36,6 +45,18 @@
       font-size: min(30px, 2.5vh);
     }
   }
+  & .detailsWrapper {
+    height: 50%;
+    width: 100%;
+    position: absolute;
+    left: 50%;
+    padding-left: 5%;
+    padding-right: 5%;
+    display: flex;
+    flex-flow: column nowrap;
+    transform: translate(-50%);
+    bottom: 0;
+  }
 
   & button {
     outline: none;
@@ -44,7 +65,8 @@
   & .addButton {
     position: absolute;
     float: right;
-    transition: 250ms ease-out;
+    transition: 250ms ease-out width;
+    box-shadow: 0 2vh 2vh #00000080;
     right: 5%;
     height: 5vh;
     border-radius: 5vh;
@@ -56,7 +78,14 @@
     font-weight: bold;
     background: linear-gradient(0.25turn, #49a078, #216869);
     padding-right: 5%;
+    // box-shadow: 0 1vh 2vh #49a07880;
+    box-shadow: 0 1vh 2vh #00000080;
+
     width: fit-content;
+    &.remove {
+      background: linear-gradient(0.25turn, #f24236, #ad160b);
+      // box-shadow: 0 1vh 2vh #f2423680;
+    }
   }
 }
 
