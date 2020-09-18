@@ -93,7 +93,6 @@ export const Nav: React.FC = () => {
 
   const stopWindowScroll: (stop: boolean) => void = (stop) => {
     const body: HTMLBodyElement | null = document.querySelector("body");
-    console.log(body);
     if (body) {
       return stop
         ? (body.style.overflowY = "hidden")

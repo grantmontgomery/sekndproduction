@@ -8,28 +8,6 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
 }) => {
   const [state, setState] = React.useState({ added: false, moreInfo: false });
 
-  // const parseYelpCity = addressPiece => {
-  //   let splitted = addressPiece.split(",");
-  //   if (splitted[0] === splitted[0].toUpperCase()) {
-  //     if (splitted[0].includes(" ")) {
-  //       let splitCity = splitted[0].split(" ");
-  //       for (let i = 0; i < splitCity.length; i++) {
-  //         splitCity[i].toLowerCase();
-  //         splitCity[i][0].toUpperCase();
-  //       }
-  //       let newCity = splitCity.join(" ");
-  //       return splitted.splice(0, 1, newCity);
-  //     } else {
-  //       let newCity =
-  //         splitted[0][0].toUpperCase() + splitted[0].toLowerCase().substring(1);
-  //       splitted.splice(0, 1, newCity);
-  //       return splitted.join(",");
-  //     }
-  //   } else {
-  //     return splitted.join(",");
-  //   }
-  // };
-
   const determineImageBackgroundSource: () => string = () => {
     switch (item.type) {
       case "place":
@@ -95,6 +73,8 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
               ></Reviews>
               <PriceAndType
                 price={item.price}
+                city={item.location.city}
+                state={item.location.state}
                 type={
                   item.categories && item.categories.length > 0
                     ? item.categories[0].title

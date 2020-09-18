@@ -15,5 +15,16 @@
   & .type {
     font-weight: normal;
     color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  & .city {
+    color: white;
+    font-weight: normal;
+    margin-left: 1vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }

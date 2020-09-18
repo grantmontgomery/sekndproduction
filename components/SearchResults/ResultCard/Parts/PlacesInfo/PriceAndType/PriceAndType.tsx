@@ -1,10 +1,18 @@
 import * as React from "react";
 import css from "./PriceAndType.module.scss";
 
-export const PriceAndType: React.FC<{ price: string; type: string | null }> = ({
-  price,
-  type,
-}) => {
+export const PriceAndType: React.FC<{
+  price: string;
+  type: string | null;
+  city: string;
+  state: string;
+}> = ({ price, type, city, state }) => {
+  const insertCity: (city: string) => JSX.Element | null = (city) => {
+    return city ? (
+      <span className={css.city}>{`• ${city}, ${state}`}</span>
+    ) : null;
+  };
+
   const singularType: () => JSX.Element | null = () => {
     if (!type || type.length === 0) return null;
     else {
@@ -41,8 +49,13 @@ export const PriceAndType: React.FC<{ price: string; type: string | null }> = ({
       <span className={price.length >= 3 ? css.light : null}>{price[0]}</span>
       <span className={price.length === 4 ? css.light : null}>{price[0]}</span>
       {singularType()}
+      {insertCity(city)}
     </div>
   ) : (
-    <div className={css.placePrice}>{singularType()}</div>
+    <div className={css.placePrice}>
+      {singularType()}
+
+      {insertCity(city)}
+    </div>
   );
 };
