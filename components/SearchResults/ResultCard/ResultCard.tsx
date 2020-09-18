@@ -1,4 +1,4 @@
-import { PriceAndType, Reviews } from "./Parts/PlacesInfo";
+import { PriceAndType, Reviews, Phone } from "./Parts/PlacesInfo";
 import { ImageBackground } from "./Parts/ImageBackground";
 import * as React from "react";
 import css from "./ResultCard.module.scss";
@@ -25,16 +25,6 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
       : null;
   };
 
-  const displayMoreDetails: (array?: React.FC<any>[]) => JSX.Element | null = (
-    array
-  ) => {
-    return state.moreInfo ? (
-      <div className={css.detailsWrapper}>
-        {array ? array.map((elem) => elem) : null}
-      </div>
-    ) : null;
-  };
-
   const setCardDetails: () => JSX.Element = () => {
     switch (item.type) {
       case "place":
@@ -50,10 +40,19 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
                 reviewCount={item.review_count}
                 rating={item.rating}
               ></Reviews>
-              <PriceAndType price={item.price}></PriceAndType>
+              <PriceAndType
+                price={item.price}
+                type={
+                  item.categories && item.categories.length > 0
+                    ? item.categories[0].title
+                    : null
+                }
+              ></PriceAndType>
               <div className={css.starsWrapper}></div>
             </div>
-            {displayMoreDetails()}
+            <div className={css.detailsWrapper}>
+              <Phone phone={item.phone}></Phone>
+            </div>
           </React.Fragment>
         );
       case "event":
@@ -66,7 +65,7 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
             >
               <span className={css.title}>{item.name}</span>
             </div>
-            {displayMoreDetails()}
+            <div className={css.detailsWrapper}></div>
           </React.Fragment>
         );
     }

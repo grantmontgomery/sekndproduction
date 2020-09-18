@@ -1,0 +1,20 @@
+.phone {
+  height: fit-content;
+  width: fit-content;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  & svg {
+    fill: white;
+    height: 2vh;
+    width: auto;
+  }
+  & span {
+    margin-left: 2vw;
+    font-size: min(25px, 2vh);
+    height: fit-content;
+    width: fit-content;
+  }
+}

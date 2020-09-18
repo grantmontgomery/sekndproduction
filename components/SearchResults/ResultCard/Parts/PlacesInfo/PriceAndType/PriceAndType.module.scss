@@ -1,0 +1,19 @@
+.placePrice {
+  height: fit-content;
+  width: fit-content;
+  & span {
+    font-size: min(25px, 2vh);
+    font-weight: bold;
+    height: fit-content;
+    width: fit-content;
+    margin-right: 0.25vw;
+    color: #707070;
+  }
+  & .light {
+    color: white;
+  }
+  & .type {
+    font-weight: normal;
+    color: white;
+  }
+}

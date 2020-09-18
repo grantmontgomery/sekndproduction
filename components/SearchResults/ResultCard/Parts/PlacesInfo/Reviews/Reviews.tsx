@@ -10,12 +10,13 @@ export const Reviews: React.FC<{ reviewCount: number; rating: number }> = ({
       setStars;
     }, []);
 
-    const EmptyStar: () => JSX.Element = () => {
+    const EmptyStar: (id: number) => JSX.Element = (id) => {
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 263.08 251.53"
           style={{ fill: "#707070" }}
+          key={id}
         >
           <defs></defs>
           <title>Asset 10</title>
@@ -28,12 +29,13 @@ export const Reviews: React.FC<{ reviewCount: number; rating: number }> = ({
       );
     };
 
-    const FullStar: () => JSX.Element = () => {
+    const FullStar: (id: number) => JSX.Element = (id) => {
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 258.08 246.53"
           style={{ fill: "white" }}
+          key={id}
         >
           <defs></defs>
           <title>Asset 7</title>
@@ -46,9 +48,13 @@ export const Reviews: React.FC<{ reviewCount: number; rating: number }> = ({
       );
     };
 
-    const HalfStar: () => JSX.Element = () => {
+    const HalfStar: (id: number) => JSX.Element = (id) => {
       return (
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 263.07 251.54">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 263.07 251.54"
+          key={id}
+        >
           <defs></defs>
           <title>Asset 11</title>
           <g id="Layer_2" data-name="Layer 2">
@@ -73,18 +79,20 @@ export const Reviews: React.FC<{ reviewCount: number; rating: number }> = ({
       let ratingInt: number = Math.floor(rating);
       let remainder: number = rating - ratingInt;
       const starTypes: JSX.Element[] = [
-        EmptyStar(),
-        EmptyStar(),
-        EmptyStar(),
-        EmptyStar(),
-        EmptyStar(),
+        EmptyStar(0),
+        EmptyStar(1),
+        EmptyStar(2),
+        EmptyStar(3),
+        EmptyStar(4),
       ];
 
       const newStars: JSX.Element[] = starTypes.map((item, index) => {
         if (index < ratingInt) {
-          return FullStar();
+          return FullStar(index);
         } else {
-          return remainder > 0 && index < rating ? HalfStar() : EmptyStar();
+          return remainder > 0 && index < rating
+            ? HalfStar(index)
+            : EmptyStar(index);
         }
       });
 
