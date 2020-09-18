@@ -1,0 +1,27 @@
+.location {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  height: fit-content;
+  align-items: center;
+  margin-top: 1vh;
+  & svg {
+    height: 2vh;
+    display: block;
+    width: auto;
+    position: relative;
+    fill: white;
+  }
+  & .address {
+    margin-left: 2vw;
+    color: white;
+    padding: 0;
+    display: block;
+    height: fit-content;
+    position: relative;
+    margin-top: 0;
+    margin-bottom: 0;
+    width: fit-content;
+    font-size: min(25px, 2vh);
+  }
+}
