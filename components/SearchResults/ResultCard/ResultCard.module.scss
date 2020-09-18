@@ -29,9 +29,9 @@
     height: 60%;
     padding-top: 5%;
     &.extended {
-      height: 30%;
+      height: 25%;
       padding-top: 5%;
-      bottom: 20%;
+      bottom: 25%;
     }
     & .title {
       position: relative;
@@ -46,7 +46,7 @@
     }
   }
   & .detailsWrapper {
-    height: 30%;
+    height: 25%;
     width: 100%;
     position: absolute;
     left: 50%;

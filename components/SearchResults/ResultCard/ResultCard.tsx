@@ -25,6 +25,22 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
       : null;
   };
 
+  const moreDetails: (type: string) => JSX.Element | null = (type) => {
+    if (!state.moreInfo) return null;
+    switch (type) {
+      case "place":
+        return (
+          <div className={css.detailsWrapper}>
+            <Phone phone={item.phone}></Phone>
+          </div>
+        );
+      case "events":
+        return <div className={css.detailsWrapper}></div>;
+      default:
+        return <div className={css.detailsWrapper}></div>;
+    }
+  };
+
   const setCardDetails: () => JSX.Element = () => {
     switch (item.type) {
       case "place":
@@ -50,9 +66,7 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
               ></PriceAndType>
               <div className={css.starsWrapper}></div>
             </div>
-            <div className={css.detailsWrapper}>
-              <Phone phone={item.phone}></Phone>
-            </div>
+            {moreDetails("place")}
           </React.Fragment>
         );
       case "event":
@@ -65,7 +79,7 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
             >
               <span className={css.title}>{item.name}</span>
             </div>
-            <div className={css.detailsWrapper}></div>
+            {moreDetails("event")}
           </React.Fragment>
         );
     }
