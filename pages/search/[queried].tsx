@@ -7,6 +7,11 @@ import {
 } from "../../apicalls";
 import css from "../../styles/Queried.module.scss";
 
+type Results = {
+  items: { places: { [key: string]: any }[]; events: { [key: string]: any }[] };
+  errors: { yelpPlaces: string; yelpEvents: string; ticketmaster: string };
+};
+
 export default function Queried({ results, searchType }): JSX.Element {
   const [state, setState] = React.useState({ resultsType: "" });
 
@@ -92,6 +97,31 @@ Queried.getInitialProps = async ({
         searchParamsValues[paramKey] = paramValue;
       }
     });
+
+    // const APICalls:(searchType:string) => Promise<Results> = async(searchType) => {
+    //   const deliverables:Results = {items: {places: [], events: []}, errors:{yelpPlaces: "", yelpEvents: "", ticketmaster: ""  }}
+    //   try{
+    //     switch(searchType){
+    //       case "PLACES":
+    //       const yelpAPIResponse:Promise<
+    //       { [key: string]: any }[] | string
+    //     > = await yelpBusinessesCall(searchParamsValues)
+    //     if(typeof yelpAPIResponse === "string"){
+    //       deliverables.errors.yelpPlaces = `${apiResponse}`
+    //       return deliverables
+    //     }
+    //     else{
+    //       Array.isArray(apiResponse) ? deliverables.items.places = apiResponse :
+    //     }
+    //     }
+    //   }
+    //   catch{
+    //     deliverables.errors.yelpPlaces = "CALL ERROR"
+    //     deliverables.errors.yelpEvents = "CALL ERROR"
+    //     deliverables.errors.ticketmaster = "CALL ERROR"
+    //     return deliverables
+    //   }
+    // }
 
     const apiResponse: Promise<
       { [key: string]: any }[] | string

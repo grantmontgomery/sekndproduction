@@ -28,8 +28,6 @@ export interface SearchQuery {
   eventsCategory: string;
   radius: string;
   location: string;
-  startTime: number;
-  endTime: number;
   placeType: string;
   endDate: Date;
   startDate: Date;
@@ -46,9 +44,7 @@ export const SearchBox: React.FC = (props) => {
     searchType: "ALL",
     eventsCategory: "",
     radius: "",
-    startTime: 0,
     location: "",
-    endTime: 0,
     endDate: null,
     startDate: null,
     placeType: "",
@@ -60,20 +56,25 @@ export const SearchBox: React.FC = (props) => {
     yelpCategories: "",
   });
 
-  const checkFields: (searchType: string) => JSX.Element = (searchType) => {
+  const checkFieldsDisplayLink: (searchType: string) => JSX.Element = (
+    searchType
+  ) => {
     switch (searchType) {
       case "ALL":
         return searchQuery.location !== "" &&
-          searchQuery.startTime !== 0 &&
+          searchQuery.startDate !== null &&
           searchQuery.radius !== "" &&
-          searchQuery.endTime !== 0 &&
+          searchQuery.endDate !== null &&
           searchQuery.placeType !== "" ? (
-          <Link
-            href="/search/[queried]"
-            as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
-          >
-            <button>Search</button>
-          </Link>
+          (console.log("All ready"),
+          (
+            <Link
+              href="/search/[queried]"
+              as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
+            >
+              <button>Search</button>
+            </Link>
+          ))
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
             Search
@@ -82,16 +83,19 @@ export const SearchBox: React.FC = (props) => {
 
       case "PLACES":
         return searchQuery.location !== "" &&
-          searchQuery.startTime !== 0 &&
+          searchQuery.startDate !== null &&
           searchQuery.radius !== "" &&
-          searchQuery.endTime !== 0 &&
+          searchQuery.endDate !== null &&
           searchQuery.placeType !== "" ? (
-          <Link
-            href="/search/[queried]"
-            as={`/search/searchType=PLACES+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}`}
-          >
-            <button>Search</button>
-          </Link>
+          (console.log("Places ready"),
+          (
+            <Link
+              href="/search/[queried]"
+              as={`/search/searchType=PLACES+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}`}
+            >
+              <button style={{ color: "green" }}>Search</button>
+            </Link>
+          ))
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
             Search
@@ -100,15 +104,18 @@ export const SearchBox: React.FC = (props) => {
 
       case "EVENTS":
         return searchQuery.location !== "" &&
-          searchQuery.startTime !== 0 &&
+          searchQuery.startDate !== null &&
           searchQuery.radius !== "" &&
-          searchQuery.endTime !== 0 ? (
-          <Link
-            href="/search/[queried]"
-            as={`/search/searchType=EVENTS+location=${searchQuery.location}+radius=${searchQuery.radius}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
-          >
-            <button>Search</button>
-          </Link>
+          searchQuery.endDate !== null ? (
+          (console.log("events ready"),
+          (
+            <Link
+              href="/search/[queried]"
+              as={`/search/searchType=EVENTS+location=${searchQuery.location}+radius=${searchQuery.radius}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
+            >
+              <button style={{ color: "green" }}>Search</button>
+            </Link>
+          ))
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
             Search
@@ -117,15 +124,15 @@ export const SearchBox: React.FC = (props) => {
 
       default:
         return searchQuery.location !== "" &&
-          searchQuery.startTime !== 0 &&
+          searchQuery.startDate !== null &&
           searchQuery.radius !== "" &&
-          searchQuery.endTime !== 0 &&
+          searchQuery.endDate !== null &&
           searchQuery.placeType !== "" ? (
           <Link
             href="/search/[queried]"
             as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button>Search</button>
+            <button style={{ color: "green" }}>Search</button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
@@ -133,14 +140,6 @@ export const SearchBox: React.FC = (props) => {
           </button>
         );
     }
-  };
-
-  const linked = () => {
-    return (
-      <Link href="/search/[queried]" as={`/search/${searchQuery}`}>
-        <button>Search</button>
-      </Link>
-    );
   };
 
   const handleInputChange: InputChange = (key, input) => {
@@ -221,12 +220,13 @@ export const SearchBox: React.FC = (props) => {
       >
         Search
       </button> */}
-      <Link
+      {/* <Link
         href="/search/[queried]"
         as={`/search/location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}`}
       >
         <button>Search</button>
-      </Link>
+      </Link> */}
+      {checkFieldsDisplayLink(searchQuery.searchType)}
     </div>
   );
 };
