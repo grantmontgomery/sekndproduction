@@ -30,8 +30,8 @@ export const yelpEventsCall: ({
     const responseJson = await response.json();
 
     const { events } = responseJson;
-    return { events };
+    return events;
   } catch (err) {
-    return { error: err.message };
+    return err.message;
   }
 };

@@ -31,8 +31,9 @@ export const ticketMasterCall: ({
     const {
       _embedded: { events },
     } = responseJson;
-    return { events };
+
+    return events;
   } catch (err) {
-    return { error: err.message };
+    return err.message;
   }
 };
