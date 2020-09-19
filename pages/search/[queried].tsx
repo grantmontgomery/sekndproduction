@@ -12,6 +12,52 @@ type Results = {
   errors: { yelpPlaces: string; yelpEvents: string; ticketmaster: string };
 };
 
+type APIResponse = Promise<{ [key: string]: any }[] | string>;
+
+type ParamsOrResults = { [key: string]: any };
+class APICalls {
+  searchParams: ParamsOrResults;
+  results: Results;
+  constructor(searchParams: ParamsOrResults) {
+    this.searchParams = searchParams;
+    this.results = {
+      items: { places: [], events: [] },
+      errors: { yelpPlaces: "", yelpEvents: "", ticketmaster: "" },
+    };
+  }
+
+  public async yelpBusinesses() {
+    const yelpBusinessesResponse: APIResponse = await yelpBusinessesCall(
+      this.searchParams
+    );
+    Array.isArray(yelpBusinessesResponse)
+      ? (this.results.items.places = yelpBusinessesResponse)
+      : (this.results.errors.yelpPlaces = `${yelpBusinessesResponse}`);
+  }
+  public async yelpEvents() {
+    const yelpEventsResponse: APIResponse = await yelpEventsCall(
+      this.searchParams
+    );
+    Array.isArray(yelpEventsResponse)
+      ? (this.results.items.events = [
+          ...this.results.items.events,
+          ...yelpEventsResponse,
+        ])
+      : (this.results.errors.yelpEvents = `${yelpEventsResponse}`);
+  }
+  public async ticketMaster() {
+    const ticketMasterResponse: APIResponse = await ticketMasterCall(
+      this.searchParams
+    );
+    Array.isArray(ticketMasterResponse)
+      ? (this.results.items.events = [
+          ...this.results.items.events,
+          ...ticketMasterResponse,
+        ])
+      : (this.results.errors.ticketmaster = `${ticketMasterResponse}`);
+  }
+}
+
 export default function Queried({ results, searchType }): JSX.Element {
   const [state, setState] = React.useState({ resultsType: "" });
 
@@ -98,36 +144,45 @@ Queried.getInitialProps = async ({
       }
     });
 
-    // const APICalls:(searchType:string) => Promise<Results> = async(searchType) => {
-    //   const deliverables:Results = {items: {places: [], events: []}, errors:{yelpPlaces: "", yelpEvents: "", ticketmaster: ""  }}
-    //   try{
-    //     switch(searchType){
-    //       case "PLACES":
-    //       const yelpAPIResponse:Promise<
-    //       { [key: string]: any }[] | string
-    //     > = await yelpBusinessesCall(searchParamsValues)
-    //     if(typeof yelpAPIResponse === "string"){
-    //       deliverables.errors.yelpPlaces = `${apiResponse}`
-    //       return deliverables
-    //     }
-    //     else{
-    //       Array.isArray(apiResponse) ? deliverables.items.places = apiResponse :
-    //     }
-    //     }
-    //   }
-    //   catch{
-    //     deliverables.errors.yelpPlaces = "CALL ERROR"
-    //     deliverables.errors.yelpEvents = "CALL ERROR"
-    //     deliverables.errors.ticketmaster = "CALL ERROR"
-    //     return deliverables
-    //   }
-    // }
+    const callAPIS: (searchType: string) => Promise<Results> = async (
+      searchType
+    ) => {
+      const APICall = new APICalls(searchParamsValues);
 
-    const apiResponse: Promise<
-      { [key: string]: any }[] | string
-    > = await yelpBusinessesCall(searchParamsValues);
+      try {
+        switch (searchType) {
+          case "PLACES":
+            APICall.yelpBusinesses();
 
-    return { results: apiResponse, searchType: searchParamsValues.searchType };
+            return APICall.results;
+
+          case "EVENTS":
+            APICall.yelpEvents();
+            APICall.ticketMaster();
+            return APICall.results;
+          case "ALL":
+            APICall.yelpBusinesses();
+            APICall.yelpEvents();
+            APICall.ticketMaster();
+            return APICall.results;
+          default:
+            APICall.yelpBusinesses();
+            APICall.yelpEvents();
+            APICall.ticketMaster();
+            return APICall.results;
+        }
+      } catch {
+        APICall.results.errors.yelpPlaces = "CALL ERROR";
+        APICall.results.errors.yelpEvents = "CALL ERROR";
+        APICall.results.errors.ticketmaster = "CALL ERROR";
+        return APICall.results;
+      }
+    };
+
+    return {
+      results: callAPIS(searchParamsValues.searchType),
+      searchType: searchParamsValues.searchType,
+    };
   } else {
     return { results: {}, searchType: "ALL" };
   }
