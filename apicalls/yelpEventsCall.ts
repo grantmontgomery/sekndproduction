@@ -1,3 +1,5 @@
+import { parse } from "path";
+
 type Params = { [key: string]: string };
 
 export const yelpEventsCall: ({
@@ -22,14 +24,21 @@ export const yelpEventsCall: ({
       method: "POST",
       body: JSON.stringify({
         location,
-        radius,
-        start_date: unixStartDate,
-        end_date: unixEndDate,
+        radius: parseInt(radius),
+        start_date: parseInt(unixStartDate),
+        end_date: parseInt(unixEndDate),
       }),
     });
     const responseJson = await response.json();
 
-    const { events } = responseJson;
+    const { events }: { events: { [key: string]: any }[] } = responseJson;
+    events.forEach(
+      (event) => (
+        (event["type"] = "event"),
+        (event["source"] = "yelp"),
+        (event["inParts"] = false)
+      )
+    );
     return events;
   } catch (err) {
     return err.message;

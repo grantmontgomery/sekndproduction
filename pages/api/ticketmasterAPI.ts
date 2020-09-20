@@ -41,6 +41,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const ticketmasterResponse: Response = await fetch(ticketmasterURLString);
 
       const jsonResponse: JSON = await ticketmasterResponse.json();
+      console.log(`Ticketmaster ${JSON.stringify(jsonResponse)}`);
+
       return res.send(jsonResponse);
     }
     return res.status(200).end("Ticket MAster API");

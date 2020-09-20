@@ -103,6 +103,8 @@ Queried.getInitialProps = async ({
       }
     });
 
+    console.log(searchParamsValues);
+
     class APICalls {
       searchParams: SearchParams;
       results: Results;
@@ -180,8 +182,6 @@ Queried.getInitialProps = async ({
         return APICall.results;
       }
     };
-
-    console.log(searchParamsValues);
 
     return {
       results: callAPIS(searchParamsValues.searchType),

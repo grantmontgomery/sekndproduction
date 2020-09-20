@@ -23,7 +23,7 @@ export const ticketMasterCall: ({
       body: JSON.stringify({
         location,
         radius: Math.floor(parseInt(radius) * 0.001),
-        startDatTime: startFormmated,
+        startDateTime: startFormmated,
         endDateTime: endFormatted,
       }),
     });
@@ -31,6 +31,8 @@ export const ticketMasterCall: ({
     const {
       _embedded: { events },
     } = responseJson;
+
+    console.log(responseJson);
 
     return events;
   } catch (err) {

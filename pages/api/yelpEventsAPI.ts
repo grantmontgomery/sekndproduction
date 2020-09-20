@@ -2,9 +2,9 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 type Params = {
   location: string;
-  radius: string;
-  start_date: string;
-  end_date: string;
+  radius: number;
+  start_date: number;
+  end_date: number;
   categories?: string;
 };
 
@@ -12,7 +12,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== "GET") {
       const { location, radius, start_date, end_date, categories } = req.body;
-      const yelpEvents: URL = new URL("https://api.yelp.com/v3/events/search"),
+      const yelpEvents: URL = new URL("https://api.yelp.com/v3/events"),
         params: Params = {
           location,
           radius,
@@ -33,6 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         },
       });
       const jsonResponse: JSON = await yelpResponse.json();
+
       return res.send(jsonResponse);
     }
     return res.status(200).end("Yelp Events API");
