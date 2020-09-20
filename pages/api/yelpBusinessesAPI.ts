@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 type Params = {
   location: string;
-  radius: string;
+  radius: number;
   term: string;
 };
 

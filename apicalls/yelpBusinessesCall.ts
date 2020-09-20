@@ -14,7 +14,7 @@ export const yelpBusinessesCall: ({
       method: "POST",
       body: JSON.stringify({
         location,
-        radius,
+        radius: parseInt(radius),
         term: placeType,
       }),
     });

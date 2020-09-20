@@ -5,12 +5,12 @@ type Params = {
 export const ticketMasterCall: ({
   location,
   radius,
-  startFormmated,
+  startFormatted,
   endFormatted,
 }: Params) => Promise<any> = async ({
   location,
   radius,
-  startFormmated,
+  startFormatted,
   endFormatted,
 }) => {
   try {
@@ -22,17 +22,15 @@ export const ticketMasterCall: ({
       method: "POST",
       body: JSON.stringify({
         location,
-        radius: Math.floor(parseInt(radius) * 0.001),
-        startDateTime: startFormmated,
+        radius: Math.floor(parseInt(radius) * 0.001).toString(),
+        startDateTime: startFormatted,
         endDateTime: endFormatted,
       }),
     });
     const responseJson = await response.json();
     const {
       _embedded: { events },
-    } = responseJson;
-
-    console.log(responseJson);
+    }: { _embedded: { events: { [key: string]: any }[] } } = responseJson;
 
     return events;
   } catch (err) {

@@ -23,17 +23,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           startDateTime,
           endDateTime,
           unit: ["km"],
-          apikey: process.env.TICKETMASTER_API_KEY,
+          apikey: `${process.env.TICKETMASTER_API_KEY}`,
         };
       Object.keys(params).forEach((key) =>
         ticketmasterEvents.searchParams.append(key, params[key])
       );
 
-      if (isNaN(parseInt(location))) {
-        ticketmasterEvents.searchParams.append("city", location);
-      } else {
-        ticketmasterEvents.searchParams.append("postalCode", location);
-      }
+      isNaN(parseInt(location))
+        ? ticketmasterEvents.searchParams.append("city", location)
+        : ticketmasterEvents.searchParams.append("postalCode", location);
 
       const ticketmasterURLString: string = ticketmasterEvents.toString();
       //function
@@ -41,7 +39,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const ticketmasterResponse: Response = await fetch(ticketmasterURLString);
 
       const jsonResponse: JSON = await ticketmasterResponse.json();
-      console.log(`Ticketmaster ${JSON.stringify(jsonResponse)}`);
 
       return res.send(jsonResponse);
     }
