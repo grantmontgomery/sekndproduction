@@ -11,6 +11,7 @@ export default function Queried({ results, searchType }): JSX.Element {
   const [state, setState] = React.useState({ resultsType: "" });
 
   console.log(results);
+
   React.useEffect(() => {
     if (searchType) {
       switch (searchType) {
@@ -179,6 +180,8 @@ Queried.getInitialProps = async ({
         return APICall.results;
       }
     };
+
+    console.log(searchParamsValues);
 
     return {
       results: callAPIS(searchParamsValues.searchType),
