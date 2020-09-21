@@ -6,18 +6,21 @@ export const yelpBusinessesCall: ({
   placeType,
 }: Params) => Promise<any> = async ({ location, radius, placeType }) => {
   try {
-    const response: Response = await fetch("/api/yelpBusinessesAPI", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        location,
-        radius: parseInt(radius),
-        term: placeType,
-      }),
-    });
+    const response: Response = await fetch(
+      "http://localhost:3000/api/yelpBusinessesAPI",
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          location,
+          radius: parseInt(radius),
+          term: placeType,
+        }),
+      }
+    );
     const responseJson = await response.json();
 
     const {

@@ -14,13 +14,14 @@ export default function Queried({
   const [state, setState] = React.useState({ resultsType: "Events" });
 
   console.log(items);
+  console.log(errors);
 
   const determineItems: () => JSX.Element | null = () => {
     if (!items) return null;
     switch (searchType) {
       case "ALL":
         if (Array.isArray(items.places) && Array.isArray(items.events)) {
-          return state.resultsType === "Places"
+          return state.resultsType === "PLACES"
             ? items.places.map((item) => (
                 <ResultCard key={item.id} item={item}></ResultCard>
               ))
@@ -45,7 +46,7 @@ export default function Queried({
           : null;
       default:
         if (Array.isArray(items.places) && Array.isArray(items.events)) {
-          return state.resultsType === "Places"
+          return state.resultsType === "PLACES"
             ? items.places.map((item) => (
                 <ResultCard key={item.id} item={item}></ResultCard>
               ))
@@ -58,17 +59,6 @@ export default function Queried({
     }
   };
 
-  // React.useEffect(() => {
-  //   if (searchType) {
-  //     switch (searchType) {
-  //       case "ALL":
-  //         return setState({ resultsType: "Places" });
-  //       case "EVENTS":
-  //         return setState({ resultsType: "Events" });
-  //     }
-  //   }
-  // });
-
   const setTypeButtons: () => JSX.Element = () => {
     if (searchType) {
       switch (searchType) {
@@ -77,13 +67,13 @@ export default function Queried({
             <React.Fragment>
               <button
                 className={css.typeButton}
-                onClick={() => setState({ resultsType: "Places" })}
+                onClick={() => setState({ resultsType: "PLACES" })}
               >
                 Places
               </button>
               <button
                 className={css.typeButton}
-                onClick={() => setState({ resultsType: "Events" })}
+                onClick={() => setState({ resultsType: "EVENTS" })}
               >
                 Events
               </button>
@@ -93,7 +83,7 @@ export default function Queried({
           return (
             <button
               className={css.typeButton}
-              onClick={() => setState({ resultsType: "Places" })}
+              onClick={() => setState({ resultsType: "PLACES" })}
             >
               Places
             </button>
@@ -103,7 +93,7 @@ export default function Queried({
           return (
             <button
               className={css.typeButton}
-              onClick={() => setState({ resultsType: "Events" })}
+              onClick={() => setState({ resultsType: "EVENTS" })}
             >
               Events
             </button>
@@ -113,13 +103,13 @@ export default function Queried({
             <React.Fragment>
               <button
                 className={css.typeButton}
-                onClick={() => setState({ resultsType: "Places" })}
+                onClick={() => setState({ resultsType: "PLACES" })}
               >
                 Places
               </button>
               <button
                 className={css.typeButton}
-                onClick={() => setState({ resultsType: "Events" })}
+                onClick={() => setState({ resultsType: "EVENTS" })}
               >
                 Events
               </button>
@@ -131,13 +121,13 @@ export default function Queried({
         <React.Fragment>
           <button
             className={css.typeButton}
-            onClick={() => setState({ resultsType: "Places" })}
+            onClick={() => setState({ resultsType: "PLACES" })}
           >
             Places
           </button>
           <button
             className={css.typeButton}
-            onClick={() => setState({ resultsType: "Events" })}
+            onClick={() => setState({ resultsType: "EVENTS" })}
           >
             Events
           </button>
@@ -173,23 +163,26 @@ type SearchParams = { [key: string]: any };
 
 Queried.getInitialProps = async ({
   query,
-}): Promise<{ results: any; searchType: string }> => {
-  if (query.queried) {
-    const checkURLIsString: string = query.queried.toString();
-    const paramValueArray: string[] = checkURLIsString.split("+");
+  pathname,
+  asPath,
+}): Promise<{
+  results: any;
+  searchType: string;
+}> => {
+  const {
+    searchType,
+    location,
+    radius,
+    placeType,
+    startFormatted,
+    endFormatted,
+    unixStartDate,
+    unixEndDate,
+    eventsCategory,
+  } = query;
 
-    const searchParamsValues: SearchParams = {};
-
-    paramValueArray.forEach((param) => {
-      const indexOfEqual: number = param.search("=");
-      if (indexOfEqual === -1) return;
-      else {
-        const paramKey: string = param.substring(0, indexOfEqual);
-        const paramValue: string = param.substring(indexOfEqual + 1);
-        searchParamsValues[paramKey] = paramValue;
-      }
-    });
-
+  if (location && radius && startFormatted && endFormatted) {
+    console.log("api call");
     class APICalls {
       searchParams: SearchParams;
       results: Results;
@@ -202,17 +195,29 @@ Queried.getInitialProps = async ({
       }
 
       public async yelpBusinesses() {
-        const yelpBusinessesResponse: APIResponse = await yelpBusinessesCall(
-          this.searchParams
-        );
+        const { location, radius, placeType } = this.searchParams;
+        const yelpBusinessesResponse: APIResponse = await yelpBusinessesCall({
+          location,
+          radius,
+          placeType,
+        });
         Array.isArray(yelpBusinessesResponse)
           ? (this.results.items.places = yelpBusinessesResponse)
           : (this.results.errors.yelpPlaces = `${yelpBusinessesResponse}`);
       }
       public async yelpEvents() {
-        const yelpEventsResponse: APIResponse = await yelpEventsCall(
-          this.searchParams
-        );
+        const {
+          location,
+          radius,
+          unixStartDate,
+          unixEndDate,
+        } = this.searchParams;
+        const yelpEventsResponse: APIResponse = await yelpEventsCall({
+          location,
+          radius,
+          unixStartDate,
+          unixEndDate,
+        });
         Array.isArray(yelpEventsResponse)
           ? (this.results.items.events = [
               ...this.results.items.events,
@@ -221,9 +226,18 @@ Queried.getInitialProps = async ({
           : (this.results.errors.yelpEvents = `${yelpEventsResponse}`);
       }
       public async ticketMaster() {
-        const ticketMasterResponse: APIResponse = await ticketMasterCall(
-          this.searchParams
-        );
+        const {
+          location,
+          radius,
+          startFormatted,
+          endFormatted,
+        } = this.searchParams;
+        const ticketMasterResponse: APIResponse = await ticketMasterCall({
+          location,
+          radius,
+          startFormatted,
+          endFormatted,
+        });
         Array.isArray(ticketMasterResponse)
           ? (this.results.items.events = [
               ...this.results.items.events,
@@ -236,7 +250,16 @@ Queried.getInitialProps = async ({
     const callAPIS: (searchType: string) => Promise<Results> = async (
       searchType
     ) => {
-      const APICall = new APICalls(searchParamsValues);
+      const APICall = new APICalls({
+        location,
+        radius,
+        placeType,
+        startFormatted,
+        endFormatted,
+        unixStartDate,
+        unixEndDate,
+        eventsCategory,
+      });
 
       try {
         switch (searchType) {
@@ -268,13 +291,31 @@ Queried.getInitialProps = async ({
       }
     };
 
-    const results: Results = await callAPIS(searchParamsValues.searchType);
+    const results: Results = await callAPIS(searchType);
 
     return {
       results,
-      searchType: searchParamsValues.searchType,
+      searchType,
     };
   } else {
-    return { results: {}, searchType: "ALL" };
+    const checkURLIsString: string = query.queried.toString();
+    const paramValueArray: string[] = checkURLIsString.split("+");
+
+    const searchParamsValues: SearchParams = {};
+
+    paramValueArray.forEach((param) => {
+      const indexOfEqual: number = param.search("=");
+      if (indexOfEqual === -1) return;
+      else {
+        const paramKey: string = param.substring(0, indexOfEqual);
+        const paramValue: string = param.substring(indexOfEqual + 1);
+        searchParamsValues[paramKey] = paramValue;
+      }
+    });
+
+    return {
+      results: { error: "BadCall" },
+      searchType: "ALL",
+    };
   }
 };

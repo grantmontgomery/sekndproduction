@@ -16,19 +16,22 @@ export const yelpEventsCall: ({
   categories,
 }) => {
   try {
-    const response: Response = await fetch("/api/yelpEventsAPI", {
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      method: "POST",
-      body: JSON.stringify({
-        location,
-        radius: parseInt(radius),
-        start_date: parseInt(unixStartDate),
-        end_date: parseInt(unixEndDate),
-      }),
-    });
+    const response: Response = await fetch(
+      "http://localhost:3000/api/yelpEventsAPI",
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          location,
+          radius: parseInt(radius),
+          start_date: parseInt(unixStartDate),
+          end_date: parseInt(unixEndDate),
+        }),
+      }
+    );
     const responseJson = await response.json();
 
     const { events }: { events: { [key: string]: any }[] } = responseJson;

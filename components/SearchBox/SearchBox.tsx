@@ -59,6 +59,16 @@ export const SearchBox: React.FC = (props) => {
   const checkFieldsDisplayLink: (searchType: string) => JSX.Element = (
     searchType
   ) => {
+    const {
+      location,
+      radius,
+      placeType,
+      startFormatted,
+      endFormatted,
+      unixStartDate,
+      unixEndDate,
+      eventsCategory,
+    } = searchQuery;
     switch (searchType) {
       case "ALL":
         return searchQuery.location !== "" &&
@@ -69,7 +79,20 @@ export const SearchBox: React.FC = (props) => {
           (console.log("All ready"),
           (
             <Link
-              href="/search/[queried]"
+              href={{
+                pathname: "/search/[queried]",
+                query: {
+                  searchType,
+                  location,
+                  radius,
+                  placeType,
+                  startFormatted,
+                  endFormatted,
+                  unixEndDate,
+                  unixStartDate,
+                  eventsCategory,
+                },
+              }}
               as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
             >
               <button>Search</button>
@@ -90,7 +113,17 @@ export const SearchBox: React.FC = (props) => {
           (console.log("Places ready"),
           (
             <Link
-              href="/search/[queried]"
+              href={{
+                pathname: "/search/[queried]",
+                query: {
+                  searchType,
+                  location,
+                  radius,
+                  placeType,
+                  startFormatted,
+                  endFormatted,
+                },
+              }}
               as={`/search/searchType=PLACES+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}`}
             >
               <button style={{ color: "green" }}>Search</button>
@@ -110,7 +143,19 @@ export const SearchBox: React.FC = (props) => {
           (console.log("events ready"),
           (
             <Link
-              href="/search/[queried]"
+              href={{
+                pathname: "/search/[queried]",
+                query: {
+                  searchType,
+                  location,
+                  radius,
+                  startFormatted,
+                  endFormatted,
+                  unixStartDate,
+                  unixEndDate,
+                  eventsCategory,
+                },
+              }}
               as={`/search/searchType=EVENTS+location=${searchQuery.location}+radius=${searchQuery.radius}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
             >
               <button style={{ color: "green" }}>Search</button>
@@ -129,7 +174,20 @@ export const SearchBox: React.FC = (props) => {
           searchQuery.endDate !== null &&
           searchQuery.placeType !== "" ? (
           <Link
-            href="/search/[queried]"
+            href={{
+              pathname: "/search/[queried]",
+              query: {
+                searchType,
+                location,
+                radius,
+                placeType,
+                startFormatted,
+                endFormatted,
+                unixEndDate,
+                unixStartDate,
+                eventsCategory,
+              },
+            }}
             as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
             <button style={{ color: "green" }}>Search</button>
