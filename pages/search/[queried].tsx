@@ -13,6 +13,8 @@ export default function Queried({
 }): JSX.Element {
   const [state, setState] = React.useState({ resultsType: "Events" });
 
+  console.log(items);
+
   const determineItems: () => JSX.Element | null = () => {
     if (!items) return null;
     switch (searchType) {
@@ -73,28 +75,72 @@ export default function Queried({
         case "ALL":
           return (
             <React.Fragment>
-              <button className={css.typeButton}>Places</button>
-              <button className={css.typeButton}>Events</button>
+              <button
+                className={css.typeButton}
+                onClick={() => setState({ resultsType: "Places" })}
+              >
+                Places
+              </button>
+              <button
+                className={css.typeButton}
+                onClick={() => setState({ resultsType: "Events" })}
+              >
+                Events
+              </button>
             </React.Fragment>
           );
         case "PLACES":
-          return <button className={css.typeButton}>Places</button>;
+          return (
+            <button
+              className={css.typeButton}
+              onClick={() => setState({ resultsType: "Places" })}
+            >
+              Places
+            </button>
+          );
 
         case "EVENTS":
-          return <button className={css.typeButton}>Events</button>;
+          return (
+            <button
+              className={css.typeButton}
+              onClick={() => setState({ resultsType: "Events" })}
+            >
+              Events
+            </button>
+          );
         default:
           return (
             <React.Fragment>
-              <button className={css.typeButton}>Places</button>
-              <button className={css.typeButton}>Events</button>
+              <button
+                className={css.typeButton}
+                onClick={() => setState({ resultsType: "Places" })}
+              >
+                Places
+              </button>
+              <button
+                className={css.typeButton}
+                onClick={() => setState({ resultsType: "Events" })}
+              >
+                Events
+              </button>
             </React.Fragment>
           );
       }
     } else {
       return (
         <React.Fragment>
-          <button className={css.typeButton}>Places</button>
-          <button className={css.typeButton}>Events</button>
+          <button
+            className={css.typeButton}
+            onClick={() => setState({ resultsType: "Places" })}
+          >
+            Places
+          </button>
+          <button
+            className={css.typeButton}
+            onClick={() => setState({ resultsType: "Events" })}
+          >
+            Events
+          </button>
         </React.Fragment>
       );
     }
