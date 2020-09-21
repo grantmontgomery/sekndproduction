@@ -1,4 +1,5 @@
 import { PriceAndType, Reviews, Phone, Location } from "./Parts/PlacesInfo";
+import { EventTimes } from "./Parts/EventsInfo";
 import { ImageBackground } from "./Parts/ImageBackground";
 import * as React from "react";
 import css from "./ResultCard.module.scss";
@@ -95,6 +96,11 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
               }`}
             >
               <span className={css.title}>{item.name}</span>
+              <EventTimes
+                startTime={item.source === "yelp" ? item.time_start : null}
+                endTime={item.source === "yelp" ? item.time_end : null}
+                source={item.source}
+              ></EventTimes>
             </div>
             {moreDetails("event")}
           </React.Fragment>
