@@ -7,10 +7,53 @@ import {
 } from "../../apicalls";
 import css from "../../styles/Queried.module.scss";
 
-export default function Queried({ results, searchType }): JSX.Element {
-  const [state, setState] = React.useState({ resultsType: "" });
+export default function Queried({
+  results: { items, errors },
+  searchType,
+}): JSX.Element {
+  const [state, setState] = React.useState({ resultsType: "Places" });
 
-  console.log(results);
+  const determineItems: () => JSX.Element = () => {
+    switch (searchType) {
+      case "ALL":
+        if (Array.isArray(items.places) && Array.isArray(items.events)) {
+          return state.resultsType === "Places"
+            ? items.places.map((item) => (
+                <ResultCard key={item.id} item={item}></ResultCard>
+              ))
+            : items.events.map((item) => (
+                <ResultCard key={item.id} item={item}></ResultCard>
+              ));
+        } else {
+          return null;
+        }
+
+      case "PLACES":
+        return Array.isArray(items.places)
+          ? items.places.map((item) => (
+              <ResultCard key={item.id} item={item}></ResultCard>
+            ))
+          : null;
+      case "EVENTS":
+        return Array.isArray(items.events)
+          ? items.events.map((item) => (
+              <ResultCard key={item.id} item={item}></ResultCard>
+            ))
+          : null;
+      default:
+        if (Array.isArray(items.places) && Array.isArray(items.events)) {
+          return state.resultsType === "Places"
+            ? items.places.map((item) => (
+                <ResultCard key={item.id} item={item}></ResultCard>
+              ))
+            : items.events.map((item) => (
+                <ResultCard key={item.id} item={item}></ResultCard>
+              ));
+        } else {
+          return null;
+        }
+    }
+  };
 
   React.useEffect(() => {
     if (searchType) {
@@ -62,13 +105,7 @@ export default function Queried({ results, searchType }): JSX.Element {
           <button className={css.sort}>Sort</button>
         </section>
         <section className={css.results}>
-          <div className={css.resultsSlider}>
-            {/* {results && Array.isArray(results)
-              ? results.map((item) => {
-                  return <ResultCard key={item.id} item={item}></ResultCard>;
-                })
-              : null} */}
-          </div>
+          <div className={css.resultsSlider}>{determineItems()}</div>
         </section>
       </main>
     </Layout>
