@@ -11,9 +11,10 @@ export default function Queried({
   results: { items, errors },
   searchType,
 }): JSX.Element {
-  const [state, setState] = React.useState({ resultsType: "Places" });
+  const [state, setState] = React.useState({ resultsType: "Events" });
 
-  const determineItems: () => JSX.Element = () => {
+  const determineItems: () => JSX.Element | null = () => {
+    if (!items) return null;
     switch (searchType) {
       case "ALL":
         if (Array.isArray(items.places) && Array.isArray(items.events)) {
@@ -55,13 +56,16 @@ export default function Queried({
     }
   };
 
-  React.useEffect(() => {
-    if (searchType) {
-      switch (searchType) {
-        case "ALL":
-      }
-    }
-  });
+  // React.useEffect(() => {
+  //   if (searchType) {
+  //     switch (searchType) {
+  //       case "ALL":
+  //         return setState({ resultsType: "Places" });
+  //       case "EVENTS":
+  //         return setState({ resultsType: "Events" });
+  //     }
+  //   }
+  // });
 
   const setTypeButtons: () => JSX.Element = () => {
     if (searchType) {
