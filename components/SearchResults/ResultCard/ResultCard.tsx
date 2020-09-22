@@ -97,7 +97,11 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
             >
               <span className={css.title}>{item.name}</span>
               <EventTimes
-                startTime={item.source === "yelp" ? item.time_start : null}
+                startTime={
+                  item.source === "yelp"
+                    ? item.time_start
+                    : `${item.dates.start.localDate}T${item.dates.start.localTime}Z`
+                }
                 endTime={item.source === "yelp" ? item.time_end : null}
                 source={item.source}
               ></EventTimes>
