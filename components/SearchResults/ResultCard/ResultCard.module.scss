@@ -1,5 +1,5 @@
 .resultCard {
-  height: 23vh;
+  height: 25vh;
   background: black;
   width: min(min(90%, 500px), 350px);
   margin-top: 2vh;
@@ -11,7 +11,7 @@
   transition: 250ms ease-out;
   margin-left: auto;
   &.extended {
-    height: 46vh;
+    height: 50vh;
   }
 
   & .infoBar {

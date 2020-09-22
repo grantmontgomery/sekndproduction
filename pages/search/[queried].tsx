@@ -139,14 +139,13 @@ export default function Queried({
   return (
     <Layout>
       <main className={css.queriedPage}>
-        <section className={css.queryDisplay}></section>
+        {/* <section className={css.queryDisplay}></section> */}
         <section className={css.header}>
           {setTypeButtons()}
           <button className={css.sort}>Sort</button>
         </section>
-        <section className={css.results}>
-          <div className={css.resultsSlider}>{determineItems()}</div>
-        </section>
+
+        <div className={css.resultsSlider}>{determineItems()}</div>
       </main>
     </Layout>
   );
