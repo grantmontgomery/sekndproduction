@@ -2,7 +2,15 @@
   display: flex;
   flex-flow: column nowrap;
   height: fit-content;
-  width: fit-content;
-  & span {
+  width: 100%;
+  overflow: hidden;
+  & p {
+    color: white;
+    height: fit-content;
+    width: fit-content;
+    margin-top: 0;
+    font-size: min(25px, 2vh);
+    font-weight: 600;
+    margin-bottom: 0;
   }
 }

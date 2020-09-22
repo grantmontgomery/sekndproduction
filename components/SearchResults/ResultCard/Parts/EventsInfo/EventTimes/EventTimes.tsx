@@ -11,7 +11,7 @@ export const EventTimes: React.FC<{
     const yelpEndObject: Date = new Date(endTime);
 
     //yelp start time
-    const yelpStartTime: string = yelpStartObject.toLocaleTimeString();
+    const yelpStartTime: string = yelpStartObject.toLocaleTimeString("en-US");
     const startAmPm: string = yelpStartTime.substring(yelpStartTime.length - 2);
     const startWithoutSeconds: string = yelpStartTime.substring(
       0,
@@ -26,7 +26,7 @@ export const EventTimes: React.FC<{
 
     //yelp end time
 
-    const yelpEndTime: string = yelpEndObject.toLocaleTimeString();
+    const yelpEndTime: string = yelpEndObject.toLocaleTimeString("en-US");
     const endAmPm: string = yelpEndTime.substring(yelpEndTime.length - 2);
     const endWithoutSeconds: string = yelpEndTime.substring(
       0,
@@ -37,21 +37,41 @@ export const EventTimes: React.FC<{
 
     //yelp end Date
 
-    const yelpEndDate: string = yelpEndObject.toLocaleTimeString();
+    const yelpEndDate: string = yelpEndObject.toLocaleDateString();
 
-    return <span>{`${yelpStartDate} ${yelpStartFormattedTime}`}</span>;
+    return (
+      <p>
+        {`From: ${yelpStartDate} ${yelpStartFormattedTime}`}
+        <br />
+        {`To: ${yelpEndDate} ${yelpEndFormattedTime}`}
+      </p>
+    );
+  };
+
+  const parseTicketMasterTime: () => JSX.Element = () => {
+    const ticketmasterStartObject: Date = new Date(startTime);
+
+    const ticketmasterStartTime: string = ticketmasterStartObject.toLocaleTimeString(
+      "en-US"
+    );
+    const startAmPm: string = ticketmasterStartTime.substring(
+      ticketmasterStartTime.length - 2
+    );
+    const startWithoutSeconds: string = ticketmasterStartTime.substring(
+      0,
+      ticketmasterStartTime.length - 6
+    );
+
+    const ticketmasterStartFormattedTime: string = `${startWithoutSeconds} ${startAmPm}`;
+
+    const ticketmasterDate: string = ticketmasterStartObject.toLocaleDateString();
+
+    return <p>{`${ticketmasterDate} ${ticketmasterStartFormattedTime}`}</p>;
   };
 
   const determineSource: () => JSX.Element = () => {
-    return source === "yelp" ? parseYelpTimes() : null;
+    return source === "yelp" ? parseYelpTimes() : parseTicketMasterTime();
   };
-  console.log(startTime);
-  console.log(endTime);
 
-  return (
-    <div className={css.times}>
-      <span>{determineSource()}</span>
-      <span> 9/26/2020 8:30 PM</span>
-    </div>
-  );
+  return <div className={css.times}>{determineSource()}</div>;
 };
