@@ -2,17 +2,32 @@ import * as React from "react";
 import css from "./ImageBackground.module.scss";
 
 export const ImageBackground: React.FC<{
+  type: string;
+  image: string;
   source: string;
   alt: string;
   extended: boolean;
   handleRetract: () => void;
-}> = ({ source, alt, extended, handleRetract }) => {
+}> = ({ image, alt, extended, handleRetract, type, source }) => {
+  const determineImageRatio: () => { width: string; height: string } = () => {
+    switch (type) {
+      case "event":
+        return source === "yelp"
+          ? { width: "100%", height: "auto" }
+          : { width: "auto", height: "100%" };
+      case "place":
+        return { width: "100%", height: "auto" };
+
+      default:
+        return { width: "100%", height: "auto" };
+    }
+  };
   return (
     <div
       className={`${css.imgBackground} ${extended ? css.extended : null}`}
       onClick={handleRetract}
     >
-      <img src={source} alt={alt} />
+      <img src={image} alt={alt} style={determineImageRatio()} />
     </div>
   );
 };

@@ -1,5 +1,5 @@
 import { PriceAndType, Reviews, Phone, Location } from "./Parts/PlacesInfo";
-import { EventTimes } from "./Parts/EventsInfo";
+import { EventTimes, EventPriceVenue } from "./Parts/EventsInfo";
 import { ImageBackground } from "./Parts/ImageBackground";
 import * as React from "react";
 import css from "./ResultCard.module.scss";
@@ -88,6 +88,20 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
           </React.Fragment>
         );
       case "event":
+        const determinePrice: () =>
+          | { [key: string]: any }
+          | null
+          | string = () => {
+          switch (item.source) {
+            case "yelp":
+              if (!item.cost) return null;
+              return item.cost;
+            case "ticketmaster":
+              if (!item.priceRanges) return null;
+              return item.priceRanges[0];
+          }
+        };
+
         return (
           <React.Fragment>
             <div
@@ -105,6 +119,15 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
                 endTime={item.source === "yelp" ? item.time_end : null}
                 source={item.source}
               ></EventTimes>
+              <EventPriceVenue
+                venue={
+                  item.source === "yelp"
+                    ? item.business_id
+                    : item._embedded.venues[0].name
+                }
+                price={determinePrice()}
+                source={item.source}
+              ></EventPriceVenue>
             </div>
             {moreDetails("event")}
           </React.Fragment>
@@ -121,10 +144,12 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
       }
     >
       <ImageBackground
-        source={determineImageBackgroundSource()}
+        image={determineImageBackgroundSource()}
         alt={item.name}
         extended={state.moreInfo}
         handleRetract={handleRetract}
+        type={item.type}
+        source={item.source}
       ></ImageBackground>
 
       <button

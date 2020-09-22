@@ -22,7 +22,10 @@ export const EventTimes: React.FC<{
 
     //yelp start date
 
-    const yelpStartDate: string = yelpStartObject.toLocaleDateString();
+    const yelpStartDate: string = `${yelpStartObject.toLocaleDateString(
+      "en-US",
+      { weekday: "long" }
+    )} ${yelpStartObject.toLocaleDateString()}`;
 
     //yelp end time
 
@@ -39,13 +42,7 @@ export const EventTimes: React.FC<{
 
     const yelpEndDate: string = yelpEndObject.toLocaleDateString();
 
-    return (
-      <p>
-        {`From: ${yelpStartDate} ${yelpStartFormattedTime}`}
-        <br />
-        {`To: ${yelpEndDate} ${yelpEndFormattedTime}`}
-      </p>
-    );
+    return <p>{`${yelpStartDate} ${yelpStartFormattedTime}`}</p>;
   };
 
   const parseTicketMasterTime: () => JSX.Element = () => {
@@ -64,7 +61,10 @@ export const EventTimes: React.FC<{
 
     const ticketmasterStartFormattedTime: string = `${startWithoutSeconds} ${startAmPm}`;
 
-    const ticketmasterDate: string = ticketmasterStartObject.toLocaleDateString();
+    const ticketmasterDate: string = `${ticketmasterStartObject.toLocaleDateString(
+      "en-US",
+      { weekday: "long" }
+    )} ${ticketmasterStartObject.toLocaleDateString()}`;
 
     return <p>{`${ticketmasterDate} ${ticketmasterStartFormattedTime}`}</p>;
   };

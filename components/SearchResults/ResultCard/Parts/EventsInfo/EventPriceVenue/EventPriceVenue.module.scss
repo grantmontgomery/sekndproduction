@@ -1,0 +1,9 @@
+.eventPrice {
+  display: flex;
+  height: fit-content;
+  flex-flow: row nowrap;
+  & span {
+    color: white;
+    font-size: min(25px, 2vh);
+  }
+}

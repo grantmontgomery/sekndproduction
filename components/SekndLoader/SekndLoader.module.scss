@@ -1,0 +1,39 @@
+.loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  height: 35vh;
+  width: 35vh;
+  border-radius: 20vh;
+  border: solid 0.25vh black;
+  & svg {
+    display: block;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%);
+    width: 10vh;
+    height: auto;
+  }
+  & .sekndHand {
+    top: 50%;
+    transform-origin: left;
+    position: relative;
+    width: 40%;
+    margin-left: 50%;
+    margin-right: 0;
+    height: 0.2vh;
+    border-top: solid 0.2vh black;
+    animation: TikTok 4s infinite ease-out;
+  }
+}
+
+@keyframes TikTok {
+  0% {
+    transform: translate(0, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(0, -50%) rotate(360deg);
+  }
+}
