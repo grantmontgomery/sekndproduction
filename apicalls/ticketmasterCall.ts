@@ -35,6 +35,14 @@ export const ticketMasterCall: ({
       _embedded: { events },
     }: { _embedded: { events: { [key: string]: any }[] } } = responseJson;
 
+    events.forEach(
+      (event) => (
+        (event["source"] = "ticketmaster"),
+        (event["type"] = "event"),
+        (event["inParts"] = false)
+      )
+    );
+
     return events;
   } catch (err) {
     return err.message;
