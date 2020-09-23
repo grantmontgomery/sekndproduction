@@ -6,6 +6,8 @@
     color: white;
     font-size: min(25px, 2vh);
     width: fit-content;
+    white-space: nowrap;
+
     height: fit-content;
   }
   & .genre {

@@ -5,3 +5,4 @@ export {
   EventPriceGenre,
   EventDescription,
 } from "./EventsInfo";
+export { PartLink } from "./PartLink";

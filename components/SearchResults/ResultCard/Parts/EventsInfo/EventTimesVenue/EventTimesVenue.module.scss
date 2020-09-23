@@ -12,6 +12,7 @@
     margin-top: 0;
     font-size: min(25px, 2vh);
     font-weight: 600;
+    white-space: nowrap;
     margin-bottom: 0;
   }
   & .venue {
@@ -21,5 +22,8 @@
     font-weight: 600;
     color: white;
     width: fit-content;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
