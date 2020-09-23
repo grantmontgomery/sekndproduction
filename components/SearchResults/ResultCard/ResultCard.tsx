@@ -1,5 +1,5 @@
 import { PriceAndType, Reviews, Phone, Location } from "./Parts/PlacesInfo";
-import { EventTimes, EventPriceVenue } from "./Parts/EventsInfo";
+import { EventTimesVenue, EventPriceGenre } from "./Parts/EventsInfo";
 import { ImageBackground } from "./Parts/ImageBackground";
 import * as React from "react";
 import css from "./ResultCard.module.scss";
@@ -102,6 +102,21 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
           }
         };
 
+        const determineVenue: () => string | null = () => {
+          switch (item.source) {
+            case "yelp":
+              return !item.businesess_id || item.business_id === null
+                ? null
+                : item.business_id;
+            case "ticketmaster":
+              return item._embedded.venues[0].name;
+          }
+        };
+
+        const ticketmasterClassification: () => any | null = () => {
+          return item.classifications ? item.classifications : null;
+        };
+
         return (
           <React.Fragment>
             <div
@@ -110,7 +125,7 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
               }`}
             >
               <span className={css.title}>{item.name}</span>
-              <EventTimes
+              <EventTimesVenue
                 startTime={
                   item.source === "yelp"
                     ? item.time_start
@@ -118,8 +133,9 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
                 }
                 endTime={item.source === "yelp" ? item.time_end : null}
                 source={item.source}
-              ></EventTimes>
-              <EventPriceVenue
+                venue={determineVenue()}
+              ></EventTimesVenue>
+              <EventPriceGenre
                 venue={
                   item.source === "yelp"
                     ? item.business_id
@@ -127,7 +143,12 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
                 }
                 price={determinePrice()}
                 source={item.source}
-              ></EventPriceVenue>
+                genre={
+                  item.source === "yelp"
+                    ? item.category
+                    : ticketmasterClassification()
+                }
+              ></EventPriceGenre>
             </div>
             {moreDetails("event")}
           </React.Fragment>

@@ -5,5 +5,10 @@
   & span {
     color: white;
     font-size: min(25px, 2vh);
+    width: fit-content;
+    height: fit-content;
+  }
+  & .genre {
+    margin-left: 1vw;
   }
 }

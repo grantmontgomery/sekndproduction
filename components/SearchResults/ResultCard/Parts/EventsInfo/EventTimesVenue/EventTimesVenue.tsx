@@ -1,11 +1,12 @@
 import * as React from "react";
-import css from "./EventTimes.module.scss";
+import css from "./EventTimesVenue.module.scss";
 
-export const EventTimes: React.FC<{
+export const EventTimesVenue: React.FC<{
   startTime: string;
   endTime: string | null;
   source: string;
-}> = ({ startTime, endTime, source }) => {
+  venue: string | null;
+}> = ({ startTime, endTime, source, venue }) => {
   const parseYelpTimes: () => JSX.Element = () => {
     const yelpStartObject: Date = new Date(startTime);
     const yelpEndObject: Date = new Date(endTime);

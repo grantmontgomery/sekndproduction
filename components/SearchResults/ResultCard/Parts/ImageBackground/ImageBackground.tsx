@@ -27,7 +27,7 @@ export const ImageBackground: React.FC<{
       className={`${css.imgBackground} ${extended ? css.extended : null}`}
       onClick={handleRetract}
     >
-      <img src={image} alt={alt} style={determineImageRatio()} />
+      <img src={image} alt={alt} />
     </div>
   );
 };
