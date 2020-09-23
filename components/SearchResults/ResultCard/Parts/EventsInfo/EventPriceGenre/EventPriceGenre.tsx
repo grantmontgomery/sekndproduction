@@ -27,7 +27,7 @@ export const EventPriceGenre: React.FC<{
     }
   };
 
-  const setVenue: () => JSX.Element | null = () => {
+  const setGenre: () => JSX.Element | null = () => {
     if (source === "yelp") {
       if (genre.indexOf("-") !== -1 || genre.indexOf(" ") !== -1) {
         const characterSplit: string = genre.indexOf(" ") !== -1 ? " " : "-";
@@ -59,7 +59,7 @@ export const EventPriceGenre: React.FC<{
   return (
     <div className={css.eventPrice}>
       <span>{parsePrice()}</span>
-      {setVenue()}
+      {setGenre()}
     </div>
   );
 };

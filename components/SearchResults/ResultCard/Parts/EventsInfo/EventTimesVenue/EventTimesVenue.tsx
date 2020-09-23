@@ -1,3 +1,4 @@
+import { createSecureServer } from "http2";
 import * as React from "react";
 import css from "./EventTimesVenue.module.scss";
 
@@ -7,6 +8,9 @@ export const EventTimesVenue: React.FC<{
   source: string;
   venue: string | null;
 }> = ({ startTime, endTime, source, venue }) => {
+  const displayVenue: () => JSX.Element | null = () => {
+    return venue ? <span className={css.venue}>{`• ${venue}`}</span> : null;
+  };
   const parseYelpTimes: () => JSX.Element = () => {
     const yelpStartObject: Date = new Date(startTime);
     const yelpEndObject: Date = new Date(endTime);
@@ -74,5 +78,10 @@ export const EventTimesVenue: React.FC<{
     return source === "yelp" ? parseYelpTimes() : parseTicketMasterTime();
   };
 
-  return <div className={css.times}>{determineSource()}</div>;
+  return (
+    <div className={css.times}>
+      {determineSource()}
+      {displayVenue()}
+    </div>
+  );
 };
