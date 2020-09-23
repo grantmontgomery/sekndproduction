@@ -11,12 +11,20 @@
     height: 50%;
   }
   & img {
-    width: 100%;
-    height: auto;
     position: relative;
     display: block;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    width: 100%;
+    height: auto;
+    // &.byWidth {
+    //   width: 100%;
+    //   height: auto;
+    // }
+    // &.byHeight {
+    //   width: auto;
+    //   height: 100%;
+    // }
   }
 }

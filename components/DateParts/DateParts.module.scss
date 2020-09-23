@@ -38,7 +38,7 @@
       & .colorInput {
         grid-area: color;
         display: flex;
-        width: max(100%, 300px);
+        width: min(100%, 300px);
         position: relative;
         height: fit-content;
         top: 50%;
@@ -149,7 +149,7 @@
         }
         & .colorInput {
           display: flex;
-          width: 100%;
+          width: max(100%, 300px);
           flex-flow: row nowrap;
           justify-content: space-between;
           & button {

@@ -1,7 +1,7 @@
 .resultCard {
   height: 25vh;
   background: black;
-  width: min(min(90%, 500px), 350px);
+  width: min(min(100%, 500px), 350px);
   margin-top: 2vh;
   border-radius: 3vh;
   padding: 5%;
@@ -57,23 +57,6 @@
     flex-flow: column nowrap;
     transform: translate(-50%);
     bottom: 0;
-    & .link {
-      height: fit-content;
-      display: block;
-      top: 50%;
-      transform: translate(0, -50%);
-      float: right;
-      width: fit-content;
-      right: 5%;
-      position: absolute;
-      & svg {
-        height: 5vh;
-        width: auto;
-        display: block;
-        fill: white;
-        position: relative;
-      }
-    }
   }
 
   & button {

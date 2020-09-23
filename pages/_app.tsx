@@ -3,6 +3,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker.min.css";
 import { PageTransition } from "next-page-transitions";
 import { SekndLoader } from "../components";
+import { PartsProvider } from "../state/DatePartsContext";
 
 import { Component } from "react";
 
@@ -17,7 +18,9 @@ function MyApp({ Component, pageProps }) {
         exit: 0,
       }}
     >
-      <Component {...pageProps} />
+      <PartsProvider>
+        <Component {...pageProps} />
+      </PartsProvider>
     </PageTransition>
   );
 }

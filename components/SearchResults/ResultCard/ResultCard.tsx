@@ -131,7 +131,7 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
                 startTime={
                   item.source === "yelp"
                     ? item.time_start
-                    : `${item.dates.start.localDate}T${item.dates.start.localTime}Z`
+                    : `${item.dates.start.localDate}T${item.dates.start.localTime}`
                 }
                 endTime={item.source === "yelp" ? item.time_end : null}
                 source={item.source}

@@ -9,18 +9,22 @@ export const ImageBackground: React.FC<{
   extended: boolean;
   handleRetract: () => void;
 }> = ({ image, alt, extended, handleRetract, type, source }) => {
-  const determineImageRatio: () => { width: string; height: string } = () => {
-    switch (type) {
-      case "event":
-        return source === "yelp"
-          ? { width: "100%", height: "auto" }
-          : { width: "auto", height: "100%" };
-      case "place":
-        return { width: "100%", height: "auto" };
+  // const determineImageRatio: () => { width: string; height: string } = () => {
+  //   switch (type) {
+  //     case "event":
+  //       return source === "yelp"
+  //         ? { width: "100%", height: "auto" }
+  //         : { width: "auto", height: "100%" };
+  //     case "place":
+  //       return { width: "100%", height: "auto" };
 
-      default:
-        return { width: "100%", height: "auto" };
-    }
+  //     default:
+  //       return { width: "100%", height: "auto" };
+  //   }
+  // };
+
+  const determineImageRatio: () => string = () => {
+    return source === "yelp" ? css.byWidth : css.byWidth;
   };
   return (
     <div
