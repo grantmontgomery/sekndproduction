@@ -1,5 +1,9 @@
 import { PriceAndType, Reviews, Phone, Location } from "./Parts/PlacesInfo";
-import { EventTimesVenue, EventPriceGenre } from "./Parts/EventsInfo";
+import {
+  EventTimesVenue,
+  EventPriceGenre,
+  EventDescription,
+} from "./Parts/EventsInfo";
 import { ImageBackground } from "./Parts/ImageBackground";
 import * as React from "react";
 import css from "./ResultCard.module.scss";
@@ -51,7 +55,11 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
           </div>
         );
       case "events":
-        return <div className={css.detailsWrapper}></div>;
+        return (
+          <div className={css.detailsWrapper}>
+            <EventDescription description={item.description}></EventDescription>
+          </div>
+        );
       default:
         return <div className={css.detailsWrapper}></div>;
     }
