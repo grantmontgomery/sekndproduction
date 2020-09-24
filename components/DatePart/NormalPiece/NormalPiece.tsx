@@ -19,6 +19,9 @@ export const NormalPiece: React.FC<{ part: { [key: string]: any } }> = ({
   return (
     <div className={css.normalPiece}>
       <PartImage image={determineImageBackgroundSource()}></PartImage>
+      <div className={css.partTitle}>
+        <span>{part.name}</span>
+      </div>
     </div>
   );
 };

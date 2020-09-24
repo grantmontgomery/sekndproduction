@@ -9,10 +9,25 @@
     position: relative;
     display: block;
     top: 50%;
-    margin-left: auto;
-    margin-right: auto;
+    left: 50%;
     transform: translate(-50%, -50%);
+    width: auto;
+    height: 100%;
+  }
+  & .filter {
+    z-index: 2;
     width: 100%;
-    height: auto;
+    position: absolute;
+    height: 100%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    background: linear-gradient(
+      to right,
+      transparent,
+      transparent,
+      transparent,
+      black
+    );
   }
 }
