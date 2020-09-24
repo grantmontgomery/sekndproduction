@@ -19,6 +19,17 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
 }) => {
   const [state, setState] = React.useState({ added: false, moreInfo: false });
 
+  const GlobalParts = usePartsState();
+
+  console.log(`rerender ${item.name}`);
+
+  React.useLayoutEffect(() => {
+    for (let i = 0; i < GlobalParts.parts.length; i++) {
+      if (GlobalParts.parts[i].id === item.id)
+        setState((state) => ({ ...state, added: true }));
+    }
+  }, []);
+
   const determineImageBackgroundSource: () => string = () => {
     switch (item.type) {
       case "place":
