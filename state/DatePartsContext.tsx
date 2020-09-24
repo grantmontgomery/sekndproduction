@@ -16,7 +16,7 @@ const partsReducer: React.Reducer<PartsState, Action> = (
       return { parts: [...state.parts, action.payload.part] };
     case "REMOVE_PART":
       return {
-        parts: state.parts.filter((part) => part.id === action.payload.id),
+        parts: state.parts.filter((part) => part.id !== action.payload.id),
       };
     default:
       return state;

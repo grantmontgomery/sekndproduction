@@ -7,6 +7,11 @@ import {
 import { PartLink } from "./Parts/PartLink";
 import { ImageBackground } from "./Parts/ImageBackground";
 import * as React from "react";
+import {
+  PartsProvider,
+  usePartsDispatch,
+  usePartsState,
+} from "../../../state/DatePartsContext";
 import css from "./ResultCard.module.scss";
 
 export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
@@ -157,6 +162,26 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
         );
     }
   };
+
+  const dispatch: React.Dispatch<{
+    type: string;
+    payload: { id?: string; part?: { [key: string]: any } };
+  }> = usePartsDispatch();
+
+  const handlePart: () => void = () => {
+    if (state.added) {
+      return (
+        setState((state) => ({ ...state, added: false })),
+        dispatch({ type: "REMOVE_PART", payload: { id: item.id } })
+      );
+    } else {
+      return (
+        setState((state) => ({ ...state, added: true })),
+        dispatch({ type: "ADD_PART", payload: { part: item } })
+      );
+    }
+  };
+
   return (
     <div
       className={`${css.resultCard} ${state.moreInfo ? css.extended : null}`}
@@ -177,12 +202,7 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
 
       <button
         className={`${css.addButton} ${state.added ? css.remove : null}`}
-        onClick={(event) => (
-          event.stopPropagation(),
-          state.added
-            ? setState((state) => ({ ...state, added: false }))
-            : setState((state) => ({ ...state, added: true }))
-        )}
+        onClick={(event) => (event.stopPropagation(), handlePart())}
       >
         {state.added ? "Remove from Parts -" : "Add to Parts +"}
       </button>
