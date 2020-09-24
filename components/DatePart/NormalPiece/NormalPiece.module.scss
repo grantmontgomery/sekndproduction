@@ -1,0 +1,10 @@
+.normalPiece {
+  height: 5vh;
+  width: 100%;
+  margin-top: 1vh;
+  border: solid 1px black;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: calc(100% / 3) calc(200% / 3);
+  grid-template-areas: "image title";
+}

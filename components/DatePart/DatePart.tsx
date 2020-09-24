@@ -1,5 +1,6 @@
 import * as React from "react";
-import css from "./DatePart.module.scss";
+import { NormalPiece } from "./NormalPiece";
+import { DragPiece } from "./DragPiece";
 
 type Props = {
   location: string;
@@ -7,13 +8,14 @@ type Props = {
   index: number;
 };
 
-export const DatePartsPiece = ({
-  location,
-  part,
-  index,
-}: React.PropsWithChildren<Props>) =>
-  void {
-    switch(location) {
-      return <div></div>;
-    },
-  };
+export const DatePart: React.FC<{
+  location: string;
+  part: { [key: string]: any };
+  gridIndex: number | null;
+}> = ({ location, part, gridIndex }) => {
+  return location === "list" ? (
+    <NormalPiece part={part}></NormalPiece>
+  ) : (
+    <DragPiece></DragPiece>
+  );
+};

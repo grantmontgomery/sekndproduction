@@ -1,1 +1,1 @@
-export { DatePartsPiece } from "./DatePart";
+export { DatePart } from "./DatePart";

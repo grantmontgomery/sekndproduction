@@ -188,7 +188,10 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
     } else {
       return (
         setState((state) => ({ ...state, added: true })),
-        dispatch({ type: "ADD_PART", payload: { part: item } })
+        dispatch({
+          type: "ADD_PART",
+          payload: { part: { ...item, gridIndex: null } },
+        })
       );
     }
   };

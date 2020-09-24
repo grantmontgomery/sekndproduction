@@ -1,0 +1,1 @@
+export { PartImage } from "./PartImage";
