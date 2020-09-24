@@ -1,10 +1,12 @@
 import * as React from "react";
 import css from "./NormalPiece.module.scss";
+import { usePartsDispatch } from "../../../state/DatePartsContext";
 import { PartImage } from "./PartImage";
 
 export const NormalPiece: React.FC<{ part: { [key: string]: any } }> = ({
   part,
 }) => {
+  const dispatch = usePartsDispatch();
   const determineImageBackgroundSource: () => string = () => {
     switch (part.type) {
       case "place":
@@ -24,6 +26,14 @@ export const NormalPiece: React.FC<{ part: { [key: string]: any } }> = ({
       ></PartImage>
       <div className={css.partTitle}>
         <span>{part.name}</span>
+        <button
+          className={css.delete}
+          onClick={() =>
+            dispatch({ type: "REMOVE_PART", payload: { id: part.id } })
+          }
+        >
+          X
+        </button>
       </div>
     </div>
   );

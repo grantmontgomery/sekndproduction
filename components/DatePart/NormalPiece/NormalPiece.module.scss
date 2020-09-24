@@ -4,11 +4,11 @@
   margin-top: 1vh;
   overflow: hidden;
   border-radius: 2vh;
-  border: solid 1px black;
   display: grid;
   grid-template-rows: 100%;
   grid-template-columns: calc(100% / 3) calc(200% / 3);
   grid-template-areas: "image title";
+  box-shadow: 0 0.5vh 0.5vh #00000080;
   & .partTitle {
     grid-area: title;
     width: 101%;
@@ -29,5 +29,18 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
+  }
+  & .delete {
+    position: absolute;
+    height: 4vh;
+    width: 4vh;
+    display: block;
+    top: 5%;
+    right: 5%;
+    background: linear-gradient(0.25turn, #f24236, #ad160b);
+    border-radius: 4vh;
+    color: white;
+    border-style: none;
+    box-shadow: 0 1vh 2vh #00000080;
   }
 }

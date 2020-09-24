@@ -23,12 +23,15 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
 
   console.log(`rerender ${item.name}`);
 
-  React.useLayoutEffect(() => {
+  React.useEffect(() => {
     for (let i = 0; i < GlobalParts.parts.length; i++) {
       if (GlobalParts.parts[i].id === item.id)
         setState((state) => ({ ...state, added: true }));
+      else {
+        setState((state) => ({ ...state, added: false }));
+      }
     }
-  }, []);
+  }, [GlobalParts]);
 
   const determineImageBackgroundSource: () => string = () => {
     switch (item.type) {
