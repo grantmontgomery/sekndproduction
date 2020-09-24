@@ -13,7 +13,9 @@ const partsReducer: React.Reducer<PartsState, Action> = (
 ) => {
   switch (action.type) {
     case "ADD_PART":
-      return { parts: [...state.parts, action.payload.part] };
+      return state.parts.length < 7
+        ? { parts: [...state.parts, action.payload.part] }
+        : null;
     case "REMOVE_PART":
       return {
         parts: state.parts.filter((part) => part.id !== action.payload.id),

@@ -186,13 +186,13 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
         dispatch({ type: "REMOVE_PART", payload: { id: item.id } })
       );
     } else {
-      return (
-        setState((state) => ({ ...state, added: true })),
-        dispatch({
-          type: "ADD_PART",
-          payload: { part: { ...item, gridIndex: null } },
-        })
-      );
+      return GlobalParts.parts.length < 7
+        ? (setState((state) => ({ ...state, added: true })),
+          dispatch({
+            type: "ADD_PART",
+            payload: { part: { ...item, gridIndex: null } },
+          }))
+        : null;
     }
   };
 
