@@ -10,6 +10,14 @@
   grid-template-columns: calc(100% / 3) calc(200% / 3);
   grid-template-areas: "image title";
   // box-shadow: 0 0.5vh 1vh #00000080;
+  transition: 250ms ease-out;
+
+  &.extended {
+    height: 20vh;
+    transition: 250ms ease-out;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: "image title" ". .";
+  }
   & .partTitle {
     grid-area: title;
     width: 101%;

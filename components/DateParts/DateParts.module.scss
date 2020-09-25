@@ -31,6 +31,7 @@
         display: block;
         font-size: 2.75vh;
         height: fit-content;
+        font-weight: bold;
         top: 50%;
         position: relative;
         transform: translate(0, -50%);
@@ -93,6 +94,7 @@
         width: 90%;
         font-weight: bold;
         border-style: none;
+        transition: background-color 1s ease-out;
         margin-left: auto;
         border-radius: 1vh;
         outline: none;
