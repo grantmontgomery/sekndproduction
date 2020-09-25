@@ -26,6 +26,9 @@ export const ImageBackground: React.FC<{
   const determineImageRatio: () => string = () => {
     return source === "yelp" ? css.byWidth : css.byWidth;
   };
+
+  const imageObj = new Image();
+  imageObj.src(image.src);
   return (
     <div
       className={`${css.imgBackground} ${extended ? css.extended : null}`}
