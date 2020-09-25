@@ -52,6 +52,21 @@
           padding: 0;
           border-radius: 100%;
           width: max(20px, 3.5vh);
+          &:first-child {
+            background: linear-gradient(45deg, #155799, #159957);
+          }
+          &:nth-child(2) {
+            background: linear-gradient(45deg, #ee0979, #ff6a00);
+          }
+          &:nth-child(3) {
+            background: linear-gradient(45deg, #799f0c, #ffe000);
+          }
+          &:nth-child(4) {
+            background: linear-gradient(45deg, #333399, #ff00cc);
+          }
+          &:last-child {
+            background: linear-gradient(45deg, #0f2027, #2c5364);
+          }
         }
       }
       & .partInput {
@@ -76,13 +91,17 @@
         top: 50%;
         transform: translate(0, -50%);
         width: 90%;
+        font-weight: bold;
+        border-style: none;
         margin-left: auto;
+        border-radius: 1vh;
+        outline: none;
         cursor: pointer;
         margin-right: auto;
         position: relative;
         text-align: center;
         align-content: center;
-        font-size: 1.75vh;
+        font-size: 2vh;
       }
     }
     & .partsList {
