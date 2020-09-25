@@ -10,6 +10,7 @@
   overflow: hidden;
   transition: 250ms ease-out;
   margin-left: auto;
+  box-shadow: 0 0.5vh 1vh rgb(100, 100, 100);
   &.extended {
     height: 50vh;
   }
@@ -101,3 +102,10 @@
 
 @media (orientation: landscape) {
 }
+//event
+// #ee0979
+// #ff6a00
+
+//place
+// #159957
+//#155799
