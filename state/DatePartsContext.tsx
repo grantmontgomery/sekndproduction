@@ -5,7 +5,7 @@ type PartsState = {
 };
 type Action = {
   type: string;
-  payload: { id?: string; part?: { [key: string]: any } };
+  payload: { id?: string; part?: { [key: string]: any }; details?: string };
 };
 const partsReducer: React.Reducer<PartsState, Action> = (
   state: PartsState,
@@ -19,6 +19,14 @@ const partsReducer: React.Reducer<PartsState, Action> = (
     case "REMOVE_PART":
       return {
         parts: state.parts.filter((part) => part.id !== action.payload.id),
+      };
+    case "CHANGE_CUSTOM_DETAIL":
+      return {
+        parts: state.parts.map((part) => {
+          if (part.id !== action.payload.id) return part;
+
+          return { ...part, details: action.payload.details };
+        }),
       };
     default:
       return state;

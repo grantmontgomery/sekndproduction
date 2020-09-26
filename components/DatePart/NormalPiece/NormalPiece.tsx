@@ -1,5 +1,6 @@
 import * as React from "react";
 import css from "./NormalPiece.module.scss";
+import { DetailsSection } from "./DetailsSection";
 import { usePartsDispatch } from "../../../state/DatePartsContext";
 import { PartImage } from "./PartImage";
 
@@ -18,6 +19,21 @@ export const NormalPiece: React.FC<{ part: { [key: string]: any } }> = ({
         return part.source === "yelp" ? part.image_url : part.images[0].url;
       default:
         return "";
+    }
+  };
+
+  const determinePartDetails: () => JSX.Element = () => {
+    switch (part.type) {
+      case "custom":
+        return (
+          <DetailsSection id={part.id} details={part.details}></DetailsSection>
+        );
+      case "event":
+        return;
+      case "place":
+        return;
+      default:
+        return null;
     }
   };
 
@@ -42,6 +58,7 @@ export const NormalPiece: React.FC<{ part: { [key: string]: any } }> = ({
           X
         </button>
       </div>
+      {state.extend ? determinePartDetails() : null}
     </div>
   );
 };

@@ -6,7 +6,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
   const { parts } = usePartsState();
   const [state, setState] = React.useState<{ input: string; color: string }>({
     input: "",
-    color: "linear-gradient(45deg, #155799, #159957)",
+    color: "linear-gradient(45deg, #ee0979, #ff6a00)",
   });
 
   const dispatch = usePartsDispatch();
@@ -17,7 +17,12 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
       dispatch({
         type: "ADD_PART",
         payload: {
-          part: { name: state.input, color: state.color, type: "custom" },
+          part: {
+            name: state.input,
+            color: state.color,
+            type: "custom",
+            details: "",
+          },
         },
       }),
       setState((state) => ({ ...state, input: "" }))

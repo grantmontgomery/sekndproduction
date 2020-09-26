@@ -54,13 +54,13 @@
           border-radius: 100%;
           width: max(20px, 3.5vh);
           &:first-child {
-            background: linear-gradient(45deg, #155799, #159957);
+            background: linear-gradient(45deg, #799f0c, #ffe000);
           }
           &:nth-child(2) {
-            background: linear-gradient(45deg, #ee0979, #ff6a00);
+            background: linear-gradient(45deg, #155799, #159957);
           }
           &:nth-child(3) {
-            background: linear-gradient(45deg, #799f0c, #ffe000);
+            background: linear-gradient(45deg, #ee0979, #ff6a00);
           }
           &:nth-child(4) {
             background: linear-gradient(45deg, #333399, #ff00cc);

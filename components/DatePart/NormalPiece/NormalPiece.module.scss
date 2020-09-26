@@ -16,7 +16,7 @@
     height: 20vh;
     transition: 250ms ease-out;
     grid-template-rows: 50% 50%;
-    grid-template-areas: "image title" ". .";
+    grid-template-areas: "image title" "details details";
   }
   & .partTitle {
     grid-area: title;
