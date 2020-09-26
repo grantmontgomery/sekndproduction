@@ -29,7 +29,37 @@ export const NormalPiece: React.FC<{ part: { [key: string]: any } }> = ({
           <DetailsSection id={part.id} details={part.details}></DetailsSection>
         );
       case "event":
-        return;
+        const determineVenue: () => string | null = () => {
+          switch (part.source) {
+            case "yelp":
+              return !part.businesess_id || part.business_id === null
+                ? null
+                : part.business_id;
+            case "ticketmaster":
+              return part._embedded.venues[0].name;
+          }
+        };
+
+        const determinePrice: () =>
+          | { [key: string]: any }
+          | null
+          | string = () => {
+          switch (part.source) {
+            case "yelp":
+              if (!part.cost) return null;
+              return part.cost;
+            case "ticketmaster":
+              if (!part.priceRanges) return null;
+              return part.priceRanges[0];
+          }
+        };
+
+        return (
+          <DetailsSection
+            location={determineVenue()}
+            // price={determinePrice()}
+          ></DetailsSection>
+        );
       case "place":
         return;
       default:

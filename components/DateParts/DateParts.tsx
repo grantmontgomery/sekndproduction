@@ -48,6 +48,14 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
               onClick={() =>
                 setState((state) => ({
                   ...state,
+                  color: "linear-gradient(45deg, #799f0c, #ffe000)",
+                }))
+              }
+            ></button>
+            <button
+              onClick={() =>
+                setState((state) => ({
+                  ...state,
                   color: "linear-gradient(45deg, #155799, #159957)",
                 }))
               }
@@ -64,15 +72,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
               onClick={() =>
                 setState((state) => ({
                   ...state,
-                  color: "linear-gradient(45deg, #799f0c, #ffe000)",
-                }))
-              }
-            ></button>
-            <button
-              onClick={() =>
-                setState((state) => ({
-                  ...state,
-                  color: "linear-gradient(45deg, #333399, #ff00cc)",
+                  color: " linear-gradient(45deg, #333399, #ff00cc)",
                 }))
               }
             ></button>

@@ -8,7 +8,7 @@ import css from "./DetailsSection.module.scss";
 export const DetailsSection: React.FC<{
   id?: string;
   location?: string;
-  price?: string;
+  price?: string | number;
   date?: string;
   details?: string;
 }> = ({ location, price, date, id, details }) => {
@@ -19,6 +19,7 @@ export const DetailsSection: React.FC<{
         <textarea
           className={css.customDetails}
           value={details}
+          placeholder={details === "" ? "Enter in some details" : details}
           onChange={({ target }) =>
             dispatch({
               type: "CHANGE_CUSTOM_DETAIL",
