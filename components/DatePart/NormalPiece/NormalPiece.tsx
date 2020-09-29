@@ -7,8 +7,12 @@ import { PartImage } from "./PartImage";
 export const NormalPiece: React.FC<{ part: { [key: string]: any } }> = ({
   part,
 }) => {
-  const [state, setState] = React.useState<{ extend: boolean }>({
+  const [state, setState] = React.useState<{
+    extend: boolean;
+    imageLoaded: boolean;
+  }>({
     extend: false,
+    imageLoaded: false,
   });
   const dispatch = usePartsDispatch();
   const determineImageBackgroundSource: () => string = () => {
@@ -70,13 +74,19 @@ export const NormalPiece: React.FC<{ part: { [key: string]: any } }> = ({
   return (
     <div
       className={`${css.normalPiece} ${state.extend ? css.extended : null}`}
-      onClick={() => setState({ extend: true })}
+      onClick={() => setState((state) => ({ ...state, extend: true }))}
     >
       <PartImage
         type={part.type}
         color={part.type === "custom" ? part.color : null}
-        image={determineImageBackgroundSource()}
-      ></PartImage>
+        imageLoaded={state.imageLoaded}
+      >
+        <img
+          src={determineImageBackgroundSource()}
+          alt=""
+          onLoad={() => setState((state) => ({ ...state, imageLoaded: true }))}
+        />
+      </PartImage>
       <div className={css.partTitle}>
         <span>{part.name}</span>
         <button

@@ -2,16 +2,21 @@ import * as React from "react";
 import css from "./PartImage.module.scss";
 
 export const PartImage: React.FC<{
-  image: string;
   type: string;
   color?: string;
-}> = ({ image, type, color }) => {
+  imageLoaded: boolean;
+}> = ({ type, color, imageLoaded, children }) => {
   return (
     <div
       className={css.partImage}
-      style={{ background: `${color ? color : null}` }}
+      style={{
+        background:
+          color || imageLoaded
+            ? color
+            : "linear-gradient(45deg, #ee0979, #ff6a00)",
+      }}
     >
-      {type !== "custom" ? <img src={image} alt="" /> : null}
+      {type !== "custom" || !imageLoaded ? children : null}
     </div>
   );
 };
