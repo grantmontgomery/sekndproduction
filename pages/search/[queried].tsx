@@ -5,16 +5,19 @@ import {
   yelpEventsCall,
   ticketMasterCall,
 } from "../../apicalls";
+import { useRouter } from "next/router";
 import css from "../../styles/Queried.module.scss";
 
 export default function Queried({
   results: { items, errors },
   searchType,
 }): JSX.Element {
-  const [state, setState] = React.useState({ resultsType: "Events" });
+  const [state, setState] = React.useState({ resultsType: "" });
+
+  const router = useRouter();
+  console.log(router);
 
   console.log(items);
-  console.log(errors);
 
   const determineItems: () => JSX.Element | null = () => {
     if (!items) return null;
