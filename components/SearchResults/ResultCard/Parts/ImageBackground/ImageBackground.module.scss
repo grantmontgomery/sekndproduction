@@ -6,9 +6,16 @@
   overflow: hidden;
   top: 0;
   left: 50%;
+  transition: opacity 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   transform: translate(-50%);
   &.extended {
     height: 50%;
+  }
+  &.loaded {
+    opacity: 1;
+  }
+  &.loading {
+    opacity: 0;
   }
   & img {
     position: relative;

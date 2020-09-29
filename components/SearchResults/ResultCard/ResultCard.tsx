@@ -17,7 +17,11 @@ import css from "./ResultCard.module.scss";
 export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
   item,
 }) => {
-  const [state, setState] = React.useState({ added: false, moreInfo: false });
+  const [state, setState] = React.useState<{
+    added: boolean;
+    moreInfo: boolean;
+    imageLoaded: boolean;
+  }>({ added: false, moreInfo: false, imageLoaded: false });
 
   const GlobalParts = usePartsState();
 
@@ -207,13 +211,18 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
       }
     >
       <ImageBackground
-        image={determineImageBackgroundSource()}
-        alt={item.name}
+        imageLoaded={state.imageLoaded}
         extended={state.moreInfo}
         handleRetract={handleRetract}
         type={item.type}
         source={item.source}
-      ></ImageBackground>
+      >
+        <img
+          src={determineImageBackgroundSource()}
+          alt={item.name}
+          onLoad={() => setState({ ...state, imageLoaded: true })}
+        />
+      </ImageBackground>
 
       <button
         className={`${css.addButton} ${state.added ? css.remove : null}`}

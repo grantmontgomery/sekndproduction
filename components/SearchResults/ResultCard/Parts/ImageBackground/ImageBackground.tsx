@@ -3,12 +3,15 @@ import css from "./ImageBackground.module.scss";
 
 export const ImageBackground: React.FC<{
   type: string;
-  image: string;
   source: string;
-  alt: string;
   extended: boolean;
+  imageLoaded: boolean;
   handleRetract: () => void;
-}> = ({ image, alt, extended, handleRetract, type, source }) => {
+}> = ({ extended, imageLoaded, handleRetract, type, source, children }) => {
+  const [state, setState] = React.useState<{ loaded: boolean }>({
+    loaded: false,
+  });
+
   // const determineImageRatio: () => { width: string; height: string } = () => {
   //   switch (type) {
   //     case "event":
@@ -29,10 +32,12 @@ export const ImageBackground: React.FC<{
 
   return (
     <div
-      className={`${css.imgBackground} ${extended ? css.extended : null}`}
+      className={`${css.imgBackground} ${extended ? css.extended : null} ${
+        imageLoaded ? css.loaded : css.loading
+      }`}
       onClick={handleRetract}
     >
-      <img src={image} alt={alt} />
+      {children}
     </div>
   );
 };
