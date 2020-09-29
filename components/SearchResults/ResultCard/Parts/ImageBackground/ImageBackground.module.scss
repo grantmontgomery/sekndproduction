@@ -11,12 +11,7 @@
   &.extended {
     height: 50%;
   }
-  &.loaded {
-    opacity: 1;
-  }
-  &.loading {
-    opacity: 0;
-  }
+
   & img {
     position: relative;
     display: block;

@@ -5,12 +5,11 @@ export const ImageBackground: React.FC<{
   type: string;
   source: string;
   extended: boolean;
-  imageLoaded: boolean;
   handleRetract: () => void;
-}> = ({ extended, imageLoaded, handleRetract, type, source, children }) => {
-  const [state, setState] = React.useState<{ loaded: boolean }>({
-    loaded: false,
-  });
+}> = ({ extended, handleRetract, type, source, children }) => {
+  // const [state, setState] = React.useState<{ loaded: boolean }>({
+  //   loaded: false,
+  // });
 
   // const determineImageRatio: () => { width: string; height: string } = () => {
   //   switch (type) {
@@ -32,9 +31,7 @@ export const ImageBackground: React.FC<{
 
   return (
     <div
-      className={`${css.imgBackground} ${extended ? css.extended : null} ${
-        imageLoaded ? css.loaded : css.loading
-      }`}
+      className={`${css.imgBackground} ${extended ? css.extended : null}`}
       onClick={handleRetract}
     >
       {children}

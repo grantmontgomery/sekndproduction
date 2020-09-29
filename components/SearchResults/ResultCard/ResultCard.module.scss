@@ -14,6 +14,12 @@
   &.extended {
     height: 50vh;
   }
+  &.loaded {
+    opacity: 1;
+  }
+  &.loading {
+    opacity: 0;
+  }
 
   & .infoBar {
     display: flex;

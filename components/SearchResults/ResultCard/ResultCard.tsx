@@ -203,7 +203,9 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
 
   return (
     <div
-      className={`${css.resultCard} ${state.moreInfo ? css.extended : null}`}
+      className={`${css.resultCard} ${state.moreInfo ? css.extended : null} ${
+        state.imageLoaded ? css.loaded : css.loading
+      }`}
       onClick={() =>
         state.moreInfo
           ? null
@@ -211,7 +213,6 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
       }
     >
       <ImageBackground
-        imageLoaded={state.imageLoaded}
         extended={state.moreInfo}
         handleRetract={handleRetract}
         type={item.type}
