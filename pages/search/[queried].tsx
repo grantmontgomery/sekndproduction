@@ -5,14 +5,120 @@ import {
   yelpEventsCall,
   ticketMasterCall,
 } from "../../apicalls";
-import { useRouter } from "next/router";
+import { NextRouter, useRouter } from "next/router";
 import css from "../../styles/Queried.module.scss";
 
-export default function Queried(): JSX.Element {
-  const [state, setState] = React.useState({ resultsType: "" });
+type Results = {
+  items: { [key: string]: any }[];
+  errors: { yelpPlaces: string; yelpEvents: string; ticketmaster: string };
+};
 
-  const router = useRouter();
-  console.log(router);
+type APIResponse = Promise<{ [key: string]: any }[] | string>;
+
+type SearchParams = { [key: string]: any };
+
+export default function Queried(): JSX.Element {
+  const [state, setState] = React.useState<{ resultsType: string }>({
+    resultsType: "",
+  });
+  const [results, setResults] = React.useState<Results>({
+    items: [],
+    errors: { yelpPlaces: "", yelpEvents: "", ticketmaster: "" },
+  });
+
+  const router: NextRouter = useRouter();
+
+  class APICalls {
+    searchParams: SearchParams;
+    results: Results;
+    constructor(searchParams: SearchParams) {
+      this.searchParams = searchParams;
+      this.results = {
+        items: [],
+        errors: { yelpPlaces: "", yelpEvents: "", ticketmaster: "" },
+      };
+    }
+
+    public async yelpBusinesses() {
+      const { location, radius, placeType } = this.searchParams;
+      const yelpBusinessesResponse: APIResponse = await yelpBusinessesCall({
+        location,
+        radius,
+        placeType,
+      });
+      Array.isArray(yelpBusinessesResponse)
+        ? (this.results.items = yelpBusinessesResponse)
+        : (this.results.errors.yelpPlaces = `${yelpBusinessesResponse}`);
+    }
+    public async yelpEvents() {
+      const {
+        location,
+        radius,
+        unixStartDate,
+        unixEndDate,
+      } = this.searchParams;
+      const yelpEventsResponse: APIResponse = await yelpEventsCall({
+        location,
+        radius,
+        unixStartDate,
+        unixEndDate,
+      });
+      Array.isArray(yelpEventsResponse)
+        ? (this.results.items = [...this.results.items, ...yelpEventsResponse])
+        : (this.results.errors.yelpEvents = `${yelpEventsResponse}`);
+    }
+    public async ticketMaster() {
+      const {
+        location,
+        radius,
+        startFormatted,
+        endFormatted,
+      } = this.searchParams;
+      const ticketMasterResponse: APIResponse = await ticketMasterCall({
+        location,
+        radius,
+        startFormatted,
+        endFormatted,
+      });
+      Array.isArray(ticketMasterResponse)
+        ? (this.results.items = [
+            ...this.results.items,
+            ...ticketMasterResponse,
+          ])
+        : (this.results.errors.ticketmaster = `${ticketMasterResponse}`);
+    }
+  }
+
+  React.useEffect(() => {
+    const { query }: { [key: string]: any } = router;
+    console.log(query);
+    console.log("running new call.");
+    const newQuery = new APICalls(query);
+
+    switch (query.searchType) {
+      case "ALL":
+        newQuery.yelpBusinesses();
+        newQuery.yelpEvents();
+        newQuery.ticketMaster();
+
+        console.log(newQuery.results);
+        setResults(query.results);
+      case "PLACES":
+        newQuery.yelpBusinesses();
+        setResults(query.results);
+      case "EVENTS":
+        newQuery.yelpEvents();
+        newQuery.ticketMaster();
+        setResults(query.results);
+      default:
+        newQuery.yelpBusinesses();
+        newQuery.yelpEvents();
+        newQuery.ticketMaster();
+        setResults(query.results);
+    }
+  }, []);
+
+  console.log(results);
 
   return <Layout></Layout>;
 }
@@ -194,69 +300,69 @@ export default function Queried(): JSX.Element {
 
 //   if (location && radius && startFormatted && endFormatted) {
 //     console.log("api call");
-//     class APICalls {
-//       searchParams: SearchParams;
-//       results: Results;
-//       constructor(searchParams: SearchParams) {
-//         this.searchParams = searchParams;
-//         this.results = {
-//           items: { places: [], events: [] },
-//           errors: { yelpPlaces: "", yelpEvents: "", ticketmaster: "" },
-//         };
-//       }
+// class APICalls {
+//   searchParams: SearchParams;
+//   results: Results;
+//   constructor(searchParams: SearchParams) {
+//     this.searchParams = searchParams;
+//     this.results = {
+//       items: { places: [], events: [] },
+//       errors: { yelpPlaces: "", yelpEvents: "", ticketmaster: "" },
+//     };
+//   }
 
-//       public async yelpBusinesses() {
-//         const { location, radius, placeType } = this.searchParams;
-//         const yelpBusinessesResponse: APIResponse = await yelpBusinessesCall({
-//           location,
-//           radius,
-//           placeType,
-//         });
-//         Array.isArray(yelpBusinessesResponse)
-//           ? (this.results.items.places = yelpBusinessesResponse)
-//           : (this.results.errors.yelpPlaces = `${yelpBusinessesResponse}`);
-//       }
-//       public async yelpEvents() {
-//         const {
-//           location,
-//           radius,
-//           unixStartDate,
-//           unixEndDate,
-//         } = this.searchParams;
-//         const yelpEventsResponse: APIResponse = await yelpEventsCall({
-//           location,
-//           radius,
-//           unixStartDate,
-//           unixEndDate,
-//         });
-//         Array.isArray(yelpEventsResponse)
-//           ? (this.results.items.events = [
-//               ...this.results.items.events,
-//               ...yelpEventsResponse,
-//             ])
-//           : (this.results.errors.yelpEvents = `${yelpEventsResponse}`);
-//       }
-//       public async ticketMaster() {
-//         const {
-//           location,
-//           radius,
-//           startFormatted,
-//           endFormatted,
-//         } = this.searchParams;
-//         const ticketMasterResponse: APIResponse = await ticketMasterCall({
-//           location,
-//           radius,
-//           startFormatted,
-//           endFormatted,
-//         });
-//         Array.isArray(ticketMasterResponse)
-//           ? (this.results.items.events = [
-//               ...this.results.items.events,
-//               ...ticketMasterResponse,
-//             ])
-//           : (this.results.errors.ticketmaster = `${ticketMasterResponse}`);
-//       }
-//     }
+//   public async yelpBusinesses() {
+//     const { location, radius, placeType } = this.searchParams;
+//     const yelpBusinessesResponse: APIResponse = await yelpBusinessesCall({
+//       location,
+//       radius,
+//       placeType,
+//     });
+//     Array.isArray(yelpBusinessesResponse)
+//       ? (this.results.items.places = yelpBusinessesResponse)
+//       : (this.results.errors.yelpPlaces = `${yelpBusinessesResponse}`);
+//   }
+//   public async yelpEvents() {
+//     const {
+//       location,
+//       radius,
+//       unixStartDate,
+//       unixEndDate,
+//     } = this.searchParams;
+//     const yelpEventsResponse: APIResponse = await yelpEventsCall({
+//       location,
+//       radius,
+//       unixStartDate,
+//       unixEndDate,
+//     });
+//     Array.isArray(yelpEventsResponse)
+//       ? (this.results.items.events = [
+//           ...this.results.items.events,
+//           ...yelpEventsResponse,
+//         ])
+//       : (this.results.errors.yelpEvents = `${yelpEventsResponse}`);
+//   }
+//   public async ticketMaster() {
+//     const {
+//       location,
+//       radius,
+//       startFormatted,
+//       endFormatted,
+//     } = this.searchParams;
+//     const ticketMasterResponse: APIResponse = await ticketMasterCall({
+//       location,
+//       radius,
+//       startFormatted,
+//       endFormatted,
+//     });
+//     Array.isArray(ticketMasterResponse)
+//       ? (this.results.items.events = [
+//           ...this.results.items.events,
+//           ...ticketMasterResponse,
+//         ])
+//       : (this.results.errors.ticketmaster = `${ticketMasterResponse}`);
+//   }
+// }
 
 //     const callAPIS: (searchType: string) => Promise<Results> = async (
 //       searchType

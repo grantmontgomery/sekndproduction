@@ -7,7 +7,7 @@ import { PartsProvider } from "../state/DatePartsContext";
 
 import { Component } from "react";
 
-function MyApp({ Component, pageProps }) {
+function MyApp({ Component, pageProps, router }) {
   return (
     <PartsProvider>
       <PageTransition
@@ -21,7 +21,7 @@ function MyApp({ Component, pageProps }) {
         classNames="page-transition"
         loadingClassNames="loading-indicator"
       >
-        <Component {...pageProps} />
+        <Component {...pageProps} key={router.route} />
       </PageTransition>
       <style jsx global>{`
         .page-transition-enter {
