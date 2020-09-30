@@ -8,6 +8,7 @@ import {
 import { NextRouter, useRouter } from "next/router";
 import useSWR, { responseInterface } from "swr";
 import css from "../../styles/Queried.module.scss";
+import { ParsedUrlQuery } from "querystring";
 
 type Results = {
   items: { [key: string]: any }[];
@@ -26,102 +27,122 @@ export default function Queried(): JSX.Element {
     items: [],
     errors: { yelpPlaces: "", yelpEvents: "", ticketmaster: "" },
   });
-
   const router: NextRouter = useRouter();
 
-  class APICalls {
-    searchParams: SearchParams;
-    results: Results;
-    constructor(searchParams: SearchParams) {
-      this.searchParams = searchParams;
-      this.results = {
-        items: [],
-        errors: { yelpPlaces: "", yelpEvents: "", ticketmaster: "" },
-      };
-    }
+  const urlStart: string =
+    process.env.NODE_ENV !== "production"
+      ? "http://localhost:3000"
+      : "https://sekndapp.com";
 
-    public async yelpBusinesses() {
-      const { location, radius, placeType } = this.searchParams;
-      const yelpBusinessesResponse: APIResponse = await yelpBusinessesCall({
-        location,
-        radius,
-        placeType,
-      });
-      Array.isArray(yelpBusinessesResponse)
-        ? (this.results.items = yelpBusinessesResponse)
-        : (this.results.errors.yelpPlaces = `${yelpBusinessesResponse}`);
-    }
-    public async yelpEvents() {
-      const {
-        location,
-        radius,
-        unixStartDate,
-        unixEndDate,
-      } = this.searchParams;
-      const yelpEventsResponse: APIResponse = await yelpEventsCall({
-        location,
-        radius,
-        unixStartDate,
-        unixEndDate,
-      });
-      Array.isArray(yelpEventsResponse)
-        ? (this.results.items = [...this.results.items, ...yelpEventsResponse])
-        : (this.results.errors.yelpEvents = `${yelpEventsResponse}`);
-    }
-    public async ticketMaster() {
-      const {
-        location,
-        radius,
-        startFormatted,
-        endFormatted,
-      } = this.searchParams;
-      const ticketMasterResponse: APIResponse = await ticketMasterCall({
-        location,
-        radius,
-        startFormatted,
-        endFormatted,
-      });
-      Array.isArray(ticketMasterResponse)
-        ? (this.results.items = [
-            ...this.results.items,
-            ...ticketMasterResponse,
-          ])
-        : (this.results.errors.ticketmaster = `${ticketMasterResponse}`);
-    }
+  const setSearchParameters: () => { [key: string]: any } | null = () => {
+    const { query } = router;
+    if (!query.queried) return null;
+    if (query.searchType) return query;
+
+    const checkURLIsString: string = query.queried.toString();
+    const paramValueArray: string[] = checkURLIsString.split("+");
+
+    const SearchParams: SearchParams = {};
+
+    paramValueArray.forEach((param) => {
+      const indexOfEqual: number = param.search("=");
+      if (indexOfEqual === -1) return;
+      else {
+        const paramKey: string = param.substring(0, indexOfEqual);
+        const paramValue: string = param.substring(indexOfEqual + 1);
+        SearchParams[paramKey] = paramValue;
+      }
+    });
+    return SearchParams;
+  };
+
+  if (setSearchParameters() === null) {
+    return <Layout></Layout>;
+  } else {
+    const { data: yelpPlaces, error: yelpPlacesError } = useSWR(
+      setSearchParameters().searchType !== "EVENTS"
+        ? `${urlStart}/api/yelpBusinessesAPI`
+        : null,
+      async (url) => {
+        const { location, radius, placeType } = setSearchParameters();
+        try {
+          const response: Response = await fetch(url, {
+            headers: {
+              Accept: "application/json",
+              "Content-Type": "application/json",
+            },
+            method: "POST",
+            body: JSON.stringify({
+              location,
+              radius: parseInt(radius),
+              term: placeType,
+            }),
+          });
+
+          const responseJSON = await response.json();
+
+          const {
+            businesses,
+          }: { businesses: { [key: string]: any }[] } = responseJSON;
+          businesses.forEach(
+            (business) => (
+              (business["type"] = "place"),
+              (business["source"] = "yelp"),
+              (business["inParts"] = false)
+            )
+          );
+
+          return businesses;
+        } catch (err) {
+          return err.message;
+        }
+      }
+    );
+
+    // const { data: yelpEvents, error: yelpPlacesError } = useSWR(
+    //   setSearchParameters().searchType !== "EVENTS"
+    //     ? `${urlStart}/api/yelpBusinessesAPI`
+    //     : null,
+    //   async (url) => {
+    //     const { location, radius, placeType } = setSearchParameters();
+    //     try {
+    //       const response: Response = await fetch(url, {
+    //         headers: {
+    //           Accept: "application/json",
+    //           "Content-Type": "application/json",
+    //         },
+    //         method: "POST",
+    //         body: JSON.stringify({
+    //           location,
+    //           radius: parseInt(radius),
+    //           term: placeType,
+    //         }),
+    //       });
+
+    //       const responseJSON = await response.json();
+
+    //       const {
+    //         businesses,
+    //       }: { businesses: { [key: string]: any }[] } = responseJSON;
+    //       businesses.forEach(
+    //         (business) => (
+    //           (business["type"] = "place"),
+    //           (business["source"] = "yelp"),
+    //           (business["inParts"] = false)
+    //         )
+    //       );
+
+    //       return businesses;
+    //     } catch (err) {
+    //       return err.message;
+    //     }
+    //   }
+    // );
+
+    console.log(yelpPlaces);
+
+    return <Layout></Layout>;
   }
-
-  React.useEffect(() => {
-    const { query }: { [key: string]: any } = router;
-    console.log(query);
-    console.log("running new call.");
-    const newQuery = new APICalls(query);
-
-    switch (query.searchType) {
-      case "ALL":
-        newQuery.yelpBusinesses();
-        newQuery.yelpEvents();
-        newQuery.ticketMaster();
-
-        console.log(newQuery.results);
-        setResults(query.results);
-      case "PLACES":
-        newQuery.yelpBusinesses();
-        setResults(query.results);
-      case "EVENTS":
-        newQuery.yelpEvents();
-        newQuery.ticketMaster();
-        setResults(query.results);
-      default:
-        newQuery.yelpBusinesses();
-        newQuery.yelpEvents();
-        newQuery.ticketMaster();
-        setResults(query.results);
-    }
-  }, []);
-
-  console.log(results);
-
-  return <Layout></Layout>;
 }
 
 // export default function Queried({
@@ -416,20 +437,20 @@ export default function Queried(): JSX.Element {
 //       searchType,
 //     };
 //   } else {
-//     const checkURLIsString: string = query.queried.toString();
-//     const paramValueArray: string[] = checkURLIsString.split("+");
+// const checkURLIsString: string = query.queried.toString();
+// const paramValueArray: string[] = checkURLIsString.split("+");
 
-//     const searchParamsValues: SearchParams = {};
+// const searchParamsValues: SearchParams = {};
 
-//     paramValueArray.forEach((param) => {
-//       const indexOfEqual: number = param.search("=");
-//       if (indexOfEqual === -1) return;
-//       else {
-//         const paramKey: string = param.substring(0, indexOfEqual);
-//         const paramValue: string = param.substring(indexOfEqual + 1);
-//         searchParamsValues[paramKey] = paramValue;
-//       }
-//     });
+// paramValueArray.forEach((param) => {
+//   const indexOfEqual: number = param.search("=");
+//   if (indexOfEqual === -1) return;
+//   else {
+//     const paramKey: string = param.substring(0, indexOfEqual);
+//     const paramValue: string = param.substring(indexOfEqual + 1);
+//     searchParamsValues[paramKey] = paramValue;
+//   }
+// });
 
 //     return {
 //       results: { error: "BadCall" },
