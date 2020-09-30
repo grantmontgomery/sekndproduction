@@ -6,6 +6,7 @@ import {
   ticketMasterCall,
 } from "../../apicalls";
 import { NextRouter, useRouter } from "next/router";
+import useSWR, { responseInterface } from "swr";
 import css from "../../styles/Queried.module.scss";
 
 type Results = {
