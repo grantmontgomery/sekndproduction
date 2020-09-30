@@ -9,13 +9,18 @@ import { NextRouter, useRouter } from "next/router";
 import useSWR, { responseInterface } from "swr";
 import css from "../../styles/Queried.module.scss";
 import { ParsedUrlQuery } from "querystring";
+import { SearchBox } from "../../components/SearchBox";
 
 type Results = {
   items: { [key: string]: any }[];
-  errors: { yelpPlaces: string; yelpEvents: string; ticketmaster: string };
+  errors: {
+    yelpPlacesError?: string | undefined;
+    yelpEventsError?: string | undefined;
+    ticketmasterError?: string | undefined;
+  };
 };
 
-type APIResponse = Promise<{ [key: string]: any }[] | string>;
+type APIResponse = { [key: string]: any }[];
 
 type SearchParams = { [key: string]: any };
 
@@ -56,7 +61,11 @@ export default function Queried(): JSX.Element {
   if (setSearchParameters() === null) {
     return <Layout></Layout>;
   } else {
-    const { data: yelpPlaces, error: yelpPlacesError } = useSWR(
+    const {
+      data: yelpPlaces,
+      error: yelpPlacesError,
+      isValidating: yelpPlacesLoading,
+    }: responseInterface<APIResponse, string> = useSWR(
       setSearchParameters().searchType !== "EVENTS"
         ? `${urlStart}/api/yelpBusinessesAPI`
         : null,
@@ -96,7 +105,11 @@ export default function Queried(): JSX.Element {
       }
     );
 
-    const { data: yelpEvents, error: yelpEventsError } = useSWR(
+    const {
+      data: yelpEvents,
+      error: yelpEventsError,
+      isValidating: yelpEventsLoading,
+    }: responseInterface<APIResponse, string> = useSWR(
       setSearchParameters().searchType !== "PLACES"
         ? `${urlStart}/api/yelpEventsAPI`
         : null,
@@ -139,7 +152,11 @@ export default function Queried(): JSX.Element {
       }
     );
 
-    const { data: ticketmaster, error: ticketmasterError } = useSWR(
+    const {
+      data: ticketmaster,
+      error: ticketmasterError,
+      isValidating: ticketmasterLoading,
+    }: responseInterface<APIResponse, string> = useSWR(
       setSearchParameters().searchType !== "PLACES"
         ? `${urlStart}/api/ticketmasterAPI`
         : null,
@@ -185,20 +202,65 @@ export default function Queried(): JSX.Element {
       }
     );
 
-    const results: {
-      items: { [key: string]: any }[];
-      errors: {
-        yelpPlacesError: string;
-        yelpEventsError: string;
-        ticketmasterError: string;
-      };
-    } = {
-      items: [...yelpPlaces, ...yelpEvents, ...ticketmaster],
-      errors: { yelpEventsError, yelpPlacesError, ticketmasterError },
-    };
+    switch (setSearchParameters().searchType) {
+      case "ALL":
+        if (yelpPlacesLoading || yelpEventsLoading || ticketmasterLoading) {
+          return <Layout></Layout>;
+        } else {
+          const results: Results = {
+            items: [...yelpPlaces, ...yelpEvents, ...ticketmaster],
+            errors: {
+              yelpPlacesError,
+              yelpEventsError,
+              ticketmasterError,
+            },
+          };
+          console.log(results);
+          return <Layout></Layout>;
+        }
+      case "PLACES":
+        if (yelpPlacesLoading) {
+          return <Layout></Layout>;
+        } else {
+          const results: Results = {
+            items: [...yelpPlaces, ...yelpEvents, ...ticketmaster],
+            errors: {
+              yelpPlacesError,
+              yelpEventsError,
+              ticketmasterError,
+            },
+          };
+          return <Layout></Layout>;
+        }
+      case "EVENTS":
+        if (ticketmasterLoading || yelpEventsLoading) {
+          return <Layout></Layout>;
+        } else {
+          const results: Results = {
+            items: [...yelpEvents, ticketmaster],
+            errors: {
+              yelpEventsError,
+              ticketmasterError,
+            },
+          };
+        }
 
-    console.log(results);
+      default:
+        if (yelpPlacesLoading || yelpEventsLoading || ticketmasterLoading) {
+          return <Layout></Layout>;
+        } else {
+          const results: Results = {
+            items: [...yelpPlaces, ...yelpEvents, ...ticketmaster],
+            errors: {
+              yelpPlacesError,
+              yelpEventsError,
+              ticketmasterError,
+            },
+          };
+          console.log(results);
 
-    return <Layout></Layout>;
+          return <Layout></Layout>;
+        }
+    }
   }
 }
