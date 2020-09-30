@@ -76,28 +76,25 @@ export const SearchBox: React.FC = (props) => {
           searchQuery.radius !== "" &&
           searchQuery.endDate !== null &&
           searchQuery.placeType !== "" ? (
-          (console.log("All ready"),
-          (
-            <Link
-              href={{
-                pathname: "/search/[queried]",
-                query: {
-                  searchType,
-                  location,
-                  radius,
-                  placeType,
-                  startFormatted,
-                  endFormatted,
-                  unixEndDate,
-                  unixStartDate,
-                  eventsCategory,
-                },
-              }}
-              as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
-            >
-              <button>Search</button>
-            </Link>
-          ))
+          <Link
+            href={{
+              pathname: "/search/[queried]",
+              query: {
+                searchType,
+                location,
+                radius,
+                placeType,
+                startFormatted,
+                endFormatted,
+                unixEndDate,
+                unixStartDate,
+                eventsCategory,
+              },
+            }}
+            as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
+          >
+            <button>Search</button>
+          </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
             Search
@@ -110,25 +107,22 @@ export const SearchBox: React.FC = (props) => {
           searchQuery.radius !== "" &&
           searchQuery.endDate !== null &&
           searchQuery.placeType !== "" ? (
-          (console.log("Places ready"),
-          (
-            <Link
-              href={{
-                pathname: "/search/[queried]",
-                query: {
-                  searchType,
-                  location,
-                  radius,
-                  placeType,
-                  startFormatted,
-                  endFormatted,
-                },
-              }}
-              as={`/search/searchType=PLACES+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}`}
-            >
-              <button style={{ color: "green" }}>Search</button>
-            </Link>
-          ))
+          <Link
+            href={{
+              pathname: "/search/[queried]",
+              query: {
+                searchType,
+                location,
+                radius,
+                placeType,
+                startFormatted,
+                endFormatted,
+              },
+            }}
+            as={`/search/searchType=PLACES+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}`}
+          >
+            <button style={{ color: "green" }}>Search</button>
+          </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
             Search
@@ -140,27 +134,24 @@ export const SearchBox: React.FC = (props) => {
           searchQuery.startDate !== null &&
           searchQuery.radius !== "" &&
           searchQuery.endDate !== null ? (
-          (console.log("events ready"),
-          (
-            <Link
-              href={{
-                pathname: "/search/[queried]",
-                query: {
-                  searchType,
-                  location,
-                  radius,
-                  startFormatted,
-                  endFormatted,
-                  unixStartDate,
-                  unixEndDate,
-                  eventsCategory,
-                },
-              }}
-              as={`/search/searchType=EVENTS+location=${searchQuery.location}+radius=${searchQuery.radius}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
-            >
-              <button style={{ color: "green" }}>Search</button>
-            </Link>
-          ))
+          <Link
+            href={{
+              pathname: "/search/[queried]",
+              query: {
+                searchType,
+                location,
+                radius,
+                startFormatted,
+                endFormatted,
+                unixStartDate,
+                unixEndDate,
+                eventsCategory,
+              },
+            }}
+            as={`/search/searchType=EVENTS+location=${searchQuery.location}+radius=${searchQuery.radius}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
+          >
+            <button style={{ color: "green" }}>Search</button>
+          </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
             Search
