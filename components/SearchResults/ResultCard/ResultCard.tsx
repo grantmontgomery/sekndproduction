@@ -25,8 +25,6 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
 
   const GlobalParts = usePartsState();
 
-  console.log(`rerender ${item.name}`);
-
   React.useEffect(() => {
     for (let i = 0; i < GlobalParts.parts.length; i++) {
       if (GlobalParts.parts[i].id === item.id) {
