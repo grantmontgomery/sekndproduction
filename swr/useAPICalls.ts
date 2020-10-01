@@ -75,6 +75,9 @@ export default function useAPICalls(
       } catch (err) {
         return err.message;
       }
+    },
+    {
+      revalidateOnFocus: false,
     }
   );
 
@@ -123,6 +126,9 @@ export default function useAPICalls(
       } catch (err) {
         return err.message;
       }
+    },
+    {
+      revalidateOnFocus: false,
     }
   );
 
@@ -177,6 +183,9 @@ export default function useAPICalls(
       } catch (err) {
         return err.message;
       }
+    },
+    {
+      revalidateOnFocus: false,
     }
   );
 
