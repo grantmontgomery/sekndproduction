@@ -24,7 +24,7 @@ type APIResponse = { [key: string]: any }[];
 
 type SearchParams = { [key: string]: any };
 
-const QueryLayout: React.FC<{
+const QueryDisplay: React.FC<{
   loading: boolean;
   searchType: string;
   items?: Results["items"];
@@ -33,34 +33,86 @@ const QueryLayout: React.FC<{
     resultsType: "",
   });
 
-  // const determineButtons:() => JSX.Element = () => {
+  React.useEffect(() => {
+    if (searchType === "EVENTS") setState({ resultsType: "EVENTS" });
+    setState({ resultsType: "PLACES" });
+  }, []);
 
-  // }
+  const setTypeButtons: () => JSX.Element = () => {
+    if (searchType !== "ALL") return null;
+    return (
+      <React.Fragment>
+        <button
+          className={css.typeButton}
+          onClick={() => setState({ resultsType: "PLACES" })}
+        >
+          Places
+        </button>
+        <button
+          className={css.typeButton}
+          onClick={() => setState({ resultsType: "EVENTS" })}
+        >
+          Events
+        </button>
+      </React.Fragment>
+    );
+  };
 
-  // const determineResultsType:() => JSX.Element[] = () => {
+  const setItems: () => JSX.Element = () => {
+    if (loading) return <SekndLoader></SekndLoader>;
+    if (searchType === "ALL") {
+      <div className={css.resultsSlider}>
+        {state.resultsType === "PLACES"
+          ? items
+              ?.filter((item) => item.type === "place")
+              .map((item) => (
+                <ResultCard key={item.id} item={item}></ResultCard>
+              ))
+          : items
+              ?.filter((item) => item.type === "event")
+              .map((item) => (
+                <ResultCard key={item.id} item={item}></ResultCard>
+              ))}
+      </div>;
+    }
+
+    return (
+      <div className={css.resultsSlider}>
+        {items?.map((item) => (
+          <ResultCard key={item.id} item={item}></ResultCard>
+        ))}
+      </div>
+    );
+  };
 
   return (
     <Layout>
       <main className={css.queriedPage}>
         {/* <section className={css.queryDisplay}></section> */}
         <section className={css.header}>
+          {setTypeButtons()}
           <button className={css.sort}>Sort</button>
         </section>
-        {loading ? (
-          <SekndLoader></SekndLoader>
-        ) : (
-          <div className={css.resultsSlider}>
-            {items.map((item) => (
-              <ResultCard key={item.id} item={item}></ResultCard>
-            ))}
-          </div>
-        )}
+        {setItems()}
       </main>
     </Layout>
   );
 };
 
 export default function Queried(): JSX.Element {
+  const [state, setState] = React.useState<{ loading: boolean }>({
+    loading: true,
+  });
+  const [results, setResults] = React.useState<{ results: Results }>({
+    results: {
+      items: [],
+      errors: {
+        yelpEventsError: "",
+        yelpPlacesError: "",
+        ticketmasterError: "",
+      },
+    },
+  });
   const router: NextRouter = useRouter();
 
   const urlStart: string =
