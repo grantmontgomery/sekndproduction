@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Layout, ResultCard } from "../../components";
+import { Layout, ResultCard, SekndLoader } from "../../components";
 import {
   yelpBusinessesCall,
   yelpEventsCall,
@@ -24,11 +24,43 @@ type APIResponse = { [key: string]: any }[];
 
 type SearchParams = { [key: string]: any };
 
-export default function Queried(): JSX.Element {
+const QueryLayout: React.FC<{
+  loading: boolean;
+  searchType: string;
+  items?: Results["items"];
+}> = ({ loading, items, searchType }) => {
   const [state, setState] = React.useState<{ resultsType: string }>({
     resultsType: "",
   });
 
+  // const determineButtons:() => JSX.Element = () => {
+
+  // }
+
+  // const determineResultsType:() => JSX.Element[] = () => {
+
+  return (
+    <Layout>
+      <main className={css.queriedPage}>
+        {/* <section className={css.queryDisplay}></section> */}
+        <section className={css.header}>
+          <button className={css.sort}>Sort</button>
+        </section>
+        {loading ? (
+          <SekndLoader></SekndLoader>
+        ) : (
+          <div className={css.resultsSlider}>
+            {items.map((item) => (
+              <ResultCard key={item.id} item={item}></ResultCard>
+            ))}
+          </div>
+        )}
+      </main>
+    </Layout>
+  );
+};
+
+export default function Queried(): JSX.Element {
   const router: NextRouter = useRouter();
 
   const urlStart: string =
@@ -232,8 +264,7 @@ export default function Queried(): JSX.Element {
               <section className={css.header}>
                 <button className={css.sort}>Sort</button>
               </section>
-
-              <div className={css.resultsSlider}></div>
+              <SekndLoader></SekndLoader>
             </main>
           </Layout>
         );
