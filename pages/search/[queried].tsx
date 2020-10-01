@@ -56,6 +56,7 @@ export default function Queried(): JSX.Element {
   );
 
   React.useEffect(() => {
+    console.log("setting result type");
     if (setSearchParameters()) {
       setSearchParameters().searchType === "EVENTS"
         ? setState({ resultsType: "event" })
@@ -63,11 +64,11 @@ export default function Queried(): JSX.Element {
     }
   }, [setSearchParameters()]);
 
-  const mapItems: () => Results["items"] = () => {
-    return setSearchParameters().searchType === "ALL"
-      ? items.filter((item) => item.type === state.resultsType)
-      : items;
-  };
+  // const mapItems: () => Results["items"] = () => {
+  //   return setSearchParameters().searchType === "ALL"
+  //     ? items.filter((item) => item.type === state.resultsType)
+  //     : items;
+  // };
 
   const setResultsButtons: () => JSX.Element | null = () => {
     if (loading) return null;
@@ -101,9 +102,16 @@ export default function Queried(): JSX.Element {
           <SekndLoader></SekndLoader>
         ) : (
           <div className={css.resultsSlider}>
-            {mapItems().map((item) => (
-              <ResultCard item={item}></ResultCard>
-            ))}
+            {items
+              .filter((item) => {
+                if (setSearchParameters().searchType !== "ALL") return item;
+                return state.resultsType === "place"
+                  ? item.type === "place"
+                  : item.type === "event";
+              })
+              .map((item) => (
+                <ResultCard item={item}></ResultCard>
+              ))}
           </div>
         )}
       </main>
