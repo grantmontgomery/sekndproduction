@@ -27,12 +27,6 @@ type Action = {
   };
 };
 
-//squares for the grid
-//grid template string
-//grid template columns
-//grid template width?
-//grid start and end dates
-
 const gridReducer: React.Reducer<State, Action> = (state: State, action) => {
   switch (action.type) {
     case "ADD_SQUARES":
@@ -73,15 +67,13 @@ const gridReducer: React.Reducer<State, Action> = (state: State, action) => {
   }
 };
 
-const GridStateContext: React.Context<State> = React.createContext(
-  undefined
-);
+const GridStateContext: React.Context<State> = React.createContext(undefined);
 
 const GridDispatchContext: React.Context<
   React.Dispatch<Action> | undefined
 > = React.createContext(undefined);
 
-export const PartsProvider: ({
+export const GridProvider: ({
   children,
 }: {
   children: React.ReactNode;
@@ -104,17 +96,19 @@ export const PartsProvider: ({
 };
 
 export const useGridState = (): State => {
-  const context = React.createContext(GridStateContext);
+  const context = React.useContext(GridStateContext);
 
-  if(undefined === context){
+  if (undefined === context) {
     throw new Error("Please use within GridProvider");
   }
-  return context
+  return context;
 };
 
+export const useGridDispatch = (): React.Dispatch<Action> => {
+  const context = React.useContext(GridDispatchContext);
 
-export const useGridDispatch = ():React.Dispatch<Action> => {
-  const context = React.useContext(GridDispatchContext)
-
-  if(undefined === )
-}
+  if (undefined === context) {
+    throw new Error("Please use within GridProvider");
+  }
+  return context;
+};
