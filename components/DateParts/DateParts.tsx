@@ -22,6 +22,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
             color: state.color,
             type: "custom",
             details: "",
+            id: `${name}${Math.random()}`,
           },
         },
       }),

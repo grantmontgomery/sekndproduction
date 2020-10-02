@@ -14,7 +14,7 @@ export const DatePart: React.FC<{
   gridIndex: number | null;
 }> = ({ location, part, gridIndex }) => {
   return location === "list" ? (
-    <NormalPiece part={part}></NormalPiece>
+    <NormalPiece key={part.id} part={part}></NormalPiece>
   ) : (
     <DragPiece></DragPiece>
   );

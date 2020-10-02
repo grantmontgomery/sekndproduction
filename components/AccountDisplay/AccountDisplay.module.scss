@@ -1,8 +1,10 @@
 .accountDisplay {
+  display: none;
 }
 
 @media (orientation: landscape) {
   .accountDisplay {
+    display: block;
     height: 7vh;
     width: max(min(11vw, 100px), 150px);
     border-radius: max(11vw, 100px);
