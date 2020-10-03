@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps, router }) {
   return (
     <GridProvider>
       <PartsProvider>
-        <PageTransition
+        {/* <PageTransition
           timeout={400}
           loadingComponent={<SekndLoader></SekndLoader>}
           loadingDelay={500}
@@ -22,9 +22,9 @@ function MyApp({ Component, pageProps, router }) {
           }}
           classNames="page-transition"
           loadingClassNames="loading-indicator"
-        >
-          <Component {...pageProps} key={router.route} />
-        </PageTransition>
+        > */}
+        <Component {...pageProps} key={router.route} />
+        {/* </PageTransition> */}
         <style jsx global>{`
           .page-transition-enter {
             opacity: 0;

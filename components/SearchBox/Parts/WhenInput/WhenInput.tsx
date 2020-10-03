@@ -14,7 +14,6 @@ export const WhenInput: React.FC<Props> = ({
     field,
     date
   ) => {
-    console.log(date.toISOString());
     return handleQueryDate(field, date);
   };
 

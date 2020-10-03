@@ -102,16 +102,16 @@ export default function Queried(): JSX.Element {
           <SekndLoader></SekndLoader>
         ) : (
           <div className={css.resultsSlider}>
-            {items
-              .filter((item) => {
-                if (setSearchParameters().searchType !== "ALL") return item;
-                return state.resultsType === "place"
-                  ? item.type === "place"
-                  : item.type === "event";
-              })
-              .map((item) => (
-                <ResultCard item={item}></ResultCard>
-              ))}
+            {items && items.length > 0
+              ? items
+                  .filter((item) => {
+                    if (setSearchParameters().searchType !== "ALL") return item;
+                    return state.resultsType === "place"
+                      ? item.type === "place"
+                      : item.type === "event";
+                  })
+                  .map((item) => <ResultCard item={item}></ResultCard>)
+              : null}
           </div>
         )}
       </main>
