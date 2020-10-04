@@ -1,10 +1,12 @@
 import * as React from "react";
-import { Layout } from "../components";
+import { Layout, ResultCard } from "../components";
 
 export default function About() {
   return (
     <Layout>
-      <main>My about page</main>
+      <main>
+        <ResultCard resultsLoading={true}></ResultCard>
+      </main>
     </Layout>
   );
 }

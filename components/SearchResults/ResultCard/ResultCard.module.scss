@@ -11,6 +11,7 @@
   transition: 250ms ease-out;
   margin-left: auto;
   box-shadow: 0 0.5vh 1vh rgb(100, 100, 100);
+
   &.extended {
     height: 50vh;
   }
@@ -50,6 +51,24 @@
       color: white;
       text-overflow: ellipsis;
       font-size: min(30px, 2.5vh);
+    }
+
+    & .loadingBar {
+      width: 75%;
+      height: min(25px, 2vh);
+      position: relative;
+      display: block;
+      background: linear-gradient(to right, white, #e0e0e0);
+      animation: loading 1s infinite;
+      margin-top: 1vh;
+      background-size: 200%;
+
+      &:first-child {
+        width: 60%;
+        margin-top: 0;
+        // background-size: 180%;
+        height: min(30px, 2.5vh);
+      }
     }
   }
   & .detailsWrapper {
@@ -115,3 +134,11 @@
 //place
 // #159957
 //#155799
+@keyframes loading {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: -200% 0%;
+  }
+}

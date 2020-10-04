@@ -14,9 +14,10 @@ import {
 } from "../../../state/DatePartsContext";
 import css from "./ResultCard.module.scss";
 
-export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
-  item,
-}) => {
+export const ResultCard: React.FC<{
+  item?: { [key: string]: any };
+  resultsLoading?: boolean;
+}> = ({ item, resultsLoading }) => {
   const [state, setState] = React.useState<{
     added: boolean;
     moreInfo: boolean;
@@ -26,9 +27,11 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
   const GlobalParts = usePartsState();
 
   React.useEffect(() => {
-    for (let i = 0; i < GlobalParts.parts.length; i++) {
-      if (GlobalParts.parts[i].id === item.id) {
-        setState((state) => ({ ...state, added: true }));
+    if (item) {
+      for (let i = 0; i < GlobalParts.parts.length; i++) {
+        if (GlobalParts.parts[i].id === item.id) {
+          setState((state) => ({ ...state, added: true }));
+        }
       }
     }
   }, [GlobalParts]);
@@ -199,11 +202,20 @@ export const ResultCard: React.FC<{ item: { [key: string]: any } }> = ({
     }
   };
 
-  return (
+  return resultsLoading ? (
+    <div className={css.resultCard} style={{ background: "#999999" }}>
+      <div className={css.infoBar} style={{ background: "transparent" }}>
+        <div className={css.loadingBar}></div>
+        <div className={css.loadingBar}></div>
+        <div className={css.loadingBar}></div>
+      </div>
+    </div>
+  ) : (
     <div
       className={`${css.resultCard} ${state.moreInfo ? css.extended : null} ${
         state.imageLoaded ? css.loaded : css.loading
-      }`}
+      }
+      `}
       onClick={() =>
         state.moreInfo
           ? null

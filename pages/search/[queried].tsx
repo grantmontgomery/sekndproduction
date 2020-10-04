@@ -85,6 +85,29 @@ export default function Queried(): JSX.Element {
     ) : null;
   };
 
+  const loadingDisplayItems: () => JSX.Element | JSX.Element[] = () => {
+    if (loading) {
+      return (
+        <React.Fragment>
+          <ResultCard resultsLoading={true}></ResultCard>
+          <ResultCard resultsLoading={true}></ResultCard>
+          <ResultCard resultsLoading={true}></ResultCard>
+        </React.Fragment>
+      );
+    } else {
+      return items && items.length > 0
+        ? items
+            .filter((item) => {
+              if (setSearchParameters().searchType !== "ALL") return item;
+              return state.resultsType === "place"
+                ? item.type === "place"
+                : item.type === "event";
+            })
+            .map((item) => <ResultCard item={item}></ResultCard>)
+        : null;
+    }
+  };
+
   return (
     <Layout>
       <main className={css.queriedPage}>
@@ -93,22 +116,8 @@ export default function Queried(): JSX.Element {
           {setResultsButtons()}
           <button className={css.sort}>Sort</button>
         </section>
-        {loading ? (
-          <SekndLoader></SekndLoader>
-        ) : (
-          <div className={css.resultsSlider}>
-            {items && items.length > 0
-              ? items
-                  .filter((item) => {
-                    if (setSearchParameters().searchType !== "ALL") return item;
-                    return state.resultsType === "place"
-                      ? item.type === "place"
-                      : item.type === "event";
-                  })
-                  .map((item) => <ResultCard item={item}></ResultCard>)
-              : null}
-          </div>
-        )}
+
+        <div className={css.resultsSlider}>{loadingDisplayItems()}</div>
       </main>
     </Layout>
   );
