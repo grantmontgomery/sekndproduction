@@ -1,8 +1,4 @@
-import { Dispatch } from "react";
-import { useGridDispatch } from "../../../state/SearchGridContext";
-import { useSquaresDispatch } from "../../../state/GridSquaresContext";
-
-class ScheduleGrid {
+export default class ScheduleGrid {
   unixStartDate: number;
   unixEndDate: number;
   numberofSquares: number;
@@ -88,25 +84,4 @@ class ScheduleGrid {
     this.setGridTemplate();
     this.setHoursHeader();
   }
-}
-
-export default function setSquares(
-  unixStartDate: number,
-  unixEndDate: number
-): void {
-  const newDateInputs = new ScheduleGrid(unixStartDate, unixEndDate);
-  newDateInputs.setGrid();
-  return (
-    useGridDispatch()({
-      type: "ADD_GRID_TEMPLATE",
-      payload: {
-        hourStrings: newDateInputs.hourStrings,
-        gridTemplate: newDateInputs.templateAreas,
-      },
-    }),
-    useSquaresDispatch()({
-      type: "ADD_SQUARES",
-      payload: { numberOfSquares: newDateInputs.numberofSquares },
-    })
-  );
 }

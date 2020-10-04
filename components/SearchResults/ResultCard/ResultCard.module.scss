@@ -105,13 +105,11 @@
     font-weight: bold;
     background: linear-gradient(0.25turn, #49a078, #216869);
     padding-right: 5%;
-    // box-shadow: 0 1vh 2vh #49a07880;
     box-shadow: 0 1vh 2vh #00000080;
 
     width: fit-content;
     &.remove {
       background: linear-gradient(0.25turn, #f24236, #ad160b);
-      // box-shadow: 0 1vh 2vh #f2423680;
     }
     &.loadingAdd {
       background: linear-gradient(to right, white, #e0e0e0);

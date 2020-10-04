@@ -2,6 +2,8 @@ import * as React from "react";
 import { Layout, ResultCard, SekndLoader } from "../../components";
 import useAPICalls from "../../swr/useAPICalls";
 import { NextRouter, useRouter } from "next/router";
+import { useSquaresState } from "../../state/GridSquaresContext";
+import { useGridState } from "../../state/SearchGridContext";
 import css from "../../styles/Queried.module.scss";
 
 type Results = {
@@ -22,6 +24,9 @@ export default function Queried(): JSX.Element {
     resultsType: "place",
   });
   const router: NextRouter = useRouter();
+
+  console.log(useGridState());
+  console.log(useSquaresState());
 
   const urlStart: string =
     process.env.NODE_ENV !== "production"

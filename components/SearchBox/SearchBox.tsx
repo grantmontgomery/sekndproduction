@@ -6,8 +6,13 @@ import {
   EventsInput,
   PlacesInput,
 } from "./Parts";
-import setSquares from "./Logic/setScheduleGrid";
+import ScheduleGrid from "./Logic/ScheduleGrid";
 import Link from "next/link";
+import { useGridDispatch } from "../../state/SearchGridContext";
+import {
+  useSquaresDispatch,
+  useSquaresState,
+} from "../../state/GridSquaresContext";
 import css from "./SearchBox.module.scss";
 
 export type InputChange = (key: string, input: string | Date) => void;
@@ -57,6 +62,27 @@ export const SearchBox: React.FC = (props) => {
     yelpCategories: "",
   });
 
+  const handleSubmit: () => void = () => {
+    const newDatesInput: ScheduleGrid = new ScheduleGrid(
+      searchQuery.unixStartDate,
+      searchQuery.unixEndDate
+    );
+    newDatesInput.setGrid();
+    return (
+      useSquaresDispatch()({
+        type: "ADD_SQUARES",
+        payload: { numberOfSquares: newDatesInput.numberofSquares },
+      }),
+      useGridDispatch()({
+        type: "ADD_GRID_TEMPLATE",
+        payload: {
+          hourStrings: newDatesInput.hourStrings,
+          gridTemplate: newDatesInput.templateAreas,
+        },
+      })
+    );
+  };
+
   const checkFieldsDisplayLink: (searchType: string) => JSX.Element = (
     searchType
   ) => {
@@ -94,13 +120,7 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button
-              onClick={() =>
-                setSquares(searchQuery.unixStartDate, searchQuery.unixEndDate)
-              }
-            >
-              Search
-            </button>
+            <button onClick={handleSubmit}>Search</button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
@@ -128,12 +148,7 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=PLACES+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}`}
           >
-            <button
-              style={{ color: "green" }}
-              onClick={() =>
-                setSquares(searchQuery.unixStartDate, searchQuery.unixEndDate)
-              }
-            >
+            <button style={{ color: "green" }} onClick={() => handleSubmit}>
               Search
             </button>
           </Link>
@@ -164,12 +179,7 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=EVENTS+location=${searchQuery.location}+radius=${searchQuery.radius}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button
-              style={{ color: "green" }}
-              onClick={() =>
-                setSquares(searchQuery.unixStartDate, searchQuery.unixEndDate)
-              }
-            >
+            <button style={{ color: "green" }} onClick={handleSubmit}>
               Search
             </button>
           </Link>
@@ -202,12 +212,7 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button
-              style={{ color: "green" }}
-              onClick={() =>
-                setSquares(searchQuery.unixStartDate, searchQuery.unixEndDate)
-              }
-            >
+            <button style={{ color: "green" }} onClick={handleSubmit}>
               Search
             </button>
           </Link>
