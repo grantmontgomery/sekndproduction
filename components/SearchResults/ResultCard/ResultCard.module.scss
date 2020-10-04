@@ -113,6 +113,11 @@
       background: linear-gradient(0.25turn, #f24236, #ad160b);
       // box-shadow: 0 1vh 2vh #f2423680;
     }
+    &.loadingAdd {
+      background: linear-gradient(to right, white, #e0e0e0);
+      animation: loading 1s infinite;
+      background-size: 200%;
+    }
   }
 }
 

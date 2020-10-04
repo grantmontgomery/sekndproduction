@@ -204,6 +204,7 @@ export const ResultCard: React.FC<{
 
   return resultsLoading ? (
     <div className={css.resultCard} style={{ background: "#999999" }}>
+      <div className={`${css.addButton} ${css.loadingAdd}`}></div>
       <div className={css.infoBar} style={{ background: "transparent" }}>
         <div className={css.loadingBar}></div>
         <div className={css.loadingBar}></div>

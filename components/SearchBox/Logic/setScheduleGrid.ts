@@ -1,4 +1,5 @@
 import { Dispatch } from "react";
+import { useGridDispatch } from "../../../state/SearchGridContext";
 
 class ScheduleGrid {
   unixStartDate: number;
@@ -8,11 +9,10 @@ class ScheduleGrid {
   startHour: number;
   hourDifference: number;
   columnAmount: number;
-  hourNumbers: number[];
   endHour: number;
-  stringHours: string[];
+  hourStrings: string[];
 
-  constructor(unixStartDate, unixEndDate) {
+  constructor(unixStartDate: number, unixEndDate: number) {
     this.unixStartDate = unixStartDate;
     this.unixEndDate = unixEndDate;
     this.startHour = 0;
@@ -20,8 +20,7 @@ class ScheduleGrid {
     this.templateAreas = "";
     this.columnAmount = 0;
     this.endHour = 0;
-    this.stringHours = [];
-    this.hourNumbers = [];
+    this.hourStrings = [];
     this.numberofSquares = 0;
   }
 
@@ -60,27 +59,26 @@ class ScheduleGrid {
 
     const hourNumbers: number[] = [];
 
-    while (hourCounter < this.hourDifference) {
+    while (hourCounter <= this.hourDifference) {
       hourNumbers.push(startHourCounter);
       hourCounter++;
       startHourCounter < 24 ? startHourCounter++ : (startHourCounter = 1);
     }
 
-    const stringHours: string[] = [];
+    const hourStrings: string[] = [];
 
     hourNumbers.forEach((hour) => {
       if (hour === 24) {
-        return stringHours.push("12:00 a.m");
+        return hourStrings.push("12:00 a.m");
       } else if (hour === 12) {
-        return stringHours.push("12:00 p.m");
+        return hourStrings.push("12:00 p.m");
       } else {
         return hour < 12
-          ? stringHours.push(`${hour}:00 a.m`)
-          : stringHours.push(`${hour - 12}:00 p.m`);
+          ? hourStrings.push(`${hour}:00 a.m`)
+          : hourStrings.push(`${hour - 12}:00 p.m`);
       }
     });
-    this.hourNumbers = hourNumbers;
-    this.stringHours = stringHours;
+    this.hourStrings = hourStrings;
   }
 
   public setGrid() {
@@ -97,5 +95,5 @@ export default function setSquares(
 ): void {
   const newDate = new ScheduleGrid(unixStartDate, unixEndDate);
   newDate.setGrid();
-  console.log(newDate);
+  return useGridDispatch()({ type: "" });
 }

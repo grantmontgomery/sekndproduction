@@ -1,67 +1,26 @@
 import * as React from "react";
 
-type Squares = { part: { [key: string]: any } | null }[];
-
-type GridTimes = {
-  startTime: number;
-  startDate: string;
-  endTime: number;
-  endDate: string;
-};
-
 type State = {
-  squares: Squares;
-} & GridTimes;
+  hourStrings: string[];
+  gridTemplate: string;
+};
 
 type Action = {
   type: string;
   payload: {
-    id?: string;
-    index?: number;
-    numberOfSquares?: number;
-    startDate?: string;
-    startTime?: number;
-    endDate?: string;
-    endTime?: number;
-    part?: { [key: string]: any };
+    gridTemplate: string;
+    hourStrings: string[];
   };
 };
 
 const gridReducer: React.Reducer<State, Action> = (state: State, action) => {
   switch (action.type) {
-    case "ADD_SQUARES":
-      const squares: Squares = [];
-      let numberOfSquares: number = 0;
-      while (numberOfSquares < action.payload.numberOfSquares) {
-        squares.push({ part: null });
-      }
-      return { ...state, squares };
-    case "ADD_TIMES":
+    case "ADD_GRID_TEMPLATE":
       return {
-        ...state,
-        startTime: action.payload.startTime,
-        startDate: action.payload.startDate,
-        endTime: action.payload.endTime,
-        endDate: action.payload.endDate,
+        hourStrings: action.payload.hourStrings,
+        gridTemplate: action.payload.gridTemplate,
       };
-    case "ADD_PART_TO_SQUARE":
-      return {
-        ...state,
-        squares: state.squares.map((square, i) => {
-          return i !== action.payload.index
-            ? square
-            : { part: action.payload.part };
-        }),
-      };
-    case "REMOVE_PART_FROM_SQUARE":
-      return {
-        ...state,
-        squares: state.squares.map((square, i) => {
-          return i !== action.payload.index
-            ? { part: action.payload.part }
-            : square;
-        }),
-      };
+
     default:
       return state;
   }
@@ -79,11 +38,8 @@ export const GridProvider: ({
   children: React.ReactNode;
 }) => JSX.Element = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = React.useReducer(gridReducer, {
-    squares: [],
-    startDate: "",
-    startTime: 0,
-    endDate: "",
-    endTime: 0,
+    gridTemplate: "",
+    hourStrings: [],
   });
 
   return (
