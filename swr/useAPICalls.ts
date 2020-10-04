@@ -23,24 +23,15 @@ export default function useAPICalls(
     ticketmasterError: string;
   };
 } {
-  if (!setSearchParameters)
-    return {
-      items: [],
-      loading: true,
-      errors: {
-        yelpEventsError: "",
-        yelpPlacesError: "",
-        ticketmasterError: "",
-      },
-    };
   const {
     data: yelpPlaces,
     error: yelpPlacesError,
     isValidating: yelpPlacesLoading,
   }: responseInterface<APIResponse, string> = useSWR(
-    setSearchParameters.searchType !== "EVENTS"
+    setSearchParameters && setSearchParameters.searchType !== "EVENTS"
       ? `${urlStart}/api/yelpBusinessesAPI`
       : null,
+
     async (url) => {
       const { location, radius, placeType } = setSearchParameters;
       try {
@@ -86,7 +77,7 @@ export default function useAPICalls(
     error: yelpEventsError,
     isValidating: yelpEventsLoading,
   }: responseInterface<APIResponse, string> = useSWR(
-    setSearchParameters.searchType !== "PLACES"
+    setSearchParameters && setSearchParameters.searchType !== "PLACES"
       ? `${urlStart}/api/yelpEventsAPI`
       : null,
     async (url) => {
@@ -137,7 +128,7 @@ export default function useAPICalls(
     error: ticketmasterError,
     isValidating: ticketmasterLoading,
   }: responseInterface<APIResponse, string> = useSWR(
-    setSearchParameters.searchType !== "PLACES"
+    setSearchParameters && setSearchParameters.searchType !== "PLACES"
       ? `${urlStart}/api/ticketmasterAPI`
       : null,
     async (url) => {

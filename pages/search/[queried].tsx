@@ -64,15 +64,10 @@ export default function Queried(): JSX.Element {
     }
   }, [setSearchParameters()]);
 
-  // const mapItems: () => Results["items"] = () => {
-  //   return setSearchParameters().searchType === "ALL"
-  //     ? items.filter((item) => item.type === state.resultsType)
-  //     : items;
-  // };
-
   const setResultsButtons: () => JSX.Element | null = () => {
     if (loading) return null;
-    return setSearchParameters().searchType === "ALL" ? (
+    return setSearchParameters() &&
+      setSearchParameters().searchType === "ALL" ? (
       <React.Fragment>
         <button
           className={css.typeButton}
