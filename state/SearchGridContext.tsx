@@ -54,7 +54,7 @@ export const GridProvider: ({
 export const useGridState = (): State => {
   const context = React.useContext(GridStateContext);
 
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within GridProvider");
   }
   return context;
@@ -63,7 +63,7 @@ export const useGridState = (): State => {
 export const useGridDispatch = (): React.Dispatch<Action> => {
   const context = React.useContext(GridDispatchContext);
 
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within GridProvider");
   }
   return context;

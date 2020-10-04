@@ -71,7 +71,7 @@ export const SquaresProvider: ({
 
 export const useSquaresState = (): State => {
   const context = React.useContext(SquaresContext);
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within Squares Provider");
   }
   return context;
@@ -80,7 +80,7 @@ export const useSquaresState = (): State => {
 export const useSquaresDispatch = (): React.Dispatch<Action> => {
   const context = React.useContext(SquaresDispatch);
 
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within Squares Provider");
   }
   return context;

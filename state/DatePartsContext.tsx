@@ -61,7 +61,7 @@ export const PartsProvider: ({
 
 export const usePartsState = (): PartsState => {
   const context: PartsState = React.useContext(PartsStateContext);
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within PartsProvider");
   }
   return context;
@@ -69,7 +69,7 @@ export const usePartsState = (): PartsState => {
 
 export const usePartsDispatch = (): React.Dispatch<Action> => {
   const context = React.useContext(PartsDispatchContext);
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within PartsProvider");
   }
   return context;

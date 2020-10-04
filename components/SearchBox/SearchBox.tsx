@@ -9,10 +9,7 @@ import {
 import ScheduleGrid from "./Logic/ScheduleGrid";
 import Link from "next/link";
 import { useGridDispatch } from "../../state/SearchGridContext";
-import {
-  useSquaresDispatch,
-  useSquaresState,
-} from "../../state/GridSquaresContext";
+import { useSquaresDispatch } from "../../state/GridSquaresContext";
 import css from "./SearchBox.module.scss";
 
 export type InputChange = (key: string, input: string | Date) => void;
@@ -62,25 +59,33 @@ export const SearchBox: React.FC = (props) => {
     yelpCategories: "",
   });
 
+  const squaresDispatch = useSquaresDispatch();
+  const gridDispatch = useGridDispatch();
+
   const handleSubmit: () => void = () => {
     const newDatesInput: ScheduleGrid = new ScheduleGrid(
       searchQuery.unixStartDate,
       searchQuery.unixEndDate
     );
     newDatesInput.setGrid();
-    return (
-      useSquaresDispatch()({
-        type: "ADD_SQUARES",
-        payload: { numberOfSquares: newDatesInput.numberofSquares },
-      }),
-      useGridDispatch()({
-        type: "ADD_GRID_TEMPLATE",
-        payload: {
-          hourStrings: newDatesInput.hourStrings,
-          gridTemplate: newDatesInput.templateAreas,
-        },
-      })
-    );
+    // return (
+    //   squaresDispatch({
+    //     type: "ADD_SQUARES",
+    //     payload: { numberOfSquares: newDatesInput.numberofSquares },
+    //   }),
+    //   gridDispatch({
+    //     type: "ADD_GRID_TEMPLATE",
+    //     payload: {
+    //       hourStrings: newDatesInput.hourStrings,
+    //       gridTemplate: newDatesInput.templateAreas,
+    //     },
+    //   })
+    // );
+
+    return squaresDispatch({
+      type: "ADD_SQUARES",
+      payload: { numberOfSquares: newDatesInput.numberofSquares },
+    });
   };
 
   const checkFieldsDisplayLink: (searchType: string) => JSX.Element = (
@@ -120,7 +125,7 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button onClick={handleSubmit}>Search</button>
+            <button>Search</button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
@@ -148,9 +153,7 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=PLACES+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}`}
           >
-            <button style={{ color: "green" }} onClick={() => handleSubmit}>
-              Search
-            </button>
+            <button style={{ color: "green" }}>Search</button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
@@ -179,9 +182,7 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=EVENTS+location=${searchQuery.location}+radius=${searchQuery.radius}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button style={{ color: "green" }} onClick={handleSubmit}>
-              Search
-            </button>
+            <button style={{ color: "green" }}>Search</button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
@@ -212,9 +213,7 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button style={{ color: "green" }} onClick={handleSubmit}>
-              Search
-            </button>
+            <button style={{ color: "green" }}>Search</button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
@@ -292,22 +291,7 @@ export const SearchBox: React.FC = (props) => {
         handleInputChange={handleInputChange}
         placeType={searchQuery.placeType}
       ></PlacesInput>
-      {/* <button
-        className={css.searchButton}
-        onClick={() => (
-          yelpEventsCall(searchQuery),
-          yelpBusinessesCall(searchQuery),
-          ticketmasterCall(searchQuery)
-        )}
-      >
-        Search
-      </button> */}
-      {/* <Link
-        href="/search/[queried]"
-        as={`/search/location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}`}
-      >
-        <button>Search</button>
-      </Link> */}
+
       {checkFieldsDisplayLink(searchQuery.searchType)}
     </div>
   );
