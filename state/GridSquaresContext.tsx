@@ -52,7 +52,7 @@ const SquaresDispatch: React.Context<
   React.Dispatch<Action> | undefined
 > = React.createContext(undefined);
 
-export const GridProvider: ({
+export const SquaresProvider: ({
   children,
 }: {
   children: React.ReactNode;
