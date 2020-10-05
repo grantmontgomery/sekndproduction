@@ -68,24 +68,19 @@ export const SearchBox: React.FC = (props) => {
       searchQuery.unixEndDate
     );
     newDatesInput.setGrid();
-    // return (
-    //   squaresDispatch({
-    //     type: "ADD_SQUARES",
-    //     payload: { numberOfSquares: newDatesInput.numberofSquares },
-    //   }),
-    //   gridDispatch({
-    //     type: "ADD_GRID_TEMPLATE",
-    //     payload: {
-    //       hourStrings: newDatesInput.hourStrings,
-    //       gridTemplate: newDatesInput.templateAreas,
-    //     },
-    //   })
-    // );
-
-    return squaresDispatch({
-      type: "ADD_SQUARES",
-      payload: { numberOfSquares: newDatesInput.numberofSquares },
-    });
+    return (
+      squaresDispatch({
+        type: "ADD_SQUARES",
+        payload: { numberOfSquares: newDatesInput.numberofSquares },
+      }),
+      gridDispatch({
+        type: "ADD_GRID_TEMPLATE",
+        payload: {
+          hourStrings: newDatesInput.hourStrings,
+          gridTemplate: newDatesInput.templateAreas,
+        },
+      })
+    );
   };
 
   const checkFieldsDisplayLink: (searchType: string) => JSX.Element = (
@@ -125,7 +120,7 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button>Search</button>
+            <button onClick={handleSubmit}>Search</button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
@@ -153,7 +148,9 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=PLACES+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}`}
           >
-            <button style={{ color: "green" }}>Search</button>
+            <button style={{ color: "green" }} onClick={handleSubmit}>
+              Search
+            </button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
@@ -182,7 +179,9 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=EVENTS+location=${searchQuery.location}+radius=${searchQuery.radius}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button style={{ color: "green" }}>Search</button>
+            <button style={{ color: "green" }} onClick={handleSubmit}>
+              Search
+            </button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>

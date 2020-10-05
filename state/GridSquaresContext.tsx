@@ -19,12 +19,11 @@ const squaresReducer: React.Reducer<State, Action> = (
 ) => {
   switch (action.type) {
     case "ADD_SQUARES":
-      const squares: State["squares"] = [];
-      let numberOfSquares: number = 0;
-      while (numberOfSquares < action.payload.numberOfSquares) {
-        squares.push({ part: null });
-      }
-      return { squares };
+      return {
+        squares: [...new Array(action.payload.numberOfSquares)].map(() => ({
+          part: null,
+        })),
+      };
     case "ADD_PART_TO_SQUARE":
       return {
         squares: state.squares.map((square, i) => {
