@@ -46,9 +46,19 @@ export const PartsProvider: ({
 }: {
   children: React.ReactNode;
 }) => JSX.Element = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = React.useReducer(partsReducer, {
-    parts: [],
-  });
+  const [state, dispatch] = React.useReducer(partsReducer, { parts: [] });
+
+  // window ? console.log("parts successful") : console.log("window can't load");
+
+  let windowObject: Window | null = null;
+
+  React.useEffect(() => {
+    if (window) {
+      windowObject = window;
+      windowObject.localStorage.setItem("parts", JSON.stringify(state));
+      console.log(windowObject.localStorage.getItem("parts"));
+    }
+  }, [state]);
 
   return (
     <PartsStateContext.Provider value={state}>

@@ -25,9 +25,6 @@ export default function Queried(): JSX.Element {
   });
   const router: NextRouter = useRouter();
 
-  console.log(useGridState());
-  console.log(useSquaresState());
-
   const urlStart: string =
     process.env.NODE_ENV !== "production"
       ? "http://localhost:3000"
