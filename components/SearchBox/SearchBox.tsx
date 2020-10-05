@@ -68,19 +68,18 @@ export const SearchBox: React.FC = (props) => {
       searchQuery.unixEndDate
     );
     newDatesInput.setGrid();
-    return (
-      squaresDispatch({
-        type: "ADD_SQUARES",
-        payload: { numberOfSquares: newDatesInput.numberofSquares },
-      }),
-      gridDispatch({
-        type: "ADD_GRID_TEMPLATE",
-        payload: {
-          hourStrings: newDatesInput.hourStrings,
-          gridTemplate: newDatesInput.templateAreas,
-        },
-      })
-    );
+
+    squaresDispatch({
+      type: "ADD_SQUARES",
+      payload: { numberOfSquares: newDatesInput.numberofSquares },
+    });
+    gridDispatch({
+      type: "ADD_GRID_TEMPLATE",
+      payload: {
+        hourStrings: newDatesInput.hourStrings,
+        gridTemplate: newDatesInput.templateAreas,
+      },
+    });
   };
 
   const checkFieldsDisplayLink: (searchType: string) => JSX.Element = (

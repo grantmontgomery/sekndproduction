@@ -5,7 +5,12 @@ type PartsState = {
 };
 type Action = {
   type: string;
-  payload: { id?: string; part?: { [key: string]: any }; details?: string };
+  payload: {
+    id?: string;
+    part?: { [key: string]: any };
+    details?: string;
+    parts?: PartsState["parts"];
+  };
 };
 const partsReducer: React.Reducer<PartsState, Action> = (
   state: PartsState,
@@ -28,6 +33,8 @@ const partsReducer: React.Reducer<PartsState, Action> = (
           return { ...part, details: action.payload.details };
         }),
       };
+    case "UPDATE_FROM_CACHE":
+      return { parts: action.payload.parts };
     default:
       return state;
   }
@@ -41,6 +48,8 @@ const PartsDispatchContext: React.Context<
   React.Dispatch<Action> | undefined
 > = React.createContext(undefined);
 
+const initialState: PartsState = { parts: [] };
+
 export const PartsProvider: ({
   children,
 }: {
@@ -50,15 +59,14 @@ export const PartsProvider: ({
 
   // window ? console.log("parts successful") : console.log("window can't load");
 
-  let windowObject: Window | null = null;
+  // React.useEffect(() => {
+  //   if (localStorage) {
+  //     localStorage.setItem("parts", JSON.stringify(state));
 
-  React.useEffect(() => {
-    if (window) {
-      windowObject = window;
-      windowObject.localStorage.setItem("parts", JSON.stringify(state));
-      console.log(windowObject.localStorage.getItem("parts"));
-    }
-  }, [state]);
+  //     localStorage.getItem("parts");
+  //     console.log(localStorage.getItem("parts"));
+  //   }
+  // }, [state]);
 
   return (
     <PartsStateContext.Provider value={state}>
