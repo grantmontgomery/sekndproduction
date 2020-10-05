@@ -1,0 +1,11 @@
+{
+  "/about": "pages/about.html",
+  "/api/ticketmasterAPI": "pages/api/ticketmasterAPI.js",
+  "/api/yelpBusinessesAPI": "pages/api/yelpBusinessesAPI.js",
+  "/api/yelpEventsAPI": "pages/api/yelpEventsAPI.js",
+  "/": "pages/index.html",
+  "/schedule": "pages/schedule.html",
+  "/search/[queried]": "pages/search/[queried].html",
+  "/_error": "pages/_error.js",
+  "/404": "pages/404.html"
+}

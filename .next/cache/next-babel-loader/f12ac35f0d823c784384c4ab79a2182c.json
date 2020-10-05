@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { DetailsSection } from \"./DetailsSection\";","map":{"version":3,"sources":["C:/Users/gmont/sekndproduction/components/DatePart/NormalPiece/DetailsSection/index.ts"],"names":["DetailsSection"],"mappings":"AAAA,SAASA,cAAT,QAA+B,kBAA/B","sourcesContent":["export { DetailsSection } from \"./DetailsSection\";\r\n"]},"metadata":{},"sourceType":"module"}

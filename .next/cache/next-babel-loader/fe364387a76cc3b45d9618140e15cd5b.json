@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport * as React from \"react\";\nimport css from \"./ScheduleGrid.module.scss\";\nexport var ScheduleGrid = function ScheduleGrid() {\n  return __jsx(\"div\", {\n    className: css.gridWrapper\n  }, __jsx(\"div\", {\n    className: css.innerGrid\n  }));\n};","map":null,"metadata":{},"sourceType":"module"}

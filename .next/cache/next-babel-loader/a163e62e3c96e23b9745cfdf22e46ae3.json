@@ -1,0 +1,1 @@
+{"ast":null,"code":"export default ((req, res) => {\n  if (req.method !== \"GET\") {\n    console.log(req.body);\n    res.send(200);\n  }\n\n  res.status(200).end(\"Hello World\");\n});","map":null,"metadata":{},"sourceType":"module"}

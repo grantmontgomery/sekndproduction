@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { ResultCard } from \"./ResultCard\";","map":{"version":3,"sources":["C:/Users/gmont/sekndproduction/components/SearchResults/ResultCard/index.ts"],"names":["ResultCard"],"mappings":"AAAA,SAASA,UAAT,QAA2B,cAA3B","sourcesContent":["export { ResultCard } from \"./ResultCard\";\r\n"]},"metadata":{},"sourceType":"module"}

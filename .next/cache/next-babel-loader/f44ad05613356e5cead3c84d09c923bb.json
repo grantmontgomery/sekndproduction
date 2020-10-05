@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { NormalPiece } from \"./NormalPiece\";","map":{"version":3,"sources":["C:/Users/gmont/sekndproduction/components/DatePart/NormalPiece/index.ts"],"names":["NormalPiece"],"mappings":"AAAA,SAASA,WAAT,QAA4B,eAA5B","sourcesContent":["export { NormalPiece } from \"./NormalPiece\";\r\n"]},"metadata":{},"sourceType":"module"}

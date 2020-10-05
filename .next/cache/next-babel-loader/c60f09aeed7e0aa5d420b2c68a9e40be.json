@@ -1,0 +1,1 @@
+{"ast":null,"code":"export { SekndLoader } from \"./SekndLoader\";","map":{"version":3,"sources":["C:/Users/gmont/sekndproduction/components/SekndLoader/index.ts"],"names":["SekndLoader"],"mappings":"AAAA,SAASA,WAAT,QAA4B,eAA5B","sourcesContent":["export { SekndLoader } from \"./SekndLoader\";\r\n"]},"metadata":{},"sourceType":"module"}

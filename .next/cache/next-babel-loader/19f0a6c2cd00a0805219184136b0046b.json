@@ -1,0 +1,1 @@
+{"ast":null,"code":"var __jsx = React.createElement;\nimport * as React from \"react\";\nimport css from \"./WhenInput.module.scss\";\nexport var WhenInput = function WhenInput() {\n  return __jsx(\"div\", {\n    className: css.when\n  }, __jsx(\"label\", {\n    htmlFor: \"\"\n  }, \"When are you meeting?\"));\n};","map":null,"metadata":{},"sourceType":"module"}
