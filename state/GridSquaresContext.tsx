@@ -1,4 +1,5 @@
 import * as React from "react";
+import Cookie from "js-cookie";
 
 type State = {
   squares: { part: { [key: string]: any } | null }[];
@@ -59,6 +60,11 @@ export const SquaresProvider: ({
   const [state, dispatch] = React.useReducer(squaresReducer, {
     squares: [],
   });
+
+  React.useEffect(() => {
+    Cookie.set("squares", state);
+  }, [state]);
+
   return (
     <SquaresContext.Provider value={state}>
       <SquaresDispatch.Provider value={dispatch}>

@@ -1,4 +1,5 @@
 import * as React from "react";
+import Cookie from "js-cookie";
 
 type PartsState = {
   parts: { [key: string]: any }[];
@@ -48,8 +49,6 @@ const PartsDispatchContext: React.Context<
   React.Dispatch<Action> | undefined
 > = React.createContext(undefined);
 
-const initialState: PartsState = { parts: [] };
-
 export const PartsProvider: ({
   children,
 }: {
@@ -57,16 +56,9 @@ export const PartsProvider: ({
 }) => JSX.Element = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = React.useReducer(partsReducer, { parts: [] });
 
-  // window ? console.log("parts successful") : console.log("window can't load");
-
-  // React.useEffect(() => {
-  //   if (localStorage) {
-  //     localStorage.setItem("parts", JSON.stringify(state));
-
-  //     localStorage.getItem("parts");
-  //     console.log(localStorage.getItem("parts"));
-  //   }
-  // }, [state]);
+  React.useEffect(() => {
+    Cookie.set("parts", state);
+  }, [state]);
 
   return (
     <PartsStateContext.Provider value={state}>

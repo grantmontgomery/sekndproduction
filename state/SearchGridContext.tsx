@@ -1,4 +1,5 @@
 import * as React from "react";
+import Cookie from "js-cookie";
 
 type State = {
   hourStrings: string[];
@@ -41,6 +42,10 @@ export const GridProvider: ({
     gridTemplate: "",
     hourStrings: [],
   });
+
+  React.useEffect(() => {
+    Cookie.set("grid", state);
+  }, [state]);
 
   return (
     <GridStateContext.Provider value={state}>
