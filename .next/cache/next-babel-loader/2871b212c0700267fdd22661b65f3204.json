@@ -1,1 +1,0 @@
-{"ast":null,"code":"var __jsx = React.createElement;\nimport * as React from \"react\";\nexport class DragPiece extends React.Component {\n  render() {\n    return __jsx(\"div\", null);\n  }\n\n}","map":null,"metadata":{},"sourceType":"module"}

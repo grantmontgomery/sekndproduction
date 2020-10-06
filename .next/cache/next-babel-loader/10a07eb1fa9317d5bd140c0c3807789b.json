@@ -1,1 +1,0 @@
-{"ast":null,"code":"export { PartsIcon } from \"./PartsIcon\";","map":{"version":3,"sources":["C:/Users/gmont/sekndproduction/components/PartsIcon/index.ts"],"names":["PartsIcon"],"mappings":"AAAA,SAASA,SAAT,QAA0B,aAA1B","sourcesContent":["export { PartsIcon } from \"./PartsIcon\";\r\n"]},"metadata":{},"sourceType":"module"}
