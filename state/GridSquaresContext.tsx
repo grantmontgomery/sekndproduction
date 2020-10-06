@@ -70,6 +70,7 @@ export const SquaresProvider: ({
 
   React.useEffect(() => {
     Cookie.set("squares", state);
+    console.log(JSON.parse(Cookie.get("squares")));
   }, [state]);
 
   return (

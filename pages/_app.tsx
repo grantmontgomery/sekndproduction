@@ -10,7 +10,9 @@ import { GridProvider } from "../state/SearchGridContext";
 import { SquaresProvider } from "../state/GridSquaresContext";
 
 import { Component } from "react";
-// import { parseCookies } from "../cookies/parseCookies";
+import { parseCookies } from "../cookies/parseCookies";
+import { JS } from "aws-amplify";
+import { type } from "os";
 
 // function MyApp({ Component, pageProps, router }) {
 //   return (
@@ -66,23 +68,48 @@ import { Component } from "react";
 //   );
 // }
 
+type InitialSquaresState = {
+  squares: { part: { [key: string]: any } | null }[];
+};
+type InitialGridState = { gridTemplate: string; hourStrings: string[] };
+type InitialPartsState = { parts: { [key: string]: any }[] | [] };
+
 class MyApp extends App<{
   parts: { [key: string]: any }[];
   gridTemplate: string;
   hourStrings: string[];
   squares: { part: null | { [key: string]: any }[] };
+  initialSquaresState?: InitialSquaresState;
+  initialGridState?: InitialGridState;
+  initialPartsState?: InitialPartsState;
 }> {
-  // static async getInitialProps() {
+  static async getInitialProps({ ctx: req, Component }) {
+    const { req: actualRequest } = req;
 
-  //   return {};
-  // }
+    const cookieObject: { [key: string]: string } = parseCookies(actualRequest);
+    if (cookieObject === {}) return {};
+    const { parts, grid, squares } = cookieObject;
+
+    const initialSquaresState: InitialSquaresState = JSON.parse(squares);
+    const initialPartsState: InitialPartsState = JSON.parse(parts);
+    const initialGridState: InitialGridState = JSON.parse(grid);
+
+    return { initialSquaresState, initialPartsState, initialGridState };
+  }
 
   render() {
-    const { Component, pageProps, router } = this.props;
+    const {
+      Component,
+      pageProps,
+      router,
+      initialSquaresState,
+      initialGridState,
+      initialPartsState,
+    } = this.props;
     return (
-      <SquaresProvider>
-        <GridProvider>
-          <PartsProvider>
+      <SquaresProvider initialSquaresState={initialSquaresState}>
+        <GridProvider initialGridState={initialGridState}>
+          <PartsProvider initialPartsState={initialPartsState}>
             {/* <PageTransition
           timeout={400}
           loadingComponent={<SekndLoader></SekndLoader>}
