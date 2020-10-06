@@ -1,4 +1,5 @@
 import * as React from "react";
+import Cookie from "js-cookie";
 
 type State = {
   hourStrings: string[];
@@ -34,13 +35,25 @@ const GridDispatchContext: React.Context<
 
 export const GridProvider: ({
   children,
+  initialGridState,
 }: {
   children: React.ReactNode;
-}) => JSX.Element = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = React.useReducer(gridReducer, {
-    gridTemplate: "",
-    hourStrings: [],
-  });
+  initialGridState?: State;
+}) => JSX.Element = ({ children, initialGridState }) => {
+  const [state, dispatch] = React.useReducer(
+    gridReducer,
+    initialGridState
+      ? initialGridState
+      : {
+          gridTemplate: "",
+          hourStrings: [],
+        }
+  );
+
+  React.useEffect(() => {
+    Cookie.set("grid", state);
+    console.log(JSON.parse(Cookie.get("grid")));
+  }, [state]);
 
   return (
     <GridStateContext.Provider value={state}>
@@ -54,7 +67,7 @@ export const GridProvider: ({
 export const useGridState = (): State => {
   const context = React.useContext(GridStateContext);
 
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within GridProvider");
   }
   return context;
@@ -63,7 +76,7 @@ export const useGridState = (): State => {
 export const useGridDispatch = (): React.Dispatch<Action> => {
   const context = React.useContext(GridDispatchContext);
 
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within GridProvider");
   }
   return context;

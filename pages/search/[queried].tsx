@@ -25,9 +25,6 @@ export default function Queried(): JSX.Element {
   });
   const router: NextRouter = useRouter();
 
-  console.log(useGridState());
-  console.log(useSquaresState());
-
   const urlStart: string =
     process.env.NODE_ENV !== "production"
       ? "http://localhost:3000"
@@ -94,9 +91,9 @@ export default function Queried(): JSX.Element {
     if (loading) {
       return (
         <React.Fragment>
-          <ResultCard resultsLoading={true}></ResultCard>
-          <ResultCard resultsLoading={true}></ResultCard>
-          <ResultCard resultsLoading={true}></ResultCard>
+          <ResultCard key={"loading1"} resultsLoading={true}></ResultCard>
+          <ResultCard key={"loading2"} resultsLoading={true}></ResultCard>
+          <ResultCard key={"loading3"} resultsLoading={true}></ResultCard>
         </React.Fragment>
       );
     } else {
@@ -108,7 +105,7 @@ export default function Queried(): JSX.Element {
                 ? item.type === "place"
                 : item.type === "event";
             })
-            .map((item) => <ResultCard item={item}></ResultCard>)
+            .map((item) => <ResultCard key={item.id} item={item}></ResultCard>)
         : null;
     }
   };

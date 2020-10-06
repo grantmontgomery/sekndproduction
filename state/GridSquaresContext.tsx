@@ -1,4 +1,5 @@
 import * as React from "react";
+import Cookie from "js-cookie";
 
 type State = {
   squares: { part: { [key: string]: any } | null }[];
@@ -19,12 +20,11 @@ const squaresReducer: React.Reducer<State, Action> = (
 ) => {
   switch (action.type) {
     case "ADD_SQUARES":
-      const squares: State["squares"] = [];
-      let numberOfSquares: number = 0;
-      while (numberOfSquares < action.payload.numberOfSquares) {
-        squares.push({ part: null });
-      }
-      return { squares };
+      return {
+        squares: [...new Array(action.payload.numberOfSquares)].map(() => ({
+          part: null,
+        })),
+      };
     case "ADD_PART_TO_SQUARE":
       return {
         squares: state.squares.map((square, i) => {
@@ -54,12 +54,25 @@ const SquaresDispatch: React.Context<
 
 export const SquaresProvider: ({
   children,
+  initialSquaresState,
 }: {
   children: React.ReactNode;
-}) => JSX.Element = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = React.useReducer(squaresReducer, {
-    squares: [],
-  });
+  initialSquaresState?: State;
+}) => JSX.Element = ({ children, initialSquaresState }) => {
+  const [state, dispatch] = React.useReducer(
+    squaresReducer,
+    initialSquaresState
+      ? initialSquaresState
+      : {
+          squares: [],
+        }
+  );
+
+  React.useEffect(() => {
+    Cookie.set("squares", state);
+    console.log(JSON.parse(Cookie.get("squares")));
+  }, [state]);
+
   return (
     <SquaresContext.Provider value={state}>
       <SquaresDispatch.Provider value={dispatch}>
@@ -71,7 +84,7 @@ export const SquaresProvider: ({
 
 export const useSquaresState = (): State => {
   const context = React.useContext(SquaresContext);
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within Squares Provider");
   }
   return context;
@@ -80,7 +93,7 @@ export const useSquaresState = (): State => {
 export const useSquaresDispatch = (): React.Dispatch<Action> => {
   const context = React.useContext(SquaresDispatch);
 
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within Squares Provider");
   }
   return context;

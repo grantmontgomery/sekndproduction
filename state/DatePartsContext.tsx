@@ -1,11 +1,17 @@
 import * as React from "react";
+import Cookie from "js-cookie";
 
 type PartsState = {
   parts: { [key: string]: any }[];
 };
 type Action = {
   type: string;
-  payload: { id?: string; part?: { [key: string]: any }; details?: string };
+  payload: {
+    id?: string;
+    part?: { [key: string]: any };
+    details?: string;
+    parts?: PartsState["parts"];
+  };
 };
 const partsReducer: React.Reducer<PartsState, Action> = (
   state: PartsState,
@@ -28,6 +34,8 @@ const partsReducer: React.Reducer<PartsState, Action> = (
           return { ...part, details: action.payload.details };
         }),
       };
+    case "UPDATE_FROM_CACHE":
+      return { parts: action.payload.parts };
     default:
       return state;
   }
@@ -43,12 +51,20 @@ const PartsDispatchContext: React.Context<
 
 export const PartsProvider: ({
   children,
+  initialPartsState,
 }: {
   children: React.ReactNode;
-}) => JSX.Element = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = React.useReducer(partsReducer, {
-    parts: [],
-  });
+  initialPartsState?: PartsState;
+}) => JSX.Element = ({ children, initialPartsState }) => {
+  const [state, dispatch] = React.useReducer(
+    partsReducer,
+    initialPartsState ? initialPartsState : { parts: [] }
+  );
+
+  React.useEffect(() => {
+    Cookie.set("parts", state);
+    console.log(JSON.parse(Cookie.get("parts")));
+  }, [state]);
 
   return (
     <PartsStateContext.Provider value={state}>
@@ -61,7 +77,7 @@ export const PartsProvider: ({
 
 export const usePartsState = (): PartsState => {
   const context: PartsState = React.useContext(PartsStateContext);
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within PartsProvider");
   }
   return context;
@@ -69,7 +85,7 @@ export const usePartsState = (): PartsState => {
 
 export const usePartsDispatch = (): React.Dispatch<Action> => {
   const context = React.useContext(PartsDispatchContext);
-  if (undefined === context) {
+  if (context === undefined) {
     throw new Error("Please use within PartsProvider");
   }
   return context;

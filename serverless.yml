@@ -1,20 +1,4 @@
-org: gmontgomery1994
-app: seknd-app
-# serverless.yml
-service: ${self:custom.name}
-provider:
-  name: aws
-  runtime: nodejs10.x
-  stage: ${opt:stage, 'dev'}
-  region: us-west-1
-custom:
-  name: Seknd
-  serverless-nextjs: # <- add here
-  assetsBucketName: "my-app-assets-${self:provider.stage}"
-
-plugins:
-  - serverless-nextjs-plugin
-
-package:
-  exclude:
-    - ./**
+myNextApplication:
+  component: "@sls-next/serverless-component@1.17.0"
+  # inputs:
+  #   domain: "sekndapp.com"

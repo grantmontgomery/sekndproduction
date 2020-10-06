@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import Amplify from "aws-amplify";
 
 type Params = {
   radius: string;
@@ -10,6 +11,8 @@ type Params = {
   city?: string;
   postalCode?: string;
 };
+
+// Amplify.configure({...config, ssr: true})
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
