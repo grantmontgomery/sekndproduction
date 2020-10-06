@@ -68,26 +68,6 @@ export const SearchBox: React.FC = (props) => {
       searchQuery.unixEndDate
     );
     newDatesInput.setGrid();
-<<<<<<< HEAD
-    // return (
-    //   squaresDispatch({
-    //     type: "ADD_SQUARES",
-    //     payload: { numberOfSquares: newDatesInput.numberofSquares },
-    //   }),
-    //   gridDispatch({
-    //     type: "ADD_GRID_TEMPLATE",
-    //     payload: {
-    //       hourStrings: newDatesInput.hourStrings,
-    //       gridTemplate: newDatesInput.templateAreas,
-    //     },
-    //   })
-    // );
-
-    return squaresDispatch({
-      type: "ADD_SQUARES",
-      payload: { numberOfSquares: newDatesInput.numberofSquares },
-    });
-=======
 
     squaresDispatch({
       type: "ADD_SQUARES",
@@ -100,7 +80,6 @@ export const SearchBox: React.FC = (props) => {
         gridTemplate: newDatesInput.templateAreas,
       },
     });
->>>>>>> develop
   };
 
   const checkFieldsDisplayLink: (searchType: string) => JSX.Element = (
@@ -168,13 +147,9 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=PLACES+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}`}
           >
-<<<<<<< HEAD
-            <button style={{ color: "green" }}>Search</button>
-=======
             <button style={{ color: "green" }} onClick={handleSubmit}>
               Search
             </button>
->>>>>>> develop
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
