@@ -63,6 +63,7 @@ export const SquaresProvider: ({
 
   React.useEffect(() => {
     Cookie.set("squares", state);
+    console.log(Cookie.get("squares"));
   }, [state]);
 
   return (
