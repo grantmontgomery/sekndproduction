@@ -51,10 +51,15 @@ const PartsDispatchContext: React.Context<
 
 export const PartsProvider: ({
   children,
+  initialPartsState,
 }: {
   children: React.ReactNode;
-}) => JSX.Element = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = React.useReducer(partsReducer, { parts: [] });
+  initialPartsState?: PartsState;
+}) => JSX.Element = ({ children, initialPartsState }) => {
+  const [state, dispatch] = React.useReducer(
+    partsReducer,
+    initialPartsState ? initialPartsState : { parts: [] }
+  );
 
   React.useEffect(() => {
     Cookie.set("parts", state);

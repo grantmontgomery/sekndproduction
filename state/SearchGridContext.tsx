@@ -35,13 +35,20 @@ const GridDispatchContext: React.Context<
 
 export const GridProvider: ({
   children,
+  initialGridState,
 }: {
   children: React.ReactNode;
-}) => JSX.Element = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = React.useReducer(gridReducer, {
-    gridTemplate: "",
-    hourStrings: [],
-  });
+  initialGridState?: State;
+}) => JSX.Element = ({ children, initialGridState }) => {
+  const [state, dispatch] = React.useReducer(
+    gridReducer,
+    initialGridState
+      ? initialGridState
+      : {
+          gridTemplate: "",
+          hourStrings: [],
+        }
+  );
 
   React.useEffect(() => {
     Cookie.set("grid", state);

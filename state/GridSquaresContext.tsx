@@ -54,16 +54,22 @@ const SquaresDispatch: React.Context<
 
 export const SquaresProvider: ({
   children,
+  initialSquaresState,
 }: {
   children: React.ReactNode;
-}) => JSX.Element = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = React.useReducer(squaresReducer, {
-    squares: [],
-  });
+  initialSquaresState?: State;
+}) => JSX.Element = ({ children, initialSquaresState }) => {
+  const [state, dispatch] = React.useReducer(
+    squaresReducer,
+    initialSquaresState
+      ? initialSquaresState
+      : {
+          squares: [],
+        }
+  );
 
   React.useEffect(() => {
     Cookie.set("squares", state);
-    console.log(Cookie.get("squares"));
   }, [state]);
 
   return (

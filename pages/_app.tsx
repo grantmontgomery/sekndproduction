@@ -3,12 +3,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker.min.css";
 import App from "next/app";
 import { PageTransition } from "next-page-transitions";
+import Cookie from "js-cookie";
 import { SekndLoader } from "../components";
 import { PartsProvider } from "../state/DatePartsContext";
 import { GridProvider } from "../state/SearchGridContext";
 import { SquaresProvider } from "../state/GridSquaresContext";
 
 import { Component } from "react";
+// import { parseCookies } from "../cookies/parseCookies";
 
 // function MyApp({ Component, pageProps, router }) {
 //   return (
@@ -70,6 +72,11 @@ class MyApp extends App<{
   hourStrings: string[];
   squares: { part: null | { [key: string]: any }[] };
 }> {
+  // static async getInitialProps() {
+
+  //   return {};
+  // }
+
   render() {
     const { Component, pageProps, router } = this.props;
     return (
