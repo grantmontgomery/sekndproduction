@@ -52,7 +52,6 @@ export const GridProvider: ({
 
   React.useEffect(() => {
     Cookie.set("grid", state);
-    console.log(JSON.parse(Cookie.get("grid")));
   }, [state]);
 
   return (

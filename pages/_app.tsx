@@ -94,9 +94,11 @@ App.getInitialProps = async ({ ctx: req }) => {
   if (!cookieObject) return {};
   const { parts, grid, squares } = cookieObject;
 
-  const initialSquaresState: InitialSquaresState = JSON.parse(squares);
-  const initialPartsState: InitialPartsState = JSON.parse(parts);
-  const initialGridState: InitialGridState = JSON.parse(grid);
+  const initialSquaresState: InitialSquaresState = squares
+    ? JSON.parse(squares)
+    : null;
+  const initialPartsState: InitialPartsState = parts ? JSON.parse(parts) : null;
+  const initialGridState: InitialGridState = grid ? JSON.parse(grid) : null;
 
   return { initialSquaresState, initialPartsState, initialGridState };
 };

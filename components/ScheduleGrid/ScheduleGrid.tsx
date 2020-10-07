@@ -32,6 +32,7 @@ export const ScheduleGrid: React.FC = () => {
             <GridSquare
               key={`gridSquare${index}`}
               part={square.part}
+              index={index}
             ></GridSquare>
           ))
         ) : (

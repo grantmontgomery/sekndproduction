@@ -45,6 +45,22 @@ export default class GridClass {
   private setGridTemplate() {
     const square: string = "square ";
 
+    let squaresString: string = "";
+
+    let squareIndexCount: number = 0;
+    let squareRow = "";
+    while (squareIndexCount < this.numberofSquares) {
+      if ((squareIndexCount + 1) % this.columnAmount !== 0) {
+        squareRow = squareRow.concat(`square${squareIndexCount} `);
+        console.log(squareRow);
+      } else {
+        squareRow = squareRow.concat(` square${squareIndexCount}`);
+        squaresString = squaresString.concat(`"${squareRow}"`);
+        squareRow = "";
+      }
+      squareIndexCount++;
+    }
+
     const rowString: string = `"${square.repeat(this.columnAmount - 1)}square"`;
     let hourAreas = "";
 
@@ -55,9 +71,7 @@ export default class GridClass {
 
     let hoursRow = `". ${hourAreas}."`;
 
-    console.log(hoursRow);
-
-    this.templateAreas = `${hoursRow}${rowString.repeat(5)}`;
+    this.templateAreas = `${hoursRow}${squaresString}`;
   }
 
   private setHoursHeader() {
