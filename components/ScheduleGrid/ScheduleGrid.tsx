@@ -9,10 +9,17 @@ import { spawn } from "child_process";
 export const ScheduleGrid: React.FC = () => {
   const { squares } = useSquaresState();
   const { hourStrings, gridTemplate } = useGridState();
+  console.log(gridTemplate);
+  const columnString: string = "calc(40vh/6) ";
   return (
     <div className={css.gridWrapper}>
       <div
-        style={{ gridTemplateAreas: gridTemplate }}
+        style={{
+          gridTemplateAreas: gridTemplate,
+          gridTemplateColumns: `${columnString.repeat(
+            squares.length / 5
+          )}calc(40vh/6)`,
+        }}
         className={css.innerGrid}
       >
         {hourStrings && hourStrings

@@ -2,10 +2,20 @@
   height: 100%;
   width: 100%;
   overflow-x: scroll;
+
   & .innerGrid {
     height: 100%;
+    grid-template-rows:
+      calc(40vh / 6) calc(40vh / 6) calc(40vh / 6) calc(40vh / 6)
+      calc(40vh / 6) calc(40vh / 6);
     display: grid;
-    width: 400%;
+    width: fit-content;
+    & .filler {
+      grid-area: filler;
+      height: 100%;
+      width: 100%;
+      visibility: hidden;
+    }
   }
   &::-webkit-scrollbar-thumb {
   }
