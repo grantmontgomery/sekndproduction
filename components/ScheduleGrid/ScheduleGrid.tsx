@@ -17,7 +17,7 @@ export const ScheduleGrid: React.FC = () => {
         style={{
           gridTemplateAreas: gridTemplate,
           gridTemplateColumns: `${columnString.repeat(
-            squares.length / 5
+            hourStrings.length * 2 + 1
           )}calc(40vh/6)`,
         }}
         className={css.innerGrid}

@@ -43,8 +43,6 @@ export default class GridClass {
   }
 
   private setGridTemplate() {
-    const square: string = "square ";
-
     let squaresString: string = "";
 
     let squareIndexCount: number = 0;
@@ -61,7 +59,6 @@ export default class GridClass {
       squareIndexCount++;
     }
 
-    const rowString: string = `"${square.repeat(this.columnAmount - 1)}square"`;
     let hourAreas = "";
 
     this.hourStrings.forEach(
