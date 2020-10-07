@@ -4,6 +4,7 @@
   overflow-x: scroll;
   & .innerGrid {
     height: 100%;
+    display: grid;
     width: 400%;
   }
   &::-webkit-scrollbar-thumb {
