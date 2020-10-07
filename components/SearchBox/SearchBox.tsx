@@ -119,7 +119,7 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button>Search</button>
+            <button onClick={handleSubmit}>Search</button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
@@ -178,7 +178,9 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=EVENTS+location=${searchQuery.location}+radius=${searchQuery.radius}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button style={{ color: "green" }}>Search</button>
+            <button style={{ color: "green" }} onClick={handleSubmit}>
+              Search
+            </button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>
@@ -209,7 +211,9 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button style={{ color: "green" }}>Search</button>
+            <button style={{ color: "green" }} onClick={handleSubmit}>
+              Search
+            </button>
           </Link>
         ) : (
           <button onClick={() => alert("please fill out missing fields")}>

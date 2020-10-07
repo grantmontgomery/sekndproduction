@@ -2,7 +2,6 @@ import "../styles/globals.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker.min.css";
 import { PageTransition } from "next-page-transitions";
-import Cookie from "js-cookie";
 import { SekndLoader } from "../components";
 import { PartsProvider } from "../state/DatePartsContext";
 import { GridProvider } from "../state/SearchGridContext";
@@ -92,7 +91,7 @@ App.getInitialProps = async ({ ctx: req }) => {
   const { req: actualRequest } = req;
 
   const cookieObject: { [key: string]: string } = parseCookies(actualRequest);
-  if (cookieObject === {}) return {};
+  if (!cookieObject) return {};
   const { parts, grid, squares } = cookieObject;
 
   const initialSquaresState: InitialSquaresState = JSON.parse(squares);
