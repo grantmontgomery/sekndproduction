@@ -6,7 +6,7 @@ import {
   EventsInput,
   PlacesInput,
 } from "./Parts";
-import ScheduleGrid from "./Logic/ScheduleGrid";
+import GridClass from "./Logic/GridClass";
 import Link from "next/link";
 import { useGridDispatch } from "../../state/SearchGridContext";
 import { useSquaresDispatch } from "../../state/GridSquaresContext";
@@ -63,7 +63,7 @@ export const SearchBox: React.FC = (props) => {
   const gridDispatch = useGridDispatch();
 
   const handleSubmit: () => void = () => {
-    const newDatesInput: ScheduleGrid = new ScheduleGrid(
+    const newDatesInput: GridClass = new GridClass(
       searchQuery.unixStartDate,
       searchQuery.unixEndDate
     );

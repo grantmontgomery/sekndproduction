@@ -1,4 +1,4 @@
-export default class ScheduleGrid {
+export default class GridClass {
   unixStartDate: number;
   unixEndDate: number;
   numberofSquares: number;
@@ -44,10 +44,20 @@ export default class ScheduleGrid {
 
   private setGridTemplate() {
     const square: string = "square ";
-    const rowString: string = `"${square.repeat(
-      this.columnAmount - 1
-    )} square"`;
-    this.templateAreas = `${rowString.repeat(5)}`;
+
+    const rowString: string = `"${square.repeat(this.columnAmount - 1)}square"`;
+    let hourAreas = "";
+
+    this.hourStrings.forEach(
+      (hour, index) =>
+        (hourAreas = hourAreas.concat(`hour${index} hour${index} `))
+    );
+
+    let hoursRow = `". ${hourAreas}."`;
+
+    console.log(hoursRow);
+
+    this.templateAreas = `${hoursRow}${rowString.repeat(5)}`;
   }
 
   private setHoursHeader() {
@@ -81,7 +91,7 @@ export default class ScheduleGrid {
   public setGrid() {
     this.setSquares();
     this.setHours();
-    this.setGridTemplate();
     this.setHoursHeader();
+    this.setGridTemplate();
   }
 }
