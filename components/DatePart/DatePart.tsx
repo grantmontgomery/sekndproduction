@@ -16,6 +16,6 @@ export const DatePart: React.FC<{
   return location === "nav" ? (
     <NormalPiece key={part.id} part={part}></NormalPiece>
   ) : (
-    <DragPiece></DragPiece>
+    <DragPiece key={part.id}></DragPiece>
   );
 };
