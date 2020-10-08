@@ -2,6 +2,7 @@ import * as React from "react";
 import { usePartsState, usePartsDispatch } from "../../state/DatePartsContext";
 import css from "./DateParts.module.scss";
 import { DatePart } from "../DatePart/DatePart";
+
 export const DateParts: React.FC<{ location: string }> = ({ location }) => {
   const { parts } = usePartsState();
   const [state, setState] = React.useState<{ input: string; color: string }>({
@@ -99,7 +100,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
             {parts.map((part) => (
               <DatePart
                 key={part.id}
-                location={"list"}
+                location={location}
                 part={part}
                 gridIndex={part.gridIndex}
               ></DatePart>
