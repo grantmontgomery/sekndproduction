@@ -6,8 +6,14 @@ export const GridHour: React.FC<{ index: number; hourString: string }> = ({
   hourString,
 }) => {
   return (
-    <span style={{ gridArea: `hour${index}` }} className={css.hour}>
-      {hourString}
-    </span>
+    <React.Fragment>
+      <span style={{ gridArea: `hour${index}` }} className={css.hour}>
+        {hourString}
+      </span>
+      <div
+        style={{ gridArea: `hour${index}` }}
+        className={css.hourMarker}
+      ></div>
+    </React.Fragment>
   );
 };

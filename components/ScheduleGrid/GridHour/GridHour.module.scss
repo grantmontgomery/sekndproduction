@@ -1,5 +1,21 @@
 .hour {
-  height: 100%;
+  height: fit-content;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
+  top: 50%;
+  font-size: 2vh;
+  transform: translate(0, -50%);
   width: 100%;
-  border: solid 1px green;
+}
+
+.hourMarker {
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+  top: 75%;
+  height: 25%;
+  border-right: 1px solid rgb(240, 240, 240);
+  width: fit-content;
 }

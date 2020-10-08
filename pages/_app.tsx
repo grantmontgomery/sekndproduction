@@ -91,7 +91,6 @@ App.getInitialProps = async ({ ctx: req }) => {
   const { req: actualRequest } = req;
 
   const cookieObject: { [key: string]: string } = parseCookies(actualRequest);
-  if (!cookieObject) return {};
   const { parts, grid, squares } = cookieObject;
 
   const initialSquaresState: InitialSquaresState = squares

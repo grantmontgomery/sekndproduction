@@ -50,7 +50,6 @@ export default class GridClass {
     while (squareIndexCount < this.numberofSquares) {
       if ((squareIndexCount + 1) % this.columnAmount !== 0) {
         squareRow = squareRow.concat(`square${squareIndexCount} `);
-        console.log(squareRow);
       } else {
         squareRow = squareRow.concat(` square${squareIndexCount}`);
         squaresString = squaresString.concat(`"${squareRow}"`);
