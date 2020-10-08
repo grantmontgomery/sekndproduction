@@ -16,5 +16,5 @@ export const DragPieceDisplay: React.FC<{ dragState: DragState }> = ({
     droppable,
   },
 }) => {
-  return <div></div>;
+  return <div className={css.dragPiece}></div>;
 };

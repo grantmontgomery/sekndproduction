@@ -15,6 +15,7 @@ export const DatePart: React.FC<{
 }> = ({ location, part, gridIndex }) => {
   return location === "nav" ? (
     <NormalPiece key={part.id} part={part}></NormalPiece>
-  ) : null;
-  // <DragPiece></DragPiece>
+  ) : (
+    <DragPiece></DragPiece>
+  );
 };

@@ -1,19 +1,31 @@
 import * as React from "react";
 import css from "../styles/Schedule.module.scss";
-import { Layout, ScheduleGrid, DateParts } from "../components";
+import { usePartsState } from "../state/DatePartsContext";
+import { Layout, ScheduleGrid, DateParts, DatePart } from "../components";
 
-export default function Schedule() {
+export default function Schedule(): JSX.Element {
+  const { parts } = usePartsState();
   return (
     <Layout>
       <main className={css.main}>
         <section className={css.grid}>
           <ScheduleGrid></ScheduleGrid>
         </section>
-        <section className={css.partsBar}>
+        <section className={css.desktopBar}>
           <DateParts location="schedulePage"></DateParts>
         </section>
         <section className={css.mobileBar}>
-          <div className={css.emptySpace}></div>
+          <div className={css.partsSpace}>
+            {parts.map((part) => {
+              return (
+                <DatePart
+                  part={part}
+                  location={"schedulePage"}
+                  gridIndex={null}
+                ></DatePart>
+              );
+            })}
+          </div>
           <div className={css.barSelector}>
             <svg
               version="1.1"

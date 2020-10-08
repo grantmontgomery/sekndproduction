@@ -14,7 +14,7 @@
     box-shadow: 0 0.25vh 4vh #00000015;
     height: 40vh;
   }
-  & .partsBar {
+  & .desktopBar {
     display: none;
   }
   & .mobileBar {
@@ -23,9 +23,12 @@
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
-    & .emptySpace {
+    & .partsSpace {
       height: 75%;
+      padding: 5%;
       width: 100%;
+      display: flex;
+      flex-flow: column wrap;
     }
     & .barSelector {
       height: 25%;
