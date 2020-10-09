@@ -1,42 +1,31 @@
 .main {
-  width: 90vw;
+  width: 100vw;
   position: relative;
   top: 10vh;
-  margin-left: auto;
-  margin-right: auto;
+
   // left: 50%;
   // transform: translate(-50%);
   height: 90vh;
   display: flex;
   flex-flow: column nowrap;
-  & .grid {
-    margin-top: 5%;
-    box-shadow: 0 0.25vh 4vh #00000015;
-    height: 40vh;
-  }
-  & .desktopBar {
-    display: none;
-  }
-  & .mobileBar {
-    height: 32vh;
-    background: lightblue;
+  & header {
+    display: block;
+    position: relative;
     width: 100%;
+    height: 20%;
+    background: red;
     display: flex;
     flex-flow: column nowrap;
-    & .partsSpace {
-      height: 75%;
-      padding: 5%;
-      width: 100%;
-      display: flex;
-      flex-flow: column wrap;
-    }
-    & .barSelector {
-      height: 25%;
+    & .datesSelector {
+      height: 50%;
       width: 100%;
     }
-  }
-  & .scheduledBar {
-    display: none;
+    & .times {
+      height: 50%;
+      width: 100%;
+    }
+    & .partsContainer {
+    }
   }
 }
 
@@ -46,40 +35,8 @@
 
     width: max(min(90vw, 1400px), 750px);
     grid-gap: 2.5%;
-    grid-template-areas: "parts grid scheduled";
+    grid-template-areas: "parts grid";
     grid-template-columns: 20% 55% 20%;
     grid-template-rows: 100%;
-    & .mobileBar {
-      display: none;
-    }
-    & .grid {
-      position: relative;
-      height: 90%;
-      width: 100%;
-      top: 50%;
-      transform: translate(0, -50%);
-      grid-area: grid;
-      margin-top: 0;
-    }
-    & .desktopBar {
-      grid-area: parts;
-      display: block;
-      width: 100%;
-      position: relative;
-      top: 50%;
-      transform: translate(0, -50%);
-      height: 90%;
-      box-shadow: 0 0.25vh 4vh #00000015;
-    }
-    & .scheduledBar {
-      display: block;
-      width: 100%;
-      grid-area: scheduled;
-      top: 50%;
-      position: relative;
-      transform: translate(0, -50%);
-      height: 90%;
-      background: blue;
-    }
   }
 }

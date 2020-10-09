@@ -1,1 +1,0 @@
-export { ScheduleGrid } from "./ScheduleGrid";
