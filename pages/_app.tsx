@@ -12,12 +12,13 @@ import { SquaresProvider } from "../state/GridSquaresContext";
 import { parseCookies } from "../cookies/parseCookies";
 import { NextComponentType, NextPage, NextPageContext } from "next";
 import { NextRouter } from "next/router";
+import mitt from "next/dist/next-server/lib/mitt";
 
 type InitialSquaresState = {
   squares: { part: { [key: string]: any } | null }[];
-};
-type InitialGridState = { gridTemplate: string; hourStrings: string[] };
-type InitialPartsState = { parts: { [key: string]: any }[] | [] };
+} | null;
+type InitialGridState = { gridTemplate: string; hourStrings: string[] } | null;
+type InitialPartsState = { parts: { [key: string]: any }[] | [] } | null;
 
 type Props = {
   Component: NextComponentType;
@@ -32,17 +33,23 @@ export default function App({
   Component,
   pageProps,
   router,
-  initialSquaresState,
-  initialGridState,
-  initialPartsState,
 }: Props): JSX.Element {
-  React.useEffect(() => {
-    console.log(Cookie.get("parts"));
-  }, []);
   return (
-    <SquaresProvider initialSquaresState={initialSquaresState}>
-      <GridProvider initialGridState={initialGridState}>
-        <PartsProvider initialPartsState={initialPartsState}>
+    <SquaresProvider
+      initialSquaresState={
+        Cookie.get("squares") ? JSON.parse(Cookie.get("squares")) : null
+      }
+    >
+      <GridProvider
+        initialGridState={
+          Cookie.get("grid") ? JSON.parse(Cookie.get("grid")) : null
+        }
+      >
+        <PartsProvider
+          initialPartsState={
+            Cookie.get("parts") ? JSON.parse(Cookie.get("parts")) : null
+          }
+        >
           {/* <PageTransition
           timeout={400}
           loadingComponent={<SekndLoader></SekndLoader>}
@@ -92,17 +99,17 @@ export default function App({
   );
 }
 
-App.getInitialProps = async ({ ctx: req }) => {
-  const { req: actualRequest } = req;
+// App.getInitialProps = async ({ ctx: req }) => {
+//   const { req: actualRequest } = req;
 
-  const cookieObject: { [key: string]: string } = parseCookies(actualRequest);
-  const { parts, grid, squares } = cookieObject;
+//   const cookieObject: { [key: string]: string } = parseCookies(actualRequest);
+//   const { parts, grid, squares } = cookieObject;
 
-  const initialSquaresState: InitialSquaresState = squares
-    ? JSON.parse(squares)
-    : null;
-  const initialPartsState: InitialPartsState = parts ? JSON.parse(parts) : null;
-  const initialGridState: InitialGridState = grid ? JSON.parse(grid) : null;
+//   const initialSquaresState: InitialSquaresState = squares
+//     ? JSON.parse(squares)
+//     : null;
+//   const initialPartsState: InitialPartsState = parts ? JSON.parse(parts) : null;
+//   const initialGridState: InitialGridState = grid ? JSON.parse(grid) : null;
 
-  return { initialSquaresState, initialPartsState, initialGridState };
-};
+//   return { initialSquaresState, initialPartsState, initialGridState };
+// };
