@@ -19,7 +19,7 @@ const rectanglesReducer: React.Reducer<State, Action> = (
   action: Action
 ) => {
   switch (action.type) {
-    case "ADD_SQUARES":
+    case "ADD_RECTANGLES":
       return {
         rectangles: [...new Array(action.payload.numberOfRectangles)].map(
           () => ({
@@ -72,6 +72,7 @@ export const RectanglesProvider: ({
 
   React.useEffect(() => {
     Cookie.set("rectangles", state);
+    console.log(state);
   }, [state]);
 
   return (
