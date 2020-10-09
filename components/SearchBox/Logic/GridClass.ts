@@ -5,7 +5,7 @@ export default class GridClass {
   templateAreas: string;
   startHour: number;
   hourDifference: number;
-  columnAmount: number;
+  rowAmount: number;
   endHour: number;
   hourStrings: string[];
 
@@ -15,7 +15,7 @@ export default class GridClass {
     this.startHour = 0;
     this.hourDifference = 0;
     this.templateAreas = "";
-    this.columnAmount = 0;
+    this.rowAmount = 0;
     this.endHour = 0;
     this.hourStrings = [];
     this.numberofRectangles = 0;
@@ -27,7 +27,7 @@ export default class GridClass {
     const numColumns: number = hours * 2 + 4;
     const numberOfRectangles: number = numColumns * 2;
     this.numberofRectangles = numberOfRectangles;
-    this.columnAmount = numColumns;
+    this.rowAmount = numColumns;
     this.hourDifference = hours;
   }
 
@@ -43,31 +43,23 @@ export default class GridClass {
   }
 
   private setGridTemplate() {
-    let RectanglesString: string = "";
+    let templateAreas = "";
+    let rowCount = 0;
+    let hourIndex = 0;
 
-    let squareIndexCount: number = 0;
-    let squareRow = "";
-    while (squareIndexCount < this.numberofRectangles) {
-      if ((squareIndexCount + 1) % this.columnAmount !== 0) {
-        squareRow = squareRow.concat(`square${squareIndexCount} `);
+    while (rowCount < this.rowAmount) {
+      if (rowCount === 0 || rowCount === this.rowAmount - 1) {
+        templateAreas = templateAreas.concat(`". rectangle${rowCount}"`);
       } else {
-        squareRow = squareRow.concat(` square${squareIndexCount}`);
-        RectanglesString = RectanglesString.concat(`"${squareRow}"`);
-        squareRow = "";
+        templateAreas = templateAreas.concat(
+          `"hour${hourIndex} rectangle${rowCount}"`
+        );
       }
-      squareIndexCount++;
+
+      rowCount % 2 === 0 && rowCount !== 0 ? hourIndex++ : null;
+      rowCount++;
     }
-
-    let hourAreas = "";
-
-    this.hourStrings.forEach(
-      (hour, index) =>
-        (hourAreas = hourAreas.concat(`hour${index} hour${index} `))
-    );
-
-    let hoursRow = `". ${hourAreas}."`;
-
-    this.templateAreas = `${hoursRow}${RectanglesString}`;
+    this.templateAreas = templateAreas;
   }
 
   private setHoursHeader() {
