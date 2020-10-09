@@ -1,8 +1,10 @@
+import * as React from "react";
 import "../styles/globals.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker.min.css";
 import { PageTransition } from "next-page-transitions";
 import { SekndLoader } from "../components";
+import Cookie from "js-cookie";
 import { PartsProvider } from "../state/DatePartsContext";
 import { GridProvider } from "../state/SearchGridContext";
 import { SquaresProvider } from "../state/GridSquaresContext";
@@ -34,6 +36,9 @@ export default function App({
   initialGridState,
   initialPartsState,
 }: Props): JSX.Element {
+  React.useEffect(() => {
+    console.log(Cookie.get("parts"));
+  }, []);
   return (
     <SquaresProvider initialSquaresState={initialSquaresState}>
       <GridProvider initialGridState={initialGridState}>

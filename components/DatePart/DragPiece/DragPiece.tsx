@@ -17,8 +17,12 @@ export type DragState = {
   droppable: HTMLDivElement | null;
 };
 
-export const DragPiece: React.FC = (props) => {
-  const [state, setState] = React.useState({
+export const DragPiece: React.FC<{ part: { [key: string]: any } }> = () => {
+  const [state, setState] = React.useState<{
+    isDragging: boolean;
+    origin: { x: number; y: number };
+    translation: { x: number; y: number };
+  }>({
     isDragging: false,
     origin: { x: 0, y: 0 },
     translation: { x: 0, y: 0 },
@@ -27,6 +31,7 @@ export const DragPiece: React.FC = (props) => {
   const { isDragging, origin, translation } = state;
 
   const handleMouseDown = React.useCallback(({ target, clientX, clientY }) => {
+    console.log(target);
     target.hidden = true;
     const elemBelow = document.elementFromPoint(clientX, clientY);
     target.hidden = false;
