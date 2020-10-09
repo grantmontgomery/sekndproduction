@@ -8,6 +8,8 @@
   height: 90vh;
   display: flex;
   flex-flow: column nowrap;
+
+  flex-flow: column nowrap;
   & header {
     display: block;
     position: relative;
@@ -15,6 +17,7 @@
     height: 20%;
     background: red;
     display: flex;
+    grid-area: header;
     flex-flow: column nowrap;
     & .datesSelector {
       height: 50%;
@@ -23,8 +26,6 @@
     & .times {
       height: 50%;
       width: 100%;
-    }
-    & .partsContainer {
     }
   }
 }

@@ -9,7 +9,7 @@ import {
 import GridClass from "./Logic/GridClass";
 import Link from "next/link";
 import { useGridDispatch } from "../../state/SearchGridContext";
-import { useSquaresDispatch } from "../../state/GridSquaresContext";
+import { useRectanglesDispatch } from "../../state/GridRectanglesContext";
 import css from "./SearchBox.module.scss";
 
 export type InputChange = (key: string, input: string | Date) => void;
@@ -59,7 +59,7 @@ export const SearchBox: React.FC = (props) => {
     yelpCategories: "",
   });
 
-  const squaresDispatch = useSquaresDispatch();
+  const rectanglesDispatch = useRectanglesDispatch();
   const gridDispatch = useGridDispatch();
 
   const handleSubmit: () => void = () => {
@@ -69,9 +69,9 @@ export const SearchBox: React.FC = (props) => {
     );
     newDatesInput.setGrid();
 
-    squaresDispatch({
+    rectanglesDispatch({
       type: "ADD_SQUARES",
-      payload: { numberOfSquares: newDatesInput.numberofSquares },
+      payload: { numberOfRectangles: newDatesInput.numberofRectangles },
     });
     gridDispatch({
       type: "ADD_GRID_TEMPLATE",

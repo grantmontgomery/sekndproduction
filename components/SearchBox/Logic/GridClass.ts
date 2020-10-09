@@ -1,7 +1,7 @@
 export default class GridClass {
   unixStartDate: number;
   unixEndDate: number;
-  numberofSquares: number;
+  numberofRectangles: number;
   templateAreas: string;
   startHour: number;
   hourDifference: number;
@@ -18,15 +18,15 @@ export default class GridClass {
     this.columnAmount = 0;
     this.endHour = 0;
     this.hourStrings = [];
-    this.numberofSquares = 0;
+    this.numberofRectangles = 0;
   }
 
-  private setSquares() {
+  private setRectangles() {
     const timeDifference: number = this.unixEndDate - this.unixStartDate;
     const hours: number = Math.floor(timeDifference / 3600);
     const numColumns: number = hours * 2 + 4;
-    const numberOfSquares: number = numColumns * 5;
-    this.numberofSquares = numberOfSquares;
+    const numberOfRectangles: number = numColumns * 2;
+    this.numberofRectangles = numberOfRectangles;
     this.columnAmount = numColumns;
     this.hourDifference = hours;
   }
@@ -43,16 +43,16 @@ export default class GridClass {
   }
 
   private setGridTemplate() {
-    let squaresString: string = "";
+    let RectanglesString: string = "";
 
     let squareIndexCount: number = 0;
     let squareRow = "";
-    while (squareIndexCount < this.numberofSquares) {
+    while (squareIndexCount < this.numberofRectangles) {
       if ((squareIndexCount + 1) % this.columnAmount !== 0) {
         squareRow = squareRow.concat(`square${squareIndexCount} `);
       } else {
         squareRow = squareRow.concat(` square${squareIndexCount}`);
-        squaresString = squaresString.concat(`"${squareRow}"`);
+        RectanglesString = RectanglesString.concat(`"${squareRow}"`);
         squareRow = "";
       }
       squareIndexCount++;
@@ -67,7 +67,7 @@ export default class GridClass {
 
     let hoursRow = `". ${hourAreas}."`;
 
-    this.templateAreas = `${hoursRow}${squaresString}`;
+    this.templateAreas = `${hoursRow}${RectanglesString}`;
   }
 
   private setHoursHeader() {
@@ -99,7 +99,7 @@ export default class GridClass {
   }
 
   public setGrid() {
-    this.setSquares();
+    this.setRectangles();
     this.setHours();
     this.setHoursHeader();
     this.setGridTemplate();

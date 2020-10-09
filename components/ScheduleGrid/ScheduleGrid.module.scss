@@ -1,0 +1,12 @@
+.gridWrapper {
+  overflow-y: scroll;
+  height: 60%;
+  width: 100%;
+  display: block;
+  position: relative;
+  & .innerGrid {
+    height: fit-content;
+    width: 100%;
+    display: grid;
+  }
+}

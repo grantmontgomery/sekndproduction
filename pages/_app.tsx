@@ -7,15 +7,15 @@ import { SekndLoader } from "../components";
 import Cookie from "js-cookie";
 import { PartsProvider } from "../state/DatePartsContext";
 import { GridProvider } from "../state/SearchGridContext";
-import { SquaresProvider } from "../state/GridSquaresContext";
+import { RectanglesProvider } from "../state/GridRectanglesContext";
 
 import { parseCookies } from "../cookies/parseCookies";
 import { NextComponentType, NextPage, NextPageContext } from "next";
 import { NextRouter } from "next/router";
 import mitt from "next/dist/next-server/lib/mitt";
 
-type InitialSquaresState = {
-  squares: { part: { [key: string]: any } | null }[];
+type InitialrectanglesState = {
+  rectangles: { part: { [key: string]: any } | null }[];
 } | null;
 type InitialGridState = { gridTemplate: string; hourStrings: string[] } | null;
 type InitialPartsState = { parts: { [key: string]: any }[] | [] } | null;
@@ -24,7 +24,7 @@ type Props = {
   Component: NextComponentType;
   pageProps: NextPageContext;
   router: NextRouter;
-  initialSquaresState: InitialSquaresState;
+  initialrectanglesState: InitialrectanglesState;
   initialGridState: InitialGridState;
   initialPartsState: InitialPartsState;
 };
@@ -35,9 +35,9 @@ export default function App({
   router,
 }: Props): JSX.Element {
   return (
-    <SquaresProvider
-      initialSquaresState={
-        Cookie.get("squares") ? JSON.parse(Cookie.get("squares")) : null
+    <RectanglesProvider
+      initialrectanglesState={
+        Cookie.get("rectangles") ? JSON.parse(Cookie.get("rectangles")) : null
       }
     >
       <GridProvider
@@ -95,7 +95,7 @@ export default function App({
           `}</style>
         </PartsProvider>
       </GridProvider>
-    </SquaresProvider>
+    </RectanglesProvider>
   );
 }
 
@@ -103,13 +103,13 @@ export default function App({
 //   const { req: actualRequest } = req;
 
 //   const cookieObject: { [key: string]: string } = parseCookies(actualRequest);
-//   const { parts, grid, squares } = cookieObject;
+//   const { parts, grid, rectangles } = cookieObject;
 
-//   const initialSquaresState: InitialSquaresState = squares
-//     ? JSON.parse(squares)
+//   const initialrectanglesState: InitialrectanglesState = rectangles
+//     ? JSON.parse(rectangles)
 //     : null;
 //   const initialPartsState: InitialPartsState = parts ? JSON.parse(parts) : null;
 //   const initialGridState: InitialGridState = grid ? JSON.parse(grid) : null;
 
-//   return { initialSquaresState, initialPartsState, initialGridState };
+//   return { initialrectanglesState, initialPartsState, initialGridState };
 // };
