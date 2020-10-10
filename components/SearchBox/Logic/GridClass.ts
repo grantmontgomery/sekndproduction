@@ -68,7 +68,7 @@ export default class GridClass {
 
     const hourNumbers: number[] = [];
 
-    while (hourCounter <= this.hourDifference) {
+    while (hourCounter < this.hourDifference) {
       hourNumbers.push(startHourCounter);
       hourCounter++;
       startHourCounter < 24 ? startHourCounter++ : (startHourCounter = 1);
