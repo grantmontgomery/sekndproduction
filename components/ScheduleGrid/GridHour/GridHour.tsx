@@ -1,5 +1,5 @@
 import * as React from "react";
-import css from "./GridHours.module.scss";
+import css from "./GridHour.module.scss";
 
 export const GridHour: React.FC<{ index: number; hourString: string }> = ({
   index,
