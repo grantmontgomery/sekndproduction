@@ -1,0 +1,9 @@
+.hour {
+  & span {
+    font-size: 12pt;
+    display: block;
+    position: relative;
+    height: fit-content;
+    width: fit-content;
+  }
+}
