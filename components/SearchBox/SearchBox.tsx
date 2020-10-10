@@ -119,10 +119,21 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button onClick={handleSubmit}>Search</button>
+            <button
+              className={css.searchButton}
+              style={{
+                background: "linear-gradient(to right, #00C9FF,#92FE9D)",
+              }}
+              onClick={handleSubmit}
+            >
+              Search
+            </button>
           </Link>
         ) : (
-          <button onClick={() => alert("please fill out missing fields")}>
+          <button
+            className={css.searchButton}
+            onClick={() => alert("please fill out missing fields")}
+          >
             Search
           </button>
         );
@@ -147,12 +158,21 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=PLACES+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}`}
           >
-            <button style={{ color: "green" }} onClick={handleSubmit}>
+            <button
+              className={css.searchButton}
+              onClick={handleSubmit}
+              style={{
+                background: "linear-gradient(to right, #00C9FF,#92FE9D)",
+              }}
+            >
               Search
             </button>
           </Link>
         ) : (
-          <button onClick={() => alert("please fill out missing fields")}>
+          <button
+            className={css.searchButton}
+            onClick={() => alert("please fill out missing fields")}
+          >
             Search
           </button>
         );
@@ -178,12 +198,21 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=EVENTS+location=${searchQuery.location}+radius=${searchQuery.radius}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button style={{ color: "green" }} onClick={handleSubmit}>
+            <button
+              className={css.searchButton}
+              style={{
+                background: "linear-gradient(to right, #00C9FF,#92FE9D)",
+              }}
+              onClick={handleSubmit}
+            >
               Search
             </button>
           </Link>
         ) : (
-          <button onClick={() => alert("please fill out missing fields")}>
+          <button
+            className={css.searchButton}
+            onClick={() => alert("please fill out missing fields")}
+          >
             Search
           </button>
         );
@@ -211,12 +240,21 @@ export const SearchBox: React.FC = (props) => {
             }}
             as={`/search/searchType=ALL+location=${searchQuery.location}+radius=${searchQuery.radius}+placeType=${searchQuery.placeType}+startFormatted=${searchQuery.startFormatted}+endFormatted=${searchQuery.endFormatted}+unixStartDate=${searchQuery.unixStartDate}+unixEndDate=${searchQuery.unixEndDate}+eventsCategory=${searchQuery.eventsCategory}`}
           >
-            <button style={{ color: "green" }} onClick={handleSubmit}>
+            <button
+              className={css.searchButton}
+              style={{
+                background: "linear-gradient(to right, #00C9FF,#92FE9D)",
+              }}
+              onClick={handleSubmit}
+            >
               Search
             </button>
           </Link>
         ) : (
-          <button onClick={() => alert("please fill out missing fields")}>
+          <button
+            className={css.searchButton}
+            onClick={() => alert("please fill out missing fields")}
+          >
             Search
           </button>
         );

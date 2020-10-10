@@ -1,19 +1,36 @@
 .searchBox {
   width: 100vw;
-  height: 75vh;
+  height: 90vh;
   position: fixed;
-  top: 11vh;
+  top: 10vh;
   background: white;
   display: grid;
   box-shadow: 0 0.25vh 4vh #00000015;
   left: 50%;
   transform: translate(-50%);
-  grid-template-areas: "selector" "where" "when" "events" "places";
+  grid-template-areas: "selector" "where" "when" "events" "places" "search";
   grid-auto-columns: 100%;
-  grid-template-rows: 20% 20% 20% 20% 20%;
+  grid-template-rows:
+    calc(100% / 6) calc(100% / 6) calc(100% / 6) calc(100% / 6)
+    calc(100% / 6) calc(100% / 6);
   z-index: 2;
+  padding-right: 5%;
+  padding-left: 5%;
   & .searchButton {
-    display: none;
+    position: relative;
+    margin-right: auto;
+    margin-left: auto;
+    top: 0;
+    font-size: 2.5vh;
+    font-weight: bold;
+    color: white;
+    transition: background 250ms ease-out;
+    border-style: none;
+    height: 50%;
+    border-radius: 1vh;
+    box-shadow: 0 0.5vh 1vh rgb(100, 100, 100);
+    width: 100%;
+    top: 0;
   }
 }
 

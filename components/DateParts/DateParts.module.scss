@@ -19,7 +19,6 @@
       grid-template-rows: 25% 25% 25% 25%;
       grid-template-columns: 100%;
       grid-template-areas: "title" "input" "color" "add";
-      grid-gap: 1vh;
       position: relative;
       height: 25%;
       width: 100%;
@@ -40,6 +39,8 @@
         grid-area: color;
         display: flex;
         width: min(100%, 300px);
+        margin-left: auto;
+        margin-right: auto;
         position: relative;
         height: fit-content;
         top: 50%;
@@ -76,6 +77,7 @@
         border: none;
         border-bottom: solid 0.2vh black;
         width: 90%;
+        height: fit-content;
         font-size: max(1em, 3vw);
         position: relative;
         top: 50%;

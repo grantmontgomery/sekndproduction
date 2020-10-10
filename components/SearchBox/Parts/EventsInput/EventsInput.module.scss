@@ -13,7 +13,6 @@
     display: block;
     height: fit-content;
     width: fit-content;
-    margin-left: 5%;
     top: 50%;
     position: relative;
     transform: translate(0, -50%);
@@ -21,10 +20,9 @@
   & select {
     font-size: max(1em, 3vw);
     grid-area: selector;
-    width: 80%;
+    width: 100%;
     border: none;
     border-bottom: solid 0.2vh black;
-    margin-left: 5%;
     height: 7.5vw;
     position: relative;
     top: 50%;

@@ -26,7 +26,6 @@ export const PlacesInput: React.FC<Props> = ({
         value={placeType}
         onChange={(event) => handleChange(event, "placeType")}
       />
-      <button>Search</button>
     </div>
   );
 };

@@ -24,6 +24,15 @@
     align-content: center;
     transition: 250ms ease-out;
     outline: none;
+    &:nth-child(1) {
+      margin-left: 0;
+      margin-right: auto;
+    }
+    &:nth-child(3) {
+      margin-right: 0;
+      margin-left: auto;
+    }
+
     &:focus {
       outline: none;
       border: solid 0.2vh green;

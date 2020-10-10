@@ -1,7 +1,7 @@
 .places {
   display: grid;
-  grid-template-areas: "label label" "places search";
-  grid-template-columns: calc(200% / 3) calc(100% / 3);
+  grid-template-areas: "label" "places";
+  grid-template-columns: 100%;
   grid-template-rows: 50% 50%;
   & label {
     grid-area: label;
@@ -10,17 +10,15 @@
     display: block;
     height: fit-content;
     width: fit-content;
-    margin-left: 5%;
     top: 50%;
     position: relative;
     transform: translate(0, -50%);
   }
   & input {
     font-size: max(1em, 3vw);
-    width: 80%;
+    width: 100%;
     border: none;
     background: transparent;
-    margin-left: 7.5%;
     position: relative;
     border-bottom: solid 0.2vh black;
     top: 50%;
@@ -31,19 +29,6 @@
     &:focus {
       outline: none;
     }
-  }
-  & button {
-    height: 90%;
-    width: 80%;
-    grid-area: search;
-    margin-left: 0;
-    font-size: 2.5vh;
-    margin-right: auto;
-    display: block;
-    margin-top: 0;
-    cursor: pointer;
-    background: transparent;
-    margin-bottom: auto;
   }
 }
 

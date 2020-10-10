@@ -13,7 +13,6 @@
     height: fit-content;
     width: fit-content;
     font-weight: bold;
-    margin-left: 5%;
     top: 50%;
     position: relative;
     transform: translate(0, -50%);
@@ -21,13 +20,12 @@
   & input {
     grid-area: text;
     font-size: max(1em, 3vw);
-    width: 80%;
+    width: 100%;
     overflow: hidden;
     text-overflow: ellipsis;
     border: none;
     background: transparent;
 
-    margin-left: 5%;
     position: relative;
     border-bottom: solid 0.2vh black;
     top: 50%;
@@ -40,10 +38,9 @@
   & select {
     grid-area: radius;
     font-size: 1em;
-    width: 80%;
+    width: 100%;
     border: none;
     border-bottom: solid 0.2vh black;
-    margin-left: 5%;
     height: 6.5vw;
     position: relative;
     background: transparent;

@@ -11,7 +11,6 @@
     height: fit-content;
     font-weight: bold;
     width: fit-content;
-    margin-left: 5%;
     top: 50%;
     position: relative;
     transform: translate(0, -50%);
@@ -19,11 +18,10 @@
 
   & .to {
     grid-area: to;
-    margin-left: 10%;
     margin-right: auto;
     top: 50%;
     transform: translate(0, -50%);
-    width: 80%;
+    width: 100%;
     border: none;
     font-size: 1em;
     position: absolute;
@@ -36,12 +34,11 @@
     grid-area: from;
     position: absolute;
     display: inline-block;
-    margin-left: 10%;
     font-size: 1em;
     top: 50%;
     transform: translate(0, -50%);
     margin-right: auto;
-    width: 80%;
+    width: 100%;
     border: none;
     border-bottom: solid 0.2vh black;
     &:focus {
@@ -75,7 +72,7 @@
       grid-area: to;
       margin-left: 5%;
       margin-right: auto;
-      width: 80%;
+      width: 100%;
       border: none;
       font-size: 2vh;
       border-bottom: solid 0.2vh black;
@@ -85,7 +82,7 @@
       margin-left: 5%;
       font-size: 2vh;
       margin-right: auto;
-      width: 80%;
+      width: 100%;
       border: none;
       border-bottom: solid 0.2vh black;
     }
