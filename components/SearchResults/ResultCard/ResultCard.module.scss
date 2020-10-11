@@ -100,13 +100,12 @@
     color: white;
     border-style: none;
     font-size: min(22.5px, 2vh);
-    padding-left: 5%;
+    padding-left: 2vh;
+    padding-right: 2vh;
     white-space: nowrap;
     font-weight: bold;
     background: linear-gradient(0.25turn, #49a078, #216869);
-    padding-right: 5%;
     box-shadow: 0 1vh 2vh #00000080;
-
     width: fit-content;
     &.remove {
       background: linear-gradient(0.25turn, #f24236, #ad160b);
