@@ -72,7 +72,6 @@ export const RectanglesProvider: ({
 
   React.useEffect(() => {
     Cookie.set("rectangles", state);
-    console.log(state);
   }, [state]);
 
   return (

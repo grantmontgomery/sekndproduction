@@ -2,7 +2,6 @@ import * as React from "react";
 import { Layout, ResultCard, SekndLoader } from "../../components";
 import useAPICalls from "../../swr/useAPICalls";
 import { NextRouter, useRouter } from "next/router";
-import { useSquaresState } from "../../state/GridRectanglesContext";
 import { useGridState } from "../../state/SearchGridContext";
 import css from "../../styles/Queried.module.scss";
 

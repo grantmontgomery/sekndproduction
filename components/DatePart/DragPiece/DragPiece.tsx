@@ -1,7 +1,7 @@
 import * as React from "react";
 import {
-  useSquaresState,
-  useSquaresDispatch,
+  useRectanglesState,
+  useRectanglesDispatch,
 } from "../../../state/GridRectanglesContext";
 import { DragPieceDisplay } from "./DragPieceDisplay";
 

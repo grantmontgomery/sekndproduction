@@ -36,7 +36,7 @@ export default function App({
 }: Props): JSX.Element {
   return (
     <RectanglesProvider
-      initialrectanglesState={
+      initialRectanglesState={
         Cookie.get("rectangles") ? JSON.parse(Cookie.get("rectangles")) : null
       }
     >
