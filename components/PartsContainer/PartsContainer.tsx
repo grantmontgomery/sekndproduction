@@ -10,30 +10,24 @@ export const PartsContainer: React.FC = () => {
   const handleTouchStart = ({touches}) => {
     const {clientY} = touches[0]
     window.addEventListener("touchmove", handleTouchMove);
-    window.addEventListener("touchend", handleTouchEnd);
     setState(state => ({...state,
       isDragging: true,
       origin:{ y: clientY},
     }))
+    console.log(`touch triggered ${state.origin.y}`)
   }
 
 
-  // const handleTouchMove = ({touches}) => {
-  //   if(!state.isDragging) setState({isDragging: false, origin:{y:0}, translation:{y: 0}})
-  //   const {clientY} = touches[0]
-  //   const translateY = clientY - state.origin.y
-   
-  //   setState(state => ({...state, translation: {y: translateY}}))
-    
-  // }
+
 
   
   const handleTouchMove = React.useCallback(({touches}) => {
     if(!state.isDragging){ setState({isDragging: false, origin:{y:0}, translation:{y: 0}})}
     else{
     const {clientY} = touches[0]
-   console.log(state)
-    return setState(state => ({...state, isDragging: true, translation: {y: clientY - state.origin.y}}))
+     setState({ isDragging: true, origin:{y: state.origin.y}, translation: {y: clientY - state.origin.y}})
+     console.log(`dragged ${clientY - state.origin.y}`)
+
     }
   },[state.origin, state.isDragging])
 
@@ -43,24 +37,22 @@ export const PartsContainer: React.FC = () => {
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
     setState({isDragging: false, origin: { y:0}, translation: { y:0}})
+    console.log(`touch stopped`)
+
   }
 
 
   React.useEffect(() => {
-    
     if (state.isDragging) {
       window.addEventListener("touchmove", handleTouchMove);
-      window.addEventListener("touchend", handleTouchEnd);
     } else {
       window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("touchend", handleTouchEnd);
-      
     }
 
   },[state.isDragging])
 
   
-  return <section className={css.partsContainer}>
+  return <section className={css.partsContainer} style={{height: `calc(20% - ${state.translation.y}px)`}}>
     <svg onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 51"><title>Asset 2</title><polyline className={css.arrow} points="3 48 75 3 147 48"/></svg>
   </section>
 };
