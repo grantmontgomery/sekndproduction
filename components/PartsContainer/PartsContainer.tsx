@@ -9,10 +9,13 @@ export const PartsContainer: React.FC = () => {
  
   const handleTouchStart = ({touches}) => {
     const {clientY} = touches[0]
+    window.addEventListener("touchmove", handleTouchMove);
+    window.addEventListener("touchend", handleTouchEnd);
     setState(state => ({...state,
       isDragging: true,
       origin:{ y: clientY},
-    }))}
+    }))
+  }
 
 
   // const handleTouchMove = ({touches}) => {
@@ -28,17 +31,17 @@ export const PartsContainer: React.FC = () => {
   const handleTouchMove = React.useCallback(({touches}) => {
     if(!state.isDragging){ setState({isDragging: false, origin:{y:0}, translation:{y: 0}})}
     else{
-    console.log(state)
     const {clientY} = touches[0]
-    const translateY = clientY - state.origin.y
-    
-    return setState(state => ({...state, isDragging: true, translation: {y: translateY}}))
+   console.log(state)
+    return setState(state => ({...state, isDragging: true, translation: {y: clientY - state.origin.y}}))
     }
   },[state.origin, state.isDragging])
 
  
 
   const handleTouchEnd = () => {
+    window.removeEventListener("touchmove", handleTouchMove);
+    window.removeEventListener("touchend", handleTouchEnd);
     setState({isDragging: false, origin: { y:0}, translation: { y:0}})
   }
 
@@ -51,11 +54,7 @@ export const PartsContainer: React.FC = () => {
     } else {
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleTouchEnd);
-      setState({
-        origin: { y: 0 },
-        translation: { y: 0 },
-        isDragging: false
-      })
+      
     }
 
   },[state.isDragging])
