@@ -1,4 +1,2 @@
 myNextApplication:
   component: "@sls-next/serverless-component@1.17.0"
-  inputs:
-    domain: ["_b73ef342a3d85be988734d8bdeb2193c", "sekndapp.com"]

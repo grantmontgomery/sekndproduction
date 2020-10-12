@@ -7,24 +7,23 @@ export const PartsContainer: React.FC = () => {
 
 
  
-  const handleTouchStart = ({touches}) => {
+  const handleTouchStart = ({touches}):void => {
     const {clientY} = touches[0]
-    // window.addEventListener("touchmove", handleTouchMove);
     setState(state => ({...state,
       isDragging: true,
       origin:{ y: clientY},
     }))
+    setExtend(false)
   }
 
 
 
 
   
-  const handleTouchMove = React.useCallback(({touches}) => {
+  const handleTouchMove = React.useCallback(({touches}:TouchEvent):void => {
     if(state.isDragging){
     const {clientY} = touches[0]
      setState({ isDragging: true, origin:{y: state.origin.y}, translation: {y: clientY <= state.origin.y ? clientY - state.origin.y : 0}})
-
     }
     else{ setState({isDragging: false, origin:{y:0}, translation:{y: 0}})}
 
@@ -34,7 +33,10 @@ export const PartsContainer: React.FC = () => {
 
  
 
-  const handleTouchEnd = () => {
+  const handleTouchEnd = ():void => {
+    if(state.translation.y <= -50){
+      setExtend(true)
+    }
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
     setState({isDragging: false, origin: { y:0}, translation: { y:0}})
@@ -53,7 +55,19 @@ export const PartsContainer: React.FC = () => {
   },[state.isDragging])
 
 
-  return <section className={css.partsContainer} style={{height: `calc(20% - ${state.translation.y}px)`}}>
-    <svg onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 51"><title>Asset 2</title><polyline className={css.arrow} points="3 48 75 3 147 48"/></svg>
+  const calculateHeight:()=>string = () => {
+    if(extend === true) return "50%"
+    return state.translation.y  >= -300 && !extend ? `calc(20% - ${state.translation.y}px)` : "50%"
+  }
+  console.log(state.translation.y)
+  
+  const changeArrow:() => string =() => {
+    if(extend === true) return "3 3 75 3 147 3"
+    return state.translation.y >= -50 ? `3 ${48 + state.translation.y * 0.9} 75 3 147 ${48 + state.translation.y * 0.9}` : "3 3 75 3 147 3"
+  }
+
+  return <section className={css.partsContainer} style={{height: calculateHeight()}}>
+    <svg onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 51"><title>Asset 2</title><polyline className={css.arrow} points={changeArrow()}/></svg>
+    <div className={css.partsList}></div>
   </section>
 };

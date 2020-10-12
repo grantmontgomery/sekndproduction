@@ -1,14 +1,16 @@
 .partsContainer {
   width: 100%;
   position: relative;
-  background: gray;
+  box-shadow: 0 0vh 1vh #646464;
+  background: white;
   display: block;
+  bottom: 0;
   & svg {
     top: 1vh;
     fill: none;
     display: block;
     width: auto;
-    height: 4vh;
+    height: 3vh;
     position: relative;
     margin-left: auto;
     margin-right: auto;

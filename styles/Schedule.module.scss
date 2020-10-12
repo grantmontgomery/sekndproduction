@@ -2,9 +2,8 @@
   width: 100vw;
   position: relative;
   top: 10vh;
+  overflow-y: hidden;
 
-  // left: 50%;
-  // transform: translate(-50%);
   height: 90vh;
   display: flex;
   flex-flow: column nowrap;
@@ -26,6 +25,30 @@
     & .times {
       height: 50%;
       width: 100%;
+    }
+  }
+  & .partsList {
+    height: 7vh;
+    border-radius: 7vh;
+    width: 7vh;
+    position: absolute;
+    bottom: 20%;
+    padding: 1vh;
+    display: block;
+    background: white;
+    box-shadow: 0 0.5vh 1vh #646464;
+    float: right;
+    right: 5%;
+    z-index: 2;
+
+    & svg {
+      height: 5vh;
+      transition: 250ms ease-out;
+      vertical-align: middle;
+      display: inline-block;
+      position: relative;
+      transform-origin: center;
+      width: auto;
     }
   }
 }

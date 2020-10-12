@@ -1,20 +1,22 @@
-require(`dotenv`).config();
-
-module.exports = {
-  env: {
-    YELP_API_KEY: process.env.YELP_API_KEY,
-    TICKETMASTER_API_KEY: process.env.TICKETMASTER_API_KEY,
-  },
-  serverRuntimeConfig: {
-    YELP_API_KEY: process.env.YELP_API_KEY,
-    TICKETMASTER_API_KEY: process.env.TICKETMASTER_API_KEY,
-  },
-  target: "serverless",
-  webpack: (config) => {
-    // Fixes npm packages that depend on `fs` module
-    config.node = {
-      fs: "empty",
-    };
-    return config;
-  },
-};
+module.exports = function(...args) {
+  let original = require('./next.config.original.1602525802864.js');
+  const finalConfig = {};
+  const target = { target: 'serverless' };
+  if (typeof original === 'function' && original.constructor.name === 'AsyncFunction') {
+    // AsyncFunctions will become promises
+    original = original(...args);
+  }
+  if (original instanceof Promise) {
+    // Special case for promises, as it's currently not supported
+    // and will just error later on
+    return original
+      .then((originalConfig) => Object.assign(finalConfig, originalConfig))
+      .then((config) => Object.assign(config, target));
+  } else if (typeof original === 'function') {
+    Object.assign(finalConfig, original(...args));
+  } else if (typeof original === 'object') {
+    Object.assign(finalConfig, original);
+  }
+  Object.assign(finalConfig, target);
+  return finalConfig;
+}
