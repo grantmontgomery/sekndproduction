@@ -8,4 +8,21 @@
   pointer-events: none;
   top: 0;
   transform: translate(-50%);
+  & .itemsFlex {
+    display: flex;
+    width: fit-content;
+    height: 100%;
+    transition: 250ms ease-out;
+    flex-flow: row nowrap;
+    & .item {
+      position: relative;
+      background: red;
+      pointer-events: none;
+      object-fit: contain;
+      height: 100%;
+      width: 20vh;
+      filter: drop-shadow(0 1vh 1vh black);
+      overflow: hidden;
+    }
+  }
 }

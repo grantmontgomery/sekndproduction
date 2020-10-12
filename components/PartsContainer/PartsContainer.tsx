@@ -42,7 +42,6 @@ export const PartsContainer: React.FC = () => {
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
     setState({isDragging: false, origin: { y:0}, translation: { y:0}})
-    console.log(`touch stopped`)
 
   }
 
@@ -61,7 +60,6 @@ export const PartsContainer: React.FC = () => {
     if(extend === true) return "50%"
     return state.translation.y  >= -300 && !extend ? `calc(20% - ${state.translation.y}px)` : "50%"
   }
-  console.log(state.translation.y)
   
   const changeArrow:() => string =() => {
     if(extend === true) return "3 3 75 3 147 3"

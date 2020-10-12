@@ -12,33 +12,41 @@ export const MobileScheduleParts: React.FC<{
     const [state, setState] = React.useState<{ squareIndex: number }>({
       squareIndex: 0,
     });
-  
+    let observer:React.MutableRefObject<IntersectionObserver|null> = React.useRef(null)
+
     let ElementObject: { [key: number]: null | HTMLElement }[] = [];
+    React.useLayoutEffect(() => {
+      observer.current =
+        new IntersectionObserver(
+          (entries) => {
+            console.log(ElementObject)
+            return ElementObject.forEach((Element, index) => {
+              return entries.forEach((entry) => {
+                const { target, intersectionRatio } = entry;
+                switch (target) {
+                  case document.getElementById(`sensor${index}`):
+                    return intersectionRatio === 1
+                      ? setState({ squareIndex: index })
+                      : null;
+                }
+              });
+            });
+          },
+          {
+            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+            root: document.getElementById("secretScroll"),
+          }
+        )
+      
+    
+    },[])
+  
   
     // ElementObject = randomArray.map((elem) => ({ [elem]: null }));
-    const observer: React.MutableRefObject<IntersectionObserver> = React.useRef(
-      new IntersectionObserver(
-        (entries) => {
-          return ElementObject.forEach((Element, index) => {
-            return entries.forEach((entry) => {
-              const { target, intersectionRatio } = entry;
-              switch (target) {
-                case document.getElementById(`sensor${index}`):
-                  return intersectionRatio === 1
-                    ? setState({ squareIndex: index })
-                    : null;
-              }
-            });
-          });
-        },
-        {
-          threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
-          root: document.getElementById("secretScroll"),
-        }
-      )
-    );
+  
   
     React.useEffect(() => {
+    
       const newObserver = observer.current;
   
       ElementObject = parts.map((elem, index) => ({ [index]: null }));

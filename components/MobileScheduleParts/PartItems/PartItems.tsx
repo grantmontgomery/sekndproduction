@@ -6,18 +6,18 @@ export const PartItems: React.FC<{
     list: { [key: string]: any }[] | string;
   }> = ({ squareIndex, list }) => {
     const [state, setState] = React.useState<{ slide: string }>({ slide: "" });
+
+  
   
     React.useEffect(() => {
-      if (window.innerHeight > window.innerWidth) {
+
         setState({ slide: `${15 - 20 * squareIndex}vh` });
-      } else {
-        setState({ slide: `calc(calc(45vw - 10vh) - ${squareIndex * 20}vh)` });
-      }
-    }, [squareIndex, window]);
+     
+    }, [squareIndex]);
     return (
       <section className={css.itemsSection}>
         <div
-          className="boxesFlex"
+          className={css.itemsFlex}
           style={{ transform: `translate(${state.slide})` }}
         >
           {typeof list === "object"
@@ -31,7 +31,7 @@ export const PartItems: React.FC<{
   
                 return (
                   <div
-                    className={css.itemsSection}
+                    className={css.item}
                     style={{
                       transform: determineRotation(),
                       pointerEvents: squareIndex === index ? "none" : "all",
