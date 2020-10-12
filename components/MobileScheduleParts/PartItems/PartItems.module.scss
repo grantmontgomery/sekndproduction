@@ -1,0 +1,11 @@
+.itemsSection {
+  height: 75%;
+  width: 100%;
+  position: absolute;
+  left: 50%;
+  /* border: solid 1px black; */
+  z-index: 2;
+  pointer-events: none;
+  top: 0;
+  transform: translate(-50%);
+}

@@ -3,7 +3,8 @@
   position: relative;
   box-shadow: 0 0vh 1vh #646464;
   background: white;
-  display: block;
+  display: flex;
+  flex-flow: column nowrap;
   bottom: 0;
   & svg {
     top: 1vh;

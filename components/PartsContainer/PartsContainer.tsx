@@ -1,4 +1,6 @@
 import * as React from "react";
+import {MobileScheduleParts} from "../MobileScheduleParts"
+import {usePartsState} from "../../state/DatePartsContext"
 import css from "./PartsContainer.module.scss";
 
 export const PartsContainer: React.FC = () => {
@@ -66,8 +68,10 @@ export const PartsContainer: React.FC = () => {
     return state.translation.y >= -50 ? `3 ${48 + state.translation.y * 0.9} 75 3 147 ${48 + state.translation.y * 0.9}` : "3 3 75 3 147 3"
   }
 
+  const {parts} = usePartsState()
+
   return <section className={css.partsContainer} style={{height: calculateHeight()}}>
     <svg onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 51"><title>Asset 2</title><polyline className={css.arrow} points={changeArrow()}/></svg>
-    <div className={css.partsList}></div>
+    <MobileScheduleParts extend={extend} translateY={state.translation.y} parts={parts}></MobileScheduleParts>
   </section>
 };

@@ -1,0 +1,38 @@
+.container {
+  border: solid 1px transparent;
+  height: 20vh;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90vw;
+  overflow: hidden;
+  & .scrollWrapper {
+    height: 100%;
+    scroll-behavior: smooth;
+    width: 100%;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      background: gray;
+      width: 1vh;
+      border-radius: 1vh;
+      cursor: pointer;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: red;
+      width: 1vh;
+      cursor: pointer;
+      border-radius: 1vh;
+    }
+    & .secretScroll {
+      height: 100%;
+      width: fit-content;
+      flex-flow: row nowrap;
+      display: flex;
+      & .sensorSquare {
+        height: 100%;
+        width: 45vw;
+        position: relative;
+      }
+    }
+  }
+}
