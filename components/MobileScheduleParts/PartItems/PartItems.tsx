@@ -14,6 +14,18 @@ export const PartItems: React.FC<{
         setState({ slide: `${15 - 20 * squareIndex}vh` });
      
     }, [squareIndex]);
+
+    const determineImageBackgroundSource: (item:{[key:string]:any}) => string = (item) => {
+      switch (item.type) {
+        case "place":
+          return item.source === "yelp" ? item.image_url : null;
+        case "event":
+          return item.source === "yelp" ? item.image_url : item.images[0].url;
+        default:
+          return "";
+      }
+    };
+
     return (
       <section className={css.itemsSection}>
         <div
@@ -38,6 +50,7 @@ export const PartItems: React.FC<{
                       pointerEvents: squareIndex === index ? "none" : "all",
                     }}
                   >
+                    <img src={determineImageBackgroundSource(item)} alt={item.name}/>
                   </div>
                 );
               })

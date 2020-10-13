@@ -63,6 +63,7 @@ export const PartsProvider: ({
 
   React.useEffect(() => {
     Cookie.set("parts", state);
+    console.log(JSON.parse(Cookie.get("parts")))
   }, [state]);
 
   return (
