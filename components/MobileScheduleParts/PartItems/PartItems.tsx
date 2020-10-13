@@ -32,6 +32,7 @@ export const PartItems: React.FC<{
                 return (
                   <div
                     className={css.item}
+                    key={`partItem${index}`}
                     style={{
                       transform: determineRotation(),
                       pointerEvents: squareIndex === index ? "none" : "all",

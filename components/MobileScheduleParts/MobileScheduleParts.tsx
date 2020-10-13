@@ -12,14 +12,43 @@ export const MobileScheduleParts: React.FC<{
     const [state, setState] = React.useState<{ squareIndex: number }>({
       squareIndex: 0,
     });
-    let observer:React.MutableRefObject<IntersectionObserver|null> = React.useRef(null)
+    let observer:React.MutableRefObject<IntersectionObserver|null> = React.useRef()
 
-    let ElementObject: { [key: number]: null | HTMLElement }[] = [];
-    React.useLayoutEffect(() => {
+    console.log(state.squareIndex)
+
+    // let ElementObject: { [key: number]: null | HTMLElement }[] = [];
+
+    console.log(observer)
+    
+    // React.useLayoutEffect(() => {
+    //   observer.current =
+    //     new IntersectionObserver(
+    //       (entries) => {
+    //         return ElementObject.forEach((Element, index) => {
+    //           return entries.forEach((entry) => {
+    //             const { target, intersectionRatio } = entry;
+    //             switch (target) {
+    //               case document.getElementById(`sensor${index}`):
+    //                 return intersectionRatio === 1
+    //                   ? setState({ squareIndex: index })
+    //                   : null;
+    //             }
+    //           });
+    //         });
+    //       },
+    //       {
+    //         threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1],
+    //         root: document.getElementById("secretScroll"),
+    //       }
+    //     )
+      
+    
+    // },[])
+
+    React.useEffect(() => {
       observer.current =
         new IntersectionObserver(
           (entries) => {
-            console.log(ElementObject)
             return ElementObject.forEach((Element, index) => {
               return entries.forEach((entry) => {
                 const { target, intersectionRatio } = entry;
@@ -38,29 +67,29 @@ export const MobileScheduleParts: React.FC<{
           }
         )
       
-    
-    },[])
+
+    },[observer])
   
   
     // ElementObject = randomArray.map((elem) => ({ [elem]: null }));
   
   
-    React.useEffect(() => {
+    // React.useEffect(() => {
     
-      const newObserver = observer.current;
+    //   const newObserver = observer.current;
   
-      ElementObject = parts.map((elem, index) => ({ [index]: null }));
+    //   ElementObject = parts.map((elem, index) => ({ [index]: null }));
   
-      ElementObject.forEach((foo, index) => {
-        const newElement: HTMLElement | null = document.getElementById(
-          `sensor${index}`
-        );
-        foo[index] = newElement;
-        if (newElement) {
-          return newObserver.observe(newElement);
-        }
-      });
-    }, []);
+    //   ElementObject.forEach((foo, index) => {
+    //     const newElement: HTMLElement | null = document.getElementById(
+    //       `sensor${index}`
+    //     );
+    //     foo[index] = newElement;
+    //     if (newElement) {
+    //       return newObserver.observe(newElement);
+    //     }
+    //   });
+    // }, []);
   
     return (
       <div className={css.container} style={{display: !extend && translateY >= 0 ? "none" : "block", opacity: translateY >= -50 && !extend ? `${translateY/100 * -1}` : "1" }}>
@@ -69,7 +98,7 @@ export const MobileScheduleParts: React.FC<{
         <div className={css.scrollWrapper}>
           <div className={css.secretScroll} id="secretScroll">
             {parts.map((item, index) => (
-              <div className={css.sensorSquare} id={`sensor${index}`}></div>
+              <div key={`sensor${index}`} className={css.sensorSquare} id={`sensor${index}`}></div>
             ))}
           </div>
         </div>
