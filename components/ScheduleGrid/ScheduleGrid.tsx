@@ -10,7 +10,7 @@ export const ScheduleGrid: React.FC = () => {
   const { rectangles } = useRectanglesState();
   console.log(typeof gridTemplate);
   return (
-    <section className={css.gridWrapper}>
+    <section id="innerGrid" className={css.gridWrapper}>
       <div
         style={{ gridTemplateAreas: `${gridTemplate}` }}
         className={css.innerGrid}
