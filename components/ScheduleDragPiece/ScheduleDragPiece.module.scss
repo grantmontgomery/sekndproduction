@@ -1,7 +1,8 @@
 .dragWrapper {
-  width: 100%;
   border: solid 1px red;
   border-radius: 1vh;
+  margin-left: auto;
+  right: 0;
   & .imageBackground {
     position: relative;
     height: 100%;
