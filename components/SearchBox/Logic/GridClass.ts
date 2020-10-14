@@ -24,7 +24,6 @@ export default class GridClass {
   private setRectangles() {
     const timeDifference: number = this.unixEndDate - this.unixStartDate;
     const hours: number = Math.floor(timeDifference / 3600) + 1;
-    console.log(hours);
     const numRows: number = hours * 2 + 2;
     this.numberofRectangles = numRows;
     this.rowAmount = numRows;

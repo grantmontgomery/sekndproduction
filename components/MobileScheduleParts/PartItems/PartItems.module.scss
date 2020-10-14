@@ -27,9 +27,10 @@
         height: auto;
         width: 150%;
         display: block;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        top: 50%;
         position: relative;
-        margin-left: auto;
-        margin-right: auto;
       }
     }
   }

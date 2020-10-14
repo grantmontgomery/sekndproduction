@@ -8,11 +8,11 @@ import css from "./ScheduleGrid.module.scss";
 export const ScheduleGrid: React.FC = () => {
   const { gridTemplate, hourStrings } = useGridState();
   const { rectangles } = useRectanglesState();
-  console.log(rectangles);
+  console.log(typeof gridTemplate);
   return (
     <section className={css.gridWrapper}>
       <div
-        style={{ gridTemplateAreas: gridTemplate }}
+        style={{ gridTemplateAreas: `${gridTemplate}` }}
         className={css.innerGrid}
       >
         {rectangles.map((rectangle, index) => (

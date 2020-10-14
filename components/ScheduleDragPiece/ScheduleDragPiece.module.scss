@@ -1,0 +1,31 @@
+.dragWrapper {
+  width: 100%;
+  border: solid 1px red;
+  border-radius: 1vh;
+  & .imageBackground {
+    position: relative;
+    height: 100%;
+    width: 100%;
+  }
+  & .extendHandle {
+    position: absolute;
+    border-radius: 3vh;
+    width: 3vh;
+    height: 3vh;
+    border: 1px red solid;
+    background: white;
+    z-index: 2;
+    display: block;
+    border-style: solid;
+    &:first-child {
+      float: left;
+      left: 5%;
+      top: -1.5vh;
+    }
+    &:last-child {
+      float: right;
+      right: 5%;
+      bottom: -1.5vh;
+    }
+  }
+}
