@@ -55,12 +55,11 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     } else {
       window.removeEventListener("touchmove", handleTouchMove);
     }
-    return (
-      window.removeEventListener("touchmove", handleTouchMove),
-      window.removeEventListener("touchstart", handleTouchStart),
-      window.removeEventListener("touchend", handleTouchEnd)
-    );
   }, [position.isDragging]);
+
+  React.useEffect(() => {
+    return window.removeEventListener("touchstart", handleTouchStart);
+  }, []);
 
   return (
     <div
