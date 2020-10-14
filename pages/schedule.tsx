@@ -10,9 +10,8 @@ import {
 } from "../components";
 
 export default function Schedule(): JSX.Element {
-  const [list, extendList] = React.useState<boolean>(false)
+  const [list, extendList] = React.useState<boolean>(false);
   const { parts } = usePartsState();
-  console.log(list)
   return (
     <Layout>
       <main className={css.main}>

@@ -8,15 +8,26 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     isDragging: boolean;
     origin: { y: number };
     translation: { y: number };
-  }>({ isDragging: false, origin: { y: 0 }, translation: { y: 0 } });
+    initialScrollTop: number;
+  }>({
+    isDragging: false,
+    origin: { y: 0 },
+    translation: { y: 0 },
+    initialScrollTop: 0,
+  });
 
   const [height, extend] = React.useState<string>("10vh");
 
   const handleTouchStart = ({ touches, currentTarget, target }): void => {
     const { clientY } = touches[0];
+    const initialScrollTop: number = document.getElementById("innerGrid")
+      .scrollTop;
+
+    console.log(document.getElementById("innerGrid").clientHeight);
     setPosition((position) => ({
       ...position,
       isDragging: true,
+      initialScrollTop,
       origin: { y: clientY },
     }));
   };
@@ -25,18 +36,19 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     ({ touches }: TouchEvent): void => {
       if (position.isDragging) {
         const { clientY } = touches[0];
-        setPosition({
+        setPosition((position) => ({
+          ...position,
           isDragging: true,
-          origin: { y: position.origin.y },
           translation: {
             y: clientY - position.origin.y,
           },
-        });
+        }));
       } else {
         setPosition({
           isDragging: false,
           origin: { y: 0 },
           translation: { y: 0 },
+          initialScrollTop: 0,
         });
       }
     },
@@ -46,7 +58,12 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
   const handleTouchEnd = (): void => {
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
-    setPosition({ isDragging: false, origin: { y: 0 }, translation: { y: 0 } });
+    setPosition({
+      isDragging: false,
+      origin: { y: 0 },
+      translation: { y: 0 },
+      initialScrollTop: 0,
+    });
   };
 
   React.useEffect(() => {
@@ -60,6 +77,13 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
   React.useEffect(() => {
     return window.removeEventListener("touchstart", handleTouchStart);
   }, []);
+  console.log(position.translation.y);
+  React.useEffect(() => {
+    const innerGrid: HTMLElement = document.getElementById("innerGrid");
+    if (position.initialScrollTop + position.translation.y <= 0)
+      innerGrid.scrollTop = 0;
+    innerGrid.scrollTop = position.initialScrollTop + position.translation.y;
+  }, [position.translation.y]);
 
   return (
     <div
