@@ -1,21 +1,23 @@
+import { a } from "aws-amplify";
 import * as React from "react";
 import css from "./ScheduleDragPiece.module.scss";
 
 export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
   part,
 }) => {
-  const [position, setPosition] = React.useState<{
+  const [dragPosition, setPosition] = React.useState<{
     isDragging: boolean;
     origin: { y: number };
     translation: { y: number };
     initialScrollTop: number;
+    moveScroll: boolean;
   }>({
     isDragging: false,
+    moveScroll: false,
     origin: { y: 0 },
     translation: { y: 0 },
     initialScrollTop: 0,
   });
-
   const [height, extend] = React.useState<string>("10vh");
 
   const handleTouchStart = ({ touches, currentTarget, target }): void => {
@@ -23,9 +25,8 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     const initialScrollTop: number = document.getElementById("innerGrid")
       .scrollTop;
 
-    console.log(document.getElementById("innerGrid").clientHeight);
-    setPosition((position) => ({
-      ...position,
+    setPosition((dragPosition) => ({
+      ...dragPosition,
       isDragging: true,
       initialScrollTop,
       origin: { y: clientY },
@@ -34,25 +35,31 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
 
   const handleTouchMove = React.useCallback(
     ({ touches }: TouchEvent): void => {
-      if (position.isDragging) {
-        const { clientY } = touches[0];
-        setPosition((position) => ({
-          ...position,
-          isDragging: true,
-          translation: {
-            y: clientY - position.origin.y,
-          },
-        }));
-      } else {
-        setPosition({
-          isDragging: false,
-          origin: { y: 0 },
-          translation: { y: 0 },
-          initialScrollTop: 0,
-        });
+      if (window) {
+        if (dragPosition.isDragging) {
+          const { clientY } = touches[0];
+          setPosition((dragPosition) => ({
+            ...dragPosition,
+            isDragging: true,
+            translation: {
+              y: clientY - dragPosition.origin.y,
+            },
+            moveScroll:
+              clientY >= window.innerHeight * 0.75 ||
+              clientY <= window.innerHeight / 3,
+          }));
+        } else {
+          setPosition({
+            isDragging: false,
+            origin: { y: 0 },
+            translation: { y: 0 },
+            initialScrollTop: 0,
+            moveScroll: false,
+          });
+        }
       }
     },
-    [position.isDragging]
+    [dragPosition.isDragging]
   );
 
   const handleTouchEnd = (): void => {
@@ -63,36 +70,53 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
       origin: { y: 0 },
       translation: { y: 0 },
       initialScrollTop: 0,
+      moveScroll: false,
     });
   };
 
+  const autoScroll: (direction?: string, element?: HTMLElement) => void = (
+    direction,
+    element
+  ) => {
+    if (element) {
+      direction === "up"
+        ? setInterval(() => element.scrollBy(0, -1), 10)
+        : setInterval(() => element.scrollBy(0, 1), 10);
+    }
+  };
+
   React.useEffect(() => {
-    if (position.isDragging) {
+    if (dragPosition.isDragging) {
       window.addEventListener("touchmove", handleTouchMove);
     } else {
       window.removeEventListener("touchmove", handleTouchMove);
     }
-  }, [position.isDragging]);
+  }, [dragPosition.isDragging]);
 
   React.useEffect(() => {
     return window.removeEventListener("touchstart", handleTouchStart);
   }, []);
-  console.log(position.translation.y);
+
   React.useEffect(() => {
     const innerGrid: HTMLElement = document.getElementById("innerGrid");
-    if (position.initialScrollTop + position.translation.y <= 0)
-      innerGrid.scrollTop = 0;
-    innerGrid.scrollTop = position.initialScrollTop + position.translation.y;
-  }, [position.translation.y]);
+
+    if (dragPosition.moveScroll) {
+      // dragPosition.translation.y > 0
+      //   ? autoScroll("down", innerGrid)
+      //   : autoScroll("up", innerGrid);
+    } else {
+      innerGrid.scrollTop = dragPosition.initialScrollTop;
+    }
+  }, [dragPosition.moveScroll]);
 
   return (
     <div
       className={css.dragWrapper}
       style={{
         height,
-        position: position.isDragging ? "absolute" : "relative",
-        transform: `translate(0, ${position.translation.y}px)`,
-        zIndex: position.isDragging ? 4 : null,
+        position: dragPosition.isDragging ? "absolute" : "relative",
+        transform: `translate(0, ${dragPosition.translation.y}px)`,
+        zIndex: dragPosition.isDragging ? 4 : null,
       }}
     >
       <button className={css.extendHandle}></button>
