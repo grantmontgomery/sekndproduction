@@ -120,14 +120,6 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
   }, [dragPosition.isDragging]);
 
   React.useEffect(() => {
-    upScrollInterval.current = setInterval(
-      () => document.getElementById("innerGrid").scrollBy(0, -1),
-      10
-    );
-    downScrollInterval.current = setInterval(
-      () => document.getElementById("innerGrid").scrollBy(0, 1),
-      10
-    );
     return (
       window.removeEventListener("touchstart", handleTouchStart),
       clearInterval(upScrollInterval.current),
@@ -146,8 +138,14 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     // );
     if (dragPosition.moveScroll) {
       dragPosition.translation.y > 0
-        ? (upScrollInterval.current, clearInterval(downScrollInterval.current))
-        : (downScrollInterval.current, clearInterval(upScrollInterval.current));
+        ? (downScrollInterval.current = setInterval(() => {
+            document.getElementById("innerGrid").scrollBy(0, 1);
+            // setPosition(position => ({...position, translation: {y: position.translation.y++}}))
+          }, 10))
+        : (upScrollInterval.current = setInterval(
+            () => document.getElementById("innerGrid").scrollBy(0, -1),
+            10
+          ));
     } else {
       clearInterval(upScrollInterval.current);
       clearInterval(downScrollInterval.current);
