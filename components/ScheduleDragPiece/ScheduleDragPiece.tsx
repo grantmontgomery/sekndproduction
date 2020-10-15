@@ -11,6 +11,7 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     translation: { y: number };
     initialScrollTop: number;
     moveScroll: boolean;
+    scrollCounter: number;
     elementBelow: Element | null;
     draggingElement: any | null;
   }>({
@@ -19,6 +20,7 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     origin: { y: 0 },
     translation: { y: 0 },
     initialScrollTop: 0,
+    scrollCounter: 0,
     elementBelow: null,
     draggingElement: null,
   });
@@ -56,6 +58,7 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
       if (window) {
         if (dragPosition.isDragging) {
           const { clientY, clientX } = touches[0];
+          console.log(clientY);
           dragPosition.draggingElement.hidden = true;
           dragPosition.draggingElement.childNodes[0].hidden = true;
           // dragPosition.draggingElement.childNodes[0].forEach((element) => {
@@ -90,6 +93,7 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
             moveScroll: false,
             elementBelow: null,
             draggingElement: null,
+            scrollCounter: 0,
           });
         }
       }
@@ -108,6 +112,7 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
       moveScroll: false,
       elementBelow: null,
       draggingElement: null,
+      scrollCounter: 0,
     });
   };
 
@@ -128,24 +133,22 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
   }, []);
 
   React.useEffect(() => {
-    // upScrollInterval.current = setInterval(
-    //   () => document.getElementById("innerGrid").scrollBy(0, -1),
-    //   10
-    // );
-    // downScrollInterval.current = setInterval(
-    //   () => document.getElementById("innerGrid").scrollBy(0, 1),
-    //   10
-    // );
     if (dragPosition.moveScroll) {
       dragPosition.translation.y > 0
         ? (downScrollInterval.current = setInterval(() => {
             document.getElementById("innerGrid").scrollBy(0, 1);
-            // setPosition(position => ({...position, translation: {y: position.translation.y++}}))
+            setPosition((position) => ({
+              ...position,
+              translation: { y: position.translation.y + 1 },
+            }));
           }, 10))
-        : (upScrollInterval.current = setInterval(
-            () => document.getElementById("innerGrid").scrollBy(0, -1),
-            10
-          ));
+        : (upScrollInterval.current = setInterval(() => {
+            document.getElementById("innerGrid").scrollBy(0, -1);
+            setPosition((position) => ({
+              ...position,
+              translation: { y: position.translation.y - 1 },
+            }));
+          }, 10));
     } else {
       clearInterval(upScrollInterval.current);
       clearInterval(downScrollInterval.current);
