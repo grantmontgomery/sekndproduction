@@ -1,5 +1,5 @@
-import { a } from "aws-amplify";
 import * as React from "react";
+import { ScheduleDragPieceDisplay } from "./ScheduleDragPieceDisplay";
 import css from "./ScheduleDragPiece.module.scss";
 
 export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
@@ -11,6 +11,7 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     translation: { y: number };
     initialScrollTop: number;
     moveScroll: boolean;
+    // clientY: number;
     scrollCounter: number;
     elementBelow: Element | null;
     draggingElement: any | null;
@@ -21,6 +22,7 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     translation: { y: 0 },
     initialScrollTop: 0,
     scrollCounter: 0,
+    // clientY: 0,
     elementBelow: null,
     draggingElement: null,
   });
@@ -76,7 +78,7 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
             ...dragPosition,
             isDragging: true,
             translation: {
-              y: clientY - dragPosition.origin.y,
+              y: clientY - dragPosition.origin.y + dragPosition.scrollCounter,
             },
             moveScroll:
               clientY >= window.innerHeight * 0.7 ||
@@ -124,11 +126,7 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
   }, [dragPosition.isDragging]);
 
   React.useEffect(() => {
-    return (
-      window.removeEventListener("touchstart", handleTouchStart),
-      clearInterval(upScrollInterval.current),
-      clearInterval(downScrollInterval.current)
-    );
+    return window.removeEventListener("touchstart", handleTouchStart);
   }, []);
 
   React.useEffect(() => {
@@ -139,7 +137,6 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
             setPosition((position) => ({
               ...position,
               scrollCounter: position.scrollCounter + 1,
-              translation: { y: position.translation.y + 1 },
             }));
           }, 5))
         : (upScrollInterval.current = setInterval(() => {
@@ -147,43 +144,29 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
             setPosition((position) => ({
               ...position,
               scrollCounter: position.scrollCounter - 1,
-
-              translation: { y: position.translation.y - 1 },
             }));
           }, 5));
     } else {
       setPosition((position) => ({
         ...position,
-        translation: { y: position.translation.y + position.scrollCounter },
+        origin: { y: position.origin.y + position.scrollCounter },
+      }));
+      setPosition((position) => ({
+        ...position,
         scrollCounter: 0,
       }));
       clearInterval(upScrollInterval.current);
       clearInterval(downScrollInterval.current);
-      console.log(
-        `scrollCounter with translation ${dragPosition.translation.y}`
-      );
     }
   }, [dragPosition.moveScroll]);
 
-  console.log(`pure translation ${dragPosition.translation.y}`);
-
   return (
-    <div
-      className={css.dragWrapper}
-      style={{
-        height,
-        width: dragPosition.isDragging ? "calc(100% + 2.5%)" : "100%",
-        // marginRight: dragPosition.isDragging ? "5%" : null,
-        position: dragPosition.isDragging ? "absolute" : "relative",
-        transform: `translate(0, ${dragPosition.translation.y}px)`,
-        zIndex: dragPosition.isDragging ? 4 : null,
-      }}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    >
-      <button className={css.extendHandle}></button>
-      <div className={css.imageBackground}></div>
-      <button className={css.extendHandle}></button>
-    </div>
+    <ScheduleDragPieceDisplay
+      translateY={dragPosition.translation.y}
+      isDragging={dragPosition.isDragging}
+      handleTouchStart={handleTouchStart}
+      handleTouchEnd={handleTouchEnd}
+      height={height}
+    ></ScheduleDragPieceDisplay>
   );
 };
