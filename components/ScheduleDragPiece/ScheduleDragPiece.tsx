@@ -1,8 +1,9 @@
 import * as React from "react";
 import { ScheduleDragPieceDisplay } from "./ScheduleDragPieceDisplay";
-import css from "./ScheduleDragPiece.module.scss";
+import css from "../ScheduleGrid/GridRectangle/GridRectangle.module.scss";
+import { useRectanglesDispatch } from "../../state/GridRectanglesContext";
 
-export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
+export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   part,
 }) => {
   const [dragPosition, setPosition] = React.useState<{
@@ -36,6 +37,8 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     NodeJS.Timeout | undefined
   > = React.useRef();
 
+  const rectanglesDispatch = useRectanglesDispatch();
+
   const handleTouchStart = ({ touches, currentTarget, target }): void => {
     const { clientY, clientX } = touches[0];
     const initialScrollTop: number = document.getElementById("innerGrid")
@@ -62,18 +65,14 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
           const { clientY, clientX } = touches[0];
           dragPosition.draggingElement.hidden = true;
           dragPosition.draggingElement.childNodes[0].hidden = true;
-          // dragPosition.draggingElement.childNodes[0].forEach((element) => {
-          //   element.hidden = true;
-          // });
+
           const elementBelow: Element = document.elementFromPoint(
             clientX,
             clientY
           );
           dragPosition.draggingElement.hidden = false;
           dragPosition.draggingElement.childNodes[0].hidden = false;
-          // dragPosition.draggingElement.childNodes[0].forEach((element) => {
-          //   element.hidden = false;
-          // });
+
           setPosition((dragPosition) => ({
             ...dragPosition,
             isDragging: true,
@@ -105,6 +104,25 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
   const handleTouchEnd = (): void => {
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
+
+    if (dragPosition.elementBelow.className.includes("GridRectangle")) {
+      const rectangleElements: Element[] = Array.from(
+        document.getElementsByClassName(css.rectangle)
+      );
+      rectangleElements.forEach((rectangle, index) => {
+        if (dragPosition.elementBelow === rectangle) {
+          rectanglesDispatch({
+            type: "ADD_PART_TO_RECTANGLE",
+            payload: { index, part: { ...part, rectangleIndex: index } },
+          });
+          rectanglesDispatch({
+            type: "REMOVE_PART_FROM_RECTANGLE",
+            payload: { index: part.rectangleIndex },
+          });
+        }
+      });
+    }
+
     setPosition({
       isDragging: false,
       origin: { y: 0 },

@@ -27,20 +27,18 @@ const rectanglesReducer: React.Reducer<State, Action> = (
           })
         ),
       };
-    case "ADD_PART_TO_SQUARE":
+    case "ADD_PART_TO_RECTANGLE":
       return {
-        rectangles: state.rectangles.map((square, i) => {
+        rectangles: state.rectangles.map((rectangle, i) => {
           return i !== action.payload.index
-            ? square
+            ? rectangle
             : { part: action.payload.part };
         }),
       };
-    case "REMOVE_PART_FROM_SQUARE":
+    case "REMOVE_PART_FROM_RECTANGLE":
       return {
-        rectangles: state.rectangles.map((square, i) => {
-          return i !== action.payload.index
-            ? { part: action.payload.part }
-            : square;
+        rectangles: state.rectangles.map((rectangle, i) => {
+          return i !== action.payload.index ? rectangle : { part: null };
         }),
       };
     default:

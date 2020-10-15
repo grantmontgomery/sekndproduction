@@ -17,6 +17,7 @@ export const ScheduleGrid: React.FC = () => {
       >
         {rectangles.map((rectangle, index) => (
           <GridRectangle
+            rectangle={rectangle}
             key={`rectangle${index}`}
             index={index}
           ></GridRectangle>
