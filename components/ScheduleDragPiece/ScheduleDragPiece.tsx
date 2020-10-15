@@ -58,7 +58,6 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
       if (window) {
         if (dragPosition.isDragging) {
           const { clientY, clientX } = touches[0];
-          console.log(clientY);
           dragPosition.draggingElement.hidden = true;
           dragPosition.draggingElement.childNodes[0].hidden = true;
           // dragPosition.draggingElement.childNodes[0].forEach((element) => {
@@ -139,21 +138,34 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
             document.getElementById("innerGrid").scrollBy(0, 1);
             setPosition((position) => ({
               ...position,
+              scrollCounter: position.scrollCounter + 1,
               translation: { y: position.translation.y + 1 },
             }));
-          }, 10))
+          }, 5))
         : (upScrollInterval.current = setInterval(() => {
             document.getElementById("innerGrid").scrollBy(0, -1);
             setPosition((position) => ({
               ...position,
+              scrollCounter: position.scrollCounter - 1,
+
               translation: { y: position.translation.y - 1 },
             }));
-          }, 10));
+          }, 5));
     } else {
+      setPosition((position) => ({
+        ...position,
+        translation: { y: position.translation.y + position.scrollCounter },
+        scrollCounter: 0,
+      }));
       clearInterval(upScrollInterval.current);
       clearInterval(downScrollInterval.current);
+      console.log(
+        `scrollCounter with translation ${dragPosition.translation.y}`
+      );
     }
   }, [dragPosition.moveScroll]);
+
+  console.log(`pure translation ${dragPosition.translation.y}`);
 
   return (
     <div
