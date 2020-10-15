@@ -1,6 +1,5 @@
 import { a } from "aws-amplify";
 import * as React from "react";
-import useInterval from "./useInterval";
 import css from "./ScheduleDragPiece.module.scss";
 
 export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
@@ -25,6 +24,14 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
   });
   const [height, extend] = React.useState<string>("10vh");
 
+  const upScrollInterval: React.MutableRefObject<
+    NodeJS.Timeout | undefined
+  > = React.useRef();
+
+  const downScrollInterval: React.MutableRefObject<
+    NodeJS.Timeout | undefined
+  > = React.useRef();
+
   const handleTouchStart = ({ touches, currentTarget, target }): void => {
     const { clientY, clientX } = touches[0];
     const initialScrollTop: number = document.getElementById("innerGrid")
@@ -33,8 +40,6 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     currentTarget.hidden = true;
     const elementBelow: Element = document.elementFromPoint(clientX, clientY);
     currentTarget.hidden = false;
-
-    console.log(elementBelow);
 
     setPosition((dragPosition) => ({
       ...dragPosition,
@@ -106,18 +111,6 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
     });
   };
 
-  // const autoScroll: (direction: string) => void = (direction) => {
-  //   direction === "up"
-  //     ? useInterval(() => {
-  //         document
-  //           ? document.getElementById("innerGrid").scrollBy(0, -1)
-  //           : null;
-  //       }, 10)
-  //     : useInterval(() => {
-  //         document ? document.getElementById("innerGrid").scrollBy(0, 1) : null;
-  //       }, 10);
-  // };
-
   React.useEffect(() => {
     if (dragPosition.isDragging) {
       window.addEventListener("touchmove", handleTouchMove);
@@ -127,18 +120,39 @@ export const ScheduleDragPiece: React.FC<{ part?: { [key: string]: any } }> = ({
   }, [dragPosition.isDragging]);
 
   React.useEffect(() => {
-    return window.removeEventListener("touchstart", handleTouchStart);
+    upScrollInterval.current = setInterval(
+      () => document.getElementById("innerGrid").scrollBy(0, -1),
+      10
+    );
+    downScrollInterval.current = setInterval(
+      () => document.getElementById("innerGrid").scrollBy(0, 1),
+      10
+    );
+    return (
+      window.removeEventListener("touchstart", handleTouchStart),
+      clearInterval(upScrollInterval.current),
+      clearInterval(downScrollInterval.current)
+    );
   }, []);
 
-  // React.useEffect(() => {
-  //   const innerGrid: HTMLElement = document.getElementById("innerGrid");
-
-  //   if (dragPosition.moveScroll) {
-  //     dragPosition.translation.y > 0 ? autoScroll("down") : autoScroll("up");
-  //   } else {
-  //     innerGrid.scrollTop = dragPosition.initialScrollTop;
-  //   }
-  // }, [dragPosition.moveScroll]);
+  React.useEffect(() => {
+    // upScrollInterval.current = setInterval(
+    //   () => document.getElementById("innerGrid").scrollBy(0, -1),
+    //   10
+    // );
+    // downScrollInterval.current = setInterval(
+    //   () => document.getElementById("innerGrid").scrollBy(0, 1),
+    //   10
+    // );
+    if (dragPosition.moveScroll) {
+      dragPosition.translation.y > 0
+        ? (upScrollInterval.current, clearInterval(downScrollInterval.current))
+        : (downScrollInterval.current, clearInterval(upScrollInterval.current));
+    } else {
+      clearInterval(upScrollInterval.current);
+      clearInterval(downScrollInterval.current);
+    }
+  }, [dragPosition.moveScroll]);
 
   return (
     <div
