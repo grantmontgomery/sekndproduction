@@ -7,15 +7,25 @@ export const GridRectangle: React.FC<{
   index: number;
   rectangle: { part: { [key: string]: any } | null };
 }> = ({ index, rectangle }) => {
-  const [customPart, setPart] = React.useState<boolean>(false);
+  // const [customPart, setPart] = React.useState<boolean>(false);
 
+  const rectanglesDispatch = useRectanglesDispatch();
+
+  const handleAdd: () => void = () => {
+    if (!rectangle.part) {
+      rectanglesDispatch({
+        type: "ADD_PART_TO_RECTANGLE",
+        payload: { index, part: { rectangleIndex: index } },
+      });
+    }
+  };
   return (
     <div
       style={{ gridArea: `rectangle${index}` }}
-      onClick={() => (rectangle.part ? setPart(false) : setPart(true))}
+      onClick={handleAdd}
       className={css.rectangle}
     >
-      {rectangle.part || customPart ? (
+      {rectangle.part ? (
         <ScheduleDragPiece
           part={
             rectangle.part !== null ? rectangle.part : { rectangleIndex: index }
