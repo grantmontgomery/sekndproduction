@@ -1,7 +1,10 @@
 import * as React from "react";
 import { ScheduleDragPieceDisplay } from "./ScheduleDragPieceDisplay";
 import css from "../ScheduleGrid/GridRectangle/GridRectangle.module.scss";
-import { useRectanglesDispatch } from "../../state/GridRectanglesContext";
+import {
+  useRectanglesDispatch,
+  useRectanglesState,
+} from "../../state/GridRectanglesContext";
 
 export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   part,
@@ -38,6 +41,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   > = React.useRef();
 
   const rectanglesDispatch = useRectanglesDispatch();
+  const { rectangles } = useRectanglesState();
 
   const handleTouchStart = ({ touches, currentTarget, target }): void => {
     const { clientY, clientX } = touches[0];
@@ -110,7 +114,10 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
         document.getElementsByClassName(css.rectangle)
       );
       rectangleElements.forEach((rectangle, index) => {
-        if (dragPosition.elementBelow === rectangle) {
+        if (
+          dragPosition.elementBelow === rectangle &&
+          !rectangles[index].part
+        ) {
           rectanglesDispatch({
             type: "ADD_PART_TO_RECTANGLE",
             payload: { index, part: { ...part, rectangleIndex: index } },
@@ -144,7 +151,11 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   }, [dragPosition.isDragging]);
 
   React.useEffect(() => {
-    return window.removeEventListener("touchstart", handleTouchStart);
+    return () => {
+      window.removeEventListener("touchstart", handleTouchStart);
+      clearInterval(upScrollInterval.current);
+      clearInterval(downScrollInterval.current);
+    };
   }, []);
 
   React.useEffect(() => {
