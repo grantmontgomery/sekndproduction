@@ -123,11 +123,11 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
         ) {
           rectanglesDispatch({
             type: "ADD_PART_TO_RECTANGLE",
-            payload: { index, part: { ...part, rectangleIndex: index } },
+            payload: { index },
           });
           rectanglesDispatch({
             type: "REMOVE_PART_FROM_RECTANGLE",
-            payload: { index: part.rectangleIndex },
+            payload: { index },
           });
         }
       });

@@ -2,7 +2,8 @@
   border: solid 1px red;
   border-radius: 1vh;
   margin-left: auto;
-  right: 0;
+  position: absolute;
+  float: right;
   & .imageBackground {
     position: relative;
     height: 100%;

@@ -2,15 +2,13 @@ import * as React from "react";
 import Cookie from "js-cookie";
 
 type State = {
-  rectangles: { part: { [key: string]: any } | null }[];
+  rectangles: { part: boolean }[];
 };
 type Action = {
   type: string;
   payload: {
     numberOfRectangles?: number;
-    part?: { [key: string]: any };
     index?: number;
-    id?: string;
   };
 };
 
@@ -29,17 +27,15 @@ const rectanglesReducer: React.Reducer<State, Action> = (
       };
     case "ADD_PART_TO_RECTANGLE":
       return {
-        rectangles: state.rectangles.map((rectangle, i) => {
-          return i !== action.payload.index
-            ? rectangle
-            : { part: action.payload.part };
-        }),
+        rectangles: state.rectangles.map((rectangle, i) =>
+          i !== action.payload.index ? rectangle : { part: true }
+        ),
       };
     case "REMOVE_PART_FROM_RECTANGLE":
       return {
-        rectangles: state.rectangles.map((rectangle, i) => {
-          return i !== action.payload.index ? rectangle : { part: null };
-        }),
+        rectangles: state.rectangles.map((rectangle, i) =>
+          i !== action.payload.index ? rectangle : { part: false }
+        ),
       };
     default:
       return state;

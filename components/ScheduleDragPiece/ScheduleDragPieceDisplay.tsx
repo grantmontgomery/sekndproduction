@@ -13,11 +13,10 @@ export const ScheduleDragPieceDisplay: React.FC<{
       className={css.dragWrapper}
       style={{
         height,
-        width: isDragging ? "calc(100% + 2.5%)" : "100%",
-        // marginRight: dragPosition.isDragging ? "5%" : null,
-        position: isDragging ? "absolute" : "relative",
+        width: isDragging ? "77.5%" : "75%",
         transform: `translate(0, ${translateY}px)`,
-        zIndex: isDragging ? 4 : null,
+        zIndex: isDragging ? 3 : null,
+        right: isDragging ? "2.5%" : "0%",
       }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
