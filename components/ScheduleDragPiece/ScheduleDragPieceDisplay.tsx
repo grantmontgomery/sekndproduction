@@ -7,7 +7,15 @@ export const ScheduleDragPieceDisplay: React.FC<{
   handleTouchStart: (any) => void;
   handleTouchEnd: () => void;
   height: string;
-}> = ({ translateY, isDragging, handleTouchStart, height, handleTouchEnd }) => {
+  customIndex?: number;
+}> = ({
+  translateY,
+  isDragging,
+  handleTouchStart,
+  height,
+  handleTouchEnd,
+  customIndex,
+}) => {
   return (
     <div
       className={css.dragWrapper}
@@ -15,7 +23,8 @@ export const ScheduleDragPieceDisplay: React.FC<{
         height,
         width: isDragging ? "77.5%" : "75%",
         transform: `translate(0, ${translateY}px)`,
-        zIndex: isDragging ? 3 : null,
+        top: `${10 * customIndex}vh`,
+        zIndex: isDragging ? 3 : 2,
         right: isDragging ? "2.5%" : "0%",
       }}
       onTouchStart={handleTouchStart}

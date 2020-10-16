@@ -7,9 +7,10 @@ import {
 } from "../../state/GridRectanglesContext";
 const { useTouchDispatch } = require("../ScheduleGrid/Context");
 
-export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
-  part,
-}) => {
+export const ScheduleDragPiece: React.FC<{
+  part?: { [key: string]: any };
+  customIndex: number;
+}> = ({ part, customIndex }) => {
   const [dragPosition, setPosition] = React.useState<{
     isDragging: boolean;
     origin: { y: number };
@@ -45,21 +46,20 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   const { rectangles } = useRectanglesState();
   const touchDispatch = useTouchDispatch();
 
-  const handleTouchStart = (event): void => {
-    const { clientY, clientX } = event.touches[0];
+  const handleTouchStart = ({ touches, currentTarget }): void => {
+    const { clientY, clientX } = touches[0];
     const initialScrollTop: number = document.getElementById("innerGrid")
       .scrollTop;
 
-    event.currentTarget.hidden = true;
+    currentTarget.hidden = true;
     const elementBelow: Element = document.elementFromPoint(clientX, clientY);
-    event.currentTarget.hidden = false;
-    event.preventDefault();
+    currentTarget.hidden = false;
 
     setPosition((dragPosition) => ({
       ...dragPosition,
       isDragging: true,
       initialScrollTop,
-      draggingElement: event.currentTarget,
+      draggingElement: currentTarget,
       origin: { y: clientY },
       elementBelow,
     }));
@@ -197,6 +197,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   return (
     <ScheduleDragPieceDisplay
       translateY={dragPosition.translation.y}
+      customIndex={customIndex}
       isDragging={dragPosition.isDragging}
       handleTouchStart={(event) => handleTouchStart(event)}
       handleTouchEnd={handleTouchEnd}

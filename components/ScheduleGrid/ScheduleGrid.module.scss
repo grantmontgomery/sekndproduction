@@ -19,7 +19,6 @@
     position: relative;
     grid-template-columns: 25% 75%;
     display: grid;
-    touch-action: pan-y;
     &.stopTouch {
       touch-action: none;
       pointer-events: none;
