@@ -6,3 +6,4 @@ export { DatePart } from "./DatePart/DatePart";
 export { PartsContainer } from "./PartsContainer";
 export { ResultCard } from "./SearchResults";
 export { SekndLoader } from "./SekndLoader";
+export { TouchProvider } from "./ScheduleGrid/Context";

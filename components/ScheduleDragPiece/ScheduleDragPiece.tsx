@@ -5,6 +5,7 @@ import {
   useRectanglesDispatch,
   useRectanglesState,
 } from "../../state/GridRectanglesContext";
+const { useTouchDispatch } = require("../ScheduleGrid/Context");
 
 export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   part,
@@ -42,21 +43,23 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
 
   const rectanglesDispatch = useRectanglesDispatch();
   const { rectangles } = useRectanglesState();
+  const touchDispatch = useTouchDispatch();
 
-  const handleTouchStart = ({ touches, currentTarget, target }): void => {
-    const { clientY, clientX } = touches[0];
+  const handleTouchStart = (event): void => {
+    const { clientY, clientX } = event.touches[0];
     const initialScrollTop: number = document.getElementById("innerGrid")
       .scrollTop;
 
-    currentTarget.hidden = true;
+    event.currentTarget.hidden = true;
     const elementBelow: Element = document.elementFromPoint(clientX, clientY);
-    currentTarget.hidden = false;
+    event.currentTarget.hidden = false;
+    event.preventDefault();
 
     setPosition((dragPosition) => ({
       ...dragPosition,
       isDragging: true,
       initialScrollTop,
-      draggingElement: currentTarget,
+      draggingElement: event.currentTarget,
       origin: { y: clientY },
       elementBelow,
     }));
@@ -145,8 +148,10 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   React.useEffect(() => {
     if (dragPosition.isDragging) {
       window.addEventListener("touchmove", handleTouchMove);
+      touchDispatch({ stopTouch: true });
     } else {
       window.removeEventListener("touchmove", handleTouchMove);
+      touchDispatch({ stopTouch: false });
     }
   }, [dragPosition.isDragging]);
 
@@ -193,7 +198,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     <ScheduleDragPieceDisplay
       translateY={dragPosition.translation.y}
       isDragging={dragPosition.isDragging}
-      handleTouchStart={handleTouchStart}
+      handleTouchStart={(event) => handleTouchStart(event)}
       handleTouchEnd={handleTouchEnd}
       height={height}
     ></ScheduleDragPieceDisplay>
