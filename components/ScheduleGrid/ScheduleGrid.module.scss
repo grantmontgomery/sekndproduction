@@ -19,9 +19,5 @@
     position: relative;
     grid-template-columns: 25% 75%;
     display: grid;
-    &.stopTouch {
-      touch-action: none;
-      pointer-events: none;
-    }
   }
 }

@@ -21,7 +21,6 @@ export const ScheduleDragPieceDisplay: React.FC<{
       className={css.dragWrapper}
       style={{
         height,
-        width: isDragging ? "77.5%" : "75%",
         transform: `translate(0, ${translateY}px)`,
         top: `${10 * customIndex}vh`,
         zIndex: isDragging ? 3 : 2,

@@ -5,7 +5,7 @@ import {
   useRectanglesDispatch,
   useRectanglesState,
 } from "../../state/GridRectanglesContext";
-const { useTouchDispatch } = require("../ScheduleGrid/Context");
+import { useTouchDispatch } from "../ScheduleGrid/Context";
 
 export const ScheduleDragPiece: React.FC<{
   part?: { [key: string]: any };
@@ -46,7 +46,11 @@ export const ScheduleDragPiece: React.FC<{
   const { rectangles } = useRectanglesState();
   const touchDispatch = useTouchDispatch();
 
-  const handleTouchStart = ({ touches, currentTarget }): void => {
+  const handleTouchStart = ({
+    touches,
+    currentTarget,
+    preventDefault,
+  }): void => {
     const { clientY, clientX } = touches[0];
     const initialScrollTop: number = document.getElementById("innerGrid")
       .scrollTop;
@@ -54,7 +58,6 @@ export const ScheduleDragPiece: React.FC<{
     currentTarget.hidden = true;
     const elementBelow: Element = document.elementFromPoint(clientX, clientY);
     currentTarget.hidden = false;
-
     setPosition((dragPosition) => ({
       ...dragPosition,
       isDragging: true,
@@ -148,10 +151,10 @@ export const ScheduleDragPiece: React.FC<{
   React.useEffect(() => {
     if (dragPosition.isDragging) {
       window.addEventListener("touchmove", handleTouchMove);
-      touchDispatch({ stopTouch: true });
+      touchDispatch({ type: "STOP_SCROLL" });
     } else {
       window.removeEventListener("touchmove", handleTouchMove);
-      touchDispatch({ stopTouch: false });
+      touchDispatch({ type: "ACTIVATE_SCROLL" });
     }
   }, [dragPosition.isDragging]);
 

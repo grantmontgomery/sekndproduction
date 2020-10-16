@@ -8,7 +8,7 @@ type State = {
 
 type Action = {
   type: string;
-  payload: {
+  payload?: {
     stopTouch?: boolean;
     index?: number;
   };
