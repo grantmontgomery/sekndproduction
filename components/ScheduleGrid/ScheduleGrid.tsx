@@ -11,10 +11,9 @@ export const ScheduleGrid: React.FC = () => {
   const { gridTemplate, hourStrings } = useGridState();
   const { rectangles } = useRectanglesState();
   const { stopTouch } = useTouchState();
-
+  console.log(rectangles);
   return (
     <section id="innerGrid" className={css.gridWrapper}>
-      <div className={css.fixedDiv}></div>
       <div
         style={{
           gridTemplateAreas: `${gridTemplate}`,

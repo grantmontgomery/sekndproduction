@@ -8,7 +8,7 @@ type Action = {
   type: string;
   payload: {
     numberOfRectangles?: number;
-    part?: { [key: string]: any };
+    part?: { [key: string]: any } | null;
     index?: number;
     id?: string;
   };
