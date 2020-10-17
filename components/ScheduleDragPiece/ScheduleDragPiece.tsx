@@ -19,8 +19,10 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     scrollCounter: number;
     elementBelow: Element | null;
     draggingElement: any | null;
+    heightChanging: boolean;
   }>({
     isDragging: false,
+    heightChanging: false,
     moveScroll: false,
     origin: { y: 0 },
     translation: { y: 0 },
@@ -46,28 +48,68 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   const touchDispatch = useTouchDispatch();
 
   const handleTouchStart = ({ touches, target, currentTarget }): void => {
+    const { clientY, clientX } = touches[0];
+
     if (target.className.includes("extendHandle")) {
-      console.log("extending");
+      setPosition((position) => ({
+        ...position,
+        heightChanging: true,
+        isDragging: false,
+        origin: { y: clientY },
+      }));
     } else {
-      const { clientY, clientX } = touches[0];
       const initialScrollTop: number = document.getElementById("innerGrid")
         .scrollTop;
 
       currentTarget.hidden = true;
       const elementBelow: Element = document.elementFromPoint(clientX, clientY);
       currentTarget.hidden = false;
-      touchDispatch({ type: "STOP_TOUCH_SCROLL" });
 
       setPosition((dragPosition) => ({
         ...dragPosition,
         isDragging: true,
+        heightChanging: false,
         initialScrollTop,
         draggingElement: currentTarget,
         origin: { y: clientY },
         elementBelow,
       }));
     }
+    touchDispatch({ type: "STOP_TOUCH_SCROLL" });
   };
+
+  const handleExtendRetract = React.useCallback(
+    ({ touches, currentTarget, target }: any): void => {
+      if (window) {
+        if (dragPosition.heightChanging) {
+          const { clientY, clientX } = touches[0];
+          setPosition((dragPosition) => ({
+            ...dragPosition,
+            heightChanging: true,
+            translation: {
+              y: clientY - dragPosition.origin.y + dragPosition.scrollCounter,
+            },
+            moveScroll:
+              clientY >= window.innerHeight * 0.7 ||
+              clientY <= window.innerHeight * 0.38,
+          }));
+        } else {
+          setPosition({
+            isDragging: false,
+            origin: { y: 0 },
+            translation: { y: 0 },
+            initialScrollTop: 0,
+            moveScroll: false,
+            elementBelow: null,
+            draggingElement: null,
+            scrollCounter: 0,
+            heightChanging: false,
+          });
+        }
+      }
+    },
+    [dragPosition.heightChanging]
+  );
 
   const handleTouchMove = React.useCallback(
     ({ touches, currentTarget, target }): void => {
@@ -104,6 +146,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
             moveScroll: false,
             elementBelow: null,
             draggingElement: null,
+            heightChanging: false,
             scrollCounter: 0,
           });
         }
@@ -150,16 +193,21 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
       elementBelow: null,
       draggingElement: null,
       scrollCounter: 0,
+      heightChanging: false,
     });
   };
 
   React.useEffect(() => {
-    if (dragPosition.isDragging) {
-      window.addEventListener("touchmove", handleTouchMove);
-    } else {
-      window.removeEventListener("touchmove", handleTouchMove);
-    }
+    dragPosition.isDragging
+      ? window.addEventListener("touchmove", handleTouchMove)
+      : window.removeEventListener("touchmove", handleTouchMove);
   }, [dragPosition.isDragging]);
+
+  React.useEffect(() => {
+    dragPosition.heightChanging
+      ? window.addEventListener("touchmove", handleExtendRetract)
+      : window.removeEventListener("touchmove", handleExtendRetract);
+  }, [dragPosition.heightChanging]);
 
   React.useEffect(() => {
     return () => {
