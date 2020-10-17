@@ -13,7 +13,6 @@ export const ScheduleDragPieceDisplay: React.FC<{
       className={css.dragWrapper}
       style={{
         height,
-        // marginRight: dragPosition.isDragging ? "5%" : null,
         position: isDragging ? "absolute" : "relative",
         transform: `translate(0, ${translateY}px)`,
         right: isDragging ? "2.5%" : "0",

@@ -1,10 +1,9 @@
 import * as React from "react";
 import css from "../styles/Schedule.module.scss";
 import { usePartsState } from "../state/DatePartsContext";
+import { useRectanglesState } from "../state/GridRectanglesContext";
 import {
   Layout,
-  DateParts,
-  DatePart,
   ScheduleGrid,
   PartsContainer,
   TouchProvider,
@@ -12,7 +11,7 @@ import {
 
 export default function Schedule(): JSX.Element {
   const [list, extendList] = React.useState<boolean>(false);
-  const { parts } = usePartsState();
+
   return (
     <Layout>
       <main className={css.main}>

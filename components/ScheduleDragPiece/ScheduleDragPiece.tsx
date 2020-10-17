@@ -108,16 +108,18 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   const handleTouchEnd = (): void => {
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
-
+    console.log(dragPosition.elementBelow);
     if (dragPosition.elementBelow.className.includes("GridRectangle")) {
       const rectangleElements: Element[] = Array.from(
         document.getElementsByClassName(css.rectangle)
       );
+
       rectangleElements.forEach((rectangle, index) => {
         if (
           dragPosition.elementBelow === rectangle &&
           !rectangles[index].part
         ) {
+          console.log("dropping a part in a rectangle.");
           rectanglesDispatch({
             type: "ADD_PART_TO_RECTANGLE",
             payload: { index, part: { ...part, rectangleIndex: index } },
