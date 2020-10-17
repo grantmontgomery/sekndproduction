@@ -6,6 +6,7 @@ import {
   useRectanglesState,
 } from "../../state/GridRectanglesContext";
 import { useTouchDispatch } from "../ScheduleGrid/Context";
+import { stringify } from "querystring";
 
 export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   part,
@@ -19,6 +20,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     scrollCounter: number;
     elementBelow: Element | null;
     draggingElement: any | null;
+    heightDirection: string;
     heightChanging: boolean;
   }>({
     isDragging: false,
@@ -27,6 +29,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     origin: { y: 0 },
     translation: { y: 0 },
     initialScrollTop: 0,
+    heightDirection: "",
     scrollCounter: 0,
     elementBelow: null,
     draggingElement: null,
@@ -104,6 +107,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
             draggingElement: null,
             scrollCounter: 0,
             heightChanging: false,
+            heightDirection: "",
           });
         }
       }
@@ -148,6 +152,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
             draggingElement: null,
             heightChanging: false,
             scrollCounter: 0,
+            heightDirection: "",
           });
         }
       }
@@ -194,6 +199,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
       draggingElement: null,
       scrollCounter: 0,
       heightChanging: false,
+      heightDirection: "",
     });
   };
 
