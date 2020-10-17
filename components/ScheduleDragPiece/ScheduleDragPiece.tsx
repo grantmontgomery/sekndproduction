@@ -29,7 +29,9 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     elementBelow: null,
     draggingElement: null,
   });
-  const [height, extend] = React.useState<string>("10vh");
+
+  const [dragHeight, extend] = React.useState();
+  const [height, heighten] = React.useState<string>("10vh");
 
   const upScrollInterval: React.MutableRefObject<
     NodeJS.Timeout | undefined
@@ -43,24 +45,28 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   const { rectangles } = useRectanglesState();
   const touchDispatch = useTouchDispatch();
 
-  const handleTouchStart = ({ touches, currentTarget }): void => {
-    const { clientY, clientX } = touches[0];
-    const initialScrollTop: number = document.getElementById("innerGrid")
-      .scrollTop;
+  const handleTouchStart = ({ touches, target, currentTarget }): void => {
+    if (target.className.includes("extendHandle")) {
+      console.log("extending");
+    } else {
+      const { clientY, clientX } = touches[0];
+      const initialScrollTop: number = document.getElementById("innerGrid")
+        .scrollTop;
 
-    currentTarget.hidden = true;
-    const elementBelow: Element = document.elementFromPoint(clientX, clientY);
-    currentTarget.hidden = false;
-    touchDispatch({ stopTouchScroll: true });
+      currentTarget.hidden = true;
+      const elementBelow: Element = document.elementFromPoint(clientX, clientY);
+      currentTarget.hidden = false;
+      touchDispatch({ type: "STOP_TOUCH_SCROLL" });
 
-    setPosition((dragPosition) => ({
-      ...dragPosition,
-      isDragging: true,
-      initialScrollTop,
-      draggingElement: currentTarget,
-      origin: { y: clientY },
-      elementBelow,
-    }));
+      setPosition((dragPosition) => ({
+        ...dragPosition,
+        isDragging: true,
+        initialScrollTop,
+        draggingElement: currentTarget,
+        origin: { y: clientY },
+        elementBelow,
+      }));
+    }
   };
 
   const handleTouchMove = React.useCallback(
@@ -109,7 +115,10 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   const handleTouchEnd = (): void => {
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
-    if (dragPosition.elementBelow.className.includes("GridRectangle")) {
+    if (
+      dragPosition.elementBelow &&
+      dragPosition.elementBelow.className.includes("GridRectangle")
+    ) {
       const rectangleElements: Element[] = Array.from(
         document.getElementsByClassName(css.rectangle)
       );
@@ -130,7 +139,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
         }
       });
     }
-    touchDispatch({ stopTouchScroll: false });
+    touchDispatch({ type: "ACTIVATE_TOUCH_SCROLL" });
 
     setPosition({
       isDragging: false,

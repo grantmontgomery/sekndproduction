@@ -2,22 +2,25 @@ import * as React from "react";
 
 type State = {
   stopTouchScroll: boolean;
+  customPiece: boolean;
 };
 type Action = {
-  stopTouchScroll: boolean;
+  type: string;
 };
 
 const touchReducer: React.Reducer<State, Action> = (
   state: State,
   action: Action
 ) => {
-  switch (action.stopTouchScroll) {
-    case true:
-      return { stopTouchScroll: true };
-    case false:
-      return { stopTouchScroll: false };
+  switch (action.type) {
+    case "STOP_TOUCH_SCROLL":
+      return { ...state, stopTouchScroll: true };
+    case "ACTIVATE_TOUCH_SCROLL":
+      return { ...state, stopTouchScroll: false };
+    case "CUSTOM_PIECE":
+      return { ...state, customPiece: true };
     default:
-      return { stopTouchScroll: false };
+      return { stopTouchScroll: false, customPiece: false };
   }
 };
 
@@ -34,6 +37,7 @@ export const TouchProvider: ({
 }) => JSX.Element = ({ children }) => {
   const [state, dispatch] = React.useReducer(touchReducer, {
     stopTouchScroll: false,
+    customPiece: false,
   });
 
   return (
