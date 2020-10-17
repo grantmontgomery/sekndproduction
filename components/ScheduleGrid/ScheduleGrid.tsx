@@ -18,9 +18,7 @@ export const ScheduleGrid: React.FC = () => {
         style={{
           gridTemplateAreas: `${gridTemplate}`,
         }}
-        className={`${css.innerGrid} ${stopTouch ? css.stopTouch : null}`}
-        // onTouchStart={() => enableScroll(true)}
-        // onTouchEnd={() => enableScroll(false)}
+        className={css.innerGrid}
       >
         {rectangles.map((rectangle, index) => (
           <GridRectangle
