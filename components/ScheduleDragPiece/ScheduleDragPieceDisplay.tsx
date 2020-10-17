@@ -21,7 +21,10 @@ export const ScheduleDragPieceDisplay: React.FC<{
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
-      <button className={css.extendHandle}></button>
+      <button
+        className={css.extendHandle}
+        onTouchStart={handleTouchStart}
+      ></button>
       <div className={css.imageBackground}></div>
       <button className={css.extendHandle}></button>
     </div>

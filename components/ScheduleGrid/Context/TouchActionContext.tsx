@@ -1,23 +1,23 @@
 import * as React from "react";
 
 type State = {
-  stopTouch: boolean;
+  stopTouchScroll: boolean;
 };
 type Action = {
-  stopTouch: boolean;
+  stopTouchScroll: boolean;
 };
 
 const touchReducer: React.Reducer<State, Action> = (
   state: State,
   action: Action
 ) => {
-  switch (action.stopTouch) {
+  switch (action.stopTouchScroll) {
     case true:
-      return { stopTouch: true };
+      return { stopTouchScroll: true };
     case false:
-      return { stopTouch: false };
+      return { stopTouchScroll: false };
     default:
-      return { stopTouch: false };
+      return { stopTouchScroll: false };
   }
 };
 
@@ -33,7 +33,7 @@ export const TouchProvider: ({
   children: React.ReactNode;
 }) => JSX.Element = ({ children }) => {
   const [state, dispatch] = React.useReducer(touchReducer, {
-    stopTouch: false,
+    stopTouchScroll: false,
   });
 
   return (

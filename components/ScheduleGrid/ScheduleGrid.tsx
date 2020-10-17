@@ -10,10 +10,14 @@ export const ScheduleGrid: React.FC = () => {
   // const [scroll, enableScroll] = React.useState<boolean>(false);
   const { gridTemplate, hourStrings } = useGridState();
   const { rectangles } = useRectanglesState();
-  const { stopTouch } = useTouchState();
+  const { stopTouchScroll } = useTouchState();
 
   return (
-    <section id="innerGrid" className={css.gridWrapper}>
+    <section
+      id="innerGrid"
+      className={css.gridWrapper}
+      style={{ overflowY: stopTouchScroll ? "hidden" : "scroll" }}
+    >
       <div
         style={{
           gridTemplateAreas: `${gridTemplate}`,

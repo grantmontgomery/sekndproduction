@@ -51,6 +51,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     currentTarget.hidden = true;
     const elementBelow: Element = document.elementFromPoint(clientX, clientY);
     currentTarget.hidden = false;
+    touchDispatch({ stopTouchScroll: true });
 
     setPosition((dragPosition) => ({
       ...dragPosition,
@@ -108,7 +109,6 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   const handleTouchEnd = (): void => {
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
-    console.log(dragPosition.elementBelow);
     if (dragPosition.elementBelow.className.includes("GridRectangle")) {
       const rectangleElements: Element[] = Array.from(
         document.getElementsByClassName(css.rectangle)
@@ -119,7 +119,6 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
           dragPosition.elementBelow === rectangle &&
           !rectangles[index].part
         ) {
-          console.log("dropping a part in a rectangle.");
           rectanglesDispatch({
             type: "ADD_PART_TO_RECTANGLE",
             payload: { index, part: { ...part, rectangleIndex: index } },
@@ -131,6 +130,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
         }
       });
     }
+    touchDispatch({ stopTouchScroll: false });
 
     setPosition({
       isDragging: false,
@@ -147,10 +147,8 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   React.useEffect(() => {
     if (dragPosition.isDragging) {
       window.addEventListener("touchmove", handleTouchMove);
-      touchDispatch({ stopTouch: true });
     } else {
       window.removeEventListener("touchmove", handleTouchMove);
-      touchDispatch({ stopTouch: false });
     }
   }, [dragPosition.isDragging]);
 
