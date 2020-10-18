@@ -10,6 +10,7 @@ type Action = {
     numberOfRectangles?: number;
     part?: { [key: string]: any } | null;
     index?: number;
+    pieceHeight?: number;
     id?: string;
   };
 };
@@ -41,6 +42,21 @@ const rectanglesReducer: React.Reducer<State, Action> = (
           return i !== action.payload.index ? rectangle : { part: null };
         }),
       };
+
+    case "CHANGE_PIECE_HEIGHT":
+      return {
+        rectangles: state.rectangles.map((rectangle, i) => {
+          return i !== action.payload.index
+            ? rectangle
+            : {
+                part: {
+                  ...rectangle.part,
+                  pieceHeight: action.payload.pieceHeight,
+                },
+              };
+        }),
+      };
+
     default:
       return state;
   }

@@ -18,7 +18,7 @@ export const GridRectangle: React.FC<{
       touchDispatch({ type: "CUSTOM_PIECE" });
       rectanglesDispatch({
         type: "ADD_PART_TO_RECTANGLE",
-        payload: { index, part: { rectangleIndex: index } },
+        payload: { index, part: { rectangleIndex: index, pieceHeight: 1 } },
       });
     }
   };

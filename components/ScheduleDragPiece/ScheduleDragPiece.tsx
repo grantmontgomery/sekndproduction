@@ -35,9 +35,6 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     draggingElement: null,
   });
 
-  const [dragHeight, extend] = React.useState();
-  const [height, heighten] = React.useState<string>("10vh");
-
   const upScrollInterval: React.MutableRefObject<
     NodeJS.Timeout | undefined
   > = React.useRef();
@@ -54,10 +51,12 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     const { clientY, clientX } = touches[0];
 
     if (target.className.includes("extendHandle")) {
+      console.log(target.id);
       setPosition((position) => ({
         ...position,
         heightChanging: true,
         isDragging: false,
+        heightDirection: target.id === "extendHandle1" ? "up" : "down",
         origin: { y: clientY },
       }));
     } else {
@@ -265,7 +264,9 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
       isDragging={dragPosition.isDragging}
       handleTouchStart={handleTouchStart}
       handleTouchEnd={handleTouchEnd}
-      height={height}
+      heightDirection={dragPosition.heightDirection}
+      pieceHeight={part.pieceHeight}
+      heightChanging={dragPosition.heightChanging}
     ></ScheduleDragPieceDisplay>
   );
 };
