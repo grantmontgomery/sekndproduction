@@ -24,7 +24,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
       switch (heightDirection) {
         case "up":
           return translateY < 0
-            ? `${pieceHeight * 10 + translateY * 0.12}vh`
+            ? `${pieceHeight * 10 - translateY * 0.12}vh`
             : `${pieceHeight * 10}vh`;
 
         case "down":
@@ -38,6 +38,9 @@ export const ScheduleDragPieceDisplay: React.FC<{
       return `${pieceHeight * 10}vh`;
     }
   };
+
+  console.log(heightDirection);
+  console.log(translateY);
   return (
     <div
       className={css.dragWrapper}
@@ -48,7 +51,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
         right: isDragging ? "2.5%" : "0",
         top:
           heightChanging && heightDirection === "up" && translateY < 0
-            ? `-${translateY * 0.12}vh`
+            ? `${translateY * 0.12}vh`
             : "0",
         zIndex: isDragging ? 4 : null,
       }}

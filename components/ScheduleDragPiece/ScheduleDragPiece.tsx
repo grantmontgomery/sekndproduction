@@ -51,7 +51,6 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     const { clientY, clientX } = touches[0];
 
     if (target.className.includes("extendHandle")) {
-      console.log(target.id);
       setPosition((position) => ({
         ...position,
         heightChanging: true,
