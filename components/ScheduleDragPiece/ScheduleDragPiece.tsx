@@ -189,6 +189,34 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
         });
       }
     } else {
+      switch (dragPosition.heightDirection) {
+        case "down":
+          dragPosition.translation.y >= window.innerHeight / 10
+            ? rectanglesDispatch({
+                type: "CHANGE_PIECE_HEIGHT",
+                payload: {
+                  index: part.rectangleIndex,
+                  pieceHeight:
+                    Math.round(dragPosition.translation.y * 0.02) +
+                    part.pieceHeight,
+                },
+              })
+            : null;
+        case "up":
+          dragPosition.translation.y <= -window.innerHeight / 10
+            ? rectanglesDispatch({
+                type: "CHANGE_PIECE_HEIGHT",
+                payload: {
+                  index: part.rectangleIndex,
+                  pieceHeight:
+                    Math.round(dragPosition.translation.y * -0.02) +
+                    part.pieceHeight,
+                },
+              })
+            : null;
+        default:
+          null;
+      }
     }
     touchDispatch({ type: "ACTIVATE_TOUCH_SCROLL" });
 
@@ -256,6 +284,8 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
       clearInterval(downScrollInterval.current);
     }
   }, [dragPosition.moveScroll]);
+
+  console.log(Math.round(dragPosition.translation.y * 0.02));
 
   return (
     <ScheduleDragPieceDisplay
