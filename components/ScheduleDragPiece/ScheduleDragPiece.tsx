@@ -163,29 +163,34 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   const handleTouchEnd = (): void => {
     window.removeEventListener("touchmove", handleTouchMove);
     window.removeEventListener("touchend", handleTouchEnd);
-    if (
-      dragPosition.elementBelow &&
-      dragPosition.elementBelow.className.includes("GridRectangle")
-    ) {
-      const rectangleElements: Element[] = Array.from(
-        document.getElementsByClassName(css.rectangle)
-      );
+    window.removeEventListener("touchmove", handleExtendRetract);
 
-      rectangleElements.forEach((rectangle, index) => {
-        if (
-          dragPosition.elementBelow === rectangle &&
-          !rectangles[index].part
-        ) {
-          rectanglesDispatch({
-            type: "ADD_PART_TO_RECTANGLE",
-            payload: { index, part: { ...part, rectangleIndex: index } },
-          });
-          rectanglesDispatch({
-            type: "REMOVE_PART_FROM_RECTANGLE",
-            payload: { index: part.rectangleIndex },
-          });
-        }
-      });
+    if (dragPosition.draggingElement) {
+      if (
+        dragPosition.elementBelow &&
+        dragPosition.elementBelow.className.includes("GridRectangle")
+      ) {
+        const rectangleElements: Element[] = Array.from(
+          document.getElementsByClassName(css.rectangle)
+        );
+
+        rectangleElements.forEach((rectangle, index) => {
+          if (
+            dragPosition.elementBelow === rectangle &&
+            !rectangles[index].part
+          ) {
+            rectanglesDispatch({
+              type: "ADD_PART_TO_RECTANGLE",
+              payload: { index, part: { ...part, rectangleIndex: index } },
+            });
+            rectanglesDispatch({
+              type: "REMOVE_PART_FROM_RECTANGLE",
+              payload: { index: part.rectangleIndex },
+            });
+          }
+        });
+      }
+    } else {
     }
     touchDispatch({ type: "ACTIVATE_TOUCH_SCROLL" });
 
@@ -258,7 +263,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     <ScheduleDragPieceDisplay
       translateY={dragPosition.translation.y}
       isDragging={dragPosition.isDragging}
-      handleTouchStart={(event) => handleTouchStart(event)}
+      handleTouchStart={handleTouchStart}
       handleTouchEnd={handleTouchEnd}
       height={height}
     ></ScheduleDragPieceDisplay>
