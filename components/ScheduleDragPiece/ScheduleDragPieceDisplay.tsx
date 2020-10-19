@@ -26,19 +26,19 @@ export const ScheduleDragPieceDisplay: React.FC<{
       switch (heightDirection) {
         case "up":
           return translateY < 0
-            ? `${pieceHeight * 10 - translateY * 0.12}vh`
+            ? `calc(${pieceHeight * 10}vh - ${translateY}px)`
             : `${pieceHeight * 10}vh`;
 
         case "down":
           if (pieceHeight === 1) {
             return translateY > 0
-              ? `${pieceHeight * 10 + translateY * 0.12}vh`
+              ? `calc(${pieceHeight * 10}vh + ${translateY}px)`
               : `${pieceHeight * 10}vh`;
           } else {
             return (pieceHeight * 10 * window.innerHeight) / 100 -
               translateY * 0.12 >=
               window.innerHeight / 10
-              ? `${pieceHeight * 10 + translateY * 0.12}vh`
+              ? `calc(${pieceHeight * 10}vh + ${translateY}px)`
               : `${pieceHeight * 10}vh`;
           }
         default:
@@ -59,7 +59,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
         right: isDragging ? "2.5%" : "0",
         top:
           heightChanging && heightDirection === "up" && translateY < 0
-            ? `${translateY * 0.12}vh`
+            ? `${translateY}px`
             : "0",
         zIndex: isDragging ? 4 : 2,
       }}

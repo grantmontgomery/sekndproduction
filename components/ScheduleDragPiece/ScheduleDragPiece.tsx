@@ -189,50 +189,44 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
         });
       }
     } else {
+      const rectangleCountDown: number =
+        Math.round(dragPosition.translation.y * 10) / window.innerHeight;
+      const rectangleCountUp: number =
+        Math.round(dragPosition.translation.y * -10) / window.innerHeight;
+
       switch (dragPosition.heightDirection) {
         case "down":
-          dragPosition.translation.y >= window.innerHeight / 10
+          rectangleCountDown >= 1
             ? rectanglesDispatch({
                 type: "CHANGE_PIECE_HEIGHT",
                 payload: {
                   index: part.rectangleIndex,
-                  pieceHeight:
-                    Math.round(dragPosition.translation.y * 0.02) +
-                    part.pieceHeight -
-                    1,
+                  pieceHeight: rectangleCountDown + part.pieceHeight,
                 },
               })
             : null;
         case "up":
-          dragPosition.translation.y <= -window.innerHeight / 10
-            ? (rectanglesDispatch({
-                type: "CHANGE_PIECE_HEIGHT",
-                payload: {
-                  index: part.rectangleIndex,
-                  pieceHeight:
-                    Math.round(dragPosition.translation.y * 0.02) * -1 +
-                    part.pieceHeight,
+          if (rectangleCountUp >= 1) {
+            const originalRectangleIndex: number = part.rectangleIndex;
+            const originalRectangleHeight: number = part.pieceHeight;
+
+            rectanglesDispatch({
+              type: "REMOVE_PART_FROM_RECTANGLE",
+              payload: { index: originalRectangleIndex },
+            });
+
+            rectanglesDispatch({
+              type: "ADD_PART_TO_RECTANGLE",
+              payload: {
+                index: originalRectangleIndex - rectangleCountUp,
+                part: {
+                  ...part,
+                  pieceHeight: rectangleCountUp + originalRectangleHeight,
+                  rectangleIndex: originalRectangleIndex - rectangleCountUp,
                 },
-              }),
-              rectanglesDispatch({
-                type: "ADD_PART_TO_RECTANGLE",
-                payload: {
-                  index:
-                    part.rectangleIndex -
-                    Math.round(dragPosition.translation.y * 0.02),
-                  part: {
-                    ...part,
-                    rectangleIndex:
-                      part.rectangleIndex -
-                      Math.round(dragPosition.translation.y * 0.02),
-                  },
-                },
-              }),
-              rectanglesDispatch({
-                type: "REMOVE_PART_FROM_RECTANGLE",
-                payload: { index: part.rectangleIndex },
-              }))
-            : null;
+              },
+            });
+          }
         default:
           null;
       }
