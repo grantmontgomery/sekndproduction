@@ -198,21 +198,40 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
                   index: part.rectangleIndex,
                   pieceHeight:
                     Math.round(dragPosition.translation.y * 0.02) +
-                    part.pieceHeight,
+                    part.pieceHeight -
+                    1,
                 },
               })
             : null;
         case "up":
           dragPosition.translation.y <= -window.innerHeight / 10
-            ? rectanglesDispatch({
+            ? (rectanglesDispatch({
                 type: "CHANGE_PIECE_HEIGHT",
                 payload: {
                   index: part.rectangleIndex,
                   pieceHeight:
-                    Math.round(dragPosition.translation.y * -0.02) +
+                    Math.round(dragPosition.translation.y * 0.02) * -1 +
                     part.pieceHeight,
                 },
-              })
+              }),
+              rectanglesDispatch({
+                type: "ADD_PART_TO_RECTANGLE",
+                payload: {
+                  index:
+                    part.rectangleIndex -
+                    Math.round(dragPosition.translation.y * 0.02),
+                  part: {
+                    ...part,
+                    rectangleIndex:
+                      part.rectangleIndex -
+                      Math.round(dragPosition.translation.y * 0.02),
+                  },
+                },
+              }),
+              rectanglesDispatch({
+                type: "REMOVE_PART_FROM_RECTANGLE",
+                payload: { index: part.rectangleIndex },
+              }))
             : null;
         default:
           null;
@@ -233,6 +252,8 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
       heightDirection: "",
     });
   };
+
+  console.log(part.pieceHeight);
 
   React.useEffect(() => {
     dragPosition.isDragging
@@ -285,7 +306,6 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     }
   }, [dragPosition.moveScroll]);
 
-  console.log(Math.round(dragPosition.translation.y * 0.02));
 
   return (
     <ScheduleDragPieceDisplay
