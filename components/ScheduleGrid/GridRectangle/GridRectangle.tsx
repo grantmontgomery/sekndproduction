@@ -15,7 +15,7 @@ export const GridRectangle: React.FC<{
 
   const handleAdd: () => void = () => {
     if (!rectangle.part && !customPiece) {
-      touchDispatch({ type: "CUSTOM_PIECE" });
+      touchDispatch({ type: "SET_CUSTOM_PIECE" });
       rectanglesDispatch({
         type: "ADD_PART_TO_RECTANGLE",
         payload: { index, part: { rectangleIndex: index, pieceHeight: 1 } },

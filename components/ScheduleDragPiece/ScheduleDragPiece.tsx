@@ -253,8 +253,6 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     });
   };
 
-  console.log(part.pieceHeight);
-
   React.useEffect(() => {
     dragPosition.isDragging
       ? window.addEventListener("touchmove", handleTouchMove)
@@ -269,6 +267,13 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
 
   React.useEffect(() => {
     return () => {
+      if (!part.name) {
+        rectanglesDispatch({
+          type: "REMOVE_PART_FROM_RECTANGLE",
+          payload: { index: part.rectangleIndex },
+        }),
+          touchDispatch({ type: "REMOVE_CUSTOM_PIECE" });
+      }
       window.removeEventListener("touchstart", handleTouchStart);
       clearInterval(upScrollInterval.current);
       clearInterval(downScrollInterval.current);
@@ -306,9 +311,9 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     }
   }, [dragPosition.moveScroll]);
 
-
   return (
     <ScheduleDragPieceDisplay
+      part={part}
       translateY={dragPosition.translation.y}
       isDragging={dragPosition.isDragging}
       handleTouchStart={handleTouchStart}

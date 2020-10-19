@@ -17,8 +17,11 @@ const touchReducer: React.Reducer<State, Action> = (
       return { ...state, stopTouchScroll: true };
     case "ACTIVATE_TOUCH_SCROLL":
       return { ...state, stopTouchScroll: false };
-    case "CUSTOM_PIECE":
+    case "SET_CUSTOM_PIECE":
       return { ...state, customPiece: true };
+
+    case "REMOVE_CUSTOM_PIECE":
+      return { ...state, customPiece: false };
     default:
       return { stopTouchScroll: false, customPiece: false };
   }

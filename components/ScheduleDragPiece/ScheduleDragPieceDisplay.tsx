@@ -8,6 +8,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
   handleTouchStart: (any) => void;
   handleTouchEnd: (any) => void;
   heightChanging: boolean;
+  part: { [key: string]: any };
   heightDirection: string;
   pieceHeight: number;
 }> = ({
@@ -15,6 +16,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
   isDragging,
   handleTouchStart,
   handleTouchEnd,
+  part,
   heightDirection,
   heightChanging,
   pieceHeight,
@@ -69,7 +71,11 @@ export const ScheduleDragPieceDisplay: React.FC<{
         className={css.extendHandle}
         onTouchStart={handleTouchStart}
       ></button>
-      <div className={css.imageBackground}></div>
+      <div className={css.imageBackground}>
+        {!part.name ? (
+          <span className={css.addPart}>Swipe up to add part!</span>
+        ) : null}
+      </div>
       <button
         id="extendHandle2"
         className={css.extendHandle}
