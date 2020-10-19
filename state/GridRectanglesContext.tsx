@@ -51,7 +51,8 @@ const rectanglesReducer: React.Reducer<State, Action> = (
             : {
                 part: {
                   ...rectangle.part,
-                  pieceHeight: action.payload.pieceHeight,
+                  pieceHeight:
+                    rectangle.part.pieceHeight + action.payload.pieceHeight,
                 },
               };
         }),

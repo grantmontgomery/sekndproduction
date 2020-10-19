@@ -25,21 +25,26 @@ export const ScheduleDragPieceDisplay: React.FC<{
     if (heightChanging) {
       switch (heightDirection) {
         case "up":
-          return translateY < 0
-            ? `calc(${pieceHeight * 10}vh - ${translateY}px)`
-            : `${pieceHeight * 10}vh`;
-
+          if (pieceHeight === 1) {
+            return translateY < 0
+              ? `calc(${pieceHeight * 10}vh - ${translateY}px)`
+              : `${pieceHeight * 10}vh`;
+          } else {
+            return (pieceHeight * window.innerHeight) / 10 - translateY >=
+              window.innerHeight / 10
+              ? `calc(${pieceHeight * 10}vh - ${translateY}px)`
+              : `10vh`;
+          }
         case "down":
           if (pieceHeight === 1) {
             return translateY > 0
               ? `calc(${pieceHeight * 10}vh + ${translateY}px)`
               : `${pieceHeight * 10}vh`;
           } else {
-            return (pieceHeight * 10 * window.innerHeight) / 100 -
-              translateY * 0.12 >=
+            return (pieceHeight * window.innerHeight) / 10 + translateY >=
               window.innerHeight / 10
               ? `calc(${pieceHeight * 10}vh + ${translateY}px)`
-              : `${pieceHeight * 10}vh`;
+              : `10vh`;
           }
         default:
           return `${pieceHeight * 10}vh`;
@@ -58,9 +63,13 @@ export const ScheduleDragPieceDisplay: React.FC<{
         transform: `translate(0, ${isDragging ? translateY : 0}px)`,
         right: isDragging ? "2.5%" : "0",
         top:
-          heightChanging && heightDirection === "up" && translateY < 0
+          heightChanging &&
+          heightDirection === "up" &&
+          (pieceHeight * window.innerHeight) / 10 - translateY >=
+            window.innerHeight / 10
             ? `${translateY}px`
-            : "0",
+            : "0px",
+
         zIndex: isDragging ? 4 : 2,
       }}
       onTouchStart={handleTouchStart}
