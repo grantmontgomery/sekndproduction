@@ -189,22 +189,24 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
         });
       }
     } else {
-      const rectangleCountDown: number =
-        Math.round(dragPosition.translation.y * 10) / window.innerHeight;
-      const rectangleCountUp: number =
-        Math.round(dragPosition.translation.y * -10) / window.innerHeight;
+      const rectangleCountDown: number = Math.round(
+        (dragPosition.translation.y * 10) / window.innerHeight
+      );
+      const rectangleCountUp: number = Math.round(
+        (dragPosition.translation.y * -10) / window.innerHeight
+      );
 
       switch (dragPosition.heightDirection) {
         case "down":
-          rectangleCountDown >= 1
-            ? rectanglesDispatch({
-                type: "CHANGE_PIECE_HEIGHT",
-                payload: {
-                  index: part.rectangleIndex,
-                  pieceHeight: rectangleCountDown + part.pieceHeight,
-                },
-              })
-            : null;
+          if (rectangleCountDown >= 1) {
+            rectanglesDispatch({
+              type: "CHANGE_PIECE_HEIGHT",
+              payload: {
+                index: part.rectangleIndex,
+                pieceHeight: rectangleCountDown + part.pieceHeight,
+              },
+            });
+          }
         case "up":
           if (rectangleCountUp >= 1) {
             const originalRectangleIndex: number = part.rectangleIndex;
