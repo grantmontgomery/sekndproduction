@@ -199,9 +199,9 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
 
       const originalRectangleIndex: number = part.rectangleIndex;
       const originalRectangleHeight: number = part.pieceHeight;
+
       switch (dragPosition.heightDirection) {
         case "down":
-          console.log(rectangleCountDown);
           if (
             rectangleCountDown !== 0 &&
             rectangleCountDown + part.pieceHeight >= 1
@@ -210,13 +210,14 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
               type: "CHANGE_PIECE_HEIGHT",
               payload: {
                 index: originalRectangleIndex,
-                pieceHeight: rectangleCountDown,
+                pieceHeight: rectangleCountDown + originalRectangleHeight,
               },
             });
           }
         case "up":
           if (
             rectangleCountUp !== 0 &&
+            dragPosition.heightDirection === "up" &&
             rectangleCountUp + part.pieceHeight >= 1
           ) {
             rectanglesDispatch({
@@ -254,8 +255,6 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
       heightDirection: "",
     });
   };
-
-  console.log(part);
 
   React.useEffect(() => {
     dragPosition.isDragging
