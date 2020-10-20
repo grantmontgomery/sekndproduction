@@ -59,20 +59,19 @@ export const PartsContainer: React.FC = () => {
   };
 
   React.useEffect(() => {
+    const currentCustomIndex: number | null = rectangles.findIndex(
+      (rectangle) => rectangle.part && rectangle.part.current
+    );
     if (extend) {
-      const {
-        part: { rectangleIndex },
-      } = rectangles.filter(
-        (rectangle) => rectangle.part && !rectangle.part.name
-      )[0];
-      customPiece && rectangleIndex
+      customPiece && currentCustomIndex
         ? document
             .getElementById("innerGrid")
-            .scrollTo(0, (rectangleIndex * window.innerHeight) / 10)
+            .scrollTo(0, (currentCustomIndex * window.innerHeight) / 10)
         : null;
       touchDispatch({ type: "STOP_TOUCH_SCROLL" });
     } else {
       touchDispatch({ type: "ACTIVATE_TOUCH_SCROLL" });
+      touchDispatch({ type: "REMOVE_CUSTOM_PIECE" });
     }
   }, [extend]);
 

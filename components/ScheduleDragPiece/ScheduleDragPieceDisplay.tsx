@@ -1,5 +1,5 @@
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from "constants";
 import * as React from "react";
+import { useRectanglesDispatch } from "../../state/GridRectanglesContext";
 import css from "./ScheduleDragPiece.module.scss";
 
 export const ScheduleDragPieceDisplay: React.FC<{
@@ -21,6 +21,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
   heightChanging,
   pieceHeight,
 }) => {
+  const rectanglesDispatch = useRectanglesDispatch();
   const calculateHeight: () => string = () => {
     if (heightChanging) {
       switch (heightDirection) {
@@ -80,6 +81,18 @@ export const ScheduleDragPieceDisplay: React.FC<{
         className={css.extendHandle}
         onTouchStart={handleTouchStart}
       ></button>
+      <button
+        className={css.removePart}
+        onClick={() =>
+          rectanglesDispatch({
+            type: "REMOVE_PART_FROM_RECTANGLE",
+            payload: { index: part.rectangleIndex },
+          })
+        }
+      >
+        X
+      </button>
+
       <div className={css.imageBackground}>
         {!part.name ? (
           <span className={css.addPart}>Swipe up to add part!</span>

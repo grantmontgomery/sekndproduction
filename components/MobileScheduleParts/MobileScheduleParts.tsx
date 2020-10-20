@@ -40,15 +40,23 @@ export const MobileScheduleParts: React.FC<{
   }, []);
 
   React.useEffect(() => {
-    if (extend) {
-      rectangles.forEach((rectangle, index) => {
-        rectangle.part && !rectangle.part.name
-          ? rectanglesDispatch({
-              type: "SET_PIECE",
-              payload: { index, part: parts[state.squareIndex] },
-            })
-          : null;
-      });
+    const currentCustomIndex: number | null = rectangles.findIndex(
+      (rectangle) => rectangle.part && rectangle.part.current
+    );
+
+    if (currentCustomIndex) {
+      extend
+        ? rectanglesDispatch({
+            type: "SET_PIECE",
+            payload: {
+              index: currentCustomIndex,
+              part: parts[state.squareIndex],
+            },
+          })
+        : rectanglesDispatch({
+            type: "SET_PIECE",
+            payload: { index: currentCustomIndex, part: { current: false } },
+          });
     }
   }, [state.squareIndex, extend]);
 
