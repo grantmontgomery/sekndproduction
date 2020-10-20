@@ -1,5 +1,6 @@
 import * as React from "react";
 import Cookie from "js-cookie";
+import { actionButton } from "aws-amplify";
 
 type State = {
   rectangles: { part: { [key: string]: any } | null }[];
@@ -56,7 +57,19 @@ const rectanglesReducer: React.Reducer<State, Action> = (
               };
         }),
       };
-
+    case "SET_PIECE":
+      return {
+        rectangles: state.rectangles.map((rectangle, i) => {
+          return i !== action.payload.index
+            ? rectangle
+            : {
+                part: {
+                  ...rectangle.part,
+                  ...action.payload.part,
+                },
+              };
+        }),
+      };
     default:
       return state;
   }

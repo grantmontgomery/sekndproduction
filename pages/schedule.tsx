@@ -17,9 +17,8 @@ export default function Schedule(): JSX.Element {
         </header>
         <TouchProvider>
           <ScheduleGrid></ScheduleGrid>
+          <PartsContainer></PartsContainer>
         </TouchProvider>
-
-        <PartsContainer></PartsContainer>
       </main>
     </Layout>
   );
