@@ -83,7 +83,9 @@ export const ScheduleDragPieceDisplay: React.FC<{
       <div className={css.imageBackground}>
         {!part.name ? (
           <span className={css.addPart}>Swipe up to add part!</span>
-        ) : null}
+        ) : (
+          <span className={css.addPart}>{part.name}</span>
+        )}
       </div>
       <button
         id="extendHandle2"
