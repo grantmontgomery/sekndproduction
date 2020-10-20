@@ -8,25 +8,12 @@
     position: relative;
     height: 100%;
     width: 100%;
-    & .addPart {
-      width: fit-content;
-      height: fit-content;
-      display: block;
-      position: relative;
-      top: 50%;
-      transform: translate(0, -50%);
-      margin-left: auto;
-      margin-right: auto;
-      font-size: 3vh;
-      font-weight: bold;
-      white-space: nowrap;
-    }
   }
   & .removePart {
-    top: 2vh;
+    top: 1vh;
     position: absolute;
     float: right;
-    right: 2vh;
+    right: 1vh;
     height: 4vh;
     border-style: none;
     font-size: 1.5vh;
@@ -36,8 +23,26 @@
     width: 4vh;
     z-index: 1;
     border-radius: 4vh;
-    background: red;
+    box-shadow: 0 1vh 2vh #00000080;
+    background: linear-gradient(0.25turn, #f24236, #ad160b);
     color: white;
+  }
+
+  & .title {
+    width: 90%;
+    height: fit-content;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    font-size: 3vh;
+    font-weight: bold;
+    white-space: nowrap;
   }
 
   & .extendHandle {
