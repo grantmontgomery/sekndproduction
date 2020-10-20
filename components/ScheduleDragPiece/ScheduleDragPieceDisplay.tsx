@@ -55,11 +55,23 @@ export const ScheduleDragPieceDisplay: React.FC<{
     }
   };
 
+  const determineImageBackgroundSource: () => string = () => {
+    switch (part.type) {
+      case "place":
+        return part.source === "yelp" ? part.image_url : null;
+      case "event":
+        return part.source === "yelp" ? part.image_url : part.images[0].url;
+      default:
+        return "";
+    }
+  };
+
   return (
     <div
       className={css.dragWrapper}
       style={{
         height: calculateHeight(),
+        border: part.name ? "none" : "1px solid red",
         position: isDragging ? "absolute" : "relative",
         transform: `translate(0, ${isDragging ? translateY : 0}px)`,
         right: isDragging ? "2.5%" : "0",
@@ -93,9 +105,17 @@ export const ScheduleDragPieceDisplay: React.FC<{
         X
       </button>
 
-      <div className={css.imageBackground}></div>
+      <div className={css.imageBackground}>
+        <img
+          src={determineImageBackgroundSource()}
+          alt={part.name ? part.name : ""}
+        />
+      </div>
 
-      <span className={css.title}>
+      <span
+        className={css.title}
+        style={{ color: part.name ? "white" : "black" }}
+      >
         {part.name ? part.name : "Swipe up to add Part!"}
       </span>
 

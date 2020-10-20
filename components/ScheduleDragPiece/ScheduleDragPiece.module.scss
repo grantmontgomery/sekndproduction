@@ -1,13 +1,25 @@
 .dragWrapper {
-  border: solid 1px red;
-  border-radius: 1vh;
   float: right;
+  border-radius: 1vh;
   width: 100%;
   bottom: 0;
   & .imageBackground {
     position: relative;
     height: 100%;
+    overflow: hidden;
+    border-radius: 1vh;
+    object-fit: contain;
     width: 100%;
+    & img {
+      position: relative;
+      display: block;
+      top: 50%;
+      left: 50%;
+      filter: blur(0.25vh);
+      transform: translate(-50%, -50%);
+      width: auto;
+      height: 125%;
+    }
   }
   & .removePart {
     top: 1vh;
