@@ -1,6 +1,7 @@
 .dragWrapper {
   float: right;
   border-radius: 1vh;
+  border: none;
   width: 100%;
   bottom: 0;
   & .imageBackground {
@@ -8,12 +9,16 @@
     height: 100%;
     overflow: hidden;
     border-radius: 1vh;
+    background: linear-gradient(45deg, #0f2027, #2c5364);
     object-fit: contain;
     width: 100%;
     & img {
       position: relative;
       display: block;
+      transition: opacity 500ms ease-out;
       top: 50%;
+      touch-action: none;
+      pointer-events: none;
       left: 50%;
       filter: blur(0.25vh);
       transform: translate(-50%, -50%);
@@ -47,6 +52,7 @@
     position: absolute;
     top: 50%;
     left: 50%;
+    color: white;
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
@@ -62,16 +68,17 @@
     border-radius: 3vh;
     width: 3vh;
     height: 3vh;
-    border: 1px red solid;
-    background: white;
-    z-index: 2;
+    color: white;
+
+    background: linear-gradient(45deg, #11998e, #38ef7d);
+    text-align: center;
     display: block;
-    border-style: solid;
-    z-index: 2;
+
+    border-style: none;
+    z-index: 3;
     &:first-child {
       float: left;
       left: 5%;
-
       top: -1.5vh;
     }
     &:last-child {

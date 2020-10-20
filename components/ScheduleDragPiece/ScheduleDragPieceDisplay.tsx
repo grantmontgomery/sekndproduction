@@ -21,7 +21,9 @@ export const ScheduleDragPieceDisplay: React.FC<{
   heightChanging,
   pieceHeight,
 }) => {
+  const [imageLoaded, loadImage] = React.useState<boolean>(false);
   const rectanglesDispatch = useRectanglesDispatch();
+
   const calculateHeight: () => string = () => {
     if (heightChanging) {
       switch (heightDirection) {
@@ -71,7 +73,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
       className={css.dragWrapper}
       style={{
         height: calculateHeight(),
-        border: part.name ? "none" : "1px solid red",
+
         position: isDragging ? "absolute" : "relative",
         transform: `translate(0, ${isDragging ? translateY : 0}px)`,
         right: isDragging ? "2.5%" : "0",
@@ -107,15 +109,14 @@ export const ScheduleDragPieceDisplay: React.FC<{
 
       <div className={css.imageBackground}>
         <img
+          style={{ opacity: imageLoaded ? "1" : "0" }}
           src={determineImageBackgroundSource()}
           alt={part.name ? part.name : ""}
+          onLoad={() => loadImage(true)}
         />
       </div>
 
-      <span
-        className={css.title}
-        style={{ color: part.name ? "white" : "black" }}
-      >
+      <span className={css.title}>
         {part.name ? part.name : "Swipe up to add Part!"}
       </span>
 

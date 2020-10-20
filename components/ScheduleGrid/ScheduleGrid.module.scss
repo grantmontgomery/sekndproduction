@@ -3,6 +3,8 @@
   width: 100%;
   display: block;
   position: relative;
+  overscroll-behavior-y: none;
+
   & .fixedDiv {
     position: absolute;
     height: 10vh;
@@ -14,6 +16,8 @@
   }
   & .innerGrid {
     height: fit-content;
+    overscroll-behavior-y: none;
+
     width: 100%;
     position: relative;
     grid-template-columns: 25% 75%;
