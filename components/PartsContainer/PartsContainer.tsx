@@ -16,11 +16,6 @@ export const PartsContainer: React.FC = () => {
   const touchDispatch = useTouchDispatch();
   const { customPiece } = useTouchState();
   const { rectangles } = useRectanglesState();
-  const {
-    part: { rectangleIndex },
-  } = rectangles.filter(
-    (rectangle) => rectangle.part && !rectangle.part.name
-  )[0];
 
   const handleTouchStart = ({ touches }): void => {
     const { clientY } = touches[0];
@@ -65,13 +60,17 @@ export const PartsContainer: React.FC = () => {
 
   React.useEffect(() => {
     if (extend) {
-      touchDispatch({ type: "STOP_TOUCH_SCROLL" });
-
+      const {
+        part: { rectangleIndex },
+      } = rectangles.filter(
+        (rectangle) => rectangle.part && !rectangle.part.name
+      )[0];
       customPiece && rectangleIndex
         ? document
             .getElementById("innerGrid")
             .scrollTo(0, (rectangleIndex * window.innerHeight) / 10)
         : null;
+      touchDispatch({ type: "STOP_TOUCH_SCROLL" });
     } else {
       touchDispatch({ type: "ACTIVATE_TOUCH_SCROLL" });
     }
