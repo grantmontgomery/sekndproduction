@@ -85,7 +85,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
             ? `${translateY}px`
             : "0px",
 
-        zIndex: isDragging ? 4 : 2,
+        zIndex: isDragging ? 4 : 1,
       }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
@@ -116,7 +116,10 @@ export const ScheduleDragPieceDisplay: React.FC<{
         />
       </div>
 
-      <span className={css.title}>
+      <span
+        className={css.title}
+        style={{ color: !part.name ? "black" : "white" }}
+      >
         {part.name ? part.name : "Swipe up to add Part!"}
       </span>
 

@@ -17,10 +17,9 @@ export const ScheduleGrid: React.FC = () => {
   const { stopTouchScroll, customPiece } = useTouchState();
   const touchDispatch = useTouchDispatch();
 
-  console.log(rectangles);
-
   React.useEffect(() => {
     return () => {
+      console.log("remove custom pieces");
       rectangles.forEach((rectangle, index) => {
         if (rectangle.part && !rectangle.part.name)
           rectangleDispatch({
