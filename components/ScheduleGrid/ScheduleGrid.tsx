@@ -36,23 +36,27 @@ export const ScheduleGrid: React.FC = () => {
       className={css.gridWrapper}
       style={{ overflowY: stopTouchScroll ? "hidden" : "scroll" }}
     >
-      <div
-        style={{
-          gridTemplateAreas: `${gridTemplate}`,
-        }}
-        className={css.innerGrid}
-      >
-        {rectangles.map((rectangle, index) => (
-          <GridRectangle
-            rectangle={rectangle}
-            key={`rectangle${index}`}
-            index={index}
-          ></GridRectangle>
-        ))}
-        {hourStrings.map((string, index) => (
-          <GridHour key={`hour${index}`} index={index} hourString={string} />
-        ))}
-      </div>
+      {rectangles.length > 0 ? (
+        <div
+          style={{
+            gridTemplateAreas: `${gridTemplate}`,
+          }}
+          className={css.innerGrid}
+        >
+          {rectangles.map((rectangle, index) => (
+            <GridRectangle
+              rectangle={rectangle}
+              key={`rectangle${index}`}
+              index={index}
+            ></GridRectangle>
+          ))}
+          {hourStrings.map((string, index) => (
+            <GridHour key={`hour${index}`} index={index} hourString={string} />
+          ))}
+        </div>
+      ) : (
+        <h1 className={css.instructions}>Make a search to get started!</h1>
+      )}
     </section>
   );
 };

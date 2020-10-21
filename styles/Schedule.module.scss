@@ -13,8 +13,9 @@
     display: block;
     position: relative;
     width: 100%;
+    box-shadow: 0 0vh 1vh #646464;
+
     height: 18vh;
-    background: red;
     display: flex;
     grid-area: header;
     flex-flow: column nowrap;
@@ -25,6 +26,28 @@
     & .times {
       height: 50%;
       width: 100%;
+      padding-right: 5%;
+      padding-left: 5%;
+      & .save {
+        top: 50%;
+        transform: translate(0, -50%);
+        float: right;
+        height: fit-content;
+        font-size: clamp(10pt, 2.5vh, 2.5vh);
+        border-radius: 3vh;
+        width: fit-content;
+        background: linear-gradient(45deg, #155799, #159957);
+        background-clip: text;
+        font-weight: 600;
+        -webkit-text-fill-color: transparent;
+        padding-left: 3vw;
+
+        position: relative;
+        border: solid 1px #155799;
+        display: block;
+        padding-right: 3vw;
+        outline: none;
+      }
     }
   }
   & .partsList {

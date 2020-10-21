@@ -4,6 +4,8 @@ import Cookie from "js-cookie";
 type State = {
   hourStrings: string[];
   gridTemplate: string;
+  startDate: Date | null;
+  endDate: Date | null;
 };
 
 type Action = {
@@ -11,6 +13,8 @@ type Action = {
   payload: {
     gridTemplate: string;
     hourStrings: string[];
+    startDate: Date;
+    endDate: Date;
   };
 };
 
@@ -20,6 +24,8 @@ const gridReducer: React.Reducer<State, Action> = (state: State, action) => {
       return {
         hourStrings: action.payload.hourStrings,
         gridTemplate: action.payload.gridTemplate,
+        startDate: action.payload.startDate,
+        endDate: action.payload.endDate,
       };
 
     default:
@@ -47,6 +53,8 @@ export const GridProvider: ({
       : {
           gridTemplate: "",
           hourStrings: [],
+          endDate: null,
+          startDate: null,
         }
   );
 

@@ -76,6 +76,8 @@ export const SearchBox: React.FC = (props) => {
     gridDispatch({
       type: "ADD_GRID_TEMPLATE",
       payload: {
+        startDate: searchQuery.startDate,
+        endDate: searchQuery.endDate,
         hourStrings: newDatesInput.hourStrings,
         gridTemplate: newDatesInput.templateAreas,
       },
