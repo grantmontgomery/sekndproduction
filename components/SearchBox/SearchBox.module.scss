@@ -8,11 +8,9 @@
   box-shadow: 0 0.25vh 4vh #00000015;
   left: 50%;
   transform: translate(-50%);
-  grid-template-areas: "selector" "where" "when" "events" "places" "search";
+  grid-template-areas: "selector" "where" "when" "events" "places" "search" ".";
   grid-auto-columns: 100%;
-  grid-template-rows:
-    calc(100% / 6) calc(100% / 6) calc(100% / 6) calc(100% / 6)
-    calc(100% / 6) calc(100% / 6);
+  grid-template-rows: auto auto auto auto auto auto 15vh;
   z-index: 2;
   padding-right: 5%;
   padding-left: 5%;
@@ -26,7 +24,7 @@
     color: white;
     transition: background 250ms ease-out;
     border-style: none;
-    height: 50%;
+    height: 100%;
     border-radius: 1vh;
     box-shadow: 0 0.5vh 1vh rgb(100, 100, 100);
     width: 100%;
