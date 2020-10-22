@@ -6,6 +6,7 @@ type State = {
   gridTemplate: string;
   startDate: Date | null;
   endDate: Date | null;
+  hourStringsTrue: string[];
 };
 
 type Action = {
@@ -13,6 +14,7 @@ type Action = {
   payload: {
     gridTemplate: string;
     hourStrings: string[];
+    hourStringsTrue: string[];
     startDate: Date;
     endDate: Date;
   };
@@ -26,6 +28,7 @@ const gridReducer: React.Reducer<State, Action> = (state: State, action) => {
         gridTemplate: action.payload.gridTemplate,
         startDate: action.payload.startDate,
         endDate: action.payload.endDate,
+        hourStringsTrue: action.payload.hourStringsTrue,
       };
 
     default:
@@ -53,6 +56,7 @@ export const GridProvider: ({
       : {
           gridTemplate: "",
           hourStrings: [],
+          hourStringsTrue: [],
           endDate: null,
           startDate: null,
         }

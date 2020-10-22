@@ -79,6 +79,7 @@ export const SearchBox: React.FC = (props) => {
         startDate: searchQuery.startDate,
         endDate: searchQuery.endDate,
         hourStrings: newDatesInput.hourStrings,
+        hourStringsTrue: newDatesInput.hourStringsTrue,
         gridTemplate: newDatesInput.templateAreas,
       },
     });
