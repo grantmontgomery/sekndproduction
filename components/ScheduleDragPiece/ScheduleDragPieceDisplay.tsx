@@ -73,7 +73,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
       className={css.dragWrapper}
       style={{
         height: calculateHeight(),
-
+        border: part.name ? "none" : "solid 1px #2c5364",
         position: isDragging ? "absolute" : "relative",
         transform: `translate(0, ${isDragging ? translateY : 0}px)`,
         right: isDragging ? "2.5%" : "0",
@@ -107,7 +107,14 @@ export const ScheduleDragPieceDisplay: React.FC<{
         X
       </button>
 
-      <div className={css.imageBackground}>
+      <div
+        className={css.imageBackground}
+        style={{
+          background: part.name
+            ? "linear-gradient(45deg, #0f2027, #2c5364)"
+            : "transparent",
+        }}
+      >
         <img
           style={{ opacity: imageLoaded ? "1" : "0" }}
           src={determineImageBackgroundSource()}
