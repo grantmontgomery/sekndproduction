@@ -49,14 +49,14 @@
     height: fit-content;
     display: block;
     position: absolute;
-    top: 50%;
+    top: calc(50% - 2vh);
     left: 50%;
     overflow: hidden;
     text-align: center;
     text-overflow: ellipsis;
     width: 100%;
     transform: translate(-50%, -50%);
-    font-size: 3vh;
+    font-size: 2vh;
     font-weight: bold;
     white-space: nowrap;
   }

@@ -69,6 +69,7 @@ export default function useAPICalls(
     },
     {
       revalidateOnFocus: false,
+      revalidateOnReconnect: false,
     }
   );
 
@@ -120,6 +121,7 @@ export default function useAPICalls(
     },
     {
       revalidateOnFocus: false,
+      revalidateOnReconnect: false,
     }
   );
 
@@ -177,6 +179,7 @@ export default function useAPICalls(
     },
     {
       revalidateOnFocus: false,
+      revalidateOnReconnect: false,
     }
   );
 
