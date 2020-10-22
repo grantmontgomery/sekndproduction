@@ -34,10 +34,14 @@ export default function Schedule(): JSX.Element {
 
       return (
         <React.Fragment>
-          <span>{`${startObject.toLocaleDateString()} ${convertHour(
+          <span
+            className={css.startTime}
+          >{`${startObject.toLocaleDateString()} ${convertHour(
             startObject
           )}`}</span>
-          <span>{`${endObject.toLocaleDateString()} ${convertHour(
+          <span
+            className={css.endTime}
+          >{`${endObject.toLocaleDateString()} ${convertHour(
             endObject
           )}`}</span>
         </React.Fragment>
@@ -48,7 +52,7 @@ export default function Schedule(): JSX.Element {
     <Layout>
       <main className={css.main}>
         <header>
-          <div className={css.datesSelector}></div>
+          <div className={css.datesSelector}>No Saved Dates</div>
           <div className={css.times}>
             {displayTimes()}
             <button className={css.save}>Save +</button>

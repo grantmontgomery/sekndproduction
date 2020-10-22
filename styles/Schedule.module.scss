@@ -10,28 +10,55 @@
 
   flex-flow: column nowrap;
   & header {
-    display: block;
     position: relative;
     width: 100%;
     box-shadow: 0 0vh 1vh #646464;
-
+    display: block;
     height: 18vh;
     display: flex;
     grid-area: header;
     flex-flow: column nowrap;
+
     & .datesSelector {
       height: 50%;
+      color: gray;
+      text-align: center;
+      align-content: center;
       width: 100%;
+      vertical-align: center;
     }
     & .times {
       height: 50%;
       width: 100%;
       padding-right: 5%;
       padding-left: 5%;
+      display: grid;
+      grid-template-rows: 50% 50%;
+      grid-template-columns: 75% 25%;
+      grid-template-areas: "start save" "end save";
+      & span {
+        height: fit-content;
+        width: fit-content;
+        font-weight: bold;
+        position: relative;
+        top: 50%;
+        font-size: 2vh;
+        margin-right: auto;
+        margin-left: auto;
+        transform: translate(0, -50%);
+      }
+      & .startTime {
+        grid-area: start;
+      }
+      & .endTime {
+        grid-area: end;
+      }
       & .save {
         top: 50%;
+        grid-area: save;
         transform: translate(0, -50%);
         float: right;
+        white-space: nowrap;
         height: fit-content;
         font-size: clamp(10pt, 2.5vh, 2.5vh);
         border-radius: 3vh;
@@ -41,7 +68,7 @@
         font-weight: 600;
         -webkit-text-fill-color: transparent;
         padding-left: 3vw;
-
+        margin-left: auto;
         position: relative;
         border: solid 1px #155799;
         display: block;
