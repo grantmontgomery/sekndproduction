@@ -98,18 +98,3 @@ export default function App({
     </RectanglesProvider>
   );
 }
-
-// App.getInitialProps = async ({ ctx: req }) => {
-//   const { req: actualRequest } = req;
-
-//   const cookieObject: { [key: string]: string } = parseCookies(actualRequest);
-//   const { parts, grid, rectangles } = cookieObject;
-
-//   const initialrectanglesState: InitialrectanglesState = rectangles
-//     ? JSON.parse(rectangles)
-//     : null;
-//   const initialPartsState: InitialPartsState = parts ? JSON.parse(parts) : null;
-//   const initialGridState: InitialGridState = grid ? JSON.parse(grid) : null;
-
-//   return { initialrectanglesState, initialPartsState, initialGridState };
-// };

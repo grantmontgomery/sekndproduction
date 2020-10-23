@@ -1,5 +1,7 @@
 import * as React from "react";
 import { useRectanglesDispatch } from "../../state/GridRectanglesContext";
+import { trackTimeLength } from "./Logic";
+import { useGridState } from "../../state/SearchGridContext";
 import css from "./ScheduleDragPiece.module.scss";
 
 export const ScheduleDragPieceDisplay: React.FC<{
@@ -23,6 +25,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
 }) => {
   const [imageLoaded, loadImage] = React.useState<boolean>(false);
   const rectanglesDispatch = useRectanglesDispatch();
+  const { hourStringsTrue } = useGridState();
 
   const calculateHeight: () => string = () => {
     if (heightChanging) {
@@ -129,6 +132,12 @@ export const ScheduleDragPieceDisplay: React.FC<{
       >
         {part.name ? part.name : "Swipe up to add Part!"}
       </span>
+      {trackTimeLength(
+        hourStringsTrue,
+        part.rectangleIndex,
+        part.pieceHeight,
+        part.name ? true : false
+      )}
 
       <button
         id="extendHandle2"

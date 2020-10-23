@@ -61,6 +61,29 @@
     white-space: nowrap;
   }
 
+  & .times {
+    position: absolute;
+    display: flex;
+    flex-flow: row nowrap;
+    position: absolute;
+    top: calc(50% + 2vh);
+    transform: translate(-50%, -50%);
+    left: 50%;
+    & span {
+      white-space: nowrap;
+      font-size: 1.75vh;
+
+      height: fit-content;
+      width: fit-content;
+      &:nth-child(1) {
+        margin-right: 1vw;
+      }
+      &:nth-child(2) {
+        margin-left: 1vw;
+      }
+    }
+  }
+
   & .extendHandle {
     position: absolute;
     border-radius: 3vh;

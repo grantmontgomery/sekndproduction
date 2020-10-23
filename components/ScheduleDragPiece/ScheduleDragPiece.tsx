@@ -5,8 +5,8 @@ import {
   useRectanglesDispatch,
   useRectanglesState,
 } from "../../state/GridRectanglesContext";
+
 import { useTouchDispatch } from "../ScheduleGrid/Context";
-import { stringify } from "querystring";
 
 export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   part,
