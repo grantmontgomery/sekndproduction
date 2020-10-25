@@ -10,21 +10,11 @@ export const SearchSelector: React.FC<Props> = ({
   searchType,
   handleInputChange,
 }) => {
-  const [highlight, setHighlight] = React.useState<SelectorState>({
-    all: false,
-    places: false,
-    events: false,
-  });
-
   return (
     <div className={css.searchSelector}>
       <button
-        className={`${css.selector} ${highlight.all ? css.highlighted : null}`}
-        onMouseEnter={() =>
-          setHighlight({ all: true, places: false, events: false })
-        }
+        className={css.selector}
         onClick={() => handleInputChange("searchType", "ALL")}
-        onMouseLeave={() => setHighlight((state) => ({ ...state, all: false }))}
       >
         <div className={css.allSVG}>
           <svg
@@ -71,15 +61,7 @@ export const SearchSelector: React.FC<Props> = ({
         <label htmlFor="">All</label>
       </button>
       <button
-        className={`${css.selector} ${
-          highlight.places ? css.highlighted : null
-        }`}
-        onMouseEnter={() =>
-          setHighlight({ all: false, places: true, events: false })
-        }
-        onMouseLeave={() =>
-          setHighlight((state) => ({ ...state, places: false }))
-        }
+        className={css.selector}
         onClick={() => handleInputChange("searchType", "PLACES")}
       >
         <svg
@@ -96,15 +78,7 @@ export const SearchSelector: React.FC<Props> = ({
         <label htmlFor="">Places</label>
       </button>
       <button
-        className={`${css.selector} ${
-          highlight.events ? css.highlighted : null
-        }`}
-        onMouseEnter={() =>
-          setHighlight({ all: false, places: false, events: true })
-        }
-        onMouseLeave={() =>
-          setHighlight((state) => ({ ...state, events: false }))
-        }
+        className={css.selector}
         onClick={() => handleInputChange("searchType", "EVENTS")}
       >
         <svg
