@@ -24,48 +24,49 @@ export const Nav: React.FC = () => {
   const applyTransitions: (modalWindow: NavState) => JSX.Element | null = (
     modalWindow
   ) => {
-    if (modalWindow === links) {
-      return modalWindow.display ? (
-        <CSSTransition
-          timeout={250}
-          classNames={{
-            enter: `${css["links-enter"]}`,
-            enterActive: `${css["links-enter-active"]}`,
-            exit: `${css["links-exit"]}`,
-            exitActive: `${css["links-exit-active"]}`,
-          }}
-        >
-          <MobileMenu></MobileMenu>
-        </CSSTransition>
-      ) : null;
-    } else if (modalWindow === parts) {
-      return modalWindow.display ? (
-        <CSSTransition
-          timeout={250}
-          classNames={{
-            enter: `${css["parts-enter"]}`,
-            enterActive: `${css["parts-enter-active"]}`,
-            exit: `${css["parts-exit"]}`,
-            exitActive: `${css["parts-exit-active"]}`,
-          }}
-        >
-          <DateParts location="nav"></DateParts>
-        </CSSTransition>
-      ) : null;
-    } else if (modalWindow === searchBox) {
-      return modalWindow.display ? (
-        <CSSTransition
-          timeout={250}
-          classNames={{
-            enter: `${css["search-enter"]}`,
-            enterActive: `${css["search-enter-active"]}`,
-            exit: `${css["search-exit"]}`,
-            exitActive: `${css["search-exit-active"]}`,
-          }}
-        >
-          <SearchBox></SearchBox>
-        </CSSTransition>
-      ) : null;
+    switch (modalWindow) {
+      case links:
+        return modalWindow.display ? (
+          <CSSTransition
+            timeout={250}
+            classNames={{
+              enter: `${css["links-enter"]}`,
+              enterActive: `${css["links-enter-active"]}`,
+              exit: `${css["links-exit"]}`,
+              exitActive: `${css["links-exit-active"]}`,
+            }}
+          >
+            <MobileMenu></MobileMenu>
+          </CSSTransition>
+        ) : null;
+      case parts:
+        return modalWindow.display ? (
+          <CSSTransition
+            timeout={250}
+            classNames={{
+              enter: `${css["parts-enter"]}`,
+              enterActive: `${css["parts-enter-active"]}`,
+              exit: `${css["parts-exit"]}`,
+              exitActive: `${css["parts-exit-active"]}`,
+            }}
+          >
+            <DateParts location="nav"></DateParts>
+          </CSSTransition>
+        ) : null;
+      case searchBox:
+        return modalWindow.display ? (
+          <CSSTransition
+            timeout={250}
+            classNames={{
+              enter: `${css["search-enter"]}`,
+              enterActive: `${css["search-enter-active"]}`,
+              exit: `${css["search-exit"]}`,
+              exitActive: `${css["search-exit-active"]}`,
+            }}
+          >
+            <SearchBox></SearchBox>
+          </CSSTransition>
+        ) : null;
     }
   };
 

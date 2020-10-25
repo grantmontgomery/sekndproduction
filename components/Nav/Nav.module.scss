@@ -40,22 +40,20 @@
 }
 
 .links-enter {
-  // transform: translate(-100%);
+  transform: translate(-100%);
   transition: 250ms;
-  opacity: 0;
   &.links-enter-active {
-    // transform: translate(0);
+    transform: translate(0);
     transition: 250ms ease-out;
-    opacity: 1;
   }
 }
 
 .links-exit {
   transition: 250ms ease-out;
-  opacity: 1;
+  transform: translate(0);
   &.links-exit-active {
     transition: 250ms ease-out;
-    opacity: 0;
+    transform: translate(-100%);
   }
 }
 

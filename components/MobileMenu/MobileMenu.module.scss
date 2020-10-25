@@ -1,22 +1,14 @@
 .mobileMenu {
-  width: 100vw;
+  // width: 100vw;
+  width: 50vw;
+
   height: 100vh;
   position: fixed;
   display: flex;
   flex-flow: column nowrap;
   float: left;
   left: 0;
-  background: #66666625;
-  backdrop-filter: blur(0.5vh);
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 100%;
-  grid-template-areas: "links modal";
-  & .modalSection {
-    height: 100%;
-    width: 100%;
-    grid-area: modal;
-  }
+  background: #ffffff;
 }
 
 @media (orientation: landscape) {

@@ -8,7 +8,6 @@ export const MobileMenu: React.FC = () => {
   return (
     <div className={css.mobileMenu}>
       <NavLinks orientation="portrait"></NavLinks>
-      <div className={css.modalSection}></div>
     </div>
   );
 };
