@@ -44,31 +44,47 @@ const GridDispatchContext: React.Context<
 
 export const GridProvider: ({
   children,
-  initialGridState,
 }: {
   children: React.ReactNode;
-  initialGridState?: State;
-}) => JSX.Element = ({ children, initialGridState }) => {
-  const [state, dispatch] = React.useReducer(
-    gridReducer,
-    initialGridState
-      ? initialGridState
-      : {
-          gridTemplate: "",
-          hourStrings: [],
-          hourStringsTrue: [],
-          endDate: null,
-          startDate: null,
-        }
-  );
+}) => JSX.Element = ({ children }) => {
+  const [state, dispatch] = React.useReducer(gridReducer, {
+    gridTemplate: "",
+    hourStrings: [],
+    hourStringsTrue: [],
+    endDate: null,
+    startDate: null,
+  });
+
+  const windowObject: React.MutableRefObject<
+    Window | undefined
+  > = React.useRef();
 
   React.useEffect(() => {
-    Cookie.set("grid", state);
-    localStorage.setItem("gridTemplate", state.gridTemplate);
+    if (windowObject.current)
+      sessionStorage.setItem("grid", JSON.stringify(state));
   }, [state]);
 
   React.useEffect(() => {
-    console.log(localStorage.getItem("gridTemplate"));
+    windowObject.current = window;
+    if (windowObject.current.sessionStorage.getItem("grid")) {
+      const {
+        gridTemplate,
+        hourStrings,
+        hourStringsTrue,
+        endDate,
+        startDate,
+      } = JSON.parse(windowObject.current.sessionStorage.getItem("grid"));
+      dispatch({
+        type: "ADD_GRID_TEMPLATE",
+        payload: {
+          gridTemplate,
+          hourStrings,
+          hourStringsTrue,
+          endDate,
+          startDate,
+        },
+      });
+    }
   }, []);
 
   return (

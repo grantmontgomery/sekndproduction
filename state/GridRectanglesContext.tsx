@@ -13,6 +13,7 @@ type Action = {
     index?: number;
     pieceHeight?: number;
     id?: string;
+    cache?: { part: { [key: string]: any } | null }[];
   };
 };
 
@@ -70,6 +71,10 @@ const rectanglesReducer: React.Reducer<State, Action> = (
               };
         }),
       };
+    case "UPDATE_FROM_CACHE":
+      return {
+        rectangles: action.payload.cache,
+      };
     default:
       return state;
   }
@@ -83,23 +88,34 @@ const RectanglesDispatch: React.Context<
 
 export const RectanglesProvider: ({
   children,
-  initialRectanglesState,
 }: {
   children: React.ReactNode;
-  initialRectanglesState?: State;
-}) => JSX.Element = ({ children, initialRectanglesState }) => {
+}) => JSX.Element = ({ children }) => {
   const [state, dispatch] = React.useReducer(
     rectanglesReducer,
-    initialRectanglesState
-      ? initialRectanglesState
-      : {
-          rectangles: [],
-        }
+
+    {
+      rectangles: [],
+    }
   );
 
+  const windowObject: React.MutableRefObject<
+    Window | undefined
+  > = React.useRef();
+
   React.useEffect(() => {
-    Cookie.set("rectangles", state);
+    if (windowObject.current)
+      sessionStorage.setItem("rectangles", JSON.stringify(state));
   }, [state]);
+
+  React.useEffect(() => {
+    windowObject.current = window;
+
+    if (windowObject.current.sessionStorage.getItem("rectangles")) {
+      const { rectangles } = JSON.parse(sessionStorage.getItem("rectangles"));
+      dispatch({ type: "UPDATE_FROM_CACHE", payload: { cache: rectangles } });
+    }
+  }, []);
 
   return (
     <RectanglesContext.Provider value={state}>

@@ -63,17 +63,18 @@ export const PartsProvider: ({
 
   React.useEffect(() => {
     if (windowObject.current)
-      localStorage.setItem("parts", JSON.stringify(state));
+      sessionStorage.setItem("parts", JSON.stringify(state));
   }, [state]);
 
   React.useEffect(() => {
     windowObject.current = window;
-    if (windowObject.current.localStorage.getItem("parts"))
+    if (windowObject.current.sessionStorage.getItem("parts"))
       dispatch({
         type: "UPDATE_FROM_CACHE",
         payload: {
           parts: Array.from(
-            JSON.parse(windowObject.current.localStorage.getItem("parts")).parts
+            JSON.parse(windowObject.current.sessionStorage.getItem("parts"))
+              .parts
           ),
         },
       });

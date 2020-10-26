@@ -35,16 +35,8 @@ export default function App({
   router,
 }: Props): JSX.Element {
   return (
-    <RectanglesProvider
-      initialRectanglesState={
-        Cookie.get("rectangles") ? JSON.parse(Cookie.get("rectangles")) : null
-      }
-    >
-      <GridProvider
-        initialGridState={
-          Cookie.get("grid") ? JSON.parse(Cookie.get("grid")) : null
-        }
-      >
+    <RectanglesProvider>
+      <GridProvider>
         <PartsProvider>
           <PageTransition
             timeout={1000}
