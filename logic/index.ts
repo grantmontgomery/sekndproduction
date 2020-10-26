@@ -1,1 +1,1 @@
-export { eventCategories } from "./eventCategories";
+export { inputEventCategories } from "./inputEventCategories";

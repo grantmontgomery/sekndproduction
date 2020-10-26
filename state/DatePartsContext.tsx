@@ -19,9 +19,7 @@ const partsReducer: React.Reducer<PartsState, Action> = (
 ) => {
   switch (action.type) {
     case "ADD_PART":
-      return state.parts.length < 7
-        ? { parts: [...state.parts, action.payload.part] }
-        : null;
+      return { parts: [...state.parts, action.payload.part] };
     case "REMOVE_PART":
       return {
         parts: state.parts.filter((part) => part.id !== action.payload.id),
@@ -60,9 +58,9 @@ export const PartsProvider: ({
     partsReducer,
     initialPartsState ? initialPartsState : { parts: [] }
   );
-
   React.useEffect(() => {
     Cookie.set("parts", state);
+    console.log(JSON.parse(Cookie.get("parts")));
   }, [state]);
 
   return (

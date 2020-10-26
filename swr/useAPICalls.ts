@@ -1,4 +1,5 @@
 import useSWR, { responseInterface } from "swr";
+import { inputEventCategories } from "../logic";
 
 type APIResponse = { [key: string]: any }[];
 
@@ -87,6 +88,7 @@ export default function useAPICalls(
         radius,
         unixStartDate,
         unixEndDate,
+        eventsCategory,
       } = setSearchParameters;
       try {
         console.log(url ? "fetching yelp events" : "cancelled events fetch");
@@ -101,6 +103,7 @@ export default function useAPICalls(
             radius: parseInt(radius),
             start_date: parseInt(unixStartDate),
             end_date: parseInt(unixEndDate),
+            ...inputEventCategories(eventsCategory, "yelp"),
           }),
         });
 
@@ -139,6 +142,7 @@ export default function useAPICalls(
         radius,
         startFormatted,
         endFormatted,
+        eventsCategory,
       } = setSearchParameters;
       try {
         console.log(
@@ -156,6 +160,7 @@ export default function useAPICalls(
             radius: Math.floor(parseInt(radius) * 0.001).toString(),
             startDateTime: startFormatted,
             endDateTime: endFormatted,
+            ...inputEventCategories(eventsCategory, "yelp"),
           }),
         });
 

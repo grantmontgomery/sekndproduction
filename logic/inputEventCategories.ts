@@ -1,4 +1,4 @@
-export const eventCategories: (
+export const inputEventCategories: (
   eventType: string,
   source: string
 ) => { [key: string]: string[] } = (eventType, source) => {
