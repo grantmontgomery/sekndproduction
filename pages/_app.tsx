@@ -50,19 +50,19 @@ export default function App({
             Cookie.get("parts") ? JSON.parse(Cookie.get("parts")) : null
           }
         >
-          {/* <PageTransition
-          timeout={400}
-          loadingComponent={<SekndLoader></SekndLoader>}
-          loadingDelay={500}
-          loadingTimeout={{
-            enter: 500,
-            exit: 0,
-          }}
-          classNames="page-transition"
-          loadingClassNames="loading-indicator"
-        > */}
-          <Component {...pageProps} key={router.route} />
-          {/* </PageTransition> */}
+          <PageTransition
+            timeout={1000}
+            loadingComponent={<SekndLoader></SekndLoader>}
+            loadingDelay={1000}
+            loadingTimeout={{
+              enter: 1000,
+              exit: 1000,
+            }}
+            classNames="page-transition"
+            loadingClassNames="loading-indicator"
+          >
+            <Component {...pageProps} key={router.route} />
+          </PageTransition>
           <style jsx global>{`
             .page-transition-enter {
               opacity: 0;

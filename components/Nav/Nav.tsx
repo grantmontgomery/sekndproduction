@@ -128,6 +128,7 @@ export const Nav: React.FC = () => {
           links={links}
           stopWindowScroll={stopWindowScroll}
         ></MobileHamburger>
+
         <AccountDisplay></AccountDisplay>
         <SearchIcon
           displaySearchBox={displaySearchBox}
