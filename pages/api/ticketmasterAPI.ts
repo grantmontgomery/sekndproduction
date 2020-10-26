@@ -17,7 +17,13 @@ type Params = {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== "GET") {
-      const { startDateTime, endDateTime, radius, location } = req.body;
+      const {
+        startDateTime,
+        endDateTime,
+        radius,
+        location,
+        segmentId,
+      } = req.body;
       const ticketmasterEvents: URL = new URL(
           "https://app.ticketmaster.com/discovery/v2/events"
         ),
@@ -31,6 +37,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       Object.keys(params).forEach((key) =>
         ticketmasterEvents.searchParams.append(key, params[key])
       );
+
+      if (segmentId)
+        ticketmasterEvents.searchParams.append("segmentId", segmentId);
 
       isNaN(parseInt(location))
         ? ticketmasterEvents.searchParams.append("city", location)

@@ -1,0 +1,1 @@
+export { eventCategories } from "./eventCategories";

@@ -23,6 +23,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         yelpEvents.searchParams.append(key, params[key])
       );
 
+      if (categories) yelpEvents.searchParams.append("categories", categories);
+
       const yelpUrlString: string = yelpEvents.toString();
 
       //function
