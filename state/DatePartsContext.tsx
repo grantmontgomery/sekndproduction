@@ -6,7 +6,7 @@ type PartsState = {
 };
 type Action = {
   type: string;
-  payload: {
+  payload?: {
     id?: string;
     part?: { [key: string]: any };
     details?: string;
@@ -19,7 +19,8 @@ const partsReducer: React.Reducer<PartsState, Action> = (
 ) => {
   switch (action.type) {
     case "ADD_PART":
-      return { parts: [...state.parts, action.payload.part] };
+      if (state.parts.length < 5)
+        return { parts: [...state.parts, action.payload.part] };
     case "REMOVE_PART":
       return {
         parts: state.parts.filter((part) => part.id !== action.payload.id),
@@ -32,6 +33,8 @@ const partsReducer: React.Reducer<PartsState, Action> = (
           return { ...part, details: action.payload.details };
         }),
       };
+    case "CLEAR_PARTS":
+      return { parts: [] };
     case "UPDATE_FROM_CACHE":
       return { parts: action.payload.parts };
     default:
@@ -49,19 +52,32 @@ const PartsDispatchContext: React.Context<
 
 export const PartsProvider: ({
   children,
-  initialPartsState,
 }: {
   children: React.ReactNode;
-  initialPartsState?: PartsState;
-}) => JSX.Element = ({ children, initialPartsState }) => {
-  const [state, dispatch] = React.useReducer(
-    partsReducer,
-    initialPartsState ? initialPartsState : { parts: [] }
-  );
+}) => JSX.Element = ({ children }) => {
+  const [state, dispatch] = React.useReducer(partsReducer, { parts: [] });
+
+  const windowObject: React.MutableRefObject<
+    Window | undefined
+  > = React.useRef();
+
   React.useEffect(() => {
-    Cookie.set("parts", state);
-    console.log(JSON.parse(Cookie.get("parts")));
+    if (windowObject.current)
+      localStorage.setItem("parts", JSON.stringify(state));
   }, [state]);
+
+  React.useEffect(() => {
+    windowObject.current = window;
+    if (windowObject.current.localStorage.getItem("parts"))
+      dispatch({
+        type: "UPDATE_FROM_CACHE",
+        payload: {
+          parts: Array.from(
+            JSON.parse(windowObject.current.localStorage.getItem("parts")).parts
+          ),
+        },
+      });
+  }, []);
 
   return (
     <PartsStateContext.Provider value={state}>

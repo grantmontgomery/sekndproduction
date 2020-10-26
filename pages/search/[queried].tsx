@@ -57,7 +57,6 @@ export default function Queried(): JSX.Element {
   );
 
   React.useEffect(() => {
-    console.log("setting result type");
     if (setSearchParameters()) {
       setSearchParameters().searchType === "EVENTS"
         ? setState({ resultsType: "event" })

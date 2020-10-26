@@ -8,6 +8,7 @@ import {
 } from "./Parts";
 import GridClass from "./Logic/GridClass";
 import Link from "next/link";
+import { usePartsDispatch } from "../../state/DatePartsContext";
 import { useGridDispatch } from "../../state/SearchGridContext";
 import { useRectanglesDispatch } from "../../state/GridRectanglesContext";
 import css from "./SearchBox.module.scss";
@@ -61,6 +62,7 @@ export const SearchBox: React.FC = (props) => {
 
   const rectanglesDispatch = useRectanglesDispatch();
   const gridDispatch = useGridDispatch();
+  const partsDispatch = usePartsDispatch();
 
   const handleSubmit: () => void = () => {
     const newDatesInput: GridClass = new GridClass(
@@ -68,7 +70,7 @@ export const SearchBox: React.FC = (props) => {
       searchQuery.unixEndDate
     );
     newDatesInput.setGrid();
-
+    partsDispatch({ type: "CLEAR_PARTS" });
     rectanglesDispatch({
       type: "ADD_RECTANGLES",
       payload: { numberOfRectangles: newDatesInput.numberofRectangles },

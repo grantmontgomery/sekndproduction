@@ -45,11 +45,7 @@ export default function App({
           Cookie.get("grid") ? JSON.parse(Cookie.get("grid")) : null
         }
       >
-        <PartsProvider
-          initialPartsState={
-            Cookie.get("parts") ? JSON.parse(Cookie.get("parts")) : null
-          }
-        >
+        <PartsProvider>
           <PageTransition
             timeout={1000}
             loadingComponent={<SekndLoader></SekndLoader>}

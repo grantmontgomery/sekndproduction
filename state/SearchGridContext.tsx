@@ -64,7 +64,12 @@ export const GridProvider: ({
 
   React.useEffect(() => {
     Cookie.set("grid", state);
+    localStorage.setItem("gridTemplate", state.gridTemplate);
   }, [state]);
+
+  React.useEffect(() => {
+    console.log(localStorage.getItem("gridTemplate"));
+  }, []);
 
   return (
     <GridStateContext.Provider value={state}>

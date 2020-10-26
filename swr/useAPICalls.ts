@@ -36,7 +36,6 @@ export default function useAPICalls(
     async (url) => {
       const { location, radius, placeType } = setSearchParameters;
       try {
-        console.log(url ? "fetching yelp places" : "cancelled places fetch");
         const response: Response = await fetch(url, {
           headers: {
             Accept: "application/json",
@@ -91,7 +90,6 @@ export default function useAPICalls(
         eventsCategory,
       } = setSearchParameters;
       try {
-        console.log(url ? "fetching yelp events" : "cancelled events fetch");
         const response: Response = await fetch(url, {
           headers: {
             Accept: "application/json",
@@ -145,10 +143,6 @@ export default function useAPICalls(
         eventsCategory,
       } = setSearchParameters;
       try {
-        console.log(
-          url ? "fetching yelp events" : "cancelled ticketmaster fetch"
-        );
-
         const response: Response = await fetch(url, {
           headers: {
             Accept: "application/json",
