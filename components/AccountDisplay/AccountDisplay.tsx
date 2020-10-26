@@ -7,7 +7,7 @@ export const AccountDisplay: React.FC = () => {
   });
   return (
     <div className={css.accountDisplay}>
-      <svg version="1.1" x="0px" y="0px">
+      {/* <svg version="1.1" x="0px" y="0px">
         <path
           d="M239.7,260.2c0.5,0,1,0,1.6,0c0.2,0,0.4,0,0.6,0c0.3,0,0.7,0,1,0c29.3-0.5,53-10.8,70.5-30.5
 			c38.5-43.4,32.1-117.8,31.4-124.9c-2.5-53.3-27.7-78.8-48.5-90.7C280.8,5.2,262.7,0.4,242.5,0h-0.7c-0.1,0-0.3,0-0.4,0h-0.6
@@ -26,7 +26,7 @@ export const AccountDisplay: React.FC = () => {
 			c1,2.6,2.8,4.8,5.2,6.3c3,2,74.9,47.8,195.2,47.8s192.2-45.9,195.2-47.8c2.3-1.5,4.2-3.7,5.2-6.3
 			C447,415.5,446.9,388.8,446.8,383.6z"
         />
-      </svg>
+      </svg> */}
 
       <span> {state.loggedIn ? "Grant" : "Sign In"}</span>
     </div>
