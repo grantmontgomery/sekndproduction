@@ -154,7 +154,7 @@ export default function useAPICalls(
             radius: Math.floor(parseInt(radius) * 0.001).toString(),
             startDateTime: startFormatted,
             endDateTime: endFormatted,
-            ...inputEventCategories(eventsCategory, "yelp"),
+            ...inputEventCategories(eventsCategory, "ticketmaster"),
           }),
         });
 

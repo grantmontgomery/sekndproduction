@@ -29,5 +29,10 @@ export const inputEventCategories: (
       return source === "yelp"
         ? { categories: ["official-yelp-events"] }
         : { segmentId: ["KZFzniwnSyZfZ7v7n1"] };
+    case "All":
+      return source === "yelp" ? { categories: null } : { segmentId: null };
+
+    default:
+      return source === "yelp" ? { categories: null } : { segmentId: null };
   }
 };
