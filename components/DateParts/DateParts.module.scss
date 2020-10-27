@@ -128,6 +128,8 @@
 
 @media (orientation: landscape) {
   .dateParts {
+    display: block;
+    width: clamp(225px, 20vw, 350px);
     &.schedulePage {
       position: relative;
       height: 100%;
@@ -157,6 +159,7 @@
       grid-area: parts;
       background: white;
       display: flex;
+      height: 100vh;
       flex-flow: column nowrap;
       & header {
         display: grid;
@@ -214,8 +217,7 @@
       }
     }
     & .modal {
-      grid-area: modal;
-      background: transparent;
+      display: none;
     }
   }
 }
