@@ -13,6 +13,7 @@ import {
   usePartsState,
 } from "../../../state/DatePartsContext";
 import css from "./ResultCard.module.scss";
+import imageCSS from "./Parts/ImageBackground/ImageBackground.module.scss";
 
 export const ResultCard: React.FC<{
   item?: { [key: string]: any };
@@ -180,6 +181,7 @@ export const ResultCard: React.FC<{
     }
   };
 
+  console.log(item.source);
   const dispatch: React.Dispatch<{
     type: string;
     payload: { id?: string; part?: { [key: string]: any } };
@@ -202,7 +204,7 @@ export const ResultCard: React.FC<{
     }
   };
 
-  return resultsLoading  ? (
+  return resultsLoading ? (
     <div className={css.resultCard} style={{ background: "#999999" }}>
       <div className={`${css.addButton} ${css.loadingAdd}`}></div>
       <div className={css.infoBar} style={{ background: "transparent" }}>
@@ -223,18 +225,25 @@ export const ResultCard: React.FC<{
           : setState((state) => ({ ...state, moreInfo: true }))
       }
     >
-      <ImageBackground
-        extended={state.moreInfo}
-        handleRetract={handleRetract}
-        type={item.type}
-        source={item.source}
-      >
-        <img
-          src={determineImageBackgroundSource()}
-          alt={item.name}
-          onLoad={() => setState({ ...state, imageLoaded: true })}
-        />
-      </ImageBackground>
+      {determineImageBackgroundSource() ? (
+        <ImageBackground
+          extended={state.moreInfo}
+          handleRetract={handleRetract}
+          type={item.type}
+          source={item.source}
+        >
+          <img
+            src={determineImageBackgroundSource()}
+            className={
+              item.source === "yelp"
+                ? imageCSS.yelpImage
+                : imageCSS.ticketmasterImage
+            }
+            alt={item.name}
+            onLoad={() => setState({ ...state, imageLoaded: true })}
+          />
+        </ImageBackground>
+      ) : null}
 
       <button
         className={`${css.addButton} ${state.added ? css.remove : null}`}

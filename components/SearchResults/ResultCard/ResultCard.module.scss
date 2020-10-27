@@ -129,6 +129,22 @@
 }
 
 @media (orientation: landscape) {
+  .resultCard {
+    width: clamp(500px, 45vw, 1000px);
+    background: none;
+    & .addButton {
+      right: 20px;
+      height: 5vh;
+      top: 20px;
+      height: 4vh;
+      border-radius: 5vh;
+      font-size: 1.5vh;
+
+      &.loadingAdd {
+        width: 20%;
+      }
+    }
+  }
 }
 //event
 // #ee0979

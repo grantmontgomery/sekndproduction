@@ -22,6 +22,14 @@
     transform: translate(-50%, -50%);
     width: 100%;
     height: auto;
+    &.yelpImage {
+      width: 100%;
+      height: auto;
+    }
+    &.ticketmasterImage {
+      height: auto;
+      width: 100%;
+    }
     // &.byWidth {
     //   width: 100%;
     //   height: auto;
@@ -30,5 +38,24 @@
     //   width: auto;
     //   height: 100%;
     // }
+  }
+}
+
+@media (orientation: landscape) {
+  .imgBackground {
+    float: left;
+    left: -1%;
+    width: clamp(175px, 40%, 250px);
+    transform: translate(0);
+    & img {
+      &.yelpImage {
+        width: 100%;
+        height: auto;
+      }
+      &.ticketmasterImage {
+        height: 100%;
+        width: auto;
+      }
+    }
   }
 }

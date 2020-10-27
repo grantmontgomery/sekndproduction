@@ -7,8 +7,6 @@ export const ImageBackground: React.FC<{
   extended: boolean;
   handleRetract: () => void;
 }> = ({ extended, handleRetract, type, source, children }) => {
- 
-
   return (
     <div
       className={`${css.imgBackground} ${extended ? css.extended : null}`}
