@@ -50,39 +50,45 @@
 @media (orientation: landscape) {
   .when {
     grid-area: when;
-    display: grid;
-    grid-template-areas: "label" "from" "to";
-    grid-template-columns: 100%;
-    grid-template-rows: 50% 25% 25%;
+    display: flex;
+    flex-flow: column nowrap;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    padding-left: 5%;
+    padding-right: 5%;
+    margin-top: 5vh;
+
     & label {
-      grid-area: label;
       font-size: 2vh;
       display: block;
       height: fit-content;
       font-weight: bold;
       width: fit-content;
-      top: 50%;
-      margin-left: 5%;
-
+      top: 0;
       position: relative;
-      transform: translate(0, -50%);
+      transform: translate(0);
     }
 
     & .to {
-      grid-area: to;
-      margin-left: 5%;
       margin-right: auto;
-      width: 100%;
+      width: 90%;
+      margin-top: 5vh;
       border: none;
+      position: relative;
+      top: 0;
+      transform: translate(0);
       font-size: 2vh;
       border-bottom: solid 0.2vh black;
     }
     & .from {
-      grid-area: from;
-      margin-left: 5%;
       font-size: 2vh;
       margin-right: auto;
-      width: 100%;
+      margin-top: 5vh;
+      position: relative;
+      width: 90%;
+      top: 0;
+      transform: translate(0);
       border: none;
       border-bottom: solid 0.2vh black;
     }

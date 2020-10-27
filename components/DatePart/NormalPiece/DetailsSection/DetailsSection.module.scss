@@ -8,3 +8,9 @@
   background: rgba(100, 100, 100, 0.5);
   color: white;
 }
+
+@media (orientation: landscape) {
+  .customDetails {
+    font-size: 1em;
+  }
+}
