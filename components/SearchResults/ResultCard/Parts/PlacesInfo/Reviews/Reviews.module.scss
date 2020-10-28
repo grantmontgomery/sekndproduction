@@ -27,3 +27,9 @@
     margin-left: 1vw;
   }
 }
+
+@media (orientation: landscape) {
+  .reviewWrapper {
+    grid-area: reviews;
+  }
+}

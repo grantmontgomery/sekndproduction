@@ -141,12 +141,16 @@
     & .infoBar {
       display: grid;
       height: 100%;
+      grid-template-columns: 100%;
       grid-area: info;
       width: auto;
       position: relative;
       background: none;
       & .title {
+        width: 60%;
+        white-space: wrap;
         color: black;
+        font-size: 12pt;
       }
     }
     & .addButton {

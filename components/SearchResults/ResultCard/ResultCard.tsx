@@ -88,6 +88,10 @@ export const ResultCard: React.FC<{
         return (
           <React.Fragment>
             <div
+              style={{
+                gridTemplateAreas: `"title" "reviews" "pricePlace"`,
+                gridTemplateRows: "auto auto auto auto auto",
+              }}
               className={`${css.infoBar} ${
                 state.moreInfo ? css.extended : null
               }`}

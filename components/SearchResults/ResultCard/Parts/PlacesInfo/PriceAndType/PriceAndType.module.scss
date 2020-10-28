@@ -28,3 +28,21 @@
     text-overflow: ellipsis;
   }
 }
+
+@media (orientation: landscape) {
+  .placePrice {
+    grid-area: pricePlace;
+    & span {
+      color: rgb(100, 100, 100);
+    }
+    & .light {
+      color: black;
+    }
+    & .type {
+      color: black;
+    }
+    & .city {
+      color: black;
+    }
+  }
+}
