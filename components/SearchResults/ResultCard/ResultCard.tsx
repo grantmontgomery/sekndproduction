@@ -89,8 +89,8 @@ export const ResultCard: React.FC<{
           <React.Fragment>
             <div
               style={{
-                gridTemplateAreas: `"title" "reviews" "pricePlace"`,
-                gridTemplateRows: "auto auto auto auto auto",
+                gridTemplateAreas: `"title" "reviews" "pricePlace" "moreDetails"`,
+                gridTemplateRows: "auto auto auto auto",
               }}
               className={`${css.infoBar} ${
                 state.moreInfo ? css.extended : null
@@ -115,6 +115,14 @@ export const ResultCard: React.FC<{
                 }
               ></PriceAndType>
               <div className={css.starsWrapper}></div>
+              <div className={css.landscapeDetails}>
+                <Phone phone={item.phone}></Phone>
+                <Location
+                  street={item.location.display_address[0]}
+                  city={item.location.display_address[1]}
+                ></Location>
+                <PartLink url={item.url} />
+              </div>
             </div>
             {moreDetails("place")}
           </React.Fragment>
@@ -158,6 +166,9 @@ export const ResultCard: React.FC<{
               onClick={() =>
                 setState((state) => ({ ...state, moreInfo: true }))
               }
+              style={{
+                gridTemplateAreas: `"title" "eventTimesVenue" "eventPriceGenre" "moreDetails"`,
+              }}
             >
               <span className={css.title}>{item.name}</span>
               <EventTimesVenue
@@ -184,6 +195,14 @@ export const ResultCard: React.FC<{
                     : ticketmasterClassification()
                 }
               ></EventPriceGenre>
+              <div className={css.landscapeDetails}>
+                <EventDescription
+                  description={item.description}
+                ></EventDescription>
+                <PartLink
+                  url={item.source === "yelp" ? item.event_site_url : item.url}
+                />
+              </div>
             </div>
             {moreDetails("event")}
           </React.Fragment>

@@ -49,7 +49,8 @@
       & svg {
         height: 2vh;
         width: auto;
-        margin-right: 1vw;
+        margin-right: 0.5vh;
+        stroke-width: 0.5vh;
         stroke: black;
         &.fullStar {
           fill: black;
@@ -69,6 +70,7 @@
     }
     & span {
       color: black;
+      margin-left: 1vh;
     }
   }
 }

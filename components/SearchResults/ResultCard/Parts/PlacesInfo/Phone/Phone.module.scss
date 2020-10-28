@@ -5,10 +5,10 @@
   flex-flow: row nowrap;
   margin-top: 1vh;
   align-items: center;
-  color: white;
+  color: black;
   text-decoration: none;
   & svg {
-    fill: white;
+    fill: black;
     height: 2vh;
     width: auto;
   }
@@ -17,5 +17,29 @@
     font-size: min(25px, 2vh);
     height: fit-content;
     width: fit-content;
+  }
+}
+
+@media (orientation: landscape) {
+  .phone {
+    height: fit-content;
+    width: fit-content;
+    display: flex;
+    flex-flow: row nowrap;
+    margin-top: 1vh;
+    align-items: center;
+    color: color;
+    text-decoration: none;
+    & svg {
+      fill: color;
+      height: 2vh;
+      width: auto;
+    }
+    & span {
+      margin-left: 2vw;
+      font-size: min(25px, 2vh);
+      height: fit-content;
+      width: fit-content;
+    }
   }
 }

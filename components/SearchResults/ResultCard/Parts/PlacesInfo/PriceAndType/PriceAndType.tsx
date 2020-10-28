@@ -21,22 +21,17 @@ export const PriceAndType: React.FC<{
         case "s":
           return type.indexOf("ies") !== -1 ? (
             <span
-              className={css.type}
-              style={{ marginLeft: price ? "2vw" : null }}
+              className={`${css.type} ${price ? css.pricePresent : null}`}
             >{`${type.substring(0, type.indexOf("ies"))}y`}</span>
           ) : (
-            <span
-              className={css.type}
-              style={{ marginLeft: price ? "2vw" : null }}
-            >
+            <span className={css.type}>
               {type.substring(0, indexLastLetter)}
             </span>
           );
         default:
           return (
             <span
-              className={css.type}
-              style={{ marginLeft: price ? "2vw" : null }}
+              className={`${css.type} ${price ? css.pricePresent : null}`}
             >{`${type}`}</span>
           );
       }

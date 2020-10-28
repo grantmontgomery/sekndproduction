@@ -27,3 +27,15 @@
     text-overflow: ellipsis;
   }
 }
+
+@media (orientation: landscape) {
+  .times {
+    grid-area: eventTimesVenue;
+    & p {
+      color: black;
+    }
+    & .venue {
+      color: black;
+    }
+  }
+}

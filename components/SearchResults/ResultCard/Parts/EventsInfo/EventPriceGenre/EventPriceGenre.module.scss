@@ -14,3 +14,12 @@
     margin-left: 1vw;
   }
 }
+
+@media (orientation: landscape) {
+  .eventPrice {
+    grid-area: eventPriceGenre;
+    & span {
+      color: black;
+    }
+  }
+}

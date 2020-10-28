@@ -52,6 +52,9 @@
       text-overflow: ellipsis;
       font-size: min(30px, 2.5vh);
     }
+    & .landscapeDetails {
+      display: none;
+    }
 
     & .loadingBar {
       width: 75%;
@@ -149,9 +152,13 @@
       background: none;
       & .title {
         width: 60%;
-        white-space: wrap;
+        white-space: pre;
         color: black;
         font-size: 12pt;
+      }
+      & .landscapeDetails {
+        display: block;
+        grid-area: moreDetails;
       }
     }
     & .addButton {

@@ -18,6 +18,9 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    &.pricePresent {
+      margin-left: 2vw;
+    }
   }
   & .city {
     color: white;
@@ -33,16 +36,21 @@
   .placePrice {
     grid-area: pricePlace;
     & span {
-      color: rgb(100, 100, 100);
+      color: rgb(54, 50, 50);
+      margin-right: 0.25vh;
     }
     & .light {
       color: black;
     }
     & .type {
       color: black;
+      &.pricePresent {
+        margin-left: 1vh;
+      }
     }
     & .city {
       color: black;
+      margin-left: 1vh;
     }
   }
 }
