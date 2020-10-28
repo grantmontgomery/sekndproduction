@@ -13,3 +13,17 @@
     font-size: min(25px, 2vh);
   }
 }
+
+@media (orientation: landscape) {
+  .descriptionWrapper {
+    position: relative;
+    height: auto;
+    width: 80%;
+    overflow: hidden;
+    & .description {
+      color: black;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+}

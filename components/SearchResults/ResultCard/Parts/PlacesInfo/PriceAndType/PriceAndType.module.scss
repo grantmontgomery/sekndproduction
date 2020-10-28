@@ -18,9 +18,9 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    &.pricePresent {
-      margin-left: 2vw;
-    }
+  }
+  & .pricePresent {
+    margin-left: 2vw;
   }
   & .city {
     color: white;
@@ -47,6 +47,9 @@
       &.pricePresent {
         margin-left: 1vh;
       }
+    }
+    & .pricePresent {
+      margin-left: 2vh;
     }
     & .city {
       color: black;

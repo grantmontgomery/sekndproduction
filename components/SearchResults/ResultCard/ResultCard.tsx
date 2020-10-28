@@ -239,6 +239,8 @@ export const ResultCard: React.FC<{
         <div className={css.loadingBar}></div>
         <div className={css.loadingBar}></div>
         <div className={css.loadingBar}></div>
+        <div className={css.extraBar}></div>
+        <div className={css.extraBar}></div>
       </div>
     </div>
   ) : (

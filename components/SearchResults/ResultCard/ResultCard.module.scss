@@ -56,6 +56,10 @@
       display: none;
     }
 
+    & .extraBar {
+      display: none;
+    }
+
     & .loadingBar {
       width: 75%;
       height: min(25px, 2vh);
@@ -159,6 +163,38 @@
       & .landscapeDetails {
         display: block;
         grid-area: moreDetails;
+      }
+      & .loadingBar {
+        width: 60%;
+        height: 3vh;
+        position: relative;
+        display: block;
+        background: linear-gradient(to right, white, #e0e0e0);
+        animation: loading 1s infinite;
+        margin-top: 1vh;
+        background-size: 200%;
+
+        &:first-child {
+          width: 30%;
+          margin-top: 0;
+          // background-size: 180%;
+          height: min(30px, 2.5vh);
+        }
+      }
+      & .extraBar {
+        display: block;
+        width: 50%;
+        position: relative;
+        display: block;
+        background: linear-gradient(to right, white, #e0e0e0);
+        animation: loading 1s infinite;
+        margin-top: 1vh;
+        background-size: 200%;
+        height: 3vh;
+
+        &:last-child {
+          height: 5vh;
+        }
       }
     }
     & .addButton {
