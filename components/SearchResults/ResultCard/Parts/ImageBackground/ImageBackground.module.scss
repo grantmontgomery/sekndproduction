@@ -43,9 +43,10 @@
 
 @media (orientation: landscape) {
   .imgBackground {
-    float: left;
-    left: -1%;
-    width: clamp(175px, 40%, 250px);
+    position: relative;
+    grid-area: image;
+    width: 100%;
+    left: 0;
     transform: translate(0);
     & img {
       &.yelpImage {

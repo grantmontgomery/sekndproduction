@@ -132,6 +132,23 @@
   .resultCard {
     width: clamp(500px, 45vw, 1000px);
     background: none;
+    display: grid;
+    grid-template-areas: "image info";
+    flex-flow: row nowrap;
+    grid-template-columns: clamp(175px, 40%, 250px) auto;
+    grid-template-rows: 100%;
+    padding: 0;
+    & .infoBar {
+      display: grid;
+      height: 100%;
+      grid-area: info;
+      width: auto;
+      position: relative;
+      background: none;
+      & .title {
+        color: black;
+      }
+    }
     & .addButton {
       right: 20px;
       height: 5vh;

@@ -42,3 +42,11 @@
     }
   }
 }
+
+@media (orientation: landscape) {
+  .gridWrapper {
+    grid-area: grid;
+    position: relative;
+    height: 100%;
+  }
+}

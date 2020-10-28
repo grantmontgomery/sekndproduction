@@ -106,11 +106,21 @@
 @media (orientation: landscape) {
   .main {
     display: grid;
+    flex-flow: row nowrap;
 
-    width: max(min(90vw, 1400px), 750px);
-    grid-gap: 2.5%;
-    grid-template-areas: "parts grid";
-    grid-template-columns: 20% 55% 20%;
-    grid-template-rows: 100%;
+    width: clamp(750px, 90vw, 1400px);
+
+    grid-template-areas: "parts header" "parts grid";
+    grid-template-columns: 20% 80%;
+
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    grid-template-rows: 20% 80%;
+    & header {
+      grid-area: header;
+      box-shadow: none;
+      height: 100%;
+    }
   }
 }

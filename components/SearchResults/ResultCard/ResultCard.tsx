@@ -181,7 +181,6 @@ export const ResultCard: React.FC<{
     }
   };
 
-  console.log(item.source);
   const dispatch: React.Dispatch<{
     type: string;
     payload: { id?: string; part?: { [key: string]: any } };
