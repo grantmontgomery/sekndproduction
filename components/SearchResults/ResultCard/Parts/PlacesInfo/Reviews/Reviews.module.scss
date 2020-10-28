@@ -16,6 +16,20 @@
       height: 2vh;
       width: auto;
       margin-right: 1vw;
+      &.fullStar {
+        fill: white;
+      }
+      &.emptyStar {
+        fill: #707070;
+      }
+      &.halfStar {
+        & .blankHalf {
+          fill: #707070;
+        }
+        & .fullHalf {
+          fill: white;
+        }
+      }
     }
   }
   & span {
@@ -31,5 +45,30 @@
 @media (orientation: landscape) {
   .reviewWrapper {
     grid-area: reviews;
+    & .starWrapper {
+      & svg {
+        height: 2vh;
+        width: auto;
+        margin-right: 1vw;
+        stroke: black;
+        &.fullStar {
+          fill: black;
+        }
+        &.emptyStar {
+          fill: white;
+        }
+        &.halfStar {
+          & .blankHalf {
+            fill: white;
+          }
+          & .fullHalf {
+            fill: black;
+          }
+        }
+      }
+    }
+    & span {
+      color: black;
+    }
   }
 }
