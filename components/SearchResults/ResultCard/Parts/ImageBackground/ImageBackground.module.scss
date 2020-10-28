@@ -47,10 +47,12 @@
     grid-area: image;
     width: 100%;
     left: 0;
+    pointer-events: none;
+
     transform: translate(0);
     & img {
       &.yelpImage {
-        width: 100%;
+        width: 120%;
         height: auto;
       }
       &.ticketmasterImage {

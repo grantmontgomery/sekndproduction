@@ -139,6 +139,7 @@
     grid-template-rows: 100%;
     padding: 0;
     & .infoBar {
+      pointer-events: none;
       display: grid;
       height: 100%;
       grid-template-columns: 100%;

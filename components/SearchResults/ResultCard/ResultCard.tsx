@@ -48,10 +48,10 @@ export const ResultCard: React.FC<{
     }
   };
 
-  const handleRetract: () => void = () => {
+  const handleExtendRetract: () => void = () => {
     return state.moreInfo
       ? setState((state) => ({ ...state, moreInfo: false }))
-      : null;
+      : setState((state) => ({ ...state, moreInfo: true }));
   };
 
   const moreDetails: (type: string) => JSX.Element | null = (type) => {
@@ -95,6 +95,9 @@ export const ResultCard: React.FC<{
               className={`${css.infoBar} ${
                 state.moreInfo ? css.extended : null
               }`}
+              onClick={() =>
+                setState((state) => ({ ...state, moreInfo: true }))
+              }
             >
               <span className={css.title}>{item.name}</span>
               <Reviews
@@ -152,6 +155,9 @@ export const ResultCard: React.FC<{
               className={`${css.infoBar} ${
                 state.moreInfo ? css.extended : null
               }`}
+              onClick={() =>
+                setState((state) => ({ ...state, moreInfo: true }))
+              }
             >
               <span className={css.title}>{item.name}</span>
               <EventTimesVenue
@@ -222,16 +228,11 @@ export const ResultCard: React.FC<{
         state.imageLoaded ? css.loaded : css.loading
       }
       `}
-      onClick={() =>
-        state.moreInfo
-          ? null
-          : setState((state) => ({ ...state, moreInfo: true }))
-      }
     >
       {determineImageBackgroundSource() ? (
         <ImageBackground
           extended={state.moreInfo}
-          handleRetract={handleRetract}
+          handleExtendRetract={handleExtendRetract}
           type={item.type}
           source={item.source}
         >
