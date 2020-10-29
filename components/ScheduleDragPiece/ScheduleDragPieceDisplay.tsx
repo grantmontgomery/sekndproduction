@@ -6,18 +6,24 @@ import css from "./ScheduleDragPiece.module.scss";
 
 export const ScheduleDragPieceDisplay: React.FC<{
   translateY: number;
-  isDragging: boolean;
+  touchDragging: boolean;
+  mouseDragging: boolean;
   handleTouchStart: (any) => void;
   handleTouchEnd: (any) => void;
+  handleMouseDown: (any) => void;
+  handleMouseUp: (any) => void;
   heightChanging: boolean;
   part: { [key: string]: any };
   heightDirection: string;
   pieceHeight: number;
 }> = ({
   translateY,
-  isDragging,
+  touchDragging,
   handleTouchStart,
   handleTouchEnd,
+  handleMouseDown,
+  handleMouseUp,
+  mouseDragging,
   part,
   heightDirection,
   heightChanging,
@@ -77,9 +83,11 @@ export const ScheduleDragPieceDisplay: React.FC<{
       style={{
         height: calculateHeight(),
         border: part.name ? "none" : "solid 1px #2c5364",
-        position: isDragging ? "absolute" : "relative",
-        transform: `translate(0, ${isDragging ? translateY : 0}px)`,
-        right: isDragging ? "2.5%" : "0",
+        position: touchDragging || mouseDragging ? "absolute" : "relative",
+        transform: `translate(0, ${
+          touchDragging || mouseDragging ? translateY : 0
+        }px)`,
+        right: touchDragging || mouseDragging ? "2.5%" : "0",
         top:
           heightChanging &&
           heightDirection === "up" &&
@@ -88,15 +96,18 @@ export const ScheduleDragPieceDisplay: React.FC<{
             ? `${translateY}px`
             : "0px",
 
-        zIndex: isDragging ? 4 : 1,
+        zIndex: touchDragging ? 4 : 1,
       }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
     >
       <button
         id="extendHandle1"
         className={css.extendHandle}
         onTouchStart={handleTouchStart}
+        onMouseDown={handleMouseDown}
       ></button>
       <button
         className={css.removePart}
@@ -143,6 +154,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
         id="extendHandle2"
         className={css.extendHandle}
         onTouchStart={handleTouchStart}
+        onMouseDown={handleMouseDown}
       ></button>
     </div>
   );
