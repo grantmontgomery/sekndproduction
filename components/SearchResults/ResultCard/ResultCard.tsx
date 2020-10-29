@@ -121,9 +121,11 @@ export const ResultCard: React.FC<{
                   street={item.location.display_address[0]}
                   city={item.location.display_address[1]}
                 ></Location>
-                <PartLink url={item.url} />
+                <PartLink orientation="portrait" url={item.url} />
               </div>
             </div>
+            <PartLink orientation="landscape" url={item.url} />
+
             {moreDetails("place")}
           </React.Fragment>
         );
@@ -200,10 +202,13 @@ export const ResultCard: React.FC<{
                   description={item.description}
                 ></EventDescription>
                 <PartLink
+                  orientation="portrait"
                   url={item.source === "yelp" ? item.event_site_url : item.url}
                 />
               </div>
             </div>
+            <PartLink orientation="landscape" url={item.url} />
+
             {moreDetails("event")}
           </React.Fragment>
         );
@@ -235,6 +240,7 @@ export const ResultCard: React.FC<{
   return resultsLoading ? (
     <div className={css.resultCard} style={{ background: "#999999" }}>
       <div className={`${css.addButton} ${css.loadingAdd}`}></div>
+      <div className={css.loadingImageSection}></div>
       <div className={css.infoBar} style={{ background: "transparent" }}>
         <div className={css.loadingBar}></div>
         <div className={css.loadingBar}></div>

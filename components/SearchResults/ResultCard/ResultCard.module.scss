@@ -21,6 +21,9 @@
   &.loading {
     opacity: 0;
   }
+  & .loadingImageSection {
+    display: none;
+  }
 
   & .infoBar {
     display: flex;
@@ -145,6 +148,17 @@
     grid-template-columns: clamp(175px, 40%, 250px) auto;
     grid-template-rows: 100%;
     padding: 0;
+    & .loadingImageSection {
+      display: block;
+      width: clamp(175px, 40%, 250px);
+      position: absolute;
+      float: left;
+      left: 0;
+      background: linear-gradient(to right, white, #e0e0e0);
+      animation: loading 1s infinite;
+      background-size: 200%;
+      height: 100%;
+    }
     & .infoBar {
       pointer-events: none;
       display: grid;
@@ -199,14 +213,19 @@
     }
     & .addButton {
       right: 20px;
-      height: 5vh;
+      height: 4vh;
       cursor: pointer;
       top: 20px;
-      height: 4vh;
       border-radius: 5vh;
       font-size: 1.5vh;
 
       &.loadingAdd {
+        right: 20px;
+        height: 4vh;
+        cursor: pointer;
+        top: 20px;
+        border-radius: 5vh;
+        font-size: 1.5vh;
         width: 20%;
       }
     }

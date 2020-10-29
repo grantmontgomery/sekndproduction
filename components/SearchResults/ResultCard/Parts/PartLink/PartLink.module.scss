@@ -7,6 +7,12 @@
   width: fit-content;
   right: 5%;
   position: absolute;
+  &.portraitLink {
+    display: block;
+  }
+  &.landscapeLink {
+    display: none;
+  }
   & svg {
     height: 5vh;
     width: auto;
@@ -19,9 +25,15 @@
 @media (orientation: landscape) {
   .link {
     top: 75%;
-    bottom: 5%;
     transform: translate(0);
     cursor: pointer;
+    &.portraitLink {
+      display: none;
+    }
+    &.landscapeLink {
+      position: absolute;
+      display: block;
+    }
     & svg {
       cursor: pointer;
 

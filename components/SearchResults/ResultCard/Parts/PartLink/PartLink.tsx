@@ -1,8 +1,17 @@
 import * as React from "react";
 import css from "./PartLink.module.scss";
-export const PartLink: React.FC<{ url: string }> = ({ url }) => {
+export const PartLink: React.FC<{ orientation: string; url: string }> = ({
+  url,
+  orientation,
+}) => {
   return (
-    <a href={url} className={css.link} target="_blank">
+    <a
+      href={url}
+      className={`${css.link} ${
+        orientation === "landscape" ? css.landscapeLink : css.portraitLink
+      }`}
+      target="_blank"
+    >
       <svg
         fill="#000000"
         xmlns="http://www.w3.org/2000/svg"

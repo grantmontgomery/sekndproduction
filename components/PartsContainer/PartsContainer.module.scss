@@ -27,14 +27,6 @@
 
 @media (orientation: landscape) {
   .partsContainer {
-    height: 100vh;
-    box-shadow: none;
-    width: 100%;
-    grid-area: parts;
-    display: flex;
-    flex-flow: column nowrap;
-    & svg {
-      display: none;
-    }
+    display: none;
   }
 }
