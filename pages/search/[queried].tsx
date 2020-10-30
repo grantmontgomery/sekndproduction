@@ -27,7 +27,7 @@ export default function Queried(): JSX.Element {
   const urlStart: string =
     process.env.NODE_ENV !== "production"
       ? "http://localhost:3000"
-      : "https://d2e9o90ayt0csk.cloudfront.net";
+      : "https://sekndapp.com";
 
   const setSearchParameters: () => { [key: string]: any } | null = () => {
     const { query } = router;

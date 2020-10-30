@@ -65,7 +65,7 @@ export const ResultCard: React.FC<{
               street={item.location.display_address[0]}
               city={item.location.display_address[1]}
             ></Location>
-            <PartLink url={item.url} />
+            <PartLink orientation="portait" url={item.url} />
           </div>
         );
       case "event":
@@ -73,6 +73,7 @@ export const ResultCard: React.FC<{
           <div className={css.detailsWrapper}>
             <EventDescription description={item.description}></EventDescription>
             <PartLink
+              orientation="portait"
               url={item.source === "yelp" ? item.event_site_url : item.url}
             />
           </div>
