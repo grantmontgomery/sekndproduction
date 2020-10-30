@@ -286,7 +286,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
             },
             moveScroll:
               clientY >= window.innerHeight * 0.7 ||
-              clientY <= window.innerHeight * 0.38,
+              clientY <= window.innerHeight * 0.05,
             elementBelow,
           }));
         } else {
@@ -312,7 +312,6 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   const handleMouseUp = (): void => {
     window.removeEventListener("mousemove", handleTouchMove);
     window.removeEventListener("mouseup", handleMouseUp);
-    window.removeEventListener("touchmove", handleExtendRetract);
 
     if (dragPosition.draggingElement) {
       if (
@@ -443,6 +442,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   );
 
   React.useEffect(() => {
+    console.log(dragPosition.mouseDragging);
     dragPosition.mouseDragging
       ? window.addEventListener("mousemove", handleMouseMove)
       : window.removeEventListener("mousemove", handleMouseMove);

@@ -88,6 +88,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
           touchDragging || mouseDragging ? translateY : 0
         }px)`,
         right: touchDragging || mouseDragging ? "2.5%" : "0",
+        cursor: mouseDragging ? "grabbing" : "grab",
         top:
           heightChanging &&
           heightDirection === "up" &&
