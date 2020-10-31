@@ -36,7 +36,7 @@ export default function App({
 }: Props): JSX.Element {
   return (
     <RectanglesProvider>
-      <GridProvider>
+      <GridProvider initialState={JSON.parse(Cookie.get("grid"))}>
         <PartsProvider>
           <PageTransition
             timeout={1000}

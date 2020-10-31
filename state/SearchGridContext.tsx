@@ -1,5 +1,6 @@
 import * as React from "react";
 import Cookie from "js-cookie";
+import { useRectanglesDispatch } from "./GridRectanglesContext";
 
 type State = {
   hourStrings: string[];
@@ -69,7 +70,7 @@ export const GridProvider: ({
   );
 
   React.useEffect(() => {
-    Cookie.setItem(
+    Cookie.set(
       "grid",
       JSON.stringify({
         ...state,
@@ -78,7 +79,19 @@ export const GridProvider: ({
     );
   }, [state]);
 
-  React.useEffect(() => {}, []);
+  const rectanglesDispatch = useRectanglesDispatch();
+
+  React.useEffect(() => {
+    if (!window.sessionStorage.getItem("rectangles")) {
+      console.log("initializing state maybe with Cookies.");
+      initialState
+        ? rectanglesDispatch({
+            type: "ADD_RECTANGLES",
+            payload: { numberOfRectangles: initialState.numberOfSquares },
+          })
+        : null;
+    }
+  }, []);
 
   return (
     <GridStateContext.Provider value={state}>
