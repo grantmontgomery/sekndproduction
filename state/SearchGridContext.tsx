@@ -1,4 +1,5 @@
 import * as React from "react";
+import Cookie from "js-cookie";
 
 type State = {
   hourStrings: string[];
@@ -43,48 +44,41 @@ const GridDispatchContext: React.Context<
 
 export const GridProvider: ({
   children,
+  initialState,
 }: {
   children: React.ReactNode;
-}) => JSX.Element = ({ children }) => {
-  const [state, dispatch] = React.useReducer(gridReducer, {
-    gridTemplate: "",
-    hourStrings: [],
-    hourStringsTrue: [],
-    endDate: null,
-    startDate: null,
-  });
-
-  const windowObject: React.MutableRefObject<
-    Window | undefined
-  > = React.useRef();
+  initialState: State & { numberOfSquares: number };
+}) => JSX.Element = ({ children, initialState }) => {
+  const [state, dispatch] = React.useReducer(
+    gridReducer,
+    initialState
+      ? {
+          gridTemplate: initialState.gridTemplate,
+          hourStrings: initialState.hourStrings,
+          hourStringsTrue: initialState.hourStringsTrue,
+          endDate: initialState.endDate,
+          startDate: initialState.startDate,
+        }
+      : {
+          gridTemplate: "",
+          hourStrings: [],
+          hourStringsTrue: [],
+          endDate: null,
+          startDate: null,
+        }
+  );
 
   React.useEffect(() => {
-    if (windowObject.current)
-      sessionStorage.setItem("grid", JSON.stringify(state));
+    Cookie.setItem(
+      "grid",
+      JSON.stringify({
+        ...state,
+        numberOfSquares: (state.hourStrings.length + 1) * 2,
+      })
+    );
   }, [state]);
 
-  React.useEffect(() => {
-    windowObject.current = window;
-    if (windowObject.current.sessionStorage.getItem("grid")) {
-      const {
-        gridTemplate,
-        hourStrings,
-        hourStringsTrue,
-        endDate,
-        startDate,
-      } = JSON.parse(windowObject.current.sessionStorage.getItem("grid"));
-      dispatch({
-        type: "ADD_GRID_TEMPLATE",
-        payload: {
-          gridTemplate,
-          hourStrings,
-          hourStringsTrue,
-          endDate,
-          startDate,
-        },
-      });
-    }
-  }, []);
+  React.useEffect(() => {}, []);
 
   return (
     <GridStateContext.Provider value={state}>
