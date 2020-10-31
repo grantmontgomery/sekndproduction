@@ -1,6 +1,4 @@
 import * as React from "react";
-import Cookie from "js-cookie";
-import { actionButton } from "aws-amplify";
 
 type State = {
   rectangles: { part: { [key: string]: any } | null }[];

@@ -7,6 +7,7 @@ import {
   PlacesInput,
 } from "./Parts";
 import GridClass from "./Logic/GridClass";
+import Cookie from "js-cookie";
 import Link from "next/link";
 import { usePartsDispatch } from "../../state/DatePartsContext";
 import { useGridDispatch } from "../../state/SearchGridContext";
@@ -69,6 +70,7 @@ export const SearchBox: React.FC = (props) => {
       searchQuery.unixStartDate,
       searchQuery.unixEndDate
     );
+
     newDatesInput.setGrid();
     partsDispatch({ type: "CLEAR_PARTS" });
     rectanglesDispatch({
@@ -85,6 +87,36 @@ export const SearchBox: React.FC = (props) => {
         gridTemplate: newDatesInput.templateAreas,
       },
     });
+
+    const {
+      location,
+      radius,
+      placeType,
+      startFormatted,
+      endFormatted,
+      unixStartDate,
+      unixEndDate,
+      eventsCategory,
+      searchType,
+    } = searchQuery;
+    console.log(searchType);
+    switch (searchType) {
+      case "ALL":
+        Cookie.set(
+          "link",
+          `/search/searchType=${searchType}+location=${location}+radius=${radius}+placeType=${placeType}+startFormatted=${startFormatted}+endFormatted=${endFormatted}+unixStartDate=${unixStartDate}+unixEndDate=${unixEndDate}+eventsCategory=${eventsCategory}`
+        );
+      case "PLACES":
+        Cookie.set(
+          "link",
+          `/search/searchType=${searchType}+location=${location}+radius=${radius}+placeType=${placeType}+startFormatted=${startFormatted}+endFormatted=${endFormatted}`
+        );
+      case "EVENTS":
+        Cookie.set(
+          "link",
+          `/search/searchType=${searchType}+location=${location}+radius=${radius}+startFormatted=${startFormatted}+endFormatted=${endFormatted}+unixStartDate=${unixStartDate}+unixEndDate=${unixEndDate}+eventsCategory=${eventsCategory}`
+        );
+    }
   };
 
   const checkFieldsDisplayLink: (searchType: string) => JSX.Element = (

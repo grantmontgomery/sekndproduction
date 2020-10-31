@@ -16,6 +16,12 @@
     color: black;
     margin-top: 3vh;
     font-size: 6vw;
+    & .dummyLink {
+      height: fit-content;
+      width: fit-content;
+      position: relative;
+      font-size: 6vw;
+    }
   }
   &.landscape {
     display: none;
@@ -40,6 +46,12 @@
         position: relative;
 
         color: black;
+        & .dummyLink {
+          height: fit-content;
+          width: fit-content;
+          position: relative;
+          font-size: 3vh;
+        }
       }
     }
   }

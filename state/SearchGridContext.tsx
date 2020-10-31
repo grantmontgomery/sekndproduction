@@ -1,5 +1,4 @@
 import * as React from "react";
-import Cookie from "js-cookie";
 
 type State = {
   hourStrings: string[];
