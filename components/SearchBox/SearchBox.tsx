@@ -100,22 +100,27 @@ export const SearchBox: React.FC = (props) => {
       searchType,
     } = searchQuery;
     console.log(searchType);
-    switch (searchType) {
-      case "ALL":
-        Cookie.set(
-          "link",
-          `/search/searchType=${searchType}+location=${location}+radius=${radius}+placeType=${placeType}+startFormatted=${startFormatted}+endFormatted=${endFormatted}+unixStartDate=${unixStartDate}+unixEndDate=${unixEndDate}+eventsCategory=${eventsCategory}`
-        );
-      case "PLACES":
-        Cookie.set(
-          "link",
-          `/search/searchType=${searchType}+location=${location}+radius=${radius}+placeType=${placeType}+startFormatted=${startFormatted}+endFormatted=${endFormatted}`
-        );
-      case "EVENTS":
-        Cookie.set(
-          "link",
-          `/search/searchType=${searchType}+location=${location}+radius=${radius}+startFormatted=${startFormatted}+endFormatted=${endFormatted}+unixStartDate=${unixStartDate}+unixEndDate=${unixEndDate}+eventsCategory=${eventsCategory}`
-        );
+
+    if (searchType === "ALL") {
+      console.log("setting ALL link");
+      Cookie.set(
+        "link",
+        `/search/searchType=${searchType}+location=${location}+radius=${radius}+placeType=${placeType}+startFormatted=${startFormatted}+endFormatted=${endFormatted}+unixStartDate=${unixStartDate}+unixEndDate=${unixEndDate}+eventsCategory=${eventsCategory}`
+      );
+    } else if (searchType === "PLACES") {
+      console.log("setting Places link");
+
+      Cookie.set(
+        "link",
+        `/search/searchType=${searchType}+location=${location}+radius=${radius}+placeType=${placeType}+startFormatted=${startFormatted}+endFormatted=${endFormatted}`
+      );
+    } else if (searchType === "EVENTS") {
+      console.log("setting Events link");
+
+      Cookie.set(
+        "link",
+        `/search/searchType=${searchType}+location=${location}+radius=${radius}+startFormatted=${startFormatted}+endFormatted=${endFormatted}+unixStartDate=${unixStartDate}+unixEndDate=${unixEndDate}+eventsCategory=${eventsCategory}`
+      );
     }
   };
 

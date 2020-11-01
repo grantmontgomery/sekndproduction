@@ -83,7 +83,6 @@ export const GridProvider: ({
 
   React.useEffect(() => {
     if (!window.sessionStorage.getItem("rectangles")) {
-      console.log("initializing state maybe with Cookies.");
       initialState
         ? rectanglesDispatch({
             type: "ADD_RECTANGLES",

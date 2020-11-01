@@ -9,10 +9,8 @@ import { PartsProvider } from "../state/DatePartsContext";
 import { GridProvider } from "../state/SearchGridContext";
 import { RectanglesProvider } from "../state/GridRectanglesContext";
 
-import { parseCookies } from "../cookies/parseCookies";
 import { NextComponentType, NextPage, NextPageContext } from "next";
 import { NextRouter } from "next/router";
-import mitt from "next/dist/next-server/lib/mitt";
 
 type InitialrectanglesState = {
   rectangles: { part: { [key: string]: any } | null }[];
@@ -36,7 +34,11 @@ export default function App({
 }: Props): JSX.Element {
   return (
     <RectanglesProvider>
-      <GridProvider initialState={JSON.parse(Cookie.get("grid"))}>
+      <GridProvider
+        initialState={
+          Cookie.get("grid") ? JSON.parse(Cookie.get("grid")) : null
+        }
+      >
         <PartsProvider>
           <PageTransition
             timeout={1000}
