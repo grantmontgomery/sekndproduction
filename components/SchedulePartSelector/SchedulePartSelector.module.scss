@@ -12,6 +12,35 @@
     width: 100%;
     & .selectorDisplay {
       height: 20%;
+      padding: 5%;
+      & h1 {
+        height: fit-content;
+        width: fit-content;
+        display: block;
+        position: relative;
+        margin-left: auto;
+        font-size: 3.5vh;
+        margin-right: auto;
+      }
+      & .assignButton {
+        float: right;
+        display: block;
+        position: absolute;
+        height: fit-content;
+        right: 5%;
+        bottom: 5%;
+        width: fit-content;
+        cursor: pointer;
+        border: none;
+        background: transparent;
+        & svg {
+          height: 4vh;
+          display: block;
+          width: 4vh;
+          stroke: #57c769;
+          fill: #57c769;
+        }
+      }
     }
     & .partsWrapper {
       align-items: center;

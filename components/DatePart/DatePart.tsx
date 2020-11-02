@@ -74,7 +74,7 @@ export const DatePart: React.FC<{
 
   return (
     <div
-      className={`${css.normalPiece} ${state.extend ? css.extended : null}`}
+      className={`${css.datePiece} ${state.extend ? css.extended : null}`}
       onClick={() =>
         location !== "schedule"
           ? setState((state) => ({ ...state, extend: true }))

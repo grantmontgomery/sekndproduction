@@ -1,4 +1,4 @@
-.normalPiece {
+.datePiece {
   height: 10vh;
   width: 100%;
   // margin-top: 1.5vh;
@@ -11,6 +11,7 @@
   grid-template-areas: "image title";
   // box-shadow: 0 0.5vh 1vh #00000080;
   transition: 250ms ease-out;
+  cursor: pointer;
 
   &.extended {
     height: 20vh;
