@@ -246,31 +246,30 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
         origin: { y: clientY },
       }));
     } else if (target.className.includes("removePart")) {
-      console.log(target);
       setPosition((position) => ({
         ...position,
         heightChanging: false,
         mouseDragging: false,
         touchDragging: false,
       }));
+    } else {
+      const initialScrollTop: number = document.getElementById("innerGrid")
+        .scrollTop;
+
+      currentTarget.hidden = true;
+      const elementBelow: Element = document.elementFromPoint(clientX, clientY);
+      currentTarget.hidden = false;
+
+      setPosition((dragPosition) => ({
+        ...dragPosition,
+        mouseDragging: true,
+        heightChanging: false,
+        initialScrollTop,
+        draggingElement: currentTarget,
+        origin: { y: clientY },
+        elementBelow,
+      }));
     }
-
-    const initialScrollTop: number = document.getElementById("innerGrid")
-      .scrollTop;
-
-    currentTarget.hidden = true;
-    const elementBelow: Element = document.elementFromPoint(clientX, clientY);
-    currentTarget.hidden = false;
-
-    setPosition((dragPosition) => ({
-      ...dragPosition,
-      mouseDragging: true,
-      heightChanging: false,
-      initialScrollTop,
-      draggingElement: currentTarget,
-      origin: { y: clientY },
-      elementBelow,
-    }));
   };
 
   const handleMouseMove = React.useCallback(
@@ -451,7 +450,6 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   );
 
   React.useEffect(() => {
-    console.log(dragPosition.mouseDragging);
     dragPosition.mouseDragging
       ? window.addEventListener("mousemove", handleMouseMove)
       : window.removeEventListener("mousemove", handleMouseMove);
