@@ -6,6 +6,7 @@ import {
   ScheduleGrid,
   PartsContainer,
   TouchProvider,
+  SchedulePartSelector,
 } from "../components";
 import { start } from "repl";
 
@@ -51,6 +52,7 @@ export default function Schedule(): JSX.Element {
   return (
     <Layout>
       <main className={css.main}>
+        <SchedulePartSelector></SchedulePartSelector>
         <header>
           <div className={css.datesSelector}>No Saved Dates</div>
           <div className={css.times}>

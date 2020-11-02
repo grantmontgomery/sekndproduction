@@ -1,0 +1,12 @@
+.selectorWrapper {
+  grid-area: parts;
+  display: none;
+}
+
+@media (orientation: landscape) {
+  .selectorWrapper {
+    grid-area: parts;
+    display: flex;
+    flex-flow: column nowrap;
+  }
+}
