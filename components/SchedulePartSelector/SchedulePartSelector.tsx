@@ -1,6 +1,7 @@
 import * as React from "react";
 import { usePartsState } from "../../state/DatePartsContext";
 import { ScheduleSelectPart } from "../ScheduleSelectPart";
+import { DatePart } from "../DatePart";
 import css from "./SchedulePartSelector.module.scss";
 
 export const SchedulePartSelector: React.FC = () => {

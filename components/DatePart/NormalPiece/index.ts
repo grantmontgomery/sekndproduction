@@ -1,1 +1,0 @@
-export { NormalPiece } from "./NormalPiece";

@@ -2,7 +2,7 @@ import * as React from "react";
 import {
   usePartsDispatch,
   usePartsState,
-} from "../../../../state/DatePartsContext";
+} from "../../../state/DatePartsContext";
 import css from "./DetailsSection.module.scss";
 
 export const DetailsSection: React.FC<{

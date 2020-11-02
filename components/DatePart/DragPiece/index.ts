@@ -1,1 +1,0 @@
-export { DragPiece } from "./DragPiece";

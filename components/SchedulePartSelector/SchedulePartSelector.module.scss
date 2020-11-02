@@ -8,5 +8,16 @@
     grid-area: parts;
     display: flex;
     flex-flow: column nowrap;
+    height: 100%;
+    width: 100%;
+    & header {
+      height: 20%;
+    }
+    & .partsWrapper {
+      align-items: center;
+      height: 80%;
+      display: flex;
+      flex-flow: column nowrap;
+    }
   }
 }
