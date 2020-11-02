@@ -1,12 +1,14 @@
 import * as React from "react";
 import { DatePart } from "../DatePart/DatePart";
 import { usePartsState } from "../../state/DatePartsContext";
-import { useTouchState } from "../ScheduleGrid/Context";
+import { useTouchState, useTouchDispatch } from "../ScheduleGrid/Context";
 import css from "./SchedulePartSelector.module.scss";
 
 export const SchedulePartSelector: React.FC = () => {
   const { customPiece } = useTouchState();
   const { parts } = usePartsState();
+  const touchDispatch = useTouchDispatch();
+
   return (
     <div className={css.selectorWrapper}>
       <header className={css.selectorDisplay}>

@@ -1,6 +1,10 @@
 import * as React from "react";
 import css from "./DatePart.module.scss";
 import { DetailsSection } from "./DetailsSection";
+import {
+  useRectanglesDispatch,
+  useRectanglesState,
+} from "../../state/GridRectanglesContext";
 import { usePartsDispatch } from "../../state/DatePartsContext";
 import { PartImage } from "./PartImage";
 

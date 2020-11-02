@@ -236,32 +236,48 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     clientX,
     clientY,
   }) => void = ({ target, currentTarget, clientX, clientY }) => {
-    if (target.className.includes("extendHandle")) {
-      setPosition((position) => ({
-        ...position,
-        heightChanging: true,
-        mouseDragging: false,
-        heightDirection: target.id === "extendHandle1" ? "up" : "down",
-        origin: { y: clientY },
-      }));
-    } else {
-      const initialScrollTop: number = document.getElementById("innerGrid")
-        .scrollTop;
+    switch (target.className) {
+      case target.className.includes("extendHandle"):
+        setPosition((position) => ({
+          ...position,
+          heightChanging: true,
+          mouseDragging: false,
+          heightDirection: target.id === "extendHandle1" ? "up" : "down",
+          origin: { y: clientY },
+        }));
+      case target.className.includes("removePart"):
+        setPosition((position) => ({
+          ...position,
+          heightChanging: false,
+          mouseDragging: false,
+          touchDragging: false,
+        }));
+        rectanglesDispatch({
+          type: "REMOVE_PART_FROM_RECTANGLE",
+          payload: { index: part.rectangleIndex },
+        });
+      default:
+        const initialScrollTop: number = document.getElementById("innerGrid")
+          .scrollTop;
 
-      currentTarget.hidden = true;
-      const elementBelow: Element = document.elementFromPoint(clientX, clientY);
-      currentTarget.hidden = false;
+        currentTarget.hidden = true;
+        const elementBelow: Element = document.elementFromPoint(
+          clientX,
+          clientY
+        );
+        currentTarget.hidden = false;
 
-      setPosition((dragPosition) => ({
-        ...dragPosition,
-        mouseDragging: true,
-        heightChanging: false,
-        initialScrollTop,
-        draggingElement: currentTarget,
-        origin: { y: clientY },
-        elementBelow,
-      }));
+        setPosition((dragPosition) => ({
+          ...dragPosition,
+          mouseDragging: true,
+          heightChanging: false,
+          initialScrollTop,
+          draggingElement: currentTarget,
+          origin: { y: clientY },
+          elementBelow,
+        }));
     }
+    console.log(target);
   };
 
   const handleMouseMove = React.useCallback(
