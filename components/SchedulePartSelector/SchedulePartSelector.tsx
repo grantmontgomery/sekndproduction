@@ -1,17 +1,17 @@
 import * as React from "react";
+import { DatePart } from "../DatePart/DatePart";
 import { usePartsState } from "../../state/DatePartsContext";
 import { ScheduleSelectPart } from "../ScheduleSelectPart";
-import { DatePart } from "../DatePart";
 import css from "./SchedulePartSelector.module.scss";
 
 export const SchedulePartSelector: React.FC = () => {
   const { parts } = usePartsState();
   return (
     <div className={css.selectorWrapper}>
-      <header></header>
+      <header className={css.selectorDisplay}></header>
       <div className={css.partsWrapper}>
         {parts.map((part) => (
-          <ScheduleSelectPart part={part}></ScheduleSelectPart>
+          <DatePart location="schedule" part={part}></DatePart>
         ))}
       </div>
     </div>

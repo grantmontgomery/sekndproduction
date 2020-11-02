@@ -90,14 +90,16 @@ export const DatePart: React.FC<{
       </PartImage>
       <div className={css.partTitle}>
         <span>{part.name}</span>
-        <button
-          className={css.delete}
-          onClick={() =>
-            dispatch({ type: "REMOVE_PART", payload: { id: part.id } })
-          }
-        >
-          X
-        </button>
+        {location === "schedule" ? null : (
+          <button
+            className={css.delete}
+            onClick={() =>
+              dispatch({ type: "REMOVE_PART", payload: { id: part.id } })
+            }
+          >
+            X
+          </button>
+        )}
       </div>
       {state.extend ? determinePartDetails() : null}
     </div>
