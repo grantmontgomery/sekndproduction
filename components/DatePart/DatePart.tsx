@@ -75,7 +75,11 @@ export const DatePart: React.FC<{
   return (
     <div
       className={`${css.normalPiece} ${state.extend ? css.extended : null}`}
-      onClick={() => setState((state) => ({ ...state, extend: true }))}
+      onClick={() =>
+        location !== "schedule"
+          ? setState((state) => ({ ...state, extend: true }))
+          : null
+      }
     >
       <PartImage
         type={part.type}
