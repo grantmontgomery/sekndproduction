@@ -7,6 +7,7 @@ import {
 } from "../../state/GridRectanglesContext";
 
 import { useTouchDispatch } from "../ScheduleGrid/Context";
+import { sectionFooterSecondaryContent } from "aws-amplify";
 
 export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   part,
@@ -236,48 +237,40 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     clientX,
     clientY,
   }) => void = ({ target, currentTarget, clientX, clientY }) => {
-    switch (target.className) {
-      case target.className.includes("extendHandle"):
-        setPosition((position) => ({
-          ...position,
-          heightChanging: true,
-          mouseDragging: false,
-          heightDirection: target.id === "extendHandle1" ? "up" : "down",
-          origin: { y: clientY },
-        }));
-      case target.className.includes("removePart"):
-        setPosition((position) => ({
-          ...position,
-          heightChanging: false,
-          mouseDragging: false,
-          touchDragging: false,
-        }));
-        rectanglesDispatch({
-          type: "REMOVE_PART_FROM_RECTANGLE",
-          payload: { index: part.rectangleIndex },
-        });
-      default:
-        const initialScrollTop: number = document.getElementById("innerGrid")
-          .scrollTop;
-
-        currentTarget.hidden = true;
-        const elementBelow: Element = document.elementFromPoint(
-          clientX,
-          clientY
-        );
-        currentTarget.hidden = false;
-
-        setPosition((dragPosition) => ({
-          ...dragPosition,
-          mouseDragging: true,
-          heightChanging: false,
-          initialScrollTop,
-          draggingElement: currentTarget,
-          origin: { y: clientY },
-          elementBelow,
-        }));
+    if (target.className.includes("extendHandle")) {
+      setPosition((position) => ({
+        ...position,
+        heightChanging: true,
+        mouseDragging: false,
+        heightDirection: target.id === "extendHandle1" ? "up" : "down",
+        origin: { y: clientY },
+      }));
+    } else if (target.className.includes("removePart")) {
+      console.log(target);
+      setPosition((position) => ({
+        ...position,
+        heightChanging: false,
+        mouseDragging: false,
+        touchDragging: false,
+      }));
     }
-    console.log(target);
+
+    const initialScrollTop: number = document.getElementById("innerGrid")
+      .scrollTop;
+
+    currentTarget.hidden = true;
+    const elementBelow: Element = document.elementFromPoint(clientX, clientY);
+    currentTarget.hidden = false;
+
+    setPosition((dragPosition) => ({
+      ...dragPosition,
+      mouseDragging: true,
+      heightChanging: false,
+      initialScrollTop,
+      draggingElement: currentTarget,
+      origin: { y: clientY },
+      elementBelow,
+    }));
   };
 
   const handleMouseMove = React.useCallback(
@@ -300,9 +293,9 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
             translation: {
               y: clientY - dragPosition.origin.y + dragPosition.scrollCounter,
             },
-            moveScroll:
-              clientY >= window.innerHeight * 0.7 ||
-              clientY <= window.innerHeight * 0.05,
+            // moveScroll:
+            //   clientY >= window.innerHeight * 0.7 ||
+            //   clientY <= window.innerHeight * 0.05,
             elementBelow,
           }));
         } else {
@@ -462,6 +455,10 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     dragPosition.mouseDragging
       ? window.addEventListener("mousemove", handleMouseMove)
       : window.removeEventListener("mousemove", handleMouseMove);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mousedown", handleMouseDown);
+    };
   }, [dragPosition.mouseDragging]);
 
   React.useEffect(() => {
@@ -482,6 +479,19 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
       window.removeEventListener("touchstart", handleTouchStart);
       clearInterval(upScrollInterval.current);
       clearInterval(downScrollInterval.current);
+      setPosition({
+        touchDragging: false,
+        origin: { y: 0 },
+        mouseDragging: false,
+        translation: { y: 0 },
+        initialScrollTop: 0,
+        moveScroll: false,
+        elementBelow: null,
+        draggingElement: null,
+        scrollCounter: 0,
+        heightChanging: false,
+        heightDirection: "",
+      });
     };
   }, []);
 
