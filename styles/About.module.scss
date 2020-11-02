@@ -1,0 +1,22 @@
+.pageContainer {
+  top: 10vh;
+  position: relative;
+  height: 90vh;
+  width: 100vw;
+  padding: 5%;
+  & .description {
+    & .createdBy {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (orientation: landscape) {
+  .pageContainer {
+    & .description {
+    }
+    & .links {
+    }
+  }
+}

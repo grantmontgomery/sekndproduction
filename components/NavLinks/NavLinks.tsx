@@ -17,9 +17,6 @@ export const NavLinks: React.FC<{ orientation: string }> = ({
         <Link href="/about">About</Link>
       </li>
       <li>
-        <Link href="/contact">Contact</Link>
-      </li>
-      <li>
         {Cookie.get("link") ? (
           <Link
             href={{ pathname: "/search/[queried]" }}
