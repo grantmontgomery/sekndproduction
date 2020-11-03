@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useRectanglesDispatch } from "../../state/GridRectanglesContext";
+import { useTouchDispatch } from "../ScheduleGrid/Context";
 import { trackTimeLength } from "./Logic";
 import { useGridState } from "../../state/SearchGridContext";
 import css from "./ScheduleDragPiece.module.scss";
@@ -31,6 +32,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
 }) => {
   const [imageLoaded, loadImage] = React.useState<boolean>(false);
   const rectanglesDispatch = useRectanglesDispatch();
+  const touchDispatch = useTouchDispatch();
   const { hourStringsTrue } = useGridState();
 
   const calculateHeight: () => string = () => {
@@ -112,12 +114,14 @@ export const ScheduleDragPieceDisplay: React.FC<{
       ></button>
       <button
         className={css.removePart}
-        onClick={() =>
+        onClick={() => {
+          if (!part.name) touchDispatch({ type: "REMOVE_CUSTOM_PIECE" });
+
           rectanglesDispatch({
             type: "REMOVE_PART_FROM_RECTANGLE",
             payload: { index: part.rectangleIndex },
-          })
-        }
+          });
+        }}
       >
         X
       </button>
