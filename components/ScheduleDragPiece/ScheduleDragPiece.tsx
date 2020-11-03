@@ -511,12 +511,6 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
       : window.removeEventListener("touchmove", handleTouchMove);
   }, [dragPosition.touchDragging]);
 
-  // React.useEffect(() => {
-  //   dragPosition.heightChanging
-  //     ? window.addEventListener("touchmove", handleExtendRetract)
-  //     : window.removeEventListener("touchmove", handleExtendRetract);
-  // }, [dragPosition.heightChanging]);
-
   React.useEffect(() => {
     if (dragPosition.heightChanging) {
       dragPosition.mouseHeightChanging
@@ -526,11 +520,11 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
       window.removeEventListener("mousemove", handleExtendRetractMouse);
       window.removeEventListener("touchmove", handleExtendRetract);
     }
+    return () => {
+      window.removeEventListener("mousemove", handleExtendRetractMouse);
+      window.removeEventListener("touchmove", handleExtendRetract);
+    };
   }, [dragPosition.heightChanging]);
-
-  // React.useEffect(() => {
-
-  // },[dragPosition.mouseHeightChanging])
 
   React.useEffect(() => {
     return () => {
