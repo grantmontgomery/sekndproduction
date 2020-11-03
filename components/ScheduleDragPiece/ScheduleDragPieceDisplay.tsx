@@ -111,6 +111,8 @@ export const ScheduleDragPieceDisplay: React.FC<{
         className={css.extendHandle}
         onTouchStart={handleTouchStart}
         onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        style={{ cursor: heightChanging ? "grabbing" : "grab" }}
       ></button>
       <button
         className={css.removePart}
@@ -160,6 +162,8 @@ export const ScheduleDragPieceDisplay: React.FC<{
         className={css.extendHandle}
         onTouchStart={handleTouchStart}
         onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        style={{ cursor: heightChanging ? "grabbing" : "grab" }}
       ></button>
     </div>
   );
