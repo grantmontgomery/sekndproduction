@@ -11,7 +11,8 @@ import { PartImage } from "./PartImage";
 export const DatePart: React.FC<{
   location: string;
   part: { [key: string]: any };
-}> = ({ part, location }) => {
+  handleSelectedPartChange?: (selectedPart: { [key: string]: any }) => void;
+}> = ({ part, location, handleSelectedPartChange }) => {
   const [state, setState] = React.useState<{
     extend: boolean;
     imageLoaded: boolean;
@@ -82,7 +83,7 @@ export const DatePart: React.FC<{
       onClick={() =>
         location !== "schedule"
           ? setState((state) => ({ ...state, extend: true }))
-          : null
+          : handleSelectedPartChange(part)
       }
     >
       <PartImage

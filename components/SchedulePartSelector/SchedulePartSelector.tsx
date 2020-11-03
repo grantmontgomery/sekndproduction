@@ -2,19 +2,65 @@ import * as React from "react";
 import { DatePart } from "../DatePart/DatePart";
 import { usePartsState } from "../../state/DatePartsContext";
 import { useTouchState, useTouchDispatch } from "../ScheduleGrid/Context";
+import {
+  useRectanglesDispatch,
+  useRectanglesState,
+} from "../../state/GridRectanglesContext";
 import css from "./SchedulePartSelector.module.scss";
 
 export const SchedulePartSelector: React.FC = () => {
+  const [part, selectPart] = React.useState<{ [key: string]: any } | null>(
+    null
+  );
+
   const { customPiece } = useTouchState();
   const { parts } = usePartsState();
   const touchDispatch = useTouchDispatch();
+  const rectanglesDispatch = useRectanglesDispatch();
+  const { rectangles } = useRectanglesState();
+
+  React.useEffect(() => {
+    const currentCustomIndex: number | null = rectangles.findIndex(
+      (rectangle) => rectangle.part && rectangle.part.current
+    );
+    if (part)
+      rectanglesDispatch({
+        type: "SET_PIECE",
+        payload: { index: currentCustomIndex, part },
+      });
+  }, [part]);
+
+  React.useEffect(() => {
+    customPiece ? selectPart(parts[0]) : selectPart(null);
+  }, [customPiece]);
+
+  const handleSelectedPartChange: (selectedPart: {
+    [key: string]: any;
+  }) => void = (selectedPart) => {
+    selectPart(selectedPart);
+  };
 
   return (
     <div className={css.selectorWrapper}>
       <header className={css.selectorDisplay}>
         <h1>{customPiece ? "Assign Part" : "Click on Grid"}</h1>
         {customPiece ? (
-          <button className={css.assignButton}>
+          <button
+            className={css.assignButton}
+            onClick={() => {
+              const currentCustomIndex: number | null = rectangles.findIndex(
+                (rectangle) => rectangle.part && rectangle.part.current
+              );
+              touchDispatch({ type: "REMOVE_CUSTOM_PIECE" });
+              rectanglesDispatch({
+                type: "SET_PIECE",
+                payload: {
+                  index: currentCustomIndex,
+                  part: { current: false },
+                },
+              });
+            }}
+          >
             <svg
               version="1.1"
               id="Layer_1"
@@ -41,7 +87,11 @@ export const SchedulePartSelector: React.FC = () => {
         }}
       >
         {parts.map((part) => (
-          <DatePart location="schedule" part={part}></DatePart>
+          <DatePart
+            handleSelectedPartChange={handleSelectedPartChange}
+            location="schedule"
+            part={part}
+          ></DatePart>
         ))}
       </div>
     </div>

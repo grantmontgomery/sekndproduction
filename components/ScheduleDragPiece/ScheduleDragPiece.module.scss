@@ -32,12 +32,13 @@
     right: 1vh;
     height: 4vh;
     border-style: none;
+    cursor: pointer;
     font-size: 1.5vh;
     text-align: center;
     align-items: center;
     vertical-align: center;
     width: 4vh;
-    z-index: 1;
+    z-index: 2;
     border-radius: 4vh;
     box-shadow: 0 1vh 2vh #00000080;
     background: linear-gradient(0.25turn, #f24236, #ad160b);

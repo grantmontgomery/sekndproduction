@@ -530,7 +530,10 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     return () => {
       window.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("touchstart", handleTouchStart);
-
+      window.removeEventListener("mousemove", handleExtendRetractMouse);
+      window.removeEventListener("touchmove", handleExtendRetract);
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("touchmove", handleTouchMove);
       clearInterval(upScrollInterval.current);
       clearInterval(downScrollInterval.current);
       setPosition({
