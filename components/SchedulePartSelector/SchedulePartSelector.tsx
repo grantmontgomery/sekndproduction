@@ -9,7 +9,7 @@ import {
 import css from "./SchedulePartSelector.module.scss";
 
 export const SchedulePartSelector: React.FC = () => {
-  const [part, selectPart] = React.useState<{ [key: string]: any } | null>(
+  const [dragPart, selectPart] = React.useState<{ [key: string]: any } | null>(
     null
   );
 
@@ -23,12 +23,12 @@ export const SchedulePartSelector: React.FC = () => {
     const currentCustomIndex: number | null = rectangles.findIndex(
       (rectangle) => rectangle.part && rectangle.part.current
     );
-    if (part)
+    if (dragPart)
       rectanglesDispatch({
         type: "SET_PIECE",
-        payload: { index: currentCustomIndex, part },
+        payload: { index: currentCustomIndex, part: dragPart },
       });
-  }, [part]);
+  }, [dragPart]);
 
   React.useEffect(() => {
     customPiece ? selectPart(parts[0]) : selectPart(null);
@@ -91,6 +91,7 @@ export const SchedulePartSelector: React.FC = () => {
             handleSelectedPartChange={handleSelectedPartChange}
             location="schedule"
             part={part}
+            selectedID={dragPart ? dragPart.id : null}
           ></DatePart>
         ))}
       </div>

@@ -12,7 +12,8 @@ export const DatePart: React.FC<{
   location: string;
   part: { [key: string]: any };
   handleSelectedPartChange?: (selectedPart: { [key: string]: any }) => void;
-}> = ({ part, location, handleSelectedPartChange }) => {
+  selectedID?: string | null;
+}> = ({ part, location, handleSelectedPartChange, selectedID }) => {
   const [state, setState] = React.useState<{
     extend: boolean;
     imageLoaded: boolean;
@@ -77,6 +78,16 @@ export const DatePart: React.FC<{
     }
   };
 
+  const determineFilter: () => string = () => {
+    if (location !== "schedule") return "none";
+    if (!selectedID) return "grayscale";
+    if (part.id === selectedID) {
+      return "none";
+    } else {
+      return "grayscale";
+    }
+  };
+
   return (
     <div
       className={`${css.datePiece} ${state.extend ? css.extended : null}`}
@@ -85,6 +96,9 @@ export const DatePart: React.FC<{
           ? setState((state) => ({ ...state, extend: true }))
           : handleSelectedPartChange(part)
       }
+      style={{
+        filter: determineFilter(),
+      }}
     >
       <PartImage
         type={part.type}

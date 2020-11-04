@@ -1,5 +1,9 @@
 import * as React from "react";
 import css from "../styles/Schedule.module.scss";
+import {
+  useRectanglesState,
+  useRectanglesDispatch,
+} from "../state/GridRectanglesContext";
 import { useGridState } from "../state/SearchGridContext";
 import {
   Layout,
@@ -11,6 +15,23 @@ import {
 
 export default function Schedule(): JSX.Element {
   const { startDate, endDate } = useGridState();
+  const rectanglesDispatch = useRectanglesDispatch();
+  const { rectangles } = useRectanglesState();
+
+  const removeCustomPart: () => void = () => {
+    for (let i = 0; i < rectangles.length; i++) {
+      if (rectangles[i].part && !rectangles[i].part.name) {
+        rectanglesDispatch({
+          type: "REMOVE_PART_FROM_RECTANGLE",
+          payload: { index: i },
+        });
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    return removeCustomPart();
+  }, []);
 
   const displayTimes: () => void = () => {
     if (endDate && startDate) {
