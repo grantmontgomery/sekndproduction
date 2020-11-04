@@ -4,7 +4,15 @@
   display: block;
   position: relative;
   overscroll-behavior-y: none;
-
+  &::-webkit-scrollbar {
+    background: rgb(225, 225, 225);
+    width: 3.5vw;
+    border-radius: 3.5vw;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 3.5vw;
+  }
   & .instructions {
     display: block;
     height: fit-content;
@@ -48,5 +56,14 @@
     grid-area: grid;
     position: relative;
     height: 100%;
+    &::-webkit-scrollbar {
+      background: rgb(225, 225, 225);
+      width: 1.5vh;
+      border-radius: 1.5vh;
+    }
+    &::-webkit-scrollbar-thumb {
+      background: black;
+      border-radius: 1.5vh;
+    }
   }
 }
