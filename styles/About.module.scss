@@ -10,6 +10,29 @@
       text-decoration: underline;
     }
   }
+  & .links {
+    & .aboutLink {
+      height: 5vh;
+      width: fit-content;
+      display: flex;
+      flex-flow: row nowrap;
+      & span {
+        position: relative;
+        top: 50%;
+        transform: translate(0, -50%);
+        font-size: 2.5vh;
+        width: fit-content;
+        height: fit-content;
+        margin-right: 1vw;
+      }
+
+      & svg {
+        height: 100%;
+        width: auto;
+        fill: black;
+      }
+    }
+  }
 }
 
 @media (orientation: landscape) {
@@ -17,6 +40,11 @@
     & .description {
     }
     & .links {
+      & .aboutLink {
+        & svg {
+          fill: black;
+        }
+      }
     }
   }
 }
