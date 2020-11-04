@@ -13,16 +13,13 @@
     width: 100%;
     overflow-x: scroll;
     &::-webkit-scrollbar {
-      background: gray;
-      width: 1vh;
-      border-radius: 1vh;
-      cursor: pointer;
+      background: rgb(225, 225, 225);
+      width: 2vh;
+      border-radius: 2vh;
     }
     &::-webkit-scrollbar-thumb {
-      background: red;
-      width: 1vh;
-      cursor: pointer;
-      border-radius: 1vh;
+      background: black;
+      border-radius: 2vh;
     }
     & .secretScroll {
       height: 100%;

@@ -102,7 +102,6 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
                 key={part.id}
                 location={location}
                 part={part}
-                gridIndex={part.gridIndex}
               ></DatePart>
             ))}
           </div>
