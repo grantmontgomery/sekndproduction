@@ -11,7 +11,22 @@ export default function Home(): JSX.Element {
         <header>
           <h1>You've got the match, now set the perfect date.</h1>
         </header>
-        <section className={css.walkThrough}></section>
+        <section className={css.featureSection}>
+          <h1>Search</h1>
+          <div className={css.imageWrapper}>
+            <img src="/images/" alt="" />
+            <img src="/images" alt="" />
+          </div>
+        </section>
+        <section className={css.featureSection}>
+          <div className={css.imageWrapper}></div>
+          <h1>Select</h1>
+        </section>
+        <section className={css.featureSection}>
+          <div className={css.imageWrapper}>
+            <h1>Schedule</h1>
+          </div>
+        </section>
       </main>
     </Layout>
   );

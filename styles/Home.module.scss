@@ -9,6 +9,13 @@
       white-space: nowrap;
     }
   }
-  & .walkThrough {
+  & .featureSection {
+    display: flex;
+    flex-flow: row nowrap;
+    &.featureSection:nth-child(1) {
+      height: 10vh;
+      width: 20vw;
+      background: red;
+    }
   }
 }
