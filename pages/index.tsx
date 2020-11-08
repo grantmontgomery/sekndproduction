@@ -8,15 +8,21 @@ export default function Home(): JSX.Element {
   return (
     <Layout>
       <main className={css.homePage}>
-        <header>
-          <h1>You've got the match, now set the perfect date.</h1>
-        </header>
+        <section className={css.introduction}>
+          <h1>
+            You've got the match,
+            <br /> now set the perfect date.
+          </h1>
+          <div className={css.imagesWrapper}>
+            <img src="/images/Laptop.png" alt="" />
+            <img src="/images/Phone.png" alt="" />
+          </div>
+          <div className={css.scrollIndicator}>
+            <h2>Get started</h2>
+          </div>
+        </section>
         <section className={css.featureSection}>
           <h1>Search</h1>
-          <div className={css.imageWrapper}>
-            <img src="/images/" alt="" />
-            <img src="/images" alt="" />
-          </div>
         </section>
         <section className={css.featureSection}>
           <div className={css.imageWrapper}></div>

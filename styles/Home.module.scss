@@ -3,19 +3,57 @@
   height: 90vh;
   position: relative;
   width: 100vw;
-  & header {
+  overflow-x: hidden;
+  padding-left: 5%;
+  padding-right: 5%;
+  & .introduction {
+    position: relative;
+    height: 90vh;
+    width: 100%;
+    display: flex;
+    flex-flow: nowrap column;
     & h1 {
-      font-size: 4.5vw;
-      white-space: nowrap;
+      white-space: wrap;
+      font-size: clamp(17pt, 7vw, 4vh);
+      width: 100%;
+      position: relative;
+      text-align: center;
+      margin-right: auto;
+      margin-top: 20vh;
+      margin-left: auto;
+      height: fit-content;
+    }
+    & .imagesWrapper {
+      display: flex;
+      flex-flow: row nowrap;
+      position: relative;
+      width: 100%;
+      justify-content: center;
+      & img {
+        &:first-child {
+          height: 40vw;
+          width: auto;
+        }
+        &:last-child {
+          height: 40vw;
+          width: auto;
+        }
+      }
+    }
+    & .scrollIndicator {
+      display: flex;
+      flex-flow: column nowrap;
+      & h2 {
+        font-weight: normal;
+      }
     }
   }
   & .featureSection {
-    display: flex;
-    flex-flow: row nowrap;
-    &.featureSection:nth-child(1) {
-      height: 10vh;
-      width: 20vw;
-      background: red;
+    height: 30vh;
+    position: relative;
+    width: 100vw;
+    &:first-child {
+      margin-top: 10vh;
     }
   }
 }
