@@ -1,5 +1,7 @@
 .title {
   transition: 250ms ease-out;
+  height: fit-content;
+  width: fit-content;
 }
 
 .symbolWrapper {
@@ -14,19 +16,24 @@
   background: white;
   padding: 1vw;
   border-radius: 10px;
-  filter: drop-shadow(20px 50px 10px rgba(25, 25, 25, 0.5));
 
   &:first-child {
-    transform: rotateY(20deg);
+    filter: drop-shadow(-1.5vh 2vh 1.5vh rgba(100, 100, 100, 0.5));
   }
+
   &:last-child {
-    transform: rotateY(-25deg);
     transition-delay: 125ms;
+    filter: drop-shadow(1.5vh 2vh 1.5vh rgba(100, 100, 100, 0.5));
   }
   & svg {
     height: 7vh;
+    display: block;
     width: auto;
   }
   & span {
+    height: fit-content;
+    width: fit-content;
+    font-weight: bold;
+    margin-top: 1vh;
   }
 }

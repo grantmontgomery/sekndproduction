@@ -9,7 +9,13 @@ export const SearchFeature: React.FC = () => {
   }, []);
   return (
     <React.Fragment>
-      <h2 className={css.title} style={{ opacity: elements ? "1" : "0" }}>
+      <h2
+        className={css.title}
+        style={{
+          opacity: elements ? "1" : "0",
+          transform: `translate(${elements ? "0" : "-10%"})`,
+        }}
+      >
         Search
       </h2>
       <div
