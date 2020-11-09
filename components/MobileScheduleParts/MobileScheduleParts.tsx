@@ -37,6 +37,9 @@ export const MobileScheduleParts: React.FC<{
     parts.forEach((part, index) => {
       observer.current.observe(document.getElementById(`sensor${index}`));
     });
+    return () => {
+      observer.current.disconnect();
+    };
   }, []);
 
   React.useEffect(() => {
