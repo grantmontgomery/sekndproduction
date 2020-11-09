@@ -1,10 +1,9 @@
 import * as React from "react";
 import Head from "next/head";
-import { Layout } from "../components";
+import { Layout, SearchFeature } from "../components";
 import css from "../styles/Home.module.scss";
 import styles from "../styles/Home.module.css";
 import { useGridState } from "../state/SearchGridContext";
-import { stringify } from "querystring";
 
 export default function Home(): JSX.Element {
   const [scroll, indicateScroll] = React.useState<boolean>(true);
@@ -35,53 +34,34 @@ export default function Home(): JSX.Element {
     HTMLElement | undefined
   > = React.useRef();
 
-  // const loadSection:(statePiece:boolean) => JSX.Element|null = (statePiece) => {
-  //   switch(statePiece){
-  //     case loadedElements.search:
-  //       if(loadedElements.search){
-  //         const SearchFeatureComponent = React.lazy( async() => {
-  //           try{
-  //          const {SearchFeature} = await import("../components")
-  //           return <SearchFeature></SearchFeature>
-  //         }
-  //         catch{
-
-  //         }
-  //       })
-
-  //       }
-  //       }
-  //   }
-
   React.useEffect(() => {
     observer.current = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          switch (entry.target) {
-            case introductionSection.current:
-              if (entry.intersectionRatio < 0.9) {
-                indicateScroll(false);
-                observer.current.unobserve(introductionSection.current);
-              }
-
-            case searchFeatureSection.current:
-              if (entry.intersectionRatio > 0.4) {
-                loadElements((elements) => ({ ...elements, search: true }));
-                observer.current.unobserve(searchFeatureSection.current);
-              }
-            case selectFeatureSection.current:
-              if (entry.intersectionRatio > 0.4) {
-                loadElements((elements) => ({ ...elements, select: true }));
-                observer.current.unobserve(selectFeatureSection.current);
-              }
-
-            case sheduleFeatureSection.current:
-              if (entry.intersectionRatio > 0.4) {
-                loadElements((elements) => ({ ...elements, schedule: true }));
-                observer.current.unobserve(sheduleFeatureSection.current);
-              }
+        for (let i = 0; i < entries.length; i++) {
+          if (entries[i].target === introductionSection.current) {
+            if (entries[i].intersectionRatio < 0.9) {
+              console.log("take away scroll");
+              indicateScroll(false);
+              observer.current.unobserve(introductionSection.current);
+            }
+          } else if (entries[i].target === searchFeatureSection.current) {
+            if (entries[i].intersectionRatio > 0.9) {
+              console.log("search feature calling.");
+              loadElements((elements) => ({ ...elements, search: true }));
+              observer.current.unobserve(searchFeatureSection.current);
+            }
+          } else if (entries[i].target === selectFeatureSection.current) {
+            if (entries[i].intersectionRatio > 0.9) {
+              loadElements((elements) => ({ ...elements, select: true }));
+              observer.current.unobserve(selectFeatureSection.current);
+            }
+          } else if (entries[i].target === sheduleFeatureSection.current) {
+            if (entries[i].intersectionRatio > 0.9) {
+              loadElements((elements) => ({ ...elements, schedule: true }));
+              observer.current.unobserve(sheduleFeatureSection.current);
+            }
           }
-        });
+        }
       },
       {
         threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
@@ -148,7 +128,7 @@ export default function Home(): JSX.Element {
           </div>
         </section>
         <section id="searchFeatureSection" className={css.featureSection}>
-          {}
+          {loadedElements.search ? <SearchFeature></SearchFeature> : null}
         </section>
         <section id="selectFeatureSection" className={css.featureSection}>
           <div className={css.imageWrapper}></div>
