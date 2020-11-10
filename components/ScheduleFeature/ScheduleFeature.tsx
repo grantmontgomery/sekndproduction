@@ -17,10 +17,16 @@ export const ScheduleFeature: React.FC = () => {
         }}
       >
         3. Schedule
-        <div className={css.deviceWrapper}>
-          <img className={css.phoneImage} src="/images/Phone.png" alt="" />
-        </div>
       </h2>
+      <div
+        className={css.deviceWrapper}
+        style={{
+          opacity: elements ? "1" : "0",
+          transform: `translate(0, ${elements ? "0" : "10%"})`,
+        }}
+      >
+        <img className={css.phoneImage} src="/images/Phone.png" alt="" />
+      </div>
     </React.Fragment>
   );
 };

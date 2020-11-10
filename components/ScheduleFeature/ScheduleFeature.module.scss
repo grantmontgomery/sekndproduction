@@ -3,3 +3,17 @@
   height: fit-content;
   width: fit-content;
 }
+
+.deviceWrapper {
+  height: fit-content;
+  width: fit-content;
+  position: relative;
+  margin-left: auto;
+  align-content: center;
+  text-align: center;
+  margin-right: auto;
+  & .phoneImage {
+    height: 80vw;
+    width: auto;
+  }
+}
