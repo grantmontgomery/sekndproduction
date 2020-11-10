@@ -17,6 +17,9 @@ export const ScheduleFeature: React.FC = () => {
         }}
       >
         3. Schedule
+        <div className={css.deviceWrapper}>
+          <img className={css.phoneImage} src="/images/Phone.png" alt="" />
+        </div>
       </h2>
     </React.Fragment>
   );

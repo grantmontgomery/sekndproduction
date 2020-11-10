@@ -26,9 +26,9 @@
     & .allSVGWrapper {
       display: flex;
       flex-flow: row nowrap;
-      height: 7vh;
+      height: 10vw;
       width: fit-content;
-      justify-content: space-between;
+      justify-content: center;
       & svg {
         display: block;
         height: 75%;
@@ -36,10 +36,16 @@
         position: relative;
         transform: translate(0, -50%);
         width: auto;
+        &:first-child {
+          margin-right: 1vw;
+        }
+        &:last-child {
+          margin-left: 1vw;
+        }
       }
     }
     & svg {
-      height: 7vh;
+      height: 10vw;
       display: block;
       width: auto;
     }
@@ -70,7 +76,7 @@
     filter: drop-shadow(1.5vh 2vh 1.5vh rgba(100, 100, 100, 0.5));
   }
   & svg {
-    height: 7vh;
+    height: 10vw;
     display: block;
     width: auto;
   }
