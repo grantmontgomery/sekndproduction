@@ -164,7 +164,7 @@
         height: clamp(500px, 40vw, 600px);
       }
       &:nth-child(3) {
-        height: 100vw;
+        height: clamp(500px, 55vw, 650px);
       }
       &:nth-child(4) {
         height: 100vw;

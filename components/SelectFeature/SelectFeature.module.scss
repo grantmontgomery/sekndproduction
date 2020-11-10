@@ -31,7 +31,7 @@
 
 @media (orientation: landscape) {
   .exampleImageWrapper {
-    border-radius: 5vw;
+    border-radius: clamp(20px, 1.5vw, 30px);
     filter: drop-shadow(0vh 2vh 1.5vh rgba(75, 75, 75, 0.75));
 
     & .mobileExample {
@@ -39,6 +39,8 @@
     }
     & .desktopExample {
       display: block;
+      width: clamp(715px, 50vw, 1050px);
+      height: auto;
     }
   }
 }
