@@ -4,6 +4,54 @@
   width: fit-content;
 }
 
+.symbols {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  .symbolWrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    height: 25vw;
+    transition: 250ms ease-out;
+    filter: drop-shadow(0vh 2vh 1.5vh rgba(100, 100, 100, 0.5));
+    width: 25vw;
+    background: white;
+    padding: 1vw;
+    border-radius: 10px;
+
+    & .allSVGWrapper {
+      display: flex;
+      flex-flow: row nowrap;
+      height: 7vh;
+      width: fit-content;
+      justify-content: space-between;
+      & svg {
+        display: block;
+        height: 75%;
+        top: 50%;
+        position: relative;
+        transform: translate(0, -50%);
+        width: auto;
+      }
+    }
+    & svg {
+      height: 7vh;
+      display: block;
+      width: auto;
+    }
+    & span {
+      height: fit-content;
+      width: fit-content;
+      font-weight: bold;
+      margin-top: 1vh;
+    }
+  }
+}
+
 .symbolWrapper {
   display: flex;
   flex-flow: column nowrap;
@@ -16,10 +64,6 @@
   background: white;
   padding: 1vw;
   border-radius: 10px;
-
-  &:first-child {
-    filter: drop-shadow(-1.5vh 2vh 1.5vh rgba(100, 100, 100, 0.5));
-  }
 
   &:last-child {
     transition-delay: 125ms;

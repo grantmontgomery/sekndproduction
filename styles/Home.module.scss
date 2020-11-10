@@ -85,8 +85,8 @@
   & .featureSection {
     height: 30vh;
     position: relative;
-    width: 100vw;
-    display: flex;
+    width: 100%;
+    display: co;
     flex-flow: row nowrap;
     &:first-child {
       margin-top: 10vh;
