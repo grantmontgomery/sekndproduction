@@ -1,6 +1,11 @@
 import * as React from "react";
 import Head from "next/head";
-import { Layout, SearchFeature, SelectFeature } from "../components";
+import {
+  Layout,
+  SearchFeature,
+  SelectFeature,
+  ScheduleFeature,
+} from "../components";
 import css from "../styles/Home.module.scss";
 import styles from "../styles/Home.module.css";
 import { useGridState } from "../state/SearchGridContext";
@@ -134,9 +139,7 @@ export default function Home(): JSX.Element {
           {loadedElements.select ? <SelectFeature></SelectFeature> : null}
         </section>
         <section id="sheduleFeatureSection" className={css.featureSection}>
-          <div className={css.imageWrapper}>
-            <h1>Schedule</h1>
-          </div>
+          {loadedElements.schedule ? <ScheduleFeature></ScheduleFeature> : null}
         </section>
       </main>
     </Layout>

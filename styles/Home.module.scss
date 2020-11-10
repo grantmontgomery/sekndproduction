@@ -14,7 +14,7 @@
     flex-flow: nowrap column;
     & h1 {
       white-space: wrap;
-      font-size: clamp(17pt, 7vw, 4vh);
+      font-size: clamp(16pt, 7vw, 4vh);
       width: 100%;
       position: relative;
       text-align: center;
@@ -61,35 +61,33 @@
         height: 2.5vh;
         width: auto;
         fill: rgb(150, 150, 150);
+        animation-name: fadeIn;
+        animation-duration: 2s;
+        animation-iteration-count: infinite;
 
-        &:first-child {
-          animation-name: fadeIn;
-          animation-duration: 3s;
-          animation-iteration-count: infinite;
+        &:nth-child(3) {
+          animation-delay: 0.5s;
         }
-        &:nth-child(2) {
-          animation-name: fadeIn;
-          animation-duration: 3s;
-          animation-delay: 0.75s;
-          animation-iteration-count: infinite;
-        }
-        &:last-child {
-          animation-name: fadeIn;
-          animation-duration: 3s;
-          animation-delay: 1.5s;
-          animation-iteration-count: infinite;
+        &:nth-child(4) {
+          animation-delay: 1s;
         }
       }
     }
   }
   & .featureSection {
-    height: 50vh;
     position: relative;
     width: 100%;
-    display: co;
-    flex-flow: row nowrap;
-    &:first-child {
-      margin-top: 10vh;
+    display: block;
+    flex-flow: column nowrap;
+
+    &:nth-child(2) {
+      height: 45vw;
+    }
+    &:nth-child(3) {
+      height: 100vw;
+    }
+    &:nth-child(4) {
+      height: 50vh;
     }
   }
 }
