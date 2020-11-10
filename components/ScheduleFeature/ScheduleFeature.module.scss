@@ -6,6 +6,8 @@
 
 .deviceWrapper {
   height: fit-content;
+  transition: 250ms ease-out;
+  transition-delay: 125ms;
   width: fit-content;
   position: relative;
   margin-left: auto;

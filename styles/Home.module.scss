@@ -31,14 +31,8 @@
       width: 100%;
       justify-content: center;
       & img {
-        &:first-child {
-          height: 40vw;
-          width: auto;
-        }
-        &:last-child {
-          height: 40vw;
-          width: auto;
-        }
+        height: 40vw;
+        width: auto;
       }
     }
     & .scrollIndicator {
@@ -79,7 +73,6 @@
     width: 100%;
     display: block;
     flex-flow: column nowrap;
-
     &:nth-child(2) {
       height: 45vw;
     }
@@ -104,5 +97,78 @@
   }
   100% {
     opacity: 0;
+  }
+}
+
+@media (orientation: landscape) {
+  .homePage {
+    width: clamp(750px, 90vw, 1400px);
+    padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    & .introduction {
+      & h1 {
+        font-size: 25pt;
+      }
+      & .imagesWrapper {
+        margin-top: 0;
+
+        & img {
+          height: clamp(350px, 25vw, 450px);
+          width: auto;
+        }
+      }
+      & .scrollIndicator {
+        display: flex;
+        flex-flow: column nowrap;
+        text-align: center;
+        align-content: center;
+        align-items: center;
+        transition: opacity 300ms ease-out;
+        & h2 {
+          font-weight: normal;
+          width: fit-content;
+          height: fit-content;
+          font-size: 3.5vh;
+          position: relative;
+          color: rgb(150, 150, 150);
+        }
+        & .arrow {
+          margin-top: 1vh;
+          height: 2.5vh;
+          width: auto;
+          fill: rgb(150, 150, 150);
+          animation-name: fadeIn;
+          animation-duration: 2s;
+          animation-iteration-count: infinite;
+
+          &:nth-child(3) {
+            animation-delay: 0.5s;
+          }
+          &:nth-child(4) {
+            animation-delay: 1s;
+          }
+        }
+      }
+    }
+    & .featureSection {
+      position: relative;
+      width: 100%;
+      display: block;
+      flex-flow: column nowrap;
+
+      &:nth-child(2) {
+        height: clamp(500px, 40vw, 600px);
+      }
+      &:nth-child(3) {
+        height: 100vw;
+      }
+      &:nth-child(4) {
+        height: 100vw;
+      }
+    }
   }
 }

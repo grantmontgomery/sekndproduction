@@ -4,7 +4,7 @@
   width: fit-content;
 }
 
-.mobileImageWrapper {
+.exampleImageWrapper {
   display: block;
   position: relative;
   transition: 250ms ease-out;
@@ -18,10 +18,27 @@
   filter: drop-shadow(0vh 2vh 1.5vh rgba(75, 75, 75, 0.75));
   margin-left: auto;
   margin-right: auto;
-  & img {
+  & .mobileExample {
     display: block;
     position: relative;
     width: 75vw;
     height: auto;
+  }
+  & .desktopExample {
+    display: none;
+  }
+}
+
+@media (orientation: landscape) {
+  .exampleImageWrapper {
+    border-radius: 5vw;
+    filter: drop-shadow(0vh 2vh 1.5vh rgba(75, 75, 75, 0.75));
+
+    & .mobileExample {
+      display: none;
+    }
+    & .desktopExample {
+      display: block;
+    }
   }
 }

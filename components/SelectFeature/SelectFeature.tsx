@@ -19,7 +19,7 @@ export const SelectFeature: React.FC = () => {
         2. Select
       </h2>
       <div
-        className={css.mobileImageWrapper}
+        className={css.exampleImageWrapper}
         style={{
           transitionDelay: "125ms",
           opacity: elements ? "1" : "0",
@@ -27,13 +27,18 @@ export const SelectFeature: React.FC = () => {
         }}
       >
         <img
-          style={{ opacity: elements ? "1" : "0" }}
+          className={css.mobileExample}
           src="/images/MobilePlaceExampleCard.png"
+          alt=""
+        />
+        <img
+          className={css.desktopExample}
+          src="/images/DeskTopPlaceExampleCard.png"
           alt=""
         />
       </div>
       <div
-        className={css.mobileImageWrapper}
+        className={css.exampleImageWrapper}
         style={{
           transitionDelay: "250ms",
           opacity: elements ? "1" : "0",
@@ -41,7 +46,16 @@ export const SelectFeature: React.FC = () => {
           marginTop: "2vh",
         }}
       >
-        <img src="/images/MobileEventExampleCard.png" alt="" />
+        <img
+          className={css.mobileExample}
+          src="/images/MobileEventExampleCard.png"
+          alt=""
+        />
+        <img
+          className={css.desktopExample}
+          src="/images/DeskTopEventExampleCard.png"
+          alt=""
+        />
       </div>
     </React.Fragment>
   );
