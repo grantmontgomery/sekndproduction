@@ -1,0 +1,28 @@
+.title {
+  transition: 250ms ease-out;
+  height: fit-content;
+  width: fit-content;
+}
+
+.mobileImageWrapper {
+  display: block;
+  position: relative;
+  transition: 250ms ease-out;
+  height: fit-content;
+  align-items: center;
+  width: fit-content;
+  object-fit: contain;
+  overflow: hidden;
+  border-radius: 20px;
+  text-align: center;
+  filter: drop-shadow(0vh 2vh 1.5vh rgba(75, 75, 75, 0.75));
+  margin-left: auto;
+  margin-right: auto;
+  & img {
+    display: block;
+    position: relative;
+
+    width: 75vw;
+    height: auto;
+  }
+}
