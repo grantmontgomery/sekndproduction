@@ -2,6 +2,11 @@ import * as React from "react";
 
 type State = {
   allowToggle: { mobileLinks: boolean; dateParts: boolean; searchBox: boolean };
+  allowDisplay: {
+    mobileLinks: boolean;
+    dateParts: boolean;
+    searchBox: boolean;
+  };
   modalOpen: boolean;
 };
 
@@ -17,21 +22,31 @@ const modalReducer: React.Reducer<State, Action> = (
     case "MOBILE_LINKS":
       return {
         allowToggle: { mobileLinks: true, dateParts: false, searchBox: false },
+        allowDisplay: { mobileLinks: true, dateParts: false, searchBox: false },
         modalOpen: true,
       };
     case "DATE_PARTS":
       return {
         allowToggle: { dateParts: true, mobileLinks: false, searchBox: false },
+        allowDisplay: { dateParts: true, mobileLinks: false, searchBox: false },
         modalOpen: true,
       };
     case "SEARCH_BOX":
       return {
         allowToggle: { searchBox: true, mobileLinks: false, dateParts: false },
+        allowDisplay: { searchBox: true, mobileLinks: false, dateParts: false },
+
         modalOpen: true,
       };
     case "CLOSE_MODAL":
       return {
         allowToggle: { mobileLinks: true, dateParts: true, searchBox: true },
+        allowDisplay: {
+          mobileLinks: false,
+          dateParts: false,
+          searchBox: false,
+        },
+
         modalOpen: false,
       };
   }
@@ -51,6 +66,7 @@ export const ModalProvider: ({
 }) => JSX.Element = ({ children }) => {
   const [state, dispatch] = React.useReducer(modalReducer, {
     allowToggle: { mobileLinks: true, dateParts: true, searchBox: true },
+    allowDisplay: { mobileLinks: false, dateParts: false, searchBox: false },
     modalOpen: false,
   });
 

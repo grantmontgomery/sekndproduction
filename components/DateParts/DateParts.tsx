@@ -107,7 +107,6 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
           </div>
         </div>
       </div>
-      <div className={css.modal}></div>
     </div>
   );
 };

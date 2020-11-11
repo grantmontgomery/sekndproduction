@@ -3,23 +3,13 @@ import css from "./SearchIcon.module.scss";
 import { useModalDispatch, useModalState } from "../../state/ModalContext";
 import { NavState } from "../Nav";
 
-type Props = {
-  displaySearchBox: React.Dispatch<React.SetStateAction<NavState>>;
-  searchBox: NavState;
-};
-
-export const SearchIcon: React.FC<Props> = ({
-  searchBox,
-  displaySearchBox,
-}) => {
-  const { allowToggle } = useModalState();
+export const SearchIcon: React.FC = () => {
+  const { allowToggle, allowDisplay } = useModalState();
   const modalDispatch = useModalDispatch();
   const handleClick: () => void = () => {
-    if (!searchBox.display) {
-      displaySearchBox({ display: true });
+    if (!allowDisplay.searchBox) {
       modalDispatch({ type: "SEARCH_BOX" });
     } else {
-      displaySearchBox({ display: false });
       modalDispatch({ type: "CLOSE_MODAL" });
     }
   };

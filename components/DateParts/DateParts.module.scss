@@ -3,16 +3,13 @@
   float: right;
   right: 0;
   height: 100vh;
-  width: 100vw;
-  display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: 100%;
-  grid-template-areas: "modal parts";
+  width: 50vw;
+  display: block;
 
   & .partsWrapper {
-    grid-area: parts;
     background: white;
     display: flex;
+    height: 100%;
     flex-flow: column nowrap;
     & header {
       display: grid;
@@ -120,15 +117,10 @@
       }
     }
   }
-  & .modal {
-    grid-area: modal;
-    background: transparent;
-  }
 }
 
 @media (orientation: landscape) {
   .dateParts {
-    display: block;
     width: clamp(225px, 20vw, 350px);
     height: 100%;
 
@@ -202,9 +194,6 @@
         width: 100%;
         padding: 5%;
       }
-    }
-    & .modal {
-      display: none;
     }
   }
 

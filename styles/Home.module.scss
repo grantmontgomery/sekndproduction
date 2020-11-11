@@ -6,6 +6,7 @@
   overflow-x: hidden;
   padding-left: 5%;
   padding-right: 5%;
+
   & .introduction {
     position: relative;
     height: 90vh;
@@ -76,6 +77,10 @@
       height: 100vw;
     }
   }
+}
+
+.homePage::-webkit-scrollbar {
+  display: none;
 }
 
 @keyframes fadeIn {

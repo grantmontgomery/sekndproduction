@@ -4,27 +4,22 @@ import { useModalDispatch, useModalState } from "../../state/ModalContext";
 
 import { NavState } from "../Nav";
 
-type Props = {
-  displayLinks: React.Dispatch<React.SetStateAction<NavState>>;
-  links: NavState;
-};
-
-export const MobileHamburger: React.FC<Props> = ({ displayLinks, links }) => {
-  const { allowToggle } = useModalState();
+export const MobileHamburger: React.FC = () => {
+  const { allowToggle, allowDisplay } = useModalState();
   const modalDispatch = useModalDispatch();
 
   const handleClick: () => void = () => {
-    if (!links.display) {
-      displayLinks({ display: true });
+    if (!allowDisplay.mobileLinks) {
       modalDispatch({ type: "MOBILE_LINKS" });
     } else {
-      displayLinks({ display: false });
       modalDispatch({ type: "CLOSE_MODAL" });
     }
   };
   return (
     <div
-      className={`${css.hamburger} ${links.display ? css.exit : null}`}
+      className={`${css.hamburger} ${
+        allowDisplay.mobileLinks ? css.exit : null
+      }`}
       onClick={() => (allowToggle.mobileLinks ? handleClick() : null)}
     >
       <div className={css.topLine}></div>

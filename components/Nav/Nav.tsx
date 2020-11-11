@@ -10,65 +10,14 @@ import { NavLinks } from "../NavLinks";
 import { PartsIcon } from "../PartsIcon";
 import { AccountDisplay } from "../AccountDisplay";
 import css from "./Nav.module.scss";
+import { useModalState } from "../../state/ModalContext";
 
 export type NavState = {
   [key: string]: boolean;
 };
 
 export const Nav: React.FC = () => {
-  const [parts, displayParts] = React.useState<NavState>({ display: false });
-  const [links, displayLinks] = React.useState<NavState>({ display: false });
-  const [searchBox, displaySearchBox] = React.useState<NavState>({
-    display: false,
-  });
-  const applyTransitions: (modalWindow: NavState) => JSX.Element | null = (
-    modalWindow
-  ) => {
-    switch (modalWindow) {
-      case links:
-        return modalWindow.display ? (
-          <CSSTransition
-            timeout={250}
-            classNames={{
-              enter: `${css["links-enter"]}`,
-              enterActive: `${css["links-enter-active"]}`,
-              exit: `${css["links-exit"]}`,
-              exitActive: `${css["links-exit-active"]}`,
-            }}
-          >
-            <MobileMenu></MobileMenu>
-          </CSSTransition>
-        ) : null;
-      case parts:
-        return modalWindow.display ? (
-          <CSSTransition
-            timeout={250}
-            classNames={{
-              enter: `${css["parts-enter"]}`,
-              enterActive: `${css["parts-enter-active"]}`,
-              exit: `${css["parts-exit"]}`,
-              exitActive: `${css["parts-exit-active"]}`,
-            }}
-          >
-            <DateParts location="nav"></DateParts>
-          </CSSTransition>
-        ) : null;
-      case searchBox:
-        return modalWindow.display ? (
-          <CSSTransition
-            timeout={250}
-            classNames={{
-              enter: `${css["search-enter"]}`,
-              enterActive: `${css["search-enter-active"]}`,
-              exit: `${css["search-exit"]}`,
-              exitActive: `${css["search-exit-active"]}`,
-            }}
-          >
-            <SearchBox></SearchBox>
-          </CSSTransition>
-        ) : null;
-    }
-  };
+  const { allowDisplay } = useModalState();
 
   return (
     <React.Fragment>
@@ -92,21 +41,57 @@ export const Nav: React.FC = () => {
           </svg>
         </Link>
         <NavLinks orientation="landscape"></NavLinks>
-        <MobileHamburger
-          displayLinks={displayLinks}
-          links={links}
-        ></MobileHamburger>
+        <MobileHamburger></MobileHamburger>
 
         <AccountDisplay></AccountDisplay>
-        <SearchIcon
-          displaySearchBox={displaySearchBox}
-          searchBox={searchBox}
-        ></SearchIcon>
-        <PartsIcon displayParts={displayParts} parts={parts}></PartsIcon>
-        <TransitionGroup>{applyTransitions(parts)}</TransitionGroup>
-        <TransitionGroup>{applyTransitions(links)}</TransitionGroup>
+        <SearchIcon></SearchIcon>
+        <PartsIcon></PartsIcon>
+        <TransitionGroup>
+          {allowDisplay.dateParts ? (
+            <CSSTransition
+              timeout={250}
+              classNames={{
+                enter: `${css["parts-enter"]}`,
+                enterActive: `${css["parts-enter-active"]}`,
+                exit: `${css["parts-exit"]}`,
+                exitActive: `${css["parts-exit-active"]}`,
+              }}
+            >
+              <DateParts location="nav"></DateParts>
+            </CSSTransition>
+          ) : null}
+        </TransitionGroup>
+        <TransitionGroup>
+          {allowDisplay.mobileLinks ? (
+            <CSSTransition
+              timeout={250}
+              classNames={{
+                enter: `${css["links-enter"]}`,
+                enterActive: `${css["links-enter-active"]}`,
+                exit: `${css["links-exit"]}`,
+                exitActive: `${css["links-exit-active"]}`,
+              }}
+            >
+              <MobileMenu></MobileMenu>
+            </CSSTransition>
+          ) : null}
+        </TransitionGroup>
       </nav>
-      <TransitionGroup>{applyTransitions(searchBox)}</TransitionGroup>
+      <TransitionGroup>
+        {allowDisplay.searchBox ? (
+          <CSSTransition
+            timeout={250}
+            classNames={{
+              enter: `${css["search-enter"]}`,
+              enterActive: `${css["search-enter-active"]}`,
+              exit: `${css["search-exit"]}`,
+              exitActive: `${css["search-exit-active"]}`,
+            }}
+          >
+            <SearchBox></SearchBox>
+          </CSSTransition>
+        ) : null}
+      </TransitionGroup>
     </React.Fragment>
   );
 };
