@@ -17,5 +17,22 @@
   & .phoneImage {
     height: 80vw;
     width: auto;
+    display: block;
+  }
+  & .desktopImage {
+    display: none;
+  }
+}
+
+@media (orientation: landscape) {
+  .deviceWrapper {
+    & .phoneImage {
+      display: none;
+    }
+    & .desktopImage {
+      display: block;
+      width: clamp(200px, 50vw, 700px);
+      height: auto;
+    }
   }
 }
