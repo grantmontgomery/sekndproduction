@@ -4,7 +4,7 @@ import css from "./SelectFeature.module.scss";
 export const SelectFeature: React.FC = () => {
   const [elements, loadElements] = React.useState<boolean>(false);
   React.useEffect(() => {
-    setTimeout(() => loadElements(true), 125);
+    setTimeout(() => loadElements(true), 100);
     return clearTimeout;
   }, []);
   return (

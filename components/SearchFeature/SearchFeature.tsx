@@ -5,7 +5,7 @@ import css from "./SearchFeature.module.scss";
 export const SearchFeature: React.FC = () => {
   const [elements, loadElements] = React.useState<boolean>(false);
   React.useEffect(() => {
-    setTimeout(() => loadElements(true), 250);
+    setTimeout(() => loadElements(true), 100);
     return clearTimeout;
   }, []);
   return (
@@ -76,7 +76,7 @@ export const SearchFeature: React.FC = () => {
             </svg>
           </div>
 
-          <span>All</span>
+          <span className={css.allText}>All</span>
         </div>
         <div
           className={css.symbolWrapper}

@@ -2,6 +2,9 @@
   transition: 250ms ease-out;
   height: fit-content;
   width: fit-content;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .symbols {
@@ -55,6 +58,9 @@
       font-weight: bold;
       margin-top: 1vh;
     }
+    & .allText {
+      margin-top: 0;
+    }
   }
 }
 
@@ -94,8 +100,6 @@
   }
 
   .symbols {
-    top: 50%;
-    transform: translate(0, -50%);
     position: relative;
     .symbolWrapper {
       display: flex;
@@ -141,6 +145,7 @@
         height: fit-content;
         width: fit-content;
         font-weight: bold;
+        font-size: clamp(15pt, 1.5vw, 20pt);
         margin-top: 1vh;
       }
     }

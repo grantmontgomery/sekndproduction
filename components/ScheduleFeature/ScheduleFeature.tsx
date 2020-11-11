@@ -4,7 +4,7 @@ import css from "./ScheduleFeature.module.scss";
 export const ScheduleFeature: React.FC = () => {
   const [elements, loadElements] = React.useState<boolean>(false);
   React.useEffect(() => {
-    setTimeout(() => loadElements(true), 125);
+    setTimeout(() => loadElements(true), 100);
     return clearTimeout;
   }, []);
   return (
