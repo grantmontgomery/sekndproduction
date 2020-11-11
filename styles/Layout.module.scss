@@ -1,0 +1,19 @@
+.modal-enter {
+  opacity: 0;
+  transition: 250ms ease-out;
+
+  &.modal-enter-active {
+    opacity: 1;
+    transition: 250ms ease-out;
+  }
+}
+
+.modal-exit {
+  opacity: 1;
+  transition: 250ms ease-out;
+
+  &.modal-exit-active {
+    opacity: 0;
+    transition: 250ms ease-out;
+  }
+}
