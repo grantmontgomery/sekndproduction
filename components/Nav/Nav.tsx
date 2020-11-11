@@ -70,37 +70,6 @@ export const Nav: React.FC = () => {
     }
   };
 
-  const applyModalTransitions: (element: string) => JSX.Element | null = (
-    element
-  ) => {
-    if (element === "parts") {
-      return parts.display ? (
-        <CSSTransition
-          timeout={250}
-          classNames={{
-            enter: `${css["search-enter"]}`,
-            enterActive: `${css["search-enter-active"]}`,
-            exit: `${css["search-exit"]}`,
-            exitActive: `${css["search-exit-active"]}`,
-          }}
-        >
-          <SearchBox></SearchBox>
-        </CSSTransition>
-      ) : null;
-    } else if (element === "links") {
-    } else if (element === "searchBox") {
-    }
-  };
-
-  const stopWindowScroll: (stop: boolean) => void = (stop) => {
-    const body: HTMLBodyElement | null = document.querySelector("body");
-    if (body) {
-      return stop
-        ? (body.style.overflowY = "hidden")
-        : (body.style.overflowY = "scroll");
-    }
-  };
-
   return (
     <React.Fragment>
       <nav className={css.nav}>
@@ -126,20 +95,14 @@ export const Nav: React.FC = () => {
         <MobileHamburger
           displayLinks={displayLinks}
           links={links}
-          stopWindowScroll={stopWindowScroll}
         ></MobileHamburger>
 
         <AccountDisplay></AccountDisplay>
         <SearchIcon
           displaySearchBox={displaySearchBox}
           searchBox={searchBox}
-          stopWindowScroll={stopWindowScroll}
         ></SearchIcon>
-        <PartsIcon
-          displayParts={displayParts}
-          parts={parts}
-          stopWindowScroll={stopWindowScroll}
-        ></PartsIcon>
+        <PartsIcon displayParts={displayParts} parts={parts}></PartsIcon>
         <TransitionGroup>{applyTransitions(parts)}</TransitionGroup>
         <TransitionGroup>{applyTransitions(links)}</TransitionGroup>
       </nav>

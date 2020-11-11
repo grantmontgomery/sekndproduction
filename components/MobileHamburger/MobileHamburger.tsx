@@ -6,20 +6,13 @@ import { NavState } from "../Nav";
 type Props = {
   displayLinks: React.Dispatch<React.SetStateAction<NavState>>;
   links: NavState;
-  stopWindowScroll: (arg: boolean) => void;
 };
 
-export const MobileHamburger: React.FC<Props> = ({
-  displayLinks,
-  links,
-  stopWindowScroll,
-}) => {
+export const MobileHamburger: React.FC<Props> = ({ displayLinks, links }) => {
   const handleClick: () => void = () => {
-    if (links.display) {
-      return displayLinks({ display: false }), stopWindowScroll(false);
-    } else {
-      return displayLinks({ display: true }), stopWindowScroll(true);
-    }
+    links.display
+      ? displayLinks({ display: false })
+      : displayLinks({ display: true });
   };
   return (
     <div

@@ -5,20 +5,13 @@ import { NavState } from "../Nav";
 type Props = {
   displayParts: React.Dispatch<React.SetStateAction<NavState>>;
   parts: NavState;
-  stopWindowScroll: (arg: boolean) => void;
 };
 
-export const PartsIcon: React.FC<Props> = ({
-  displayParts,
-  parts,
-  stopWindowScroll,
-}) => {
+export const PartsIcon: React.FC<Props> = ({ displayParts, parts }) => {
   const handleClick: () => void = () => {
-    if (parts.display) {
-      return displayParts({ display: false }), stopWindowScroll(false);
-    } else {
-      return displayParts({ display: true }), stopWindowScroll(true);
-    }
+    parts.display
+      ? displayParts({ display: false })
+      : displayParts({ display: true });
   };
 
   return (

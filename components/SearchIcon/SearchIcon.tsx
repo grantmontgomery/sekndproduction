@@ -5,19 +5,17 @@ import { NavState } from "../Nav";
 type Props = {
   displaySearchBox: React.Dispatch<React.SetStateAction<NavState>>;
   searchBox: NavState;
-  stopWindowScroll: (arg: boolean) => void;
 };
 
 export const SearchIcon: React.FC<Props> = ({
   searchBox,
   displaySearchBox,
-  stopWindowScroll,
 }) => {
   const handleClick: () => void = () => {
     if (searchBox.display) {
-      return displaySearchBox({ display: false }), stopWindowScroll(false);
+      displaySearchBox({ display: false });
     } else {
-      return displaySearchBox({ display: true }), stopWindowScroll(true);
+      displaySearchBox({ display: true });
     }
   };
   return (
