@@ -30,6 +30,10 @@
 }
 
 @media (orientation: landscape) {
+  .title {
+    font-size: clamp(20pt, 2vw, 25pt);
+  }
+
   .exampleImageWrapper {
     border-radius: clamp(20px, 1.5vw, 30px);
     filter: drop-shadow(0vh 2vh 1.5vh rgba(75, 75, 75, 0.75));

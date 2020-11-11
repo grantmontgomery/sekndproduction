@@ -25,6 +25,9 @@
 }
 
 @media (orientation: landscape) {
+  .title {
+    font-size: clamp(20pt, 2vw, 25pt);
+  }
   .deviceWrapper {
     & .phoneImage {
       display: none;

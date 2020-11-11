@@ -24,14 +24,7 @@ export const NavLinks: React.FC<{ orientation: string }> = ({
           >
             Search Results
           </Link>
-        ) : (
-          <span
-            className={css.dummyLink}
-            onClick={() => alert("Make a search first.")}
-          >
-            Search Results
-          </span>
-        )}
+        ) : null}
       </li>
     </ul>
   );
