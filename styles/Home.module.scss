@@ -42,14 +42,7 @@
       align-content: center;
       align-items: center;
       transition: opacity 300ms ease-out;
-      & h2 {
-        font-weight: normal;
-        width: fit-content;
-        height: fit-content;
-        font-size: 3.5vh;
-        position: relative;
-        color: rgb(150, 150, 150);
-      }
+      margin-top: 15vh;
       & .arrow {
         margin-top: 1vh;
         height: 2.5vh;
@@ -129,9 +122,7 @@
         margin-top: 2vh;
         align-items: center;
         transition: opacity 300ms ease-out;
-        & h2 {
-          display: none;
-        }
+
         & .arrow {
           margin-top: 1vh;
           height: 1.5vh;

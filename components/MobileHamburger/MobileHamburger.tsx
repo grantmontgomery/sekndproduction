@@ -1,5 +1,6 @@
 import * as React from "react";
 import css from "./MobileHamburger.module.scss";
+import { useModalDispatch, useModalState } from "../../state/ModalContext";
 
 import { NavState } from "../Nav";
 
@@ -9,15 +10,22 @@ type Props = {
 };
 
 export const MobileHamburger: React.FC<Props> = ({ displayLinks, links }) => {
+  const { allowToggle } = useModalState();
+  const modalDispatch = useModalDispatch();
+
   const handleClick: () => void = () => {
-    links.display
-      ? displayLinks({ display: false })
-      : displayLinks({ display: true });
+    if (!links.display) {
+      displayLinks({ display: true });
+      modalDispatch({ type: "MOBILE_LINKS" });
+    } else {
+      displayLinks({ display: false });
+      modalDispatch({ type: "CLOSE_MODAL" });
+    }
   };
   return (
     <div
       className={`${css.hamburger} ${links.display ? css.exit : null}`}
-      onClick={handleClick}
+      onClick={() => (allowToggle.mobileLinks ? handleClick() : null)}
     >
       <div className={css.topLine}></div>
       <div className={css.middleLine}></div>

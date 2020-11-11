@@ -45,13 +45,11 @@ export default function Home(): JSX.Element {
         for (let i = 0; i < entries.length; i++) {
           if (entries[i].target === introductionSection.current) {
             if (entries[i].intersectionRatio < 0.9) {
-              console.log("take away scroll");
               indicateScroll(false);
               observer.current.unobserve(introductionSection.current);
             }
           } else if (entries[i].target === searchFeatureSection.current) {
             if (entries[i].intersectionRatio > 0.9) {
-              console.log("search feature calling.");
               loadElements((elements) => ({ ...elements, search: true }));
               observer.current.unobserve(searchFeatureSection.current);
             }
@@ -108,7 +106,6 @@ export default function Home(): JSX.Element {
             className={css.scrollIndicator}
             style={{ opacity: scroll ? "1" : "0" }}
           >
-            <h2>Get started</h2>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 148.24 78.36"

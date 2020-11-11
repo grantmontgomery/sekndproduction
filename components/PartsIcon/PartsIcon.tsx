@@ -13,7 +13,6 @@ export const PartsIcon: React.FC<Props> = ({ displayParts, parts }) => {
   const modalState = useModalState();
 
   const handleClick: () => void = () => {
-    console.log(parts.display);
     if (!parts.display) {
       displayParts({ display: true });
       modalDispatch({ type: "DATE_PARTS" });
@@ -23,7 +22,6 @@ export const PartsIcon: React.FC<Props> = ({ displayParts, parts }) => {
     }
   };
 
-  console.log(modalState);
   return (
     <svg
       onClick={() => (modalState.allowToggle.dateParts ? handleClick() : null)}
