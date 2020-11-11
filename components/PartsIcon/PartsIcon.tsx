@@ -1,5 +1,6 @@
 import * as React from "react";
 import css from "./PartsIcon.module.scss";
+import { useModalDispatch, useModalState } from "../../state/ModalContext";
 import { NavState } from "../Nav";
 
 type Props = {
@@ -8,15 +9,24 @@ type Props = {
 };
 
 export const PartsIcon: React.FC<Props> = ({ displayParts, parts }) => {
+  const modalDispatch = useModalDispatch();
+  const modalState = useModalState();
+
   const handleClick: () => void = () => {
-    parts.display
-      ? displayParts({ display: false })
-      : displayParts({ display: true });
+    console.log(parts.display);
+    if (!parts.display) {
+      displayParts({ display: true });
+      modalDispatch({ type: "DATE_PARTS" });
+    } else {
+      displayParts({ display: false });
+      modalDispatch({ type: "CLOSE_MODAL" });
+    }
   };
 
+  console.log(modalState);
   return (
     <svg
-      onClick={handleClick}
+      onClick={() => (modalState.allowToggle.dateParts ? handleClick() : null)}
       version="1.1"
       id="Layer_1"
       x="0px"
