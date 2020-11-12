@@ -8,8 +8,7 @@
   left: 50%;
   transition: opacity 1s cubic-bezier(0.075, 0.82, 0.165, 1);
   transform: translate(-50%);
-  overflow-x: hidden;
-  overflow-y: hidden;
+
   &.extended {
     height: 50%;
   }
@@ -48,8 +47,10 @@
     width: 100%;
     left: 0;
     pointer-events: none;
-
     transform: translate(0);
+    overflow: hidden;
+    object-fit: contain;
+
     & img {
       &.yelpImage {
         width: 120%;
