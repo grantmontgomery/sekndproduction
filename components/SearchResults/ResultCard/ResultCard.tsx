@@ -281,7 +281,11 @@ export const ResultCard: React.FC<{
         className={`${css.addButton} ${state.added ? css.remove : null}`}
         onClick={(event) => (event.stopPropagation(), handlePart())}
       >
-        {state.added ? "Remove from Parts -" : "Add to Parts +"}
+        {state.added ? (
+          <span>Remove from Parts -</span>
+        ) : (
+          <span>Add to Parts +</span>
+        )}
       </button>
       {setCardDetails()}
     </div>

@@ -109,7 +109,6 @@
     border-radius: 5vh;
     color: white;
     border-style: none;
-    font-size: min(22.5px, 2vh);
     padding-left: 2vh;
     padding-right: 2vh;
     z-index: 3;
@@ -126,6 +125,12 @@
       animation: loading 1s infinite;
       background-size: 200%;
       width: 40%;
+    }
+    & span {
+      display: block;
+      font-size: min(22.5px, 2vh);
+      width: fit-content;
+      height: fit-content;
     }
   }
 }

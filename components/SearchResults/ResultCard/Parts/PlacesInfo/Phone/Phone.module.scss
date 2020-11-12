@@ -8,7 +8,7 @@
   color: black;
   text-decoration: none;
   & svg {
-    fill: black;
+    fill: white;
     height: 2vh;
     width: auto;
   }
@@ -16,6 +16,7 @@
     margin-left: 2vw;
     font-size: min(25px, 2vh);
     height: fit-content;
+    color: white;
     width: fit-content;
   }
 }
