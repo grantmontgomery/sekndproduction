@@ -43,12 +43,12 @@ export default function App({
         >
           <PartsProvider>
             <PageTransition
-              timeout={1000}
+              timeout={300}
               loadingComponent={<SekndLoader></SekndLoader>}
-              loadingDelay={1000}
+              loadingDelay={0}
               loadingTimeout={{
-                enter: 1000,
-                exit: 1000,
+                enter: 400,
+                exit: 0,
               }}
               classNames="page-transition"
               loadingClassNames="loading-indicator"

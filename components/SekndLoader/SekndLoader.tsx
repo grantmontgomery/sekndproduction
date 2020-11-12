@@ -2,6 +2,9 @@ import * as React from "react";
 import css from "./SekndLoader.module.scss";
 
 export const SekndLoader: React.FC = () => {
+  React.useEffect(() => {
+    console.log("loading component rendered.");
+  }, []);
   return (
     <div className={css.loader}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.98 49.14">

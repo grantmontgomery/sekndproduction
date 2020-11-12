@@ -9,11 +9,12 @@ import { usePartsDispatch } from "../../state/DatePartsContext";
 import { PartImage } from "./PartImage";
 
 export const DatePart: React.FC<{
+  index: number;
   location: string;
   part: { [key: string]: any };
   handleSelectedPartChange?: (selectedPart: { [key: string]: any }) => void;
   selectedID?: string | null;
-}> = ({ part, location, handleSelectedPartChange, selectedID }) => {
+}> = ({ part, location, handleSelectedPartChange, selectedID, index }) => {
   const [state, setState] = React.useState<{
     extend: boolean;
     imageLoaded: boolean;
@@ -21,6 +22,7 @@ export const DatePart: React.FC<{
     extend: false,
     imageLoaded: false,
   });
+  const [rendered, setRender] = React.useState<boolean>(false);
   const dispatch = usePartsDispatch();
   const determineImageBackgroundSource: () => string = () => {
     switch (part.type) {
@@ -32,6 +34,13 @@ export const DatePart: React.FC<{
         return "";
     }
   };
+
+  React.useEffect(() => {
+    setTimeout(() => setRender(true), 1);
+    return () => {
+      clearTimeout();
+    };
+  }, []);
 
   const determinePartDetails: () => JSX.Element = () => {
     switch (part.type) {
@@ -98,6 +107,9 @@ export const DatePart: React.FC<{
       }
       style={{
         filter: determineFilter(),
+        opacity: rendered ? "1" : "0",
+        transform: rendered ? "translate(0)" : "translate(15%)",
+        transitionDelay: `${index * 125}ms`,
       }}
     >
       <PartImage

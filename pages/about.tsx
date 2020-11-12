@@ -1,6 +1,6 @@
 import * as React from "react";
 import css from "../styles/About.module.scss";
-import { Layout, ResultCard, DatePart } from "../components";
+import { Layout, ResultCard, DatePart, SekndLoader } from "../components";
 
 export default function About() {
   return (
