@@ -25,15 +25,12 @@ export default function App({
   pageProps,
   router,
 }: Props): JSX.Element {
-  const [loading, setLoading] = React.useState<boolean>(true);
-  console.log(loading);
+  const [loading, setLoading] = React.useState<boolean>(false);
 
-  useLayoutEffect(() => {
-    window.onload = () => {
-      console.log("app load done.");
-      setLoading(false);
-    };
-  }, []);
+  // useLayoutEffect(() => {
+  //   window.addEventListener("load", () => setLoading(false));
+  //   return window.removeEventListener("load", () => setLoading(false));
+  // }, []);
 
   React.useEffect(() => {
     const start: () => void = () => setLoading(true);
@@ -63,7 +60,7 @@ export default function App({
               //   enter: 400,
               //   exit: 0,
               // }}
-              key
+
               classNames="page-transition"
               loadingClassNames="loading-indicator"
             >

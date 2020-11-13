@@ -1,4 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
+import { SekndLoader } from "../components";
 
 export default class CustomDocument extends Document {
   render() {
