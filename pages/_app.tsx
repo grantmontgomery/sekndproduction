@@ -13,12 +13,6 @@ import { ModalProvider } from "../state/ModalContext";
 import { NextComponentType, NextPage, NextPageContext } from "next";
 import { NextRouter, Router } from "next/router";
 
-type InitialrectanglesState = {
-  rectangles: { part: { [key: string]: any } | null }[];
-} | null;
-type InitialGridState = { gridTemplate: string; hourStrings: string[] } | null;
-type InitialPartsState = { parts: { [key: string]: any }[] | [] } | null;
-
 type Props = {
   Component: NextComponentType;
   pageProps: NextPageContext;
@@ -30,9 +24,14 @@ export default function App({
   pageProps,
   router,
 }: Props): JSX.Element {
-  const [loading, setLoading] = React.useState<boolean>(false);
-
+  const [loading, setLoading] = React.useState<boolean>(true);
+  console.log(loading);
   React.useEffect(() => {
+    window.onload = () => {
+      console.log("app load done.");
+      setLoading(false);
+    };
+
     const start: () => void = () => setLoading(true);
     const end: () => void = () => setTimeout(() => setLoading(false), 500);
 
@@ -43,7 +42,6 @@ export default function App({
       Router.events.off("routeChangeComplete", end);
     };
   }, []);
-  console.log(loading);
   return (
     <ModalProvider>
       <RectanglesProvider>

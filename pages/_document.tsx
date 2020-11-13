@@ -1,9 +1,6 @@
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 export default class CustomDocument extends Document {
-  componentDidMount() {
-    console.log("app rendered");
-  }
   render() {
     return (
       <Html>
