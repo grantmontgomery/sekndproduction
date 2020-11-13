@@ -2,11 +2,14 @@ import * as React from "react";
 import css from "./SekndLoader.module.scss";
 
 export const SekndLoader: React.FC = () => {
+  const [fadeIn, setFadeIn] = React.useState<boolean>(false);
   React.useEffect(() => {
     console.log("loading component rendered.");
+    setTimeout(() => setFadeIn(true), 1);
+    return clearTimeout();
   }, []);
   return (
-    <div className={css.loader}>
+    <div className={css.loader} style={{ opacity: fadeIn ? "1" : "0" }}>
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.98 49.14">
         <title>AltLogoBlack</title>
         <g id="Layer_2" data-name="Layer 2">

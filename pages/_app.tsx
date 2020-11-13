@@ -3,7 +3,7 @@ import "../styles/globals.css";
 import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker.min.css";
 import { PageTransition } from "next-page-transitions";
-import { SekndLoader } from "../components";
+import { SekndLoader } from "../components/SekndLoader";
 import Cookie from "js-cookie";
 import { PartsProvider } from "../state/DatePartsContext";
 import { GridProvider } from "../state/SearchGridContext";
@@ -11,7 +11,7 @@ import { RectanglesProvider } from "../state/GridRectanglesContext";
 import { ModalProvider } from "../state/ModalContext";
 
 import { NextComponentType, NextPage, NextPageContext } from "next";
-import { NextRouter } from "next/router";
+import { NextRouter, Router } from "next/router";
 
 type InitialrectanglesState = {
   rectangles: { part: { [key: string]: any } | null }[];
@@ -23,9 +23,6 @@ type Props = {
   Component: NextComponentType;
   pageProps: NextPageContext;
   router: NextRouter;
-  initialrectanglesState: InitialrectanglesState;
-  initialGridState: InitialGridState;
-  initialPartsState: InitialPartsState;
 };
 
 export default function App({
@@ -33,6 +30,14 @@ export default function App({
   pageProps,
   router,
 }: Props): JSX.Element {
+  const [loading, setLoading] = React.useState<boolean>(false);
+
+  Router.events.on("routeChangeStart", () => setLoading(true));
+  Router.events.on("routeChangeComplete", () =>
+    setTimeout(() => setLoading(false), 500)
+  );
+
+  console.log(loading);
   return (
     <ModalProvider>
       <RectanglesProvider>
@@ -43,17 +48,21 @@ export default function App({
         >
           <PartsProvider>
             <PageTransition
-              timeout={300}
-              loadingComponent={<SekndLoader></SekndLoader>}
-              loadingDelay={0}
-              loadingTimeout={{
-                enter: 400,
-                exit: 0,
-              }}
+              timeout={250}
+              // loadingComponent={<SekndLoader></SekndLoader>}
+              // loadingDelay={500}
+              // loadingTimeout={{
+              //   enter: 400,
+              //   exit: 0,
+              // }}
               classNames="page-transition"
               loadingClassNames="loading-indicator"
             >
-              <Component {...pageProps} key={router.route} />
+              {loading ? (
+                <SekndLoader></SekndLoader>
+              ) : (
+                <Component {...pageProps} key={router.route} />
+              )}
             </PageTransition>
             <style jsx global>{`
               .page-transition-enter {
@@ -70,10 +79,12 @@ export default function App({
                 opacity: 0;
                 transition: opacity 300ms;
               }
-              .loading-indicator-enter {
+              .loading-indicator-enter,
+              .loading-indicator-appear {
                 opacity: 0;
               }
-              .loading-indicator-enter-active {
+              .loading-indicator-enter-active,
+              .loading-indicator-appear {
                 opacity: 1;
                 transition: opacity 300ms;
               }
