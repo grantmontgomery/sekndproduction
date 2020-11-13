@@ -25,14 +25,10 @@ export default function App({
   pageProps,
   router,
 }: Props): JSX.Element {
-  const [loading, setLoading] = React.useState<boolean>(false);
-
-  // useLayoutEffect(() => {
-  //   window.addEventListener("load", () => setLoading(false));
-  //   return window.removeEventListener("load", () => setLoading(false));
-  // }, []);
+  const [loading, setLoading] = React.useState<boolean>(true);
 
   React.useEffect(() => {
+    setLoading(false);
     const start: () => void = () => setLoading(true);
     const end: () => void = () => setTimeout(() => setLoading(false), 500);
 
