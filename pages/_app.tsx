@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.min.css";
 import { PageTransition } from "next-page-transitions";
 import { SekndLoader } from "../components/SekndLoader";
 import Cookie from "js-cookie";
+import useLayoutEffect from "../logic/useIsomorphicLayoutEffect";
 import { PartsProvider } from "../state/DatePartsContext";
 import { GridProvider } from "../state/SearchGridContext";
 import { RectanglesProvider } from "../state/GridRectanglesContext";
@@ -26,12 +27,15 @@ export default function App({
 }: Props): JSX.Element {
   const [loading, setLoading] = React.useState<boolean>(true);
   console.log(loading);
-  React.useEffect(() => {
+
+  useLayoutEffect(() => {
     window.onload = () => {
       console.log("app load done.");
       setLoading(false);
     };
+  }, []);
 
+  React.useEffect(() => {
     const start: () => void = () => setLoading(true);
     const end: () => void = () => setTimeout(() => setLoading(false), 500);
 
@@ -59,6 +63,7 @@ export default function App({
               //   enter: 400,
               //   exit: 0,
               // }}
+              key
               classNames="page-transition"
               loadingClassNames="loading-indicator"
             >
