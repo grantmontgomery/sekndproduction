@@ -5,9 +5,10 @@
   position: relative;
   overscroll-behavior-y: none;
   &::-webkit-scrollbar {
-    background: rgb(225, 225, 225);
-    width: 3.5vw;
-    border-radius: 3.5vw;
+    // background: rgb(225, 225, 225);
+    // width: 3.5vw;
+    // border-radius: 3.5vw;
+    display: none;
   }
   &::-webkit-scrollbar-thumb {
     background: black;

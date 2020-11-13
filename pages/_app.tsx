@@ -32,11 +32,17 @@ export default function App({
 }: Props): JSX.Element {
   const [loading, setLoading] = React.useState<boolean>(false);
 
-  Router.events.on("routeChangeStart", () => setLoading(true));
-  Router.events.on("routeChangeComplete", () =>
-    setTimeout(() => setLoading(false), 500)
-  );
+  React.useEffect(() => {
+    const start: () => void = () => setLoading(true);
+    const end: () => void = () => setTimeout(() => setLoading(false), 500);
 
+    Router.events.on("routeChangeStart", start);
+    Router.events.on("routeChangeComplete", end);
+    return () => {
+      Router.events.off("routeChangeStart", start);
+      Router.events.off("routeChangeComplete", end);
+    };
+  }, []);
   console.log(loading);
   return (
     <ModalProvider>

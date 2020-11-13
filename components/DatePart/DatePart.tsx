@@ -9,7 +9,7 @@ import { usePartsDispatch } from "../../state/DatePartsContext";
 import { PartImage } from "./PartImage";
 
 export const DatePart: React.FC<{
-  index: number;
+  index?: number;
   location: string;
   part: { [key: string]: any };
   handleSelectedPartChange?: (selectedPart: { [key: string]: any }) => void;
@@ -109,7 +109,7 @@ export const DatePart: React.FC<{
         filter: determineFilter(),
         opacity: rendered ? "1" : "0",
         transform: rendered ? "translate(0)" : "translate(15%)",
-        transitionDelay: `${index * 125}ms`,
+        transitionDelay: index ? `${index * 125}ms` : null,
       }}
     >
       <PartImage
