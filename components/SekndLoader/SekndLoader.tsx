@@ -11,7 +11,11 @@ export const SekndLoader: React.FC<{ initial?: boolean }> = ({ initial }) => {
     return clearTimeout();
   }, []);
   return initial ? (
-    <div id="initialLoader" className={css.loader}>
+    <div
+      id="initialLoader"
+      className={css.loader}
+      style={{ transition: "opacity 250ms ease-out" }}
+    >
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 228.98 49.14">
         <title>AltLogoBlack</title>
         <g id="Layer_2" data-name="Layer 2">

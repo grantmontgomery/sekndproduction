@@ -8,6 +8,10 @@
   border-radius: 20vh;
   border: solid 0.25vh black;
   transition: 250ms ease-out;
+
+  &.initialLoader {
+    transition: opacity 250ms ease-out;
+  }
   & svg {
     display: block;
     position: absolute;
