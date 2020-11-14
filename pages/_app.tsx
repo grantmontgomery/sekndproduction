@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.min.css";
 import { PageTransition } from "next-page-transitions";
 import { SekndLoader } from "../components/SekndLoader";
 import Cookie from "js-cookie";
+import css from "../styles/InitialLoader.module.scss";
 import useLayoutEffect from "../logic/useIsomorphicLayoutEffect";
 import { PartsProvider } from "../state/DatePartsContext";
 import { GridProvider } from "../state/SearchGridContext";
@@ -25,10 +26,9 @@ export default function App({
   pageProps,
   router,
 }: Props): JSX.Element {
-  const [loading, setLoading] = React.useState<boolean>(true);
+  const [loading, setLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    setLoading(false);
     const start: () => void = () => setLoading(true);
     const end: () => void = () => setTimeout(() => setLoading(false), 500);
 

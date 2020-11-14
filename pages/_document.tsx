@@ -32,6 +32,26 @@ export default class CustomDocument extends Document {
           <title>Seknd</title>
           <link rel="icon" href="/favicon.ico" />
           <script
+            dangerouslySetInnerHTML={{
+              __html: `
+
+              const fadeLoaderOut = new Promise(res => setTimeout(() => {
+                document.getElementById("initialLoader").style.opacity = "0"
+                res()
+              },250)) 
+              const removeLoader = newPromise(res => setTimeout(() => {
+                document.getElementById("initialLoader").remove()
+                res()
+              }, 500))
+            
+              window.addEventListener("load", async () => {
+                await fadeLoaderOut
+                await removeLoader
+              })
+            `,
+            }}
+          ></script>
+          <script
             async
             src={`https://www.googletagmanager.com/gtag/js?id=${process.env.GA_TRACKING_ID}`}
           />
@@ -49,6 +69,7 @@ export default class CustomDocument extends Document {
           />
         </Head>
         <body>
+          <SekndLoader initial={true}></SekndLoader>
           <Main></Main>
           <NextScript></NextScript>
         </body>
