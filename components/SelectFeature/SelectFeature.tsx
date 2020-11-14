@@ -28,12 +28,12 @@ export const SelectFeature: React.FC = () => {
       >
         <img
           className={css.mobileExample}
-          src="/images/MobilePlaceExampleCard.png"
+          src="/images/MobilePlaceCardExample.webp"
           alt=""
         />
         <img
           className={css.desktopExample}
-          src="/images/DeskTopPlaceExampleCard.png"
+          src="/images/DeskTopPlaceExampleCard.webp"
           alt=""
         />
       </div>
@@ -48,12 +48,12 @@ export const SelectFeature: React.FC = () => {
       >
         <img
           className={css.mobileExample}
-          src="/images/MobileEventExampleCard.png"
+          src="/images/MobileEventCardExample.webp"
           alt=""
         />
         <img
           className={css.desktopExample}
-          src="/images/DeskTopEventExampleCard.png"
+          src="/images/DeskTopEventExampleCard.webp"
           alt=""
         />
       </div>
