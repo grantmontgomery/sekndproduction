@@ -5,6 +5,7 @@ import "react-datepicker/dist/react-datepicker.min.css";
 import { PageTransition } from "next-page-transitions";
 import { SekndLoader } from "../components/SekndLoader";
 import Cookie from "js-cookie";
+import css from "../styles/InitialLoader.module.scss";
 import useLayoutEffect from "../logic/useIsomorphicLayoutEffect";
 import { PartsProvider } from "../state/DatePartsContext";
 import { GridProvider } from "../state/SearchGridContext";
