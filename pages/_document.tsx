@@ -38,7 +38,7 @@ export default class CustomDocument extends Document {
                 document.getElementById("initialLoader").style.opacity = "0"
                 res()
               },250)) 
-              const removeLoader = newPromise(res => setTimeout(() => {
+              const removeLoader = new Promise(res => setTimeout(() => {
                 document.getElementById("initialLoader").remove()
                 res()
               }, 500))

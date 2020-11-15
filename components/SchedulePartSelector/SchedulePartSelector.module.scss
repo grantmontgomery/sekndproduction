@@ -1,6 +1,7 @@
 .selectorWrapper {
   grid-area: parts;
   display: none;
+  visibility: hidden;
 }
 
 @media (orientation: landscape) {
@@ -9,6 +10,7 @@
     display: flex;
     flex-flow: column nowrap;
     height: 100%;
+    visibility: initial;
     width: 100%;
     & .selectorDisplay {
       height: 20%;

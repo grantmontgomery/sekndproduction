@@ -14,6 +14,10 @@ import {
 } from "../components";
 
 export default function Schedule(): JSX.Element {
+  const [windowDimensions, setWindowDimensions] = React.useState<{
+    windowHeight: number | null;
+    windowWidth: number | null;
+  }>({ windowHeight: null, windowWidth: null });
   const { startDate, endDate } = useGridState();
   const rectanglesDispatch = useRectanglesDispatch();
   const { rectangles } = useRectanglesState();
@@ -30,7 +34,16 @@ export default function Schedule(): JSX.Element {
   };
 
   React.useEffect(() => {
-    return removeCustomPart();
+    const changeWindowDimensions: () => void = () =>
+      setWindowDimensions({
+        windowHeight: window.innerHeight,
+        windowWidth: window.innerWidth,
+      });
+    window.addEventListener("resize", changeWindowDimensions);
+    return () => {
+      removeCustomPart();
+      window.removeEventListener("resize", changeWindowDimensions);
+    };
   }, []);
 
   const displayTimes: () => void = () => {
@@ -80,7 +93,9 @@ export default function Schedule(): JSX.Element {
           </div>
         </header>
         <TouchProvider>
-          <SchedulePartSelector></SchedulePartSelector>
+          {windowDimensions.windowWidth >= windowDimensions.windowHeight ? (
+            <SchedulePartSelector></SchedulePartSelector>
+          ) : null}
           <ScheduleGrid></ScheduleGrid>
           <PartsContainer></PartsContainer>
         </TouchProvider>

@@ -20,6 +20,7 @@ export const ScheduleGrid: React.FC = () => {
   React.useEffect(() => {
     return touchDispatch({ type: "REMOVE_CUSTOM_PIECE" });
   }, []);
+
   return (
     <section
       id="innerGrid"

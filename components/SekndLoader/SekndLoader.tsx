@@ -4,7 +4,6 @@ import css from "./SekndLoader.module.scss";
 export const SekndLoader: React.FC<{ initial?: boolean }> = ({ initial }) => {
   const [fadeIn, setFadeIn] = React.useState<boolean>(false);
   React.useEffect(() => {
-    console.log("loading component rendered.");
     if (!initial) {
       setTimeout(() => setFadeIn(true), 1);
     }
