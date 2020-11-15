@@ -34,7 +34,6 @@ export default class CustomDocument extends Document {
           <script
             dangerouslySetInnerHTML={{
               __html: `
-
               const fadeLoaderOut = new Promise(res => setTimeout(() => {
                 document.getElementById("initialLoader").style.opacity = "0"
                 res()

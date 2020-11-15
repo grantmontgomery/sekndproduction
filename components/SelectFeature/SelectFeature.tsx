@@ -28,7 +28,7 @@ export const SelectFeature: React.FC = () => {
       >
         <img
           className={css.mobileExample}
-          src="/images/MobilePlaceCardExample.webp"
+          src="/images/MobilePlaceExampleCard.png"
           alt=""
         />
         <img
@@ -48,7 +48,7 @@ export const SelectFeature: React.FC = () => {
       >
         <img
           className={css.mobileExample}
-          src="/images/MobileEventCardExample.webp"
+          src="/images/MobileEventExampleCard.png"
           alt=""
         />
         <img
