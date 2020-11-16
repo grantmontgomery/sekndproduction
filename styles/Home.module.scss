@@ -44,12 +44,14 @@
           background: transparent;
           object-fit: contain;
           overflow: hidden;
+          background: linear-gradient(45deg, #155799, #159957);
           & video {
             height: auto;
             width: 100%;
-            top: 50%;
+            display: block;
+            top: -0.75vw;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%);
             position: relative;
           }
         }
@@ -145,11 +147,35 @@
       & .imagesWrapper {
         margin-top: 0;
         & .laptopWrapper {
-          height: fit-content;
-          width: fit-content;
+          height: clamp(300px, 25vw, 450px);
+          width: clamp(471px, 39.25vw, 706.5px);
+          position: relative;
+          & .videoWrapper {
+            position: relative;
+            top: 5%;
+            width: 77%;
+            height: 76%;
+            left: 0;
+            margin-left: auto;
+            margin-right: auto;
+            & video {
+              height: auto;
+              width: 100%;
+              top: -2.5%;
+              display: block;
+              left: 50%;
+              transform: translate(-50%);
+              position: relative;
+            }
+          }
           & img {
             height: clamp(300px, 25vw, 450px);
             width: auto;
+            position: absolute;
+            display: block;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
           }
         }
         & .phoneWrapper {
@@ -158,6 +184,7 @@
           & img {
             height: clamp(300px, 25vw, 450px);
             width: auto;
+            display: block;
           }
         }
       }

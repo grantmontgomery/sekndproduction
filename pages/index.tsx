@@ -21,6 +21,8 @@ export default function Home(): JSX.Element {
     select: false,
     schedule: false,
   });
+
+  const [video, loadVideo] = React.useState<boolean>(false);
   const observer: React.MutableRefObject<
     IntersectionObserver | undefined
   > = React.useRef();
@@ -38,6 +40,14 @@ export default function Home(): JSX.Element {
   const sheduleFeatureSection: React.MutableRefObject<
     HTMLElement | undefined
   > = React.useRef();
+
+  React.useEffect(() => {
+    document
+      .getElementById("laptopVideo")
+      .addEventListener("loadedmetadata", () => {
+        console.log("video loaded");
+      });
+  }, []);
 
   React.useEffect(() => {
     observer.current = new IntersectionObserver(
@@ -102,7 +112,7 @@ export default function Home(): JSX.Element {
             <div className={css.laptopWrapper}>
               <img src="/images/Laptop.png" alt="" />
               <div className={css.videoWrapper}>
-                <video id="laptopVideo" autoPlay loop muted>
+                <video id="laptopVideo" autoPlay loop muted playsInline>
                   <source
                     type={"video/mp4"}
                     src="/videos/SekndDesktopCapture.mp4"
