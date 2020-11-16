@@ -99,8 +99,20 @@ export default function Home(): JSX.Element {
             <br /> now set the perfect date.
           </h1>
           <div className={css.imagesWrapper}>
-            <img src="/images/Laptop.png" alt="" />
-            <img src="/images/Phone.png" alt="" />
+            <div className={css.laptopWrapper}>
+              <img src="/images/Laptop.png" alt="" />
+              <div className={css.videoWrapper}>
+                <video id="laptopVideo" autoPlay loop muted>
+                  <source
+                    type={"video/mp4"}
+                    src="/videos/SekndDesktopCapture.mp4"
+                  ></source>
+                </video>
+              </div>
+            </div>
+            <div className={css.phoneWrapper}>
+              <img src="/images/Phone.png" alt="" />
+            </div>
           </div>
           <div
             className={css.scrollIndicator}

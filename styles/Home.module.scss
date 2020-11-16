@@ -31,9 +31,41 @@
       position: relative;
       width: 100%;
       justify-content: center;
-      & img {
+      & .laptopWrapper {
         height: 40vw;
-        width: auto;
+        width: 63vw;
+        & .videoWrapper {
+          z-index: -1;
+          position: absolute;
+          height: 30vw;
+          width: 50vw;
+          top: 2vw;
+          left: 7vw;
+          background: transparent;
+          object-fit: contain;
+          overflow: hidden;
+          & video {
+            height: auto;
+            width: 100%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            position: relative;
+          }
+        }
+
+        & img {
+          height: 40vw;
+          width: auto;
+        }
+      }
+      & .phoneWrapper {
+        height: fit-content;
+        width: fit-content;
+        & img {
+          height: 40vw;
+          width: auto;
+        }
       }
     }
     & .scrollIndicator {
@@ -112,10 +144,21 @@
       }
       & .imagesWrapper {
         margin-top: 0;
-
-        & img {
-          height: clamp(300px, 25vw, 450px);
-          width: auto;
+        & .laptopWrapper {
+          height: fit-content;
+          width: fit-content;
+          & img {
+            height: clamp(300px, 25vw, 450px);
+            width: auto;
+          }
+        }
+        & .phoneWrapper {
+          height: fit-content;
+          width: fit-content;
+          & img {
+            height: clamp(300px, 25vw, 450px);
+            width: auto;
+          }
         }
       }
       & .scrollIndicator {
@@ -135,13 +178,6 @@
           animation-name: fadeIn;
           animation-duration: 2s;
           animation-iteration-count: infinite;
-
-          &:nth-child(3) {
-            animation-delay: 0.5s;
-          }
-          &:nth-child(4) {
-            animation-delay: 1s;
-          }
         }
       }
     }

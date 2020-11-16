@@ -509,6 +509,9 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     dragPosition.touchDragging
       ? window.addEventListener("touchmove", handleTouchMove)
       : window.removeEventListener("touchmove", handleTouchMove);
+    return () => {
+      window.removeEventListener("touchmove", handleTouchMove);
+    };
   }, [dragPosition.touchDragging]);
 
   React.useEffect(() => {
@@ -582,6 +585,10 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
       clearInterval(upScrollInterval.current);
       clearInterval(downScrollInterval.current);
     }
+    return () => {
+      clearInterval(upScrollInterval.current);
+      clearInterval(downScrollInterval.current);
+    };
   }, [dragPosition.moveScroll]);
 
   return (
