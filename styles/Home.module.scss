@@ -33,7 +33,10 @@
       justify-content: center;
       & .laptopWrapper {
         height: 40vw;
+        overflow: hidden;
         width: 63vw;
+        position: relative;
+
         & .videoWrapper {
           z-index: -1;
           position: absolute;
@@ -62,8 +65,27 @@
         }
       }
       & .phoneWrapper {
-        height: fit-content;
-        width: fit-content;
+        height: 40vw;
+        width: 26.42vw;
+        overflow: hidden;
+        position: relative;
+        & .videoWrapper {
+          z-index: -1;
+          position: absolute;
+          height: 38vw;
+          width: 19vw;
+          left: 4vw;
+          object-fit: contain;
+          overflow: hidden;
+          border-radius: 4vw;
+          & video {
+            display: block;
+            transform: translate(-50%);
+            left: 50%;
+            position: relative;
+            height: 100%;
+          }
+        }
         & img {
           height: 40vw;
           width: auto;
