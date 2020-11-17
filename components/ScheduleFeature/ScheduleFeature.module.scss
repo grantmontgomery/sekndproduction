@@ -31,6 +31,9 @@
     font-size: clamp(20pt, 2vw, 25pt);
   }
   .deviceWrapper {
+    height: clamp(127.39px, 31.85vw, 445.86px);
+    width: clamp(200px, 50vw, 700px);
+    overflow: hidden;
     & .phoneImage {
       display: none;
     }
@@ -38,6 +41,29 @@
       display: block;
       width: clamp(200px, 50vw, 700px);
       height: auto;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    & .videoWrapper {
+      position: relative;
+      top: 5%;
+      width: 77%;
+      height: 76%;
+      left: 0;
+      margin-left: auto;
+      margin-right: auto;
+      object-fit: contain;
+      overflow: hidden;
+      background: linear-gradient(45deg, #155799, #159957);
+      & video {
+        height: auto;
+        position: relative;
+        top: -2.5%;
+        width: 100%;
+        display: block;
+      }
     }
   }
 }

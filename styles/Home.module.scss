@@ -150,6 +150,7 @@
           height: clamp(300px, 25vw, 450px);
           width: clamp(471px, 39.25vw, 706.5px);
           position: relative;
+          overflow: hidden;
           & .videoWrapper {
             position: relative;
             top: 5%;

@@ -25,6 +25,14 @@ export const ScheduleFeature: React.FC = () => {
           transform: `translate(0, ${elements ? "0" : "10%"})`,
         }}
       >
+        <div className={css.videoWrapper}>
+          <video autoPlay loop muted playsInline>
+            <source
+              type={"video/mp4"}
+              src={"/videos/ScheduleCapture.mp4"}
+            ></source>
+          </video>
+        </div>
         <img className={css.phoneImage} src="/images/Phone.png" alt="" />
         <img className={css.desktopImage} src="/images/Laptop.png" alt="" />
       </div>
