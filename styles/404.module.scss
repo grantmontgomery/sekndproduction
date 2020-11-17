@@ -1,0 +1,36 @@
+.errorPage {
+  top: 10vh;
+  height: 90vh;
+  width: 100vw;
+  padding: 5%;
+  & section {
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    margin-left: auto;
+    margin-right: auto;
+    height: fit-content;
+    width: fit-content;
+
+    & h1 {
+      height: fit-content;
+      width: fit-content;
+      font-size: 6vw;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    & h2 {
+      height: fit-content;
+      width: fit-content;
+      font-size: 5vw;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+}
+
+@media (orientation: landscape) {
+  .errorPage {
+    width: clamp(750px, 90vw, 1400px);
+  }
+}
