@@ -74,10 +74,11 @@
           position: absolute;
           height: 38vw;
           width: 19vw;
-          left: 4vw;
+          left: 3.9vw;
           object-fit: contain;
           overflow: hidden;
-          border-radius: 4vw;
+          border-radius: 3vw;
+          top: 1vw;
           & video {
             display: block;
             transform: translate(-50%);
