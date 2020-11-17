@@ -1,6 +1,10 @@
 import * as React from "react";
 import css from "../styles/404.module.scss";
 import { Layout } from "../components";
+<<<<<<< HEAD
+=======
+import Link from "next/link";
+>>>>>>> master
 
 export default function Custom404(): JSX.Element {
   return (
