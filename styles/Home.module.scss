@@ -203,12 +203,35 @@
           }
         }
         & .phoneWrapper {
-          height: fit-content;
-          width: fit-content;
+          height: clamp(300px, 25vw, 450px);
+          width: clamp(198.15px, 16.51vw, 297.22px);
+          & .videoWrapper {
+            z-index: -1;
+            position: relative;
+            height: 93%;
+            width: 65%;
+            left: 50%;
+            transform: translate(-50%);
+            object-fit: contain;
+            overflow: hidden;
+            border-radius: 3%;
+            top: 2%;
+            & video {
+              display: block;
+              transform: translate(-50%);
+              left: 50%;
+              position: relative;
+              height: 100%;
+            }
+          }
           & img {
             height: clamp(300px, 25vw, 450px);
             width: auto;
+            position: absolute;
             display: block;
+            top: 0;
+            left: 0;
+            transform: translate(0);
           }
         }
       }
