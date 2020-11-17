@@ -21,6 +21,26 @@
     width: auto;
     display: block;
   }
+  & .videoWrapper {
+    position: absolute;
+    z-index: -1;
+    height: 77vw;
+    left: 8.5vw;
+    width: 36vw;
+    border-radius: 5vw;
+    overflow: hidden;
+    object-fit: contain;
+    & video {
+      height: 100%;
+      width: auto;
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+      top: 1.5vw;
+      left: 50%;
+      transform: translate(-50%);
+    }
+  }
   & .desktopImage {
     display: none;
   }
@@ -55,6 +75,7 @@
       margin-left: auto;
       margin-right: auto;
       object-fit: contain;
+      border-radius: 0;
       overflow: hidden;
       background: linear-gradient(45deg, #155799, #159957);
       & video {

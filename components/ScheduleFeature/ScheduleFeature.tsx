@@ -59,7 +59,10 @@ export const ScheduleFeature: React.FC = () => {
           <React.Fragment>
             <div className={css.videoWrapper}>
               <video autoPlay loop muted playsInline>
-                <source type={""} src={""}></source>
+                <source
+                  type={"video/mp4"}
+                  src={"/videos/SekndCaptureMobileTest.mp4"}
+                ></source>
               </video>
             </div>
             <img className={css.phoneImage} src="/images/Phone.png" alt="" />
