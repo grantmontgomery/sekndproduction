@@ -74,6 +74,22 @@ const modalReducer: React.Reducer<State, Action> = (
 
         modalOpen: true,
       };
+    case "SIGN_IN":
+      return {
+        allowToggle: {
+          signIn: true,
+          mobileLinks: false,
+          dateParts: false,
+          searchBox: false,
+        },
+        allowDisplay: {
+          mobileLinks: false,
+          dateParts: false,
+          searchBox: false,
+          signIn: true,
+        },
+        modalOpen: true,
+      };
     case "CLOSE_MODAL":
       return {
         allowToggle: {
