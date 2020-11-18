@@ -1,12 +1,24 @@
 import * as React from "react";
+import { useModalDispatch, useModalState } from "../../state/ModalContext";
 import css from "./AccountDisplay.module.scss";
 
 export const AccountDisplay: React.FC = () => {
   const [state, setState] = React.useState<{ loggedIn: boolean }>({
     loggedIn: false,
   });
+  const { allowToggle, allowDisplay } = useModalState();
+  const modalDispatch = useModalDispatch();
+
+  const handleSignInModal: () => void = () => {
+    allowDisplay.signIn
+      ? modalDispatch({ type: "CLOSE_MODAL" })
+      : modalDispatch({ type: "SIGN_IN" });
+  };
   return (
-    <div className={css.accountDisplay}>
+    <div
+      className={css.accountDisplay}
+      onClick={() => (allowToggle.signIn ? handleSignInModal() : null)}
+    >
       {/* <svg version="1.1" x="0px" y="0px">
         <path
           d="M239.7,260.2c0.5,0,1,0,1.6,0c0.2,0,0.4,0,0.6,0c0.3,0,0.7,0,1,0c29.3-0.5,53-10.8,70.5-30.5

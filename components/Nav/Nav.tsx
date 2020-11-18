@@ -8,6 +8,7 @@ import { SearchIcon } from "../SearchIcon";
 import { SearchBox } from "../SearchBox";
 import { NavLinks } from "../NavLinks";
 import { PartsIcon } from "../PartsIcon";
+import { SignInModal } from "../SignInModal";
 import { AccountDisplay } from "../AccountDisplay";
 import css from "./Nav.module.scss";
 import { useModalState } from "../../state/ModalContext";
@@ -77,6 +78,21 @@ export const Nav: React.FC = () => {
           ) : null}
         </TransitionGroup>
       </nav>
+      <TransitionGroup>
+        {allowDisplay.signIn ? (
+          <CSSTransition
+            timeout={250}
+            classNames={{
+              enter: `${css["signIn-enter"]}`,
+              enterActive: `${css["signIn-enter-active"]}`,
+              exit: `${css["signIn-exit"]}`,
+              exitActive: `${css["signIn-exit-active"]}`,
+            }}
+          >
+            <SignInModal></SignInModal>
+          </CSSTransition>
+        ) : null}
+      </TransitionGroup>
       <TransitionGroup>
         {allowDisplay.searchBox ? (
           <CSSTransition

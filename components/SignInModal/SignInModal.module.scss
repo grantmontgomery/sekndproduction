@@ -1,0 +1,42 @@
+.signInWrapper {
+  display: none;
+}
+
+@media (orientation: landscape) {
+  .signInWrapper {
+    display: flex;
+    flex-flow: column nowrap;
+    top: 10vh;
+    height: 20vh;
+    background: white;
+    width: clamp(300px, 25vw, 400px);
+    float: right;
+    right: 12%;
+    position: fixed;
+    z-index: 2;
+    padding-left: 2.5%;
+    padding-right: 2.5%;
+    padding-bottom: 1%;
+
+    & input {
+      margin-top: 10px;
+      &:nth-child(2) {
+        margin-bottom: 10px;
+      }
+    }
+
+    & .loginButton {
+      display: inline-flex;
+      justify-content: center;
+      width: 100%;
+      outline: none;
+      height: 5vh;
+      background: blue;
+      color: white;
+      text-align: center;
+      border-radius: 8px;
+      cursor: pointer;
+      align-items: center;
+    }
+  }
+}
