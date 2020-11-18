@@ -1,11 +1,17 @@
 import * as React from "react";
 
 type State = {
-  allowToggle: { mobileLinks: boolean; dateParts: boolean; searchBox: boolean };
+  allowToggle: {
+    mobileLinks: boolean;
+    dateParts: boolean;
+    searchBox: boolean;
+    signIn: boolean;
+  };
   allowDisplay: {
     mobileLinks: boolean;
     dateParts: boolean;
     searchBox: boolean;
+    signIn: boolean;
   };
   modalOpen: boolean;
 };
@@ -21,30 +27,66 @@ const modalReducer: React.Reducer<State, Action> = (
   switch (action.type) {
     case "MOBILE_LINKS":
       return {
-        allowToggle: { mobileLinks: true, dateParts: false, searchBox: false },
-        allowDisplay: { mobileLinks: true, dateParts: false, searchBox: false },
+        allowToggle: {
+          mobileLinks: true,
+          dateParts: false,
+          searchBox: false,
+          signIn: false,
+        },
+        allowDisplay: {
+          mobileLinks: true,
+          dateParts: false,
+          searchBox: false,
+          signIn: false,
+        },
         modalOpen: true,
       };
     case "DATE_PARTS":
       return {
-        allowToggle: { dateParts: true, mobileLinks: false, searchBox: false },
-        allowDisplay: { dateParts: true, mobileLinks: false, searchBox: false },
+        allowToggle: {
+          dateParts: true,
+          mobileLinks: false,
+          searchBox: false,
+          signIn: false,
+        },
+        allowDisplay: {
+          dateParts: true,
+          mobileLinks: false,
+          searchBox: false,
+          signIn: false,
+        },
         modalOpen: true,
       };
     case "SEARCH_BOX":
       return {
-        allowToggle: { searchBox: true, mobileLinks: false, dateParts: false },
-        allowDisplay: { searchBox: true, mobileLinks: false, dateParts: false },
+        allowToggle: {
+          searchBox: true,
+          mobileLinks: false,
+          dateParts: false,
+          signIn: false,
+        },
+        allowDisplay: {
+          searchBox: true,
+          mobileLinks: false,
+          dateParts: false,
+          signIn: false,
+        },
 
         modalOpen: true,
       };
     case "CLOSE_MODAL":
       return {
-        allowToggle: { mobileLinks: true, dateParts: true, searchBox: true },
+        allowToggle: {
+          mobileLinks: true,
+          dateParts: true,
+          searchBox: true,
+          signIn: true,
+        },
         allowDisplay: {
           mobileLinks: false,
           dateParts: false,
           searchBox: false,
+          signIn: false,
         },
 
         modalOpen: false,
@@ -65,8 +107,18 @@ export const ModalProvider: ({
   children: React.ReactNode;
 }) => JSX.Element = ({ children }) => {
   const [state, dispatch] = React.useReducer(modalReducer, {
-    allowToggle: { mobileLinks: true, dateParts: true, searchBox: true },
-    allowDisplay: { mobileLinks: false, dateParts: false, searchBox: false },
+    allowToggle: {
+      mobileLinks: true,
+      dateParts: true,
+      searchBox: true,
+      signIn: true,
+    },
+    allowDisplay: {
+      mobileLinks: false,
+      dateParts: false,
+      searchBox: false,
+      signIn: false,
+    },
     modalOpen: false,
   });
 
