@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import Amplify from "aws-amplify";
 
 type Params = {
   radius: string;
