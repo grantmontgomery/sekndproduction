@@ -1,9 +1,10 @@
 import { ApolloServer, gql, makeExecutableSchema } from "apollo-server-micro";
-
+import { createUserTypeDefs } from "../../graphqlSetUp";
 const typeDefs = gql`
   type Query {
     users: [User!]!
     user(username: String): User
+    addUser(name: String, username: String): [User!]!
   }
   type User {
     name: String
@@ -22,6 +23,10 @@ const resolvers = {
     },
     user(parent, { username }) {
       return users.find((user) => user.username === username);
+    },
+    addUser(parent, { name, username }) {
+      users.push({ name, username });
+      return users;
     },
   },
 };
