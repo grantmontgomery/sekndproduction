@@ -13,6 +13,15 @@ export const SignInModal: React.FC = () => {
     email: string;
     password: string;
   }>({ username: "", email: "", password: "" });
+
+  const testFetch = async () => {
+    try {
+      const data = await fetch("localhost:3000/api/createNewUsers");
+      console.log(data);
+    } catch {
+      console.log("error");
+    }
+  };
   return (
     <div className={css.signInWrapper}>
       <div className={css.signInSelector}>
@@ -57,7 +66,9 @@ export const SignInModal: React.FC = () => {
             <input type="checkbox" />
             Remember Password
           </span>
-          <span className={css.loginButton}>Log in</span>
+          <span className={css.loginButton} onClick={testFetch}>
+            Log in
+          </span>
         </React.Fragment>
       ) : (
         <React.Fragment>

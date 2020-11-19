@@ -1,12 +1,32 @@
-import { NextApiRequest, NextApiResponse } from "next";
-import { ApolloServer } from "apollo-server-micro";
+import { ApolloServer, gql, makeExecutableSchema } from "apollo-server-micro";
 
-const server: ApolloServer = new ApolloServer({});
+const typeDefs = gql`
+  type Query {
+    users: [User!]!
+    user(username: String): User
+  }
+  type User {
+    name: String
+    username: String
+  }
+`;
+const users = [
+  { name: "Leeroy Jenkins", username: "leeroy" },
+  { name: "Foo Bar", username: "foobar" },
+];
 
-const handler: (
-  req: NextApiRequest,
-  res: NextApiResponse
-) => Promise<void> = server.createHandler({ path: "/api/graphql" });
+const resolvers = {
+  Query: {
+    users() {
+      return users;
+    },
+    user(parent, { username }) {
+      return users.find((user) => user.username === username);
+    },
+  },
+};
+
+export const schema = makeExecutableSchema({ typeDefs, resolvers });
 
 export const config = {
   api: {
@@ -14,4 +34,6 @@ export const config = {
   },
 };
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {}
+export default new ApolloServer({ schema }).createHandler({
+  path: "/api/createNewUser",
+});
