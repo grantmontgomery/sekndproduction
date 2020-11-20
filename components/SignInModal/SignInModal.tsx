@@ -1,10 +1,10 @@
 import * as React from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import css from "./SignInModal.module.scss";
 
 const MyQuery = gql`
-  query {
-    users {
+  query Query($name: String, $username: String) {
+    addUser(name: $name, username: $username) {
       name
       username
     }
@@ -38,10 +38,6 @@ export const SignInModal: React.FC = () => {
 
   console.log(loading);
   console.log(data);
-
-  // React.useEffect(() => {
-  //   data === undefined ? console.log(error) : console.log(data);
-  // }, []);
 
   return (
     <div className={css.signInWrapper}>

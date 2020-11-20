@@ -21,15 +21,17 @@ function createIsomorphicLink() {
   }
 }
 
-function createApolloClient() {
+function createApolloClient(): ApolloClient<NormalizedCacheObject> {
   return new ApolloClient({
     ssrMode: typeof window === "undefined",
     link: createIsomorphicLink(),
-    cache: new InMemoryCache(),
+    cache: new InMemoryCache({ addTypename: false }),
   });
 }
 
-export function initializeApollo(initialState = null) {
+export function initializeApollo(
+  initialState = null
+): ApolloClient<NormalizedCacheObject> {
   const _apolloClient = apolloClient ?? createApolloClient();
 
   if (initialState) {
@@ -42,7 +44,7 @@ export function initializeApollo(initialState = null) {
   return apolloClient;
 }
 
-export function useApollo(initialState) {
+export function useApollo(initialState): ApolloClient<NormalizedCacheObject> {
   const store = useMemo(() => initializeApollo(initialState), [initialState]);
   return store;
 }

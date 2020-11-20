@@ -1,6 +1,6 @@
 import { ApolloServer, gql, makeExecutableSchema } from "apollo-server-micro";
 import { createUserTypeDefs } from "../../graphqlSetUp";
-import { schema } from "../../graphqlSetUp/schemas";
+import { typeDefs, resolvers } from "../../graphqlSetUp/schemas";
 
 export const config = {
   api: {
@@ -9,7 +9,9 @@ export const config = {
 };
 
 export default new ApolloServer({
-  schema,
+  typeDefs,
+  resolvers,
+  playground: process.env.NODE_ENV === "development",
 }).createHandler({
   path: "/api/createNewUser",
 });

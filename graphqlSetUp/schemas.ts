@@ -4,7 +4,7 @@ export const typeDefs = gql`
   type Query {
     users: [User!]!
     user(username: String): User
-    addUser(name: String!, username: String!): [User!]!
+    addUser(name: String, username: String): [User!]!
   }
   type User {
     name: String
