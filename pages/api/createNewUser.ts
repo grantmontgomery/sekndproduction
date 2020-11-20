@@ -1,5 +1,4 @@
 import { ApolloServer, gql, makeExecutableSchema } from "apollo-server-micro";
-import { createUserTypeDefs } from "../../graphqlSetUp";
 import { typeDefs, resolvers } from "../../graphqlSetUp/schemas";
 
 export const config = {
