@@ -1,10 +1,35 @@
-import { gql } from "apollo-server-micro";
+import { gql, makeExecutableSchema } from "apollo-server-micro";
 
-export const createUserTypeDefs = gql`
+export const typeDefs = gql`
+  type Query {
+    users: [User!]!
+    user(username: String): User
+    addUser(name: String!, username: String!): [User!]!
+  }
   type User {
-    id: ID
+    name: String
     username: String
-    email: String
-    password: String
   }
 `;
+
+const users = [
+  { name: "Leeroy Jenkins", username: "leeroy" },
+  { name: "Foo Bar", username: "foobar" },
+];
+
+export const resolvers = {
+  Query: {
+    users() {
+      return users;
+    },
+    user(parent, { username }) {
+      return users.find((user) => user.username === username);
+    },
+    addUser(parent, { name, username }) {
+      users.push({ name, username });
+      return users;
+    },
+  },
+};
+
+export const schema = makeExecutableSchema({ typeDefs, resolvers });

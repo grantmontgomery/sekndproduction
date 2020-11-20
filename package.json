@@ -30,6 +30,8 @@
     "react-dom": "17.0.1",
     "react-transition-group": "^4.4.1",
     "serverless": "2.11.1",
+    "serverless-mysql": "^1.5.4",
+    "sql-template-strings": "^2.2.2",
     "swr": "^0.3.8"
   },
   "devDependencies": {

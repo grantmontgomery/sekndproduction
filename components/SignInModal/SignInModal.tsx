@@ -1,6 +1,15 @@
-import { stringify } from "querystring";
 import * as React from "react";
+import { useQuery, gql } from "@apollo/client";
 import css from "./SignInModal.module.scss";
+
+const MyQuery = gql`
+  query {
+    users {
+      name
+      username
+    }
+  }
+`;
 
 export const SignInModal: React.FC = () => {
   const [mode, setMode] = React.useState<string>("signin");
@@ -14,6 +23,10 @@ export const SignInModal: React.FC = () => {
     password: string;
   }>({ username: "", email: "", password: "" });
 
+  const { data, loading, error } = useQuery(MyQuery, {
+    variables: { name: "grant", username: "grant1994" },
+  });
+
   const testFetch = async () => {
     try {
       const data = await fetch("localhost:3000/api/createNewUsers");
@@ -22,6 +35,14 @@ export const SignInModal: React.FC = () => {
       console.log("error");
     }
   };
+
+  console.log(loading);
+  console.log(data);
+
+  // React.useEffect(() => {
+  //   data === undefined ? console.log(error) : console.log(data);
+  // }, []);
+
   return (
     <div className={css.signInWrapper}>
       <div className={css.signInSelector}>
