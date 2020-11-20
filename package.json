@@ -32,6 +32,7 @@
     "serverless": "2.11.1",
     "serverless-mysql": "^1.5.4",
     "sql-template-strings": "^2.2.2",
+    "sqlite": "^4.0.17",
     "swr": "^0.3.8"
   },
   "devDependencies": {
