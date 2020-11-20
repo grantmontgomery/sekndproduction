@@ -7,7 +7,6 @@ import {
 } from "../../state/GridRectanglesContext";
 
 import { useTouchDispatch } from "../ScheduleGrid/Context";
-import { sectionFooterSecondaryContent } from "aws-amplify";
 
 export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   part,

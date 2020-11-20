@@ -1,4 +1,3 @@
-import { JS } from "aws-amplify";
 import * as React from "react";
 import InputProps from "../../SearchBox";
 import css from "./SearchSelector.module.scss";

@@ -3,10 +3,21 @@ import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import css from "./SignInModal.module.scss";
 
 const MyQuery = gql`
-  query Query($name: String, $username: String) {
-    addUser(name: $name, username: $username) {
-      name
+  query Query($username: String!, $email: String!, $password: String!) {
+    addUser(username: $username, password: $password, email: $email) {
+      email
       username
+      password
+    }
+  }
+`;
+
+const TestQuery = gql`
+  query bruh($username: String!) {
+    user(username: $username) {
+      email
+      username
+      password
     }
   }
 `;
@@ -23,21 +34,26 @@ export const SignInModal: React.FC = () => {
     password: string;
   }>({ username: "", email: "", password: "" });
 
-  const { data, loading, error } = useQuery(MyQuery, {
-    variables: { name: "grant", username: "grant1994" },
-  });
-
-  const testFetch = async () => {
-    try {
-      const data = await fetch("localhost:3000/api/createNewUsers");
-      console.log(data);
-    } catch {
-      console.log("error");
+  const [submit, { called, loading, data, error, variables }] = useLazyQuery(
+    MyQuery,
+    {
+      variables: {
+        password: registerFields.password,
+        email: registerFields.email,
+        username: registerFields.username,
+      },
     }
-  };
+  );
 
-  console.log(loading);
-  console.log(data);
+  React.useEffect(() => {
+    console.log(called);
+    if (called) {
+      if (!loading) {
+        console.log(variables);
+        data === undefined ? console.log(error) : console.log(data);
+      }
+    }
+  }, [called, loading]);
 
   return (
     <div className={css.signInWrapper}>
@@ -83,9 +99,7 @@ export const SignInModal: React.FC = () => {
             <input type="checkbox" />
             Remember Password
           </span>
-          <span className={css.loginButton} onClick={testFetch}>
-            Log in
-          </span>
+          <span className={css.loginButton}>Log in</span>
         </React.Fragment>
       ) : (
         <React.Fragment>
@@ -115,7 +129,9 @@ export const SignInModal: React.FC = () => {
               setRegister((fields) => ({ ...fields, password: target.value }))
             }
           />
-          <span className={css.registerButton}>Register</span>
+          <span className={css.registerButton} onClick={() => submit()}>
+            Register
+          </span>
         </React.Fragment>
       )}
     </div>

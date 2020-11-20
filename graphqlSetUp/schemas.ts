@@ -3,18 +3,27 @@ import { gql, makeExecutableSchema } from "apollo-server-micro";
 export const typeDefs = gql`
   type Query {
     users: [User!]!
-    user(username: String): User
-    addUser(name: String, username: String): [User!]!
+    user(username: String!): User
+    addUser(username: String!, email: String!, password: String!): [User!]!
   }
   type User {
-    name: String
-    username: String
+    username: String!
+    email: String!
+    password: String!
   }
 `;
 
 const users = [
-  { name: "Leeroy Jenkins", username: "leeroy" },
-  { name: "Foo Bar", username: "foobar" },
+  {
+    username: "leeroy",
+    email: "leeroymeng@gmail.com",
+    password: "brubruh",
+  },
+  {
+    username: "foobar",
+    email: "wazzhanninfoo@gmail.com",
+    password: "bjasdoifj",
+  },
 ];
 
 export const resolvers = {
@@ -25,8 +34,8 @@ export const resolvers = {
     user(parent, { username }) {
       return users.find((user) => user.username === username);
     },
-    addUser(parent, { name, username }) {
-      users.push({ name, username });
+    addUser(parent, { username, email, password }) {
+      users.push({ username, email, password });
       return users;
     },
   },

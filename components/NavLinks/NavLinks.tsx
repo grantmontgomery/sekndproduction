@@ -2,8 +2,6 @@ import * as React from "react";
 import Link from "next/link";
 import css from "./NavLinks.module.scss";
 import Cookie from "js-cookie";
-import { a } from "aws-amplify";
-import { spawn } from "child_process";
 
 export const NavLinks: React.FC<{ orientation: string }> = ({
   orientation,
