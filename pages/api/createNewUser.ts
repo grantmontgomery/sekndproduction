@@ -11,11 +11,22 @@ export const config = {
 const typeDefs = gql`
   type Query {
     users: [User!]!
-    testQuery(name: String!): User
+    testQuery(name: String!): User!
   }
 
   type Mutation {
-    addUser(name: String!, username: String!, password: String!): User!
+    addUser(name: String!, username: String!, password: String!): OkPacket!
+  }
+
+  type OkPacket {
+    fieldCount: Int
+    affectedRows: Int!
+    insertId: Int!
+    serverStatus: Int!
+    warningCount: Int!
+    message: String
+    protocol41: Boolean
+    changedRows: Int!
   }
 
   type User {
@@ -39,7 +50,7 @@ const resolvers = {
       try {
         const data:
           | { id: number; name: string; username: string; password: string }[]
-          | string = await db.query(`SELECT * from Users`);
+          | string = await db.query(`SELECT * from ${process.env.DB_TABLE}`);
         return data;
       } catch (error) {
         return error;
@@ -52,8 +63,10 @@ const resolvers = {
           name: string;
           username: string;
           password: string;
-        } = await db.query(`SELECT * FROM Users WHERE name = "${args.name}"`);
-        return data;
+        } = await db.query(
+          `SELECT * FROM ${process.env.DB_TABLE} WHERE name = "${args.name}"`
+        );
+        return data[0];
       } catch (error) {
         return error;
       }
@@ -62,18 +75,20 @@ const resolvers = {
   Mutation: {
     async addUser(parent, args, info) {
       try {
-        console.log(args);
-        await db.query(`
-        INSERT INTO Users (name, username, password) values
+        const OkPacket: {
+          fieldCount: number;
+          affectedRows: number;
+          insertId: number;
+          serverStatus: number;
+          warningCount: number;
+          message: string;
+          protocol41: boolean;
+          changedRows: number;
+        } = await db.query(`
+        INSERT INTO ${process.env.DB_TABLE} (name, username, password) values
         ("${args.name}", "${args.username}", "${args.password}")
         `);
-        const data: {
-          id: number;
-          name: string;
-          username: string;
-          password: string;
-        } = await db.query(`SELECT * from Users where name = "${args.name}"`);
-        return data;
+        return OkPacket;
       } catch (error) {
         return error;
       }
