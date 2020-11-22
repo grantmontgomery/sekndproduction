@@ -15,14 +15,14 @@ const typeDefs = gql`
   }
 
   type Mutation {
-    addUser(name: String!, username: String!, password: String!): User
+    addUser(name: String!, username: String!, password: String!): User!
   }
 
   type User {
-    id: Int
-    name: String
-    username: String
-    password: String
+    id: Int!
+    name: String!
+    username: String!
+    password: String!
   }
 `;
 
@@ -52,7 +52,7 @@ const resolvers = {
           name: string;
           username: string;
           password: string;
-        } = await db.query(`SELECT * FROM Users WHERE name = ${args.name}`);
+        } = await db.query(`SELECT * FROM Users WHERE name = "${args.name}"`);
         return data;
       } catch (error) {
         return error;
@@ -62,13 +62,17 @@ const resolvers = {
   Mutation: {
     async addUser(parent, args, info) {
       try {
-        const data = await db.query(`
+        console.log(args);
+        await db.query(`
         INSERT INTO Users (name, username, password) values
-        (${args.name}, ${args.username}, ${args.password})
+        ("${args.name}", "${args.username}", "${args.password}")
         `);
-        // const data: { name: string } = await db.query(
-        //   `SELECT * from Users where name = ${args.name}`
-        // );
+        const data: {
+          id: number;
+          name: string;
+          username: string;
+          password: string;
+        } = await db.query(`SELECT * from Users where name = "${args.name}"`);
         return data;
       } catch (error) {
         return error;
