@@ -16,6 +16,7 @@ const typeDefs = gql`
 
   type Mutation {
     addUser(name: String!, username: String!, password: String!): OkPacket!
+    deleteUser(name: String!): OkPacket!
   }
 
   type OkPacket {
@@ -91,6 +92,25 @@ const resolvers = {
         return OkPacket;
       } catch (error) {
         return error;
+      }
+    },
+    async deleteUser(parent, args, info) {
+      try {
+        const OkPacket: {
+          fieldCount: number;
+          affectedRows: number;
+          insertId: number;
+          serverStatus: number;
+          warningCount: number;
+          message: string;
+          protocol41: boolean;
+          changedRows: number;
+        } = await db.query(
+          `DELETE FROM ${process.env.DB_TABLE} WHERE name = "${args.name}"`
+        );
+        return OkPacket;
+      } catch (error) {
+        console.log(error);
       }
     },
   },
