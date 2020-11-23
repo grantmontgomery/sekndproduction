@@ -2,7 +2,7 @@ import * as React from "react";
 import { useQuery, gql, useLazyQuery, useMutation } from "@apollo/client";
 import css from "./SignInModal.module.scss";
 
-const MyQuery = gql`
+const SignUpMutation = gql`
   mutation($username: String!, $name: String!, $password: String!) {
     addUser(username: $username, password: $password, name: $name) {
       serverStatus
@@ -10,12 +10,20 @@ const MyQuery = gql`
   }
 `;
 
+const LogInQuery = gql`
+  query($username: String!, $password: String!) {
+    logInUser(username: $username, password: $password) {
+      name
+    }
+  }
+`;
+
 export const SignInModal: React.FC = () => {
   const [mode, setMode] = React.useState<string>("signin");
   const [signInFields, setSignIn] = React.useState<{
-    user: string;
+    username: string;
     password: string;
-  }>({ user: "", password: "" });
+  }>({ username: "", password: "" });
   const [registerFields, setRegister] = React.useState<{
     username: string;
     name: string;
@@ -23,7 +31,15 @@ export const SignInModal: React.FC = () => {
     password: string;
   }>({ username: "", email: "", password: "", name: "" });
 
-  const [submit, { called, loading, data, error }] = useMutation(MyQuery, {
+  const [
+    submit,
+    {
+      called: registerCalled,
+      loading: registerLoading,
+      data: registerData,
+      error: registerError,
+    },
+  ] = useMutation(SignUpMutation, {
     variables: {
       password: registerFields.password,
       name: registerFields.name,
@@ -31,15 +47,42 @@ export const SignInModal: React.FC = () => {
     },
   });
 
+  const [
+    login,
+    {
+      called: logInCalled,
+      loading: logInLoading,
+      data: loginData,
+      error: logInError,
+    },
+  ] = useLazyQuery(LogInQuery, {
+    variables: {
+      username: signInFields.username,
+      password: signInFields.password,
+    },
+  });
+
   React.useEffect(() => {
-    console.log(called);
-    if (called) {
-      if (!loading) {
+    console.log(registerCalled);
+    if (registerCalled) {
+      if (!registerLoading) {
         console.log(registerFields);
-        data === undefined ? console.log(error) : console.log(data);
+        registerData === undefined
+          ? console.log(registerError)
+          : console.log(registerData);
       }
     }
-  }, [called, loading]);
+  }, [registerCalled, registerLoading]);
+
+  React.useEffect(() => {
+    if (logInCalled) {
+      if (!logInLoading) {
+        loginData === undefined
+          ? console.log(logInError)
+          : console.log(loginData);
+      }
+    }
+  }, [logInCalled, logInLoading]);
 
   return (
     <div className={css.signInWrapper}>
@@ -68,9 +111,9 @@ export const SignInModal: React.FC = () => {
             placeholder="Username or Email"
             name=""
             id=""
-            value={signInFields.user}
+            value={signInFields.username}
             onChange={({ target }) =>
-              setSignIn((fields) => ({ ...fields, user: target.value }))
+              setSignIn((fields) => ({ ...fields, username: target.value }))
             }
           />
 
@@ -86,7 +129,9 @@ export const SignInModal: React.FC = () => {
             <input type="checkbox" />
             Remember Password
           </span>
-          <span className={css.loginButton}>Log in</span>
+          <span className={css.loginButton} onClick={() => login()}>
+            Log in
+          </span>
         </React.Fragment>
       ) : (
         <React.Fragment>
