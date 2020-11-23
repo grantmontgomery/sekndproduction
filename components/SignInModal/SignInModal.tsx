@@ -1,23 +1,11 @@
 import * as React from "react";
-import { useQuery, gql, useLazyQuery } from "@apollo/client";
+import { useQuery, gql, useLazyQuery, useMutation } from "@apollo/client";
 import css from "./SignInModal.module.scss";
 
 const MyQuery = gql`
-  query Query($username: String!, $email: String!, $password: String!) {
-    addUser(username: $username, password: $password, email: $email) {
-      email
-      username
-      password
-    }
-  }
-`;
-
-const TestQuery = gql`
-  query bruh($username: String!) {
-    user(username: $username) {
-      email
-      username
-      password
+  mutation($username: String!, $name: String!, $password: String!) {
+    addUser(username: $username, password: $password, name: $name) {
+      serverStatus
     }
   }
 `;
@@ -30,26 +18,24 @@ export const SignInModal: React.FC = () => {
   }>({ user: "", password: "" });
   const [registerFields, setRegister] = React.useState<{
     username: string;
+    name: string;
     email: string;
     password: string;
-  }>({ username: "", email: "", password: "" });
+  }>({ username: "", email: "", password: "", name: "" });
 
-  const [submit, { called, loading, data, error, variables }] = useLazyQuery(
-    MyQuery,
-    {
-      variables: {
-        password: registerFields.password,
-        email: registerFields.email,
-        username: registerFields.username,
-      },
-    }
-  );
+  const [submit, { called, loading, data, error }] = useMutation(MyQuery, {
+    variables: {
+      password: registerFields.password,
+      name: registerFields.name,
+      username: registerFields.username,
+    },
+  });
 
   React.useEffect(() => {
     console.log(called);
     if (called) {
       if (!loading) {
-        console.log(variables);
+        console.log(registerFields);
         data === undefined ? console.log(error) : console.log(data);
       }
     }
@@ -87,6 +73,7 @@ export const SignInModal: React.FC = () => {
               setSignIn((fields) => ({ ...fields, user: target.value }))
             }
           />
+
           <input
             type="password"
             placeholder="Password"
@@ -111,6 +98,14 @@ export const SignInModal: React.FC = () => {
             value={registerFields.username}
             onChange={({ target }) =>
               setRegister((fields) => ({ ...fields, username: target.value }))
+            }
+          />
+          <input
+            type="name"
+            placeholder="Name"
+            value={registerFields.name}
+            onChange={({ target }) =>
+              setRegister((fields) => ({ ...fields, name: target.value }))
             }
           />
           <input
