@@ -10,7 +10,8 @@ export const config = {
 const typeDefs = gql`
   type Query {
     users: [User!]!
-    testQuery(name: String!): User!
+    testQuery(name: String!): User
+    logInUser(username: String!, password: String!): User
   }
 
   type Mutation {
@@ -30,10 +31,10 @@ const typeDefs = gql`
   }
 
   type User {
-    id: Int!
-    name: String!
-    username: String!
-    password: String!
+    id: Int
+    name: String
+    username: String
+    password: String
   }
 `;
 
@@ -71,12 +72,29 @@ const resolvers = {
         return error;
       }
     },
+    async logInUser(parent, args, info) {
+      const data: {
+        id: number;
+        name: string;
+        username: string;
+        password: string;
+      } = await db.query(
+        `SELECT * FROM ${process.env.DB_TABLE} WHERE username = "${args.username}"`
+      );
+      if (!data[0]) return "Wrong username";
+      try {
+        return (await bcrypt.compare(args.password, data[0].password))
+          ? data[0]
+          : "Wrong Password";
+      } catch (error) {
+        return error;
+      }
+    },
   },
   Mutation: {
     async addUser(parent, args, info) {
       try {
         const hashedPassword = await bcrypt.hash(args.password, 10);
-        console.log(hashedPassword);
         const OkPacket: {
           fieldCount: number;
           affectedRows: number;
