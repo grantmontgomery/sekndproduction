@@ -1,7 +1,6 @@
 import { ApolloServer, gql } from "apollo-server-micro";
-
 const db = require("../../lib/db");
-
+const bcrypt = require("bcrypt");
 export const config = {
   api: {
     bodyParser: false,
@@ -76,6 +75,8 @@ const resolvers = {
   Mutation: {
     async addUser(parent, args, info) {
       try {
+        const hashedPassword = await bcrypt.hash(args.password, 10);
+        console.log(hashedPassword);
         const OkPacket: {
           fieldCount: number;
           affectedRows: number;
@@ -87,8 +88,9 @@ const resolvers = {
           changedRows: number;
         } = await db.query(`
         INSERT INTO ${process.env.DB_TABLE} (name, username, password) values
-        ("${args.name}", "${args.username}", "${args.password}")
+        ("${args.name}", "${args.username}", "${hashedPassword}")
         `);
+
         return OkPacket;
       } catch (error) {
         return error;
