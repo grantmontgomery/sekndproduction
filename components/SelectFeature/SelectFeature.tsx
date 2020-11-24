@@ -33,7 +33,7 @@ export const SelectFeature: React.FC = () => {
         />
         <img
           className={css.desktopExample}
-          src="/images/DeskTopPlaceExampleCard.webp"
+          src="/images/DeskTopPlaceExampleCard.png"
           alt=""
         />
       </div>
@@ -53,7 +53,7 @@ export const SelectFeature: React.FC = () => {
         />
         <img
           className={css.desktopExample}
-          src="/images/DeskTopEventExampleCard.webp"
+          src="/images/DeskTopEventExampleCard.png"
           alt=""
         />
       </div>
