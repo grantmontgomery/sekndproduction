@@ -1,11 +1,7 @@
 import { ApolloServer, gql } from "apollo-server-micro";
+import Cors from "micro-cors";
 const db = require("../../lib/db");
 const bcrypt = require("bcrypt");
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
 
 const typeDefs = gql`
   type Query {
@@ -137,9 +133,21 @@ const resolvers = {
   },
 };
 
-export default new ApolloServer({
-  typeDefs,
-  resolvers,
-}).createHandler({
-  path: "/api/createNewUser",
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+const cors = Cors({
+  allowMethods: ["POST", "OPTIONS", "GET"],
 });
+
+export default cors(
+  new ApolloServer({
+    typeDefs,
+    resolvers,
+  }).createHandler({
+    path: "/api/createNewUser",
+  })
+);

@@ -3,3 +3,6 @@ myNextApplication:
   inputs:
     domain: "sekndapp.com"
     timeout: 30
+    name:
+      defaultLambda: resourceAPILambda
+      apiLambda: resourceAPILambda2
