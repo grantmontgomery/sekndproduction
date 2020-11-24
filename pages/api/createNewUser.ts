@@ -140,7 +140,6 @@ const resolvers = {
 export default new ApolloServer({
   typeDefs,
   resolvers,
-  playground: process.env.NODE_ENV === "development",
 }).createHandler({
   path: "/api/createNewUser",
 });
