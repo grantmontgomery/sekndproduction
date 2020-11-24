@@ -43,6 +43,7 @@
       height: 25%;
       background: none;
       padding-top: 5%;
+      background: black;
       bottom: 25%;
     }
     & .title {
@@ -90,6 +91,7 @@
     overflow: hidden;
     padding-left: 5%;
     padding-right: 5%;
+    background: black;
     display: flex;
     flex-flow: column nowrap;
     transform: translate(-50%);
