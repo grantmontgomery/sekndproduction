@@ -148,6 +148,6 @@ export default cors(
     typeDefs,
     resolvers,
   }).createHandler({
-    path: "/api/createNewUser",
+    path: "/api/handleUser",
   })
 );
