@@ -79,6 +79,10 @@ export const ScheduleDragPieceDisplay: React.FC<{
     }
   };
 
+  const backgroundColor: string = part.color
+    ? part.color
+    : "linear-gradient(45deg, #0f2027, #2c5364)";
+
   return (
     <div
       className={css.dragWrapper}
@@ -131,9 +135,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
       <div
         className={css.imageBackground}
         style={{
-          background: part.name
-            ? "linear-gradient(45deg, #0f2027, #2c5364)"
-            : "transparent",
+          background: part.name ? backgroundColor : "transparent",
         }}
       >
         <img
