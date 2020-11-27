@@ -77,7 +77,6 @@ const resolvers = {
       } = await db.query(
         `SELECT * FROM ${process.env.DB_TABLE} WHERE username = "${args.username}"`
       );
-      console.log(data);
       if (!data[0]) return "Wrong username";
       try {
         return (await bcrypt.compare(args.password, data[0].password))
@@ -147,6 +146,9 @@ export default cors(
   new ApolloServer({
     typeDefs,
     resolvers,
+    context: ({ req, res }) => {
+      console.log(req);
+    },
   }).createHandler({
     path: "/api/handleUser",
   })

@@ -75,7 +75,8 @@ export const GridProvider: ({
       JSON.stringify({
         ...state,
         numberOfSquares: (state.hourStrings.length + 1) * 2,
-      })
+      }),
+      { secure: true, sameSite: "strict" }
     );
   }, [state]);
 
