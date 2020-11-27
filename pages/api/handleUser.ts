@@ -1,6 +1,8 @@
 import { ApolloServer, gql } from "apollo-server-micro";
 import Cors from "micro-cors";
+import { sign } from "jsonwebtoken";
 const db = require("../../lib/db");
+
 const bcrypt = require("bcrypt");
 
 const typeDefs = gql`
@@ -63,12 +65,23 @@ const resolvers = {
         } = await db.query(
           `SELECT * FROM ${process.env.DB_TABLE} WHERE name = "${args.name}"`
         );
+
+        const refreshToken = sign(
+          { id: data[0].id },
+          process.env.SESSION_SECRET,
+          { expiresIn: "7d" }
+        );
+        const accessToken = sign(
+          { id: data[0].id },
+          process.env.SESSION_SECRET,
+          { expiresIn: "30min" }
+        );
         return data[0];
       } catch (error) {
         return error;
       }
     },
-    async logInUser(parent, args, info) {
+    async logInUser(parent, args, info, context) {
       const data: {
         id: number;
         name: string;
@@ -77,8 +90,11 @@ const resolvers = {
       } = await db.query(
         `SELECT * FROM ${process.env.DB_TABLE} WHERE username = "${args.username}"`
       );
+
       if (!data[0]) return "Wrong username";
       try {
+        console.log(context.res.cookie);
+        context.res.cookie("bruh");
         return (await bcrypt.compare(args.password, data[0].password))
           ? data[0]
           : "Wrong Password";
@@ -146,9 +162,9 @@ export default cors(
   new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req, res }) => {
-      console.log(req);
-    },
+    context: ({ req, res }) => ({
+      res,
+    }),
   }).createHandler({
     path: "/api/handleUser",
   })
