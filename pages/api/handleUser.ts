@@ -1,7 +1,9 @@
 import { ApolloServer, gql } from "apollo-server-micro";
+import { NextApiRequest, NextApiResponse } from "next";
 import Cors from "micro-cors";
 import { sign } from "jsonwebtoken";
 const db = require("../../lib/db");
+const cookie = require("cookie");
 
 const bcrypt = require("bcrypt");
 
@@ -66,22 +68,12 @@ const resolvers = {
           `SELECT * FROM ${process.env.DB_TABLE} WHERE name = "${args.name}"`
         );
 
-        const refreshToken = sign(
-          { id: data[0].id },
-          process.env.SESSION_SECRET,
-          { expiresIn: "7d" }
-        );
-        const accessToken = sign(
-          { id: data[0].id },
-          process.env.SESSION_SECRET,
-          { expiresIn: "30min" }
-        );
         return data[0];
       } catch (error) {
         return error;
       }
     },
-    async logInUser(parent, args, info, context) {
+    async logInUser(parent, args, { res }, info) {
       const data: {
         id: number;
         name: string;
@@ -93,11 +85,35 @@ const resolvers = {
 
       if (!data[0]) return "Wrong username";
       try {
-        console.log(context.res.cookie);
-        context.res.cookie("bruh");
-        return (await bcrypt.compare(args.password, data[0].password))
-          ? data[0]
-          : "Wrong Password";
+        const refreshToken = sign(
+          { id: data[0].id },
+          process.env.SESSION_SECRET,
+          { expiresIn: "7d" }
+        );
+        const accessToken = sign(
+          { id: data[0].id },
+          process.env.SESSION_SECRET,
+          { expiresIn: "30min" }
+        );
+        // context.res.cookie("bruh");
+        const correctPassword: boolean = await bcrypt.compare(
+          args.password,
+          data[0].password
+        );
+
+        res.setHeader(
+          "Set-Cookie",
+          cookie.serialize("name", String(process.env.SESSION_SECRET), {
+            httpOnly: true,
+            maxAge: 60 * 60 * 24 * 7, // 1 week
+          })
+        );
+        res.end();
+        if (correctPassword) {
+          return data[0];
+        } else {
+          res.send(JSON.parse("Wrong password"));
+        }
       } catch (error) {
         return error;
       }
