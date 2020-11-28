@@ -86,6 +86,10 @@ const resolvers = {
 
       if (!data[0]) return "Wrong username";
       try {
+        const correctPassword: boolean = await bcrypt.compare(
+          args.password,
+          data[0].password
+        );
         const refreshToken = sign(
           { id: data[0].id },
           process.env.SESSION_SECRET,
@@ -96,21 +100,28 @@ const resolvers = {
           process.env.SESSION_SECRET,
           { expiresIn: "30min" }
         );
-        // context.res.cookie("bruh");
-        const correctPassword: boolean = await bcrypt.compare(
-          args.password,
-          data[0].password
-        );
 
         if (correctPassword) {
-          console.log("correct password");
-
+          // context.setCookies.push({
+          //   name: "tokens",
+          //   value: `{"refresh-token": ${refreshToken}, "access-token": ${accessToken}}`,
+          //   options: {
+          //     httpOnly: true,
+          //     maxAge: 3600 * 24 * 7,
+          //   },
+          // });
           context.setHeaders.push({
             key: "Set-Cookie",
-            value: cookie.serialize("access-token", accessToken, {
-              httpOnly: true,
-            }),
+            value: cookie.serialize(
+              "tokens",
+              `{"refresh-token": ${refreshToken}, "access-token": ${accessToken}}`,
+              {
+                httpOnly: true,
+                maxAge: 3600 * 24 * 7,
+              }
+            ),
           });
+
           return data[0];
         } else {
           return;

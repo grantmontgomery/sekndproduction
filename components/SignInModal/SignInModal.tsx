@@ -2,6 +2,10 @@ import * as React from "react";
 import { useQuery, gql, useLazyQuery, useMutation } from "@apollo/client";
 import css from "./SignInModal.module.scss";
 
+import Cookie from "js-cookie";
+
+const cookie = require("cookie");
+
 const SignUpMutation = gql`
   mutation($username: String!, $name: String!, $password: String!) {
     addUser(username: $username, password: $password, name: $name) {
@@ -77,9 +81,6 @@ export const SignInModal: React.FC = () => {
   React.useEffect(() => {
     if (logInCalled) {
       if (!logInLoading) {
-        loginData === undefined
-          ? console.log(logInError)
-          : console.log(loginData);
       }
     }
   }, [logInCalled, logInLoading]);
@@ -129,13 +130,7 @@ export const SignInModal: React.FC = () => {
             <input type="checkbox" />
             Remember Password
           </span>
-          <span
-            className={css.loginButton}
-            onClick={() => {
-              login();
-              console.log("login function triggered.");
-            }}
-          >
+          <span className={css.loginButton} onClick={() => login()}>
             Log in
           </span>
         </React.Fragment>
