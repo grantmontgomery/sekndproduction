@@ -17,7 +17,7 @@ function createIsomorphicLink() {
     return new SchemaLink({ schema });
   } else {
     const { HttpLink } = require("@apollo/client/link/http");
-    return new HttpLink({ uri: "/api/handleUser" });
+    return new HttpLink({ uri: "/api/handleUser", credentials: "same-origin" });
   }
 }
 

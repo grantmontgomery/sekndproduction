@@ -19,6 +19,7 @@
     "apollo-server": "^2.19.0",
     "apollo-server-lambda": "^2.19.0",
     "apollo-server-micro": "^2.19.0",
+    "apollo-server-plugin-http-headers": "^0.1.4",
     "bcrypt": "^5.0.0",
     "client-sessions": "^0.8.0",
     "cookie": "^0.4.1",

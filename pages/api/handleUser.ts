@@ -4,6 +4,7 @@ import Cors from "micro-cors";
 import { sign } from "jsonwebtoken";
 const db = require("../../lib/db");
 const cookie = require("cookie");
+const httpHeadersPlugin = require("apollo-server-plugin-http-headers");
 
 const bcrypt = require("bcrypt");
 
@@ -73,7 +74,7 @@ const resolvers = {
         return error;
       }
     },
-    async logInUser(parent, args, { res }, info) {
+    async logInUser(parent, args, context, info) {
       const data: {
         id: number;
         name: string;
@@ -101,18 +102,18 @@ const resolvers = {
           data[0].password
         );
 
-        res.setHeader(
-          "Set-Cookie",
-          cookie.serialize("name", String(process.env.SESSION_SECRET), {
-            httpOnly: true,
-            maxAge: 60 * 60 * 24 * 7, // 1 week
-          })
-        );
-        res.end();
         if (correctPassword) {
+          console.log("correct password");
+
+          context.setHeaders.push({
+            key: "Set-Cookie",
+            value: cookie.serialize("access-token", accessToken, {
+              httpOnly: true,
+            }),
+          });
           return data[0];
         } else {
-          res.send(JSON.parse("Wrong password"));
+          return;
         }
       } catch (error) {
         return error;
@@ -178,8 +179,12 @@ export default cors(
   new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({ req, res }) => ({
-      res,
+    plugins: [httpHeadersPlugin],
+    context: ({ event, context }) => ({
+      event,
+      context,
+      setCookies: new Array(),
+      setHeaders: new Array(),
     }),
   }).createHandler({
     path: "/api/handleUser",

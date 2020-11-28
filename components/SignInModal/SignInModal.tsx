@@ -129,7 +129,13 @@ export const SignInModal: React.FC = () => {
             <input type="checkbox" />
             Remember Password
           </span>
-          <span className={css.loginButton} onClick={() => login()}>
+          <span
+            className={css.loginButton}
+            onClick={() => {
+              login();
+              console.log("login function triggered.");
+            }}
+          >
             Log in
           </span>
         </React.Fragment>
