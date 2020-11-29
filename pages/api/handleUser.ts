@@ -192,21 +192,24 @@ export const config = {
 };
 
 const cors = Cors({
+  origin: "/",
   allowMethods: ["POST", "OPTIONS", "GET"],
 });
 
-export default new ApolloServer({
-  typeDefs,
-  resolvers,
-  plugins: [httpHeadersPlugin],
-  context: ({ event, context, req, res }) => ({
-    event,
-    req,
-    res,
-    context,
-    setCookies: new Array(),
-    setHeaders: new Array(),
-  }),
-}).createHandler({
-  path: "/api/handleUser",
-});
+export default cors(
+  new ApolloServer({
+    typeDefs,
+    resolvers,
+    plugins: [httpHeadersPlugin],
+    context: ({ event, context, req, res }) => ({
+      event,
+      req,
+      res,
+      context,
+      setCookies: new Array(),
+      setHeaders: new Array(),
+    }),
+  }).createHandler({
+    path: "/api/handleUser",
+  })
+);
