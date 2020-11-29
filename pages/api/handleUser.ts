@@ -76,7 +76,6 @@ const resolvers = {
       }
     },
     async logInUser(parent, args, context, info) {
-      const refreshCookie: string | null = context.req.cookies["refresh-token"];
       const data: {
         id: number;
         name: string;
@@ -88,36 +87,35 @@ const resolvers = {
 
       if (!data[0]) return "Wrong username";
       try {
-        const correctPassword: boolean = await bcrypt.compare(
-          args.password,
-          data[0].password
-        );
-
-        console.log(data[0].id);
-        const refreshToken = sign(
-          { id: data[0].id },
-          process.env.SESSION_SECRET,
-          { expiresIn: "7d" }
-        );
-        const correctToken: string | object = verify(
-          refreshCookie,
-          process.env.SESSION_SECRET
-        );
-
-        console.log(correctToken);
-
-        if (correctPassword) {
-          context.setHeaders.push({
-            key: "Set-Cookie",
-            value: cookie.serialize("refresh-token", refreshToken, {
-              httpOnly: true,
-              maxAge: 3600 * 24 * 7,
-            }),
-          });
-
-          return data[0];
+        if (context.req.cookies["refresh-token"]) {
+          const correctToken: string | object = verify(
+            context.req.cookies["refresh-token"],
+            process.env.SESSION_SECRET
+          );
         } else {
-          return;
+          const correctPassword: boolean = await bcrypt.compare(
+            args.password,
+            data[0].password
+          );
+
+          if (correctPassword) {
+            const refreshToken = sign(
+              { id: data[0].id },
+              process.env.SESSION_SECRET,
+              { expiresIn: "7d" }
+            );
+            context.setHeaders.push({
+              key: "Set-Cookie",
+              value: cookie.serialize("refresh-token", refreshToken, {
+                httpOnly: true,
+                maxAge: 3600 * 24 * 7,
+              }),
+            });
+
+            return data[0];
+          } else {
+            return;
+          }
         }
       } catch (error) {
         return error;
