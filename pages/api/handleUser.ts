@@ -86,7 +86,9 @@ const resolvers = {
       );
 
       if (!data[0]) return "Wrong username";
+
       try {
+        console.log(context.req.headers);
         if (context.req.cookies["refresh-token"]) {
           const correctToken: string | object = verify(
             context.req.cookies["refresh-token"],
@@ -104,30 +106,35 @@ const resolvers = {
               process.env.SESSION_SECRET,
               { expiresIn: "7d" }
             );
-            // context.setHeaders.push({
-            //   key: "Set-Cookie",
-            //   value: cookie.serialize("refresh-token", refreshToken, {
+
+            context.setHeaders.push({
+              key: "Set-Cookie",
+              value: cookie.serialize("refresh-token", refreshToken, {
+                httpOnly: true,
+                origin:
+                  process.env.NODE_ENV === "development"
+                    ? "http://localhost:3000"
+                    : "https://sekndproduction.vercel.app",
+                path: "/",
+                sameSite: "strict",
+              }),
+            });
+
+            // context.setCookies.push({
+            //   name: "refresh-token",
+            //   value: refreshToken,
+            //   options: {
             //     httpOnly: true,
             //     maxAge: 3600 * 24 * 7,
-            //     path: `/`,
-            //     sameSite: "strict",
-            //   }),
+            //     path: "/",
+            //     sameSite: true,
+            //     secure: true,
+            //     domain:
+            //       process.env.NODE_ENV === "development"
+            //         ? "http://localhost:3000/"
+            //         : "https://sekndproduction.vercel.app/",
+            //   },
             // });
-            context.setCookies.push({
-              name: "refresh-token",
-              value: refreshToken,
-              options: {
-                httpOnly: true,
-                maxAge: 3600 * 24 * 7,
-                path: "/",
-                sameSite: true,
-                secure: true,
-                domain:
-                  process.env.NODE_ENV === "development"
-                    ? "http://localhost:3000/"
-                    : "https://sekndproduction.vercel.app/",
-              },
-            });
 
             return data[0];
           } else {
@@ -192,7 +199,6 @@ export const config = {
 };
 
 const cors = Cors({
-  origin: "/",
   allowMethods: ["POST", "OPTIONS", "GET"],
 });
 
