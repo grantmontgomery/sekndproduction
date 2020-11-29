@@ -17,7 +17,7 @@ function createIsomorphicLink() {
     return new SchemaLink({ schema });
   } else {
     const { HttpLink } = require("@apollo/client/link/http");
-    return new HttpLink({ uri: "/api/handleUser", credentials: "same-origin" });
+    return new HttpLink({ uri: "/api/handleUser", credentials: "include" });
   }
 }
 
@@ -26,6 +26,7 @@ function createApolloClient(): ApolloClient<NormalizedCacheObject> {
     ssrMode: typeof window === "undefined",
     link: createIsomorphicLink(),
     cache: new InMemoryCache({ addTypename: false }),
+    credentials: "include",
   });
 }
 

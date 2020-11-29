@@ -104,12 +104,29 @@ const resolvers = {
               process.env.SESSION_SECRET,
               { expiresIn: "7d" }
             );
-            context.setHeaders.push({
-              key: "Set-Cookie",
-              value: cookie.serialize("refresh-token", refreshToken, {
+            // context.setHeaders.push({
+            //   key: "Set-Cookie",
+            //   value: cookie.serialize("refresh-token", refreshToken, {
+            //     httpOnly: true,
+            //     maxAge: 3600 * 24 * 7,
+            //     path: `/`,
+            //     sameSite: "strict",
+            //   }),
+            // });
+            context.setCookies.push({
+              name: "refresh-token",
+              value: refreshToken,
+              options: {
                 httpOnly: true,
                 maxAge: 3600 * 24 * 7,
-              }),
+                path: "/",
+                sameSite: true,
+                secure: true,
+                domain:
+                  process.env.NODE_ENV === "development"
+                    ? "http://localhost:3000/"
+                    : "https://sekndproduction.vercel.app/",
+              },
             });
 
             return data[0];
@@ -170,6 +187,7 @@ const resolvers = {
 export const config = {
   api: {
     bodyParser: false,
+    credentials: true,
   },
 };
 
@@ -177,20 +195,18 @@ const cors = Cors({
   allowMethods: ["POST", "OPTIONS", "GET"],
 });
 
-export default cors(
-  new ApolloServer({
-    typeDefs,
-    resolvers,
-    plugins: [httpHeadersPlugin],
-    context: ({ event, context, req, res }) => ({
-      event,
-      req,
-      res,
-      context,
-      setCookies: new Array(),
-      setHeaders: new Array(),
-    }),
-  }).createHandler({
-    path: "/api/handleUser",
-  })
-);
+export default new ApolloServer({
+  typeDefs,
+  resolvers,
+  plugins: [httpHeadersPlugin],
+  context: ({ event, context, req, res }) => ({
+    event,
+    req,
+    res,
+    context,
+    setCookies: new Array(),
+    setHeaders: new Array(),
+  }),
+}).createHandler({
+  path: "/api/handleUser",
+});
