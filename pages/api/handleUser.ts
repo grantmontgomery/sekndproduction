@@ -1,7 +1,8 @@
 import { ApolloServer, gql } from "apollo-server-micro";
 import { NextApiRequest, NextApiResponse } from "next";
 import Cors from "micro-cors";
-import { sign } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 const db = require("../../lib/db");
 const cookie = require("cookie");
 const httpHeadersPlugin = require("apollo-server-plugin-http-headers");
@@ -75,6 +76,7 @@ const resolvers = {
       }
     },
     async logInUser(parent, args, context, info) {
+      const refreshCookie: string | null = context.req.cookies["refresh-token"];
       const data: {
         id: number;
         name: string;
@@ -91,12 +93,20 @@ const resolvers = {
           data[0].password
         );
 
+        console.log(data[0].id);
+        const refreshToken = sign(
+          { id: data[0].id },
+          process.env.SESSION_SECRET,
+          { expiresIn: "7d" }
+        );
+        const correctToken: string | object = verify(
+          refreshCookie,
+          process.env.SESSION_SECRET
+        );
+
+        console.log(correctToken);
+
         if (correctPassword) {
-          const refreshToken = sign(
-            { id: data[0].id },
-            process.env.SESSION_SECRET,
-            { expiresIn: "7d" }
-          );
           context.setHeaders.push({
             key: "Set-Cookie",
             value: cookie.serialize("refresh-token", refreshToken, {
@@ -174,8 +184,10 @@ export default cors(
     typeDefs,
     resolvers,
     plugins: [httpHeadersPlugin],
-    context: ({ event, context }) => ({
+    context: ({ event, context, req, res }) => ({
       event,
+      req,
+      res,
       context,
       setCookies: new Array(),
       setHeaders: new Array(),

@@ -23,6 +23,7 @@
     "bcrypt": "^5.0.0",
     "client-sessions": "^0.8.0",
     "cookie": "^0.4.1",
+    "cookie-parser": "^1.4.5",
     "graphql": "^15.4.0",
     "graphql-tag": "^2.11.0",
     "js-cookie": "^2.2.1",
