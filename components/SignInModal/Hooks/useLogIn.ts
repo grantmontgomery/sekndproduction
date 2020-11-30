@@ -1,13 +1,23 @@
 import * as React from "react";
 import { useUserDispatch } from "../../../state/UserContext";
 
-export const useLogIn = () => {
+export const useLogIn: () => {
+  loading: boolean;
+  logIn: ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => Promise<void>;
+  data: {} | null;
+} = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any | null>(null);
 
   const userDispatch = useUserDispatch();
   React.useEffect(() => {
-    if (typeof data === "object") {
+    if (data) {
       console.log(data);
     }
   }, [data]);
@@ -45,5 +55,5 @@ export const useLogIn = () => {
     }
   };
 
-  return { loading, logIn };
+  return { loading, logIn, data };
 };

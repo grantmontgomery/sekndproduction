@@ -12,9 +12,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       switch (method) {
         case "log-in":
           if (req.cookies["refresh-token"]) {
-            console.log(req.cookies);
-            console.log("cookie test");
-
             const correctToken: string | object = verify(
               req.cookies["refresh-token"],
               process.env.SESSION_SECRET
@@ -35,17 +32,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               data[0].password
             );
             if (correctPassword) {
-              console.log("password pass");
               res.setHeader("Set-Cookie", [
                 cookie.serialize("refresh-token", "bruh", {
                   path: "/",
                   httpOnly: true,
                   maxAge: 3600 * 24 * 7,
+                  sameSite: true,
+                  secure: process.env.NODE_ENV === "development" ? false : true,
                 }),
                 cookie.serialize("access-token", "bruh", {
                   path: "/",
                   httpOnly: true,
-                  maxAge: 3600 * 24 * 7,
+                  sameSite: true,
+                  maxAge: 3600 * 24,
+                  secure: process.env.NODE_ENV === "development" ? false : true,
                 }),
               ]);
               return res.send(data[0]);

@@ -17,7 +17,7 @@ export const SignInModal: React.FC = () => {
     password: string;
   }>({ username: "", email: "", password: "", name: "" });
 
-  const { loading, logIn } = useLogIn();
+  const { loading, logIn, data } = useLogIn();
 
   console.log(loading);
 
