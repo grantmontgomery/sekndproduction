@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useUserDispatch } from "../../../state/UserContext";
 
-export const useLogIn = (fields, token) => {
+export const useLogIn = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any | null>(null);
 
@@ -15,7 +15,13 @@ export const useLogIn = (fields, token) => {
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/api/handleAuth"
       : "";
-  const signIn: (fields) => Promise<void> = async (fields) => {
+  const logIn: ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => Promise<void> = async ({ username, password }) => {
     setLoading(true);
     try {
       const response = await fetch(url, {
@@ -26,19 +32,18 @@ export const useLogIn = (fields, token) => {
         method: "POST",
         body: JSON.stringify({
           method: "log-in",
-          ...fields,
+          username,
+          password,
         }),
       });
       const responseJSON = await response.json();
-
-      setLoading(false);
-
       setData(responseJSON);
+      setLoading(false);
     } catch (error) {
       setLoading(false);
       setData(error);
     }
   };
 
-  return { loading, signIn };
+  return { loading, logIn };
 };

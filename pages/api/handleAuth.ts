@@ -9,38 +9,52 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== "GET") {
       const { method, username, password } = req.body;
-      console.log(req.body);
-      // switch (method) {
-      //   case "log-in":
-      //     if (req.cookies["refresh-token"]) {
-      //       const correctToken: string | object = verify(
-      //         req.cookies["refresh-token"],
-      //         process.env.SESSION_SECRET
-      //       );
-      //     } else {
-      //       const data: {
-      //         id: number;
-      //         name: string;
-      //         username: string;
-      //         password: string;
-      //       } = await db.query(
-      //         `SELECT * FROM ${process.env.DB_TABLE} WHERE username = "${username}"`
-      //       );
-      //       const correctPassword: boolean = await bcrypt.compare(
-      //         password,
-      //         data[0].password
-      //       );
-      //       if(correctPassword){
-      //         res.setHeader("Set-Cookie", cookie.serialize("token", "bruh"))
-      //         return res.send(data[0])
-      //       }
-      //       else{
-      //         return res.send("Incorrect password")
-      //       }
+      switch (method) {
+        case "log-in":
+          if (req.cookies["refresh-token"]) {
+            console.log(req.cookies);
+            console.log("cookie test");
 
-      //     }
-      // }
-      return res.send("Test test");
+            const correctToken: string | object = verify(
+              req.cookies["refresh-token"],
+              process.env.SESSION_SECRET
+            );
+            return res.send(`{"coookie": "wrong cookie"}`);
+          } else {
+            console.log("testing password");
+            const data: {
+              id: number;
+              name: string;
+              username: string;
+              password: string;
+            } = await db.query(
+              `SELECT * FROM ${process.env.DB_TABLE} WHERE username = "${username}"`
+            );
+            const correctPassword: boolean = await bcrypt.compare(
+              password,
+              data[0].password
+            );
+            if (correctPassword) {
+              console.log("password pass");
+              res.setHeader("Set-Cookie", [
+                cookie.serialize("refresh-token", "bruh", {
+                  path: "/",
+                  httpOnly: true,
+                  maxAge: 3600 * 24 * 7,
+                }),
+                cookie.serialize("access-token", "bruh", {
+                  path: "/",
+                  httpOnly: true,
+                  maxAge: 3600 * 24 * 7,
+                }),
+              ]);
+              return res.send(data[0]);
+            } else {
+              return res.send(`{"message":"Incorrect password"}`);
+            }
+          }
+      }
+      return res.send(`{"test":"Test test"}`);
     }
     return res.status(200).end("Handle Authentication");
   } catch (error) {

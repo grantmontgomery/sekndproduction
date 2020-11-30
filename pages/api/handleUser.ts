@@ -8,6 +8,7 @@ export default async (res, req) => {
     console.log(data);
     return res.status(200).end("handle user");
   } catch (error) {
-    return res.send(error);
+    res.send(error);
+    return res.status(404).end("error");
   }
 };

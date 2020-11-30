@@ -1,12 +1,12 @@
 import * as React from "react";
 import css from "./SignInModal.module.scss";
-
+import { useLogIn } from "./Hooks";
 import Cookie from "js-cookie";
 const cookie = require("cookie");
 
 export const SignInModal: React.FC = () => {
   const [mode, setMode] = React.useState<string>("signin");
-  const [signInFields, setSignIn] = React.useState<{
+  const [logInFields, setLogIn] = React.useState<{
     username: string;
     password: string;
   }>({ username: "", password: "" });
@@ -16,6 +16,10 @@ export const SignInModal: React.FC = () => {
     email: string;
     password: string;
   }>({ username: "", email: "", password: "", name: "" });
+
+  const { loading, logIn } = useLogIn();
+
+  console.log(loading);
 
   return (
     <div className={css.signInWrapper}>
@@ -44,25 +48,27 @@ export const SignInModal: React.FC = () => {
             placeholder="Username or Email"
             name=""
             id=""
-            value={signInFields.username}
+            value={logInFields.username}
             onChange={({ target }) =>
-              setSignIn((fields) => ({ ...fields, username: target.value }))
+              setLogIn((fields) => ({ ...fields, username: target.value }))
             }
           />
 
           <input
             type="password"
             placeholder="Password"
-            value={signInFields.password}
+            value={logInFields.password}
             onChange={({ target }) =>
-              setSignIn((fields) => ({ ...fields, password: target.value }))
+              setLogIn((fields) => ({ ...fields, password: target.value }))
             }
           />
           <span className={css.rememberPassword}>
             <input type="checkbox" />
             Remember Password
           </span>
-          <span className={css.loginButton}>Log in</span>
+          <span className={css.loginButton} onClick={() => logIn(logInFields)}>
+            Log in
+          </span>
         </React.Fragment>
       ) : (
         <React.Fragment>
