@@ -7,11 +7,11 @@
     display: flex;
     flex-flow: column nowrap;
     top: 10vh;
-    height: 30vh;
+    height: 500px;
     background: white;
-    width: clamp(300px, 25vw, 400px);
-    float: right;
-    right: 12%;
+    width: clamp(550px, 40vw, 650px);
+    left: 50%;
+    transform: translate(-50%);
     position: fixed;
     z-index: 2;
     padding-left: 2.5%;
@@ -35,38 +35,24 @@
         }
       }
     }
+    & label {
+      font-size: 1.25rem;
+      margin-top: 5px;
+      height: fit-content;
+      width: fit-content;
+      display: block;
+    }
 
     & input {
+      font-size: 1rem;
       margin-top: 10px;
+      padding: 5px;
       &:nth-child(2) {
         margin-top: 0;
         margin-bottom: 0px;
       }
       &:nth-child(4) {
         margin-bottom: 10px;
-      }
-    }
-    & .rememberPassword {
-      display: inline-flex;
-      justify-content: center;
-      height: 20px;
-      width: fit-content;
-      text-align: center;
-      white-space: nowrap;
-      position: relative;
-      align-items: center;
-      margin-top: 10px;
-      margin-bottom: 10px;
-      & input {
-        width: 20px;
-        height: 20px;
-        position: relative;
-        display: block;
-        margin: 0;
-        margin-right: 10px;
-        cursor: pointer;
-        // top: 50%;
-        // transform: translate(0, -50%);
       }
     }
 
@@ -79,6 +65,8 @@
       background: linear-gradient(45deg, #ee0979, #ff6a00);
       cursor: pointer;
       color: white;
+      margin-top: 50px;
+
       height: 5vh;
       border-radius: 8px;
       align-items: center;
@@ -88,6 +76,7 @@
       display: inline-flex;
       justify-content: center;
       width: 100%;
+      margin-top: 50px;
       outline: none;
       height: 5vh;
       background: linear-gradient(45deg, #155799, #159957);
@@ -96,6 +85,44 @@
       border-radius: 8px;
       cursor: pointer;
       align-items: center;
+      .loadingRing {
+        display: inline-block;
+        position: relative;
+        width: 4vh;
+        margin-right: auto;
+        margin-left: auto;
+        height: 4vh;
+        & div {
+          box-sizing: border-box;
+          display: block;
+          position: absolute;
+          width: 3.2vh;
+          height: 3.2vh;
+          margin: 0.4vh;
+          border: 0.4vh solid #fff;
+          border-radius: 50%;
+          animation: loadingRing 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+          border-color: #fff transparent transparent transparent;
+          &:nth-child(1) {
+            animation-delay: -0.45s;
+          }
+          &:nth-child(2) {
+            animation-delay: -0.3s;
+          }
+          &:nth-child(3) {
+            animation-delay: -0.15s;
+          }
+        }
+      }
     }
+  }
+}
+
+@keyframes loadingRing {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

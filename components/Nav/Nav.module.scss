@@ -59,19 +59,19 @@
 
 .signIn-enter {
   transition: 250ms ease-out;
-  transform: translate(0, -100%);
+  transform: translate(-50%, -100%);
   &.signIn-enter-active {
     transition: 250ms ease-out;
-    transform: translate(0, 0);
+    transform: translate(-50%, 0);
   }
 }
 
 .signIn-exit {
   transition: 250ms ease-out;
-  transform: translate(0, 0);
+  transform: translate(-50%, 0);
   &.signIn-exit-active {
     transition: 250ms ease-out;
-    transform: translate(0, -100%);
+    transform: translate(-50%, -100%);
   }
 }
 

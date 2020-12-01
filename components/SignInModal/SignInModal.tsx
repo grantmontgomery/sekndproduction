@@ -43,64 +43,80 @@ export const SignInModal: React.FC = () => {
       </div>
       {mode === "signin" ? (
         <React.Fragment>
+          <label htmlFor="Username or Email">Username or Email</label>
           <input
             type="text"
-            placeholder="Username or Email"
-            name=""
+            placeholder="Enter username or email"
+            name="Username or Email"
             id=""
             value={logInFields.username}
             onChange={({ target }) =>
               setLogIn((fields) => ({ ...fields, username: target.value }))
             }
           />
+          <label htmlFor="Password">Password</label>
 
           <input
             type="password"
-            placeholder="Password"
+            name="Password"
+            placeholder="Enter password"
             value={logInFields.password}
             onChange={({ target }) =>
               setLogIn((fields) => ({ ...fields, password: target.value }))
             }
           />
-          <span className={css.rememberPassword}>
-            <input type="checkbox" />
-            Remember Password
-          </span>
+
           <span className={css.loginButton} onClick={() => logIn(logInFields)}>
-            Log in
+            {loading ? (
+              <div className={css.loadingRing}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            ) : (
+              "Log In"
+            )}
           </span>
         </React.Fragment>
       ) : (
         <React.Fragment>
+          <label htmlFor="Username">Username</label>
           <input
             type="text"
-            placeholder="Username"
-            name=""
-            id=""
+            placeholder="Enter in a username"
+            name="Username"
+            id="Username"
             value={registerFields.username}
             onChange={({ target }) =>
               setRegister((fields) => ({ ...fields, username: target.value }))
             }
           />
+          <label htmlFor="Name">Name</label>
+
           <input
             type="name"
-            placeholder="Name"
+            name="Name"
+            placeholder="Enter in a name"
             value={registerFields.name}
             onChange={({ target }) =>
               setRegister((fields) => ({ ...fields, name: target.value }))
             }
           />
+          <label htmlFor="Email">Email</label>
           <input
             type="text"
-            placeholder="Email"
+            placeholder="Enter in an email"
             value={registerFields.email}
             onChange={({ target }) =>
               setRegister((fields) => ({ ...fields, email: target.value }))
             }
           />
+          <label htmlFor="Password">Password</label>
           <input
             type="password"
-            placeholder="Password"
+            name="Password"
+            placeholder="Enter in a password"
             value={registerFields.password}
             onChange={({ target }) =>
               setRegister((fields) => ({ ...fields, password: target.value }))
