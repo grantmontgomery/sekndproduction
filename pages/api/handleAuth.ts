@@ -1,17 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { sign, verify } from "jsonwebtoken";
+import { sign } from "jsonwebtoken";
 import { handleCookies } from "../../logic";
-import cookieParser from "cookie-parser";
 import handleCredentials from "../../logic/handleCredentials";
-const db = require("../../lib/db");
-const cookie = require("cookie");
-const bcrypt = require("bcrypt");
 
-// const refreshToken = sign(
-//   { id: data[0].id },
-//   process.env.SESSION_SECRET,
-//   { expiresIn: "7d" }
-// );
+const cookie = require("cookie");
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
@@ -30,7 +22,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               expiresIn: "7d",
             }
           );
-
           const accessToken: string = sign(
             { id: userCredentials.id },
             process.env.ACCESS_SECRET,
@@ -38,9 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               expiresIn: "1d",
             }
           );
-
           console.log(userCredentials);
-
           userCredentials.id
             ? res.setHeader("Set-Cookie", [
                 cookie.serialize("refresh-token", refreshToken, {
@@ -62,11 +51,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           return res.send(userCredentials);
       }
     } else {
+      console.log();
       const cookieAuth = await handleCookies(req.cookies["refresh-token"]);
       return res.send(cookieAuth);
     }
+
     return res.status(200).end("Handle Authentication");
   } catch (error) {
     return res.send(error);
+  } finally {
+    return res.status(200).end("Handle Authentication");
   }
 };

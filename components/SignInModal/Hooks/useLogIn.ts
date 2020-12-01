@@ -15,12 +15,21 @@ export const useLogIn: () => {
   const [loading, setLoading] = React.useState<boolean>(false);
   const [data, setData] = React.useState<any | null>(null);
 
+  console.log(data);
   const userDispatch = useUserDispatch();
+
+  // React.useEffect(() => {
+  //   if (data.username) {
+  //   } else {
+  //   }
+  // }, [data]);
 
   const url: string =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/api/handleAuth"
-      : "";
+      : "https://d34hjxtv8xi8je.cloudfront.net";
+  const logOut: () => void = () => {};
+
   const logIn: ({
     username,
     password,

@@ -124,10 +124,10 @@ export default function Home(): JSX.Element {
             <div className={css.phoneWrapper}>
               <div className={css.videoWrapper}>
                 <video autoPlay loop muted playsInline>
-                  <source
+                  {/* <source
                     type={"video/mp4"}
                     src="/videos/SekndCaptureMobileTest.mp4"
-                  ></source>
+                  ></source> */}
                 </video>
               </div>
 

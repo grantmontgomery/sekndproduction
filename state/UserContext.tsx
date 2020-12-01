@@ -33,10 +33,18 @@ const UserDispatchContext: React.Context<
 
 export const UserProvider: ({
   children,
+  initialUser,
 }: {
   children: React.ReactNode;
-}) => JSX.Element = ({ children }) => {
-  const [state, dispatch] = React.useReducer(userReducer, { user: null });
+  initialUser: any;
+}) => JSX.Element = ({ children, initialUser }) => {
+  const [state, dispatch] = React.useReducer(
+    userReducer,
+    initialUser ? initialUser : { user: null }
+  );
+
+  console.log(state);
+  console.log(initialUser);
 
   return (
     <UserStateContext.Provider value={state}>

@@ -27,7 +27,7 @@ export default function Queried(): JSX.Element {
   const urlStart: string =
     process.env.NODE_ENV !== "production"
       ? "http://localhost:3000"
-      : "https://sekndproduction.vercel.app";
+      : "https://d34hjxtv8xi8je.cloudfront.net";
 
   const setSearchParameters: () => { [key: string]: any } | null = () => {
     const { query } = router;
