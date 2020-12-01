@@ -10,7 +10,8 @@ module.exports = {
     DB_TABLE: process.env.DB_TABLE,
     DB_USER: process.env.DB_USER,
     DB_PASSWORD: process.env.DB_PASSWORD,
-    SESSION_SECRET: process.env.SESSION_SECRET,
+    ACCESS_SECRET: process.env.ACCESS_SECRET,
+    REFRESH_SECRET: process.env.REFRESH_SECRET,
   },
   serverRuntimeConfig: {
     YELP_API_KEY: process.env.YELP_API_KEY,

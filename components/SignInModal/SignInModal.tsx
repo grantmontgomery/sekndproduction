@@ -19,7 +19,7 @@ export const SignInModal: React.FC = () => {
 
   const { loading, logIn, data } = useLogIn();
 
-  console.log(loading);
+  console.log(data);
 
   return (
     <div className={css.signInWrapper}>

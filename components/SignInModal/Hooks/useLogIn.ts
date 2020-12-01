@@ -16,11 +16,7 @@ export const useLogIn: () => {
   const [data, setData] = React.useState<any | null>(null);
 
   const userDispatch = useUserDispatch();
-  React.useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
+
   const url: string =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/api/handleAuth"
@@ -47,8 +43,9 @@ export const useLogIn: () => {
         }),
       });
       const responseJSON = await response.json();
-      setData(responseJSON);
+
       setLoading(false);
+      setData(responseJSON);
     } catch (error) {
       setLoading(false);
       setData(error);
