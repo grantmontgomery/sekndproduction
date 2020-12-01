@@ -44,9 +44,7 @@ export default function Home(): JSX.Element {
   React.useEffect(() => {
     document
       .getElementById("laptopVideo")
-      .addEventListener("loadedmetadata", () => {
-        console.log("video loaded");
-      });
+      .addEventListener("loadedmetadata", () => {});
   }, []);
 
   React.useEffect(() => {

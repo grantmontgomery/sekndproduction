@@ -28,29 +28,10 @@ export default function App({
   router,
 }: Props): JSX.Element {
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [initialUser, setInitialUser] = React.useState<any>(null);
+
   React.useEffect(() => {
     const start: () => void = () => setLoading(true);
     const end: () => void = () => setTimeout(() => setLoading(false), 500);
-    // fetch(
-    //   process.env.NODE_ENV === "development"
-    //     ? "http://localhost:3000/api/handleAuth"
-    //     : "",
-    //   {
-    //     headers: {
-    //       Accept: "application/json",
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // )
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //     if (data.username) setInitialUser(data);
-    //   })
-    //   .catch((err) => {
-    //     console.log("no cookies");
-    //   });
 
     Router.events.on("routeChangeStart", start);
     Router.events.on("routeChangeComplete", end);
@@ -61,7 +42,7 @@ export default function App({
   }, []);
 
   return (
-    <UserProvider initialUser={initialUser}>
+    <UserProvider>
       <ModalProvider>
         <RectanglesProvider>
           <GridProvider

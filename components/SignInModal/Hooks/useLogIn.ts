@@ -18,11 +18,11 @@ export const useLogIn: () => {
   console.log(data);
   const userDispatch = useUserDispatch();
 
-  // React.useEffect(() => {
-  //   if (data.username) {
-  //   } else {
-  //   }
-  // }, [data]);
+  React.useEffect(() => {
+    if (data && data.username) {
+      userDispatch({ type: "SET_USER", payload: data });
+    }
+  }, [data]);
 
   const url: string =
     process.env.NODE_ENV === "development"

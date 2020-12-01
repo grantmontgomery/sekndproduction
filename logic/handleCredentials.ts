@@ -19,6 +19,7 @@ export default async function handleCredentials(
       return `{"error": "Wrong username or password"}`;
     }
   } catch (error) {
+    console.log(error);
     return error;
   }
 }

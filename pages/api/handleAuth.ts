@@ -51,7 +51,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           return res.send(userCredentials);
       }
     } else {
-      console.log();
       const cookieAuth = await handleCookies(req.cookies["refresh-token"]);
       return res.send(cookieAuth);
     }
