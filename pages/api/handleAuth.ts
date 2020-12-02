@@ -55,8 +55,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             `access-token=foo; path=/; expires= expires=Thu, 01 Jan 1970 00:00:00 GMT`,
           ]);
 
-          res.send(`{"message":"logout successful"}`);
-          return res.end();
+          return res.send(`{"message":"logout successful"}`);
       }
     } else {
       const cookieAuth = await handleCookies(req.cookies["refresh-token"]);
