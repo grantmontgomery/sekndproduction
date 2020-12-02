@@ -19,7 +19,7 @@ export const useRegister: () => {
   const url: string =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/api/handleUser"
-      : "https://d34hjxtv8xi8je.cloudfront.net/apit/handleUser";
+      : "https://sekndapp.com/api/handleUser";
 
   const register: ({
     username,
@@ -50,7 +50,6 @@ export const useRegister: () => {
 
       setLoading(false);
 
-      console.log(responseJSON);
       responseJSON.username
         ? userDispatch({ type: "SET_USER", payload: responseJSON })
         : null;

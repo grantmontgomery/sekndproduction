@@ -22,7 +22,7 @@ export const useLogIn: () => {
   const url: string =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/api/handleAuth"
-      : "https://d34hjxtv8xi8je.cloudfront.net/apit/handleAuth";
+      : "https://sekndapp.com/api/handleAuth";
 
   const logOut: () => void = () => {
     Cookie.remove("refresh-token", {
