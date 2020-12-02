@@ -1,6 +1,6 @@
 import * as React from "react";
 import css from "./SignInModal.module.scss";
-import { useLogIn } from "./Hooks";
+import { useLogIn, useRegister } from "./Hooks";
 import Cookie from "js-cookie";
 const cookie = require("cookie");
 
@@ -17,7 +17,8 @@ export const SignInModal: React.FC = () => {
     password: string;
   }>({ username: "", email: "", password: "", name: "" });
 
-  const { loading, logIn, logOut } = useLogIn();
+  const { loading: logInLoading, logIn, logOut } = useLogIn();
+  const { loading: registerLoading, register } = useRegister();
 
   return (
     <div className={css.signInWrapper}>
@@ -65,7 +66,7 @@ export const SignInModal: React.FC = () => {
           />
 
           <span className={css.loginButton} onClick={() => logIn(logInFields)}>
-            {loading ? (
+            {logInLoading ? (
               <div className={css.loadingRing}>
                 <div></div>
                 <div></div>
@@ -123,7 +124,27 @@ export const SignInModal: React.FC = () => {
               setRegister((fields) => ({ ...fields, password: target.value }))
             }
           />
-          <span className={css.registerButton}>Register</span>
+          <span
+            className={css.registerButton}
+            onClick={() =>
+              register({
+                username: registerFields.username,
+                password: registerFields.password,
+                name: registerFields.name,
+              })
+            }
+          >
+            {registerLoading ? (
+              <div className={css.loadingRing}>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+              </div>
+            ) : (
+              "Register"
+            )}
+          </span>
         </React.Fragment>
       )}
     </div>
