@@ -41,7 +41,7 @@ export const useLogIn: () => {
         },
         method: "POST",
         body: JSON.stringify({
-          method: "log-out",
+          auth: "log-out",
         }),
       }
     )
@@ -71,7 +71,7 @@ export const useLogIn: () => {
         },
         method: "POST",
         body: JSON.stringify({
-          method: "log-in",
+          auth: "log-in",
           username,
           password,
         }),

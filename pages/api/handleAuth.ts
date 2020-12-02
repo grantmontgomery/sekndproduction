@@ -9,8 +9,8 @@ const cookie = require("cookie");
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== "GET") {
-      const { method, username, password } = req.body;
-      switch (method) {
+      const { auth, username, password } = req.body;
+      switch (auth) {
         case "log-in":
           const userCredentials: string | any = await handleCredentials(
             username,
