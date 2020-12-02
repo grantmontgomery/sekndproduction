@@ -1,4 +1,7 @@
 import * as React from "react";
+import Cookie from "js-cookie";
+
+import { handleCookies } from "../../../logic";
 import { useUserDispatch } from "../../../state/UserContext";
 
 export const useLogIn: () => {
@@ -10,25 +13,47 @@ export const useLogIn: () => {
     username: string;
     password: string;
   }) => Promise<void>;
-  data: {} | null;
+  logOut: () => void;
 } = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
-  const [data, setData] = React.useState<any | null>(null);
 
-  console.log(data);
   const userDispatch = useUserDispatch();
-
-  React.useEffect(() => {
-    if (data && data.username) {
-      userDispatch({ type: "SET_USER", payload: data });
-    }
-  }, [data]);
 
   const url: string =
     process.env.NODE_ENV === "development"
       ? "http://localhost:3000/api/handleAuth"
       : "https://d34hjxtv8xi8je.cloudfront.net";
-  const logOut: () => void = () => {};
+
+  const logOut: () => void = () => {
+    Cookie.remove("refresh-token", {
+      path: "/",
+      domain: "localhost",
+    });
+    fetch(
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000/api/handleAuth"
+        : "",
+      {
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          Cookie: "",
+        },
+        method: "POST",
+        body: JSON.stringify({
+          method: "log-out",
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        return data;
+      })
+      .catch((err) => {
+        return err;
+      });
+    userDispatch({ type: "LOG_OUT" });
+  };
 
   const logIn: ({
     username,
@@ -52,14 +77,14 @@ export const useLogIn: () => {
         }),
       });
       const responseJSON = await response.json();
-
       setLoading(false);
-      setData(responseJSON);
+
+      if (responseJSON.username)
+        userDispatch({ type: "SET_USER", payload: responseJSON });
     } catch (error) {
       setLoading(false);
-      setData(error);
     }
   };
 
-  return { loading, logIn, data };
+  return { loading, logIn, logOut };
 };

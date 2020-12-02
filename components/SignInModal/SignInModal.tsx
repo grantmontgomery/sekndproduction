@@ -17,9 +17,7 @@ export const SignInModal: React.FC = () => {
     password: string;
   }>({ username: "", email: "", password: "", name: "" });
 
-  const { loading, logIn, data } = useLogIn();
-
-  console.log(data);
+  const { loading, logIn, logOut } = useLogIn();
 
   return (
     <div className={css.signInWrapper}>
@@ -77,6 +75,9 @@ export const SignInModal: React.FC = () => {
             ) : (
               "Log In"
             )}
+          </span>
+          <span className={css.loginButton} onClick={() => logOut()}>
+            Log Out
           </span>
         </React.Fragment>
       ) : (

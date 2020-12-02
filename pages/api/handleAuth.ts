@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { sign } from "jsonwebtoken";
 import { handleCookies } from "../../logic";
+
 import handleCredentials from "../../logic/handleCredentials";
 
 const cookie = require("cookie");
@@ -29,7 +30,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               expiresIn: "1d",
             }
           );
-          console.log(userCredentials);
           userCredentials.id
             ? res.setHeader("Set-Cookie", [
                 cookie.serialize("refresh-token", refreshToken, {
@@ -49,6 +49,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
               ])
             : null;
           return res.send(userCredentials);
+        case "log-out":
+          res.setHeader("Set-Cookie", [
+            `refresh-token=foo; path=/; expires= expires=Thu, 01 Jan 1970 00:00:00 GMT`,
+            `access-token=foo; path=/; expires= expires=Thu, 01 Jan 1970 00:00:00 GMT`,
+          ]);
+
+          res.send(`{"message":"logout successful"}`);
+          return res.end();
       }
     } else {
       const cookieAuth = await handleCookies(req.cookies["refresh-token"]);

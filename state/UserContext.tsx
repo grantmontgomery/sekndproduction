@@ -75,6 +75,8 @@ export const UserProvider: ({
       });
   }, []);
 
+  console.log(state);
+
   return (
     <UserStateContext.Provider value={state}>
       <UserDispatchContext.Provider value={dispatch}>
