@@ -1,11 +1,11 @@
 import * as React from "react";
+import { useUserState } from "../../state/UserContext";
 import { useModalDispatch, useModalState } from "../../state/ModalContext";
 import css from "./AccountDisplay.module.scss";
 
 export const AccountDisplay: React.FC = () => {
-  const [state, setState] = React.useState<{ loggedIn: boolean }>({
-    loggedIn: false,
-  });
+  const { user } = useUserState();
+
   const { allowToggle, allowDisplay } = useModalState();
   const modalDispatch = useModalDispatch();
 
@@ -40,7 +40,7 @@ export const AccountDisplay: React.FC = () => {
         />
       </svg> */}
 
-      <span> {state.loggedIn ? "Grant" : "Sign In"}</span>
+      <span> {user ? `${user.username}` : "Sign In"}</span>
     </div>
   );
 };

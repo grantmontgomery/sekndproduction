@@ -63,7 +63,7 @@ export default function App({
                 loadingClassNames="loading-indicator"
               >
                 {loading ? (
-                  <SekndLoader></SekndLoader>
+                  <SekndLoader key={router.route}></SekndLoader>
                 ) : (
                   <Component {...pageProps} key={router.route} />
                 )}

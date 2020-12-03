@@ -80,8 +80,8 @@ export const UserProvider: ({
   React.useEffect(() => {
     if (state.user) {
       router.pathname === "/user/[account]"
-        ? router.push(`/user/${state.user.username}`)
-        : null;
+        ? null
+        : router.push(`/user/${state.user.username}`);
     }
   }, [state]);
 
