@@ -32,7 +32,6 @@ export default function App({
   React.useEffect(() => {
     const start: () => void = () => setLoading(true);
     const end: () => void = () => setTimeout(() => setLoading(false), 500);
-
     Router.events.on("routeChangeStart", start);
     Router.events.on("routeChangeComplete", end);
     return () => {

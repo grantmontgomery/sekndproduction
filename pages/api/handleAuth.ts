@@ -58,8 +58,40 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           return res.send(`{"message":"logout successful"}`);
       }
     } else {
-      const cookieAuth = await handleCookies(req.cookies["refresh-token"]);
-      return res.send(cookieAuth);
+      const cookieAuthUser = await handleCookies(req.cookies["refresh-token"]);
+      if (cookieAuthUser.username) {
+        const refreshToken: string = sign(
+          { id: cookieAuthUser.id },
+          process.env.REFRESH_SECRET,
+          {
+            expiresIn: "7d",
+          }
+        );
+        const accessToken: string = sign(
+          { id: cookieAuthUser.id },
+          process.env.ACCESS_SECRET,
+          {
+            expiresIn: "1d",
+          }
+        );
+        res.setHeader("Set-Cookie", [
+          cookie.serialize("refresh-token", refreshToken, {
+            path: "/",
+            httpOnly: true,
+            maxAge: 3600 * 24 * 7,
+            sameSite: true,
+            secure: process.env.NODE_ENV === "development" ? false : true,
+          }),
+          cookie.serialize("access-token", accessToken, {
+            path: "/",
+            httpOnly: true,
+            sameSite: true,
+            maxAge: 3600 * 24,
+            secure: process.env.NODE_ENV === "development" ? false : true,
+          }),
+        ]);
+      }
+      return res.send(cookieAuthUser);
     }
 
     return res.status(200).end("Handle Authentication");

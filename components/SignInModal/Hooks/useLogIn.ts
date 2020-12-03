@@ -1,5 +1,6 @@
 import * as React from "react";
 import Cookie from "js-cookie";
+import { NextRouter, useRouter } from "next/router";
 
 import { handleCookies } from "../../../logic";
 import { useUserDispatch } from "../../../state/UserContext";
@@ -17,6 +18,7 @@ export const useLogIn: () => {
 } = () => {
   const [loading, setLoading] = React.useState<boolean>(false);
 
+  const router: NextRouter = useRouter();
   const userDispatch = useUserDispatch();
 
   const url: string =
@@ -42,6 +44,7 @@ export const useLogIn: () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        router.push("/");
         return data;
       })
       .catch((err) => {

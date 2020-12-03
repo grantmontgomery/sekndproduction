@@ -102,21 +102,16 @@ export const SearchBox: React.FC = (props) => {
     console.log(searchType);
 
     if (searchType === "ALL") {
-      console.log("setting ALL link");
       Cookie.set(
         "link",
         `/search/searchType=${searchType}+location=${location}+radius=${radius}+placeType=${placeType}+startFormatted=${startFormatted}+endFormatted=${endFormatted}+unixStartDate=${unixStartDate}+unixEndDate=${unixEndDate}+eventsCategory=${eventsCategory}`
       );
     } else if (searchType === "PLACES") {
-      console.log("setting Places link");
-
       Cookie.set(
         "link",
         `/search/searchType=${searchType}+location=${location}+radius=${radius}+placeType=${placeType}+startFormatted=${startFormatted}+endFormatted=${endFormatted}`
       );
     } else if (searchType === "EVENTS") {
-      console.log("setting Events link");
-
       Cookie.set(
         "link",
         `/search/searchType=${searchType}+location=${location}+radius=${radius}+startFormatted=${startFormatted}+endFormatted=${endFormatted}+unixStartDate=${unixStartDate}+unixEndDate=${unixEndDate}+eventsCategory=${eventsCategory}`

@@ -1,4 +1,5 @@
 import * as React from "react";
+import { NextRouter, Router, useRouter } from "next/router";
 
 type State = {
   user: any | null;
@@ -54,6 +55,8 @@ export const UserProvider: ({
 }) => JSX.Element = ({ children }) => {
   const [state, dispatch] = React.useReducer(userReducer, { user: null });
 
+  const router: NextRouter = useRouter();
+
   React.useEffect(() => {
     fetch(
       process.env.NODE_ENV === "development"
@@ -74,8 +77,13 @@ export const UserProvider: ({
         return err;
       });
   }, []);
-
-  console.log(state);
+  React.useEffect(() => {
+    if (state.user) {
+      router.pathname === "/user/[account]"
+        ? router.push(`/user/${state.user.username}`)
+        : null;
+    }
+  }, [state]);
 
   return (
     <UserStateContext.Provider value={state}>
