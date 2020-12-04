@@ -1,19 +1,20 @@
 .signInWrapper {
-  display: none;
+  display: flex;
+  height: 50vh;
+  width: 100vw;
+  flex-flow: column nowrap;
+  background: white;
+  position: fixed;
+  z-index: 2;
+  left: 50%;
+  transform: translate(-50%);
 }
 // #dd1818
 @media (orientation: landscape) {
   .signInWrapper {
-    display: flex;
-    flex-flow: column nowrap;
     top: 10vh;
     height: 500px;
-    background: white;
     width: clamp(550px, 40vw, 650px);
-    left: 50%;
-    transform: translate(-50%);
-    position: fixed;
-    z-index: 2;
     padding-left: 2.5%;
     padding-right: 2.5%;
     padding-bottom: 1%;

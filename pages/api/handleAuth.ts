@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { sign, verify } from "jsonwebtoken";
 const bcrypt = require("bcrypt");
 const db = require("../../lib/db");
-import { handleCookies } from "../../logic";
 
 const cookie = require("cookie");
 

@@ -1,21 +1,22 @@
 .iconWrapper {
   align-content: center;
-  height: min(9vw, 6vh);
+  height: min(7vw, 6vh);
   display: block;
-  width: min(9vw, 6vh);
+  width: min(7vw, 6vh);
 
   position: relative;
   z-index: 2;
   cursor: pointer;
   margin-right: 5%;
+  margin-left: 0;
   top: 50%;
   transform: translate(0, -50%);
   & .pulser {
     position: absolute;
     z-index: 0;
-    height: min(7vw, 4vh);
-    width: min(7vw, 4vh);
-    border-radius: min(7vw, 4vh);
+    height: min(5vw, 4vh);
+    width: min(5vw, 4vh);
+    border-radius: min(5vw, 4vh);
     left: 50%;
     transform: translate(-50%, -50%) scale(1);
     top: 50%;
@@ -64,8 +65,10 @@
     transform: translate(-50%, -50%) scale(2);
   }
 }
-// @media (orientation: landscape) {
-//   .partsIcon {
-//     display: none;
-//   }
-// }
+@media (orientation: landscape) {
+  .iconWrapper {
+    height: min(9vw, 6vh);
+
+    width: min(9vw, 6vh);
+  }
+}

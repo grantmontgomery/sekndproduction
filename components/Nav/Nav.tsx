@@ -10,6 +10,7 @@ import { NavLinks } from "../NavLinks";
 import { PartsIcon } from "../PartsIcon";
 import { SignInModal } from "../SignInModal";
 import { AccountDisplay } from "../AccountDisplay";
+import { UserIcon } from "../UserIcon";
 import css from "./Nav.module.scss";
 import { useModalState } from "../../state/ModalContext";
 
@@ -42,11 +43,13 @@ export const Nav: React.FC = () => {
           </svg>
         </Link>
         <NavLinks orientation="landscape"></NavLinks>
-        <MobileHamburger></MobileHamburger>
+        {/* <MobileHamburger></MobileHamburger> */}
 
         <AccountDisplay></AccountDisplay>
         <SearchIcon></SearchIcon>
+        <UserIcon></UserIcon>
         <PartsIcon></PartsIcon>
+
         <TransitionGroup>
           {allowDisplay.dateParts ? (
             <CSSTransition

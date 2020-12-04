@@ -3,12 +3,13 @@
   top: 50%;
   display: block;
   transform: translate(0, -50%);
-  margin-right: 2.5%;
+  margin-right: 7.5%;
   fill: black;
+  margin-left: auto;
   max-height: 5vh;
   cursor: pointer;
   width: auto;
-  height: 7vw;
+  width: min(7vw, 6vh);
 }
 
 @media (orientation: landscape) {

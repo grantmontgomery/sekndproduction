@@ -12,12 +12,13 @@
   & .logoLink {
     cursor: pointer;
     display: block;
-    height: min(7vw, 40%);
+    height: min(5vw, 30%);
     width: auto;
     top: 50%;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    position: relative;
+    margin-left: 5%;
+    margin-right: 0;
+    transform: translate(0, -50%);
   }
 }
 
