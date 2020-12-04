@@ -44,6 +44,7 @@ export const useLogIn: () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         router.push("/");
         return data;
       })
