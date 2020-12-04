@@ -9,8 +9,7 @@
   padding-right: 5%;
   z-index: 0;
   flex-flow: column nowrap;
-  box-shadow: 0 0.25vh 4vh #00000015;
-  overflow-y: scroll;
+  // box-shadow: 0 0.25vh 4vh #00000015;
   & .queryDisplay {
     position: fixed;
     z-index: 2;
@@ -68,22 +67,37 @@
     }
   }
 
-  & .resultsSlider {
-    height: auto;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
-    position: relative;
+  & .sliderWrapper {
+    overflow-y: scroll;
+    height: 100%;
     width: 100%;
-    z-index: 0;
-    padding-top: 10vh;
-    padding-bottom: 10vh;
+    position: relative;
+    & .resultsSlider {
+      height: auto;
+      display: flex;
+      flex-flow: column nowrap;
+      align-items: center;
+      position: relative;
+      width: 100%;
+      z-index: 0;
+      padding-top: 10vh;
+      padding-bottom: 10vh;
+    }
   }
 }
 
 @media (orientation: landscape) {
   .queriedPage {
-    width: max(min(90vw, 1400px), 750px);
+    // width: max(min(90vw, 1400px), 750px);
+    width: min(100vw, 1920px);
     grid-template-rows: 10% auto;
+    display: grid;
+    padding: 0;
+    grid-template-areas: "filter results";
+    grid-template-columns: clamp(225px, 20vw, 350px) auto;
+    grid-template-rows: 100%;
+    & .sliderWrapper {
+      grid-area: results;
+    }
   }
 }

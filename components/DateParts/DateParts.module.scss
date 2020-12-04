@@ -106,7 +106,7 @@
       }
     }
     & .partsList {
-      display: relative;
+      display: block;
       height: 75%;
       width: 100%;
       padding: 5%;
@@ -114,6 +114,22 @@
       & .partsInner {
         width: 100%;
         height: auto;
+      }
+      & .scheduleLink {
+        width: 90%;
+        display: inline-flex;
+        height: 7.5vh;
+        color: white;
+        font-weight: bold;
+        align-items: center;
+        position: absolute;
+        bottom: 15%;
+        justify-content: center;
+        left: 50%;
+        transform: translate(-50%);
+        border-radius: 1vh;
+        text-align: center;
+        background: linear-gradient(45deg, #155799, #159957);
       }
     }
   }

@@ -116,8 +116,9 @@ export default function Queried(): JSX.Element {
           {setResultsButtons()}
           <button className={css.sort}>Sort</button>
         </section>
-
-        <div className={css.resultsSlider}>{loadingDisplayItems()}</div>
+        <section className={css.sliderWrapper}>
+          <div className={css.resultsSlider}>{loadingDisplayItems()}</div>
+        </section>
       </main>
     </Layout>
   );

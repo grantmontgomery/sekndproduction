@@ -1,6 +1,7 @@
 import * as React from "react";
 import { usePartsState, usePartsDispatch } from "../../state/DatePartsContext";
 import css from "./DateParts.module.scss";
+import Link from "next/link";
 import { DatePart } from "../DatePart/DatePart";
 
 export const DateParts: React.FC<{ location: string }> = ({ location }) => {
@@ -106,6 +107,9 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
               ></DatePart>
             ))}
           </div>
+          <Link href="/schedule">
+            <span className={css.scheduleLink}>Schedule</span>
+          </Link>
         </div>
       </div>
     </div>
