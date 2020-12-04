@@ -43,7 +43,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                   path: "/",
                   httpOnly: true,
                   sameSite: true,
-                  maxAge: 3600 * 24,
+                  maxAge: 60,
                   secure: process.env.NODE_ENV === "development" ? false : true,
                 }),
               ])
@@ -86,7 +86,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             path: "/",
             httpOnly: true,
             sameSite: true,
-            maxAge: 3600 * 24,
+            maxAge: 60,
             secure: process.env.NODE_ENV === "development" ? false : true,
           }),
         ]);
@@ -96,7 +96,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.status(200).end("Handle Authentication");
   } catch (error) {
-    return res.send(error);
+    return res.status(404).end("Can't access");
   } finally {
     return res.status(200).end("Handle Authentication");
   }

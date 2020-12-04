@@ -9,7 +9,6 @@ export default async function handleCookies(cookie: string): Promise<any> {
     );
     return data[0];
   } catch (error) {
-    console.log(error);
     return error;
   }
 }

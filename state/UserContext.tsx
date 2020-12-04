@@ -79,9 +79,7 @@ export const UserProvider: ({
   }, []);
   React.useEffect(() => {
     if (state.user) {
-      router.pathname === "/user/[account]"
-        ? null
-        : router.push(`/user/${state.user.username}`);
+      router.push(`/user/${state.user.username}`);
     }
   }, [state]);
 

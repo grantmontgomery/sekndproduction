@@ -1,13 +1,40 @@
-.partsIcon {
-  display: block;
-  position: relative;
+.iconWrapper {
+  align-content: center;
   height: min(9vw, 6vh);
-  width: auto;
-  margin-right: 5%;
+  display: block;
+  width: min(9vw, 6vh);
+
+  position: relative;
   z-index: 2;
-  top: 50%;
   cursor: pointer;
+  margin-right: 5%;
+  top: 50%;
   transform: translate(0, -50%);
+  & .pulser {
+    position: absolute;
+    z-index: 0;
+    height: min(7vw, 4vh);
+    width: min(7vw, 4vh);
+    border-radius: min(7vw, 4vh);
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    top: 50%;
+    height: 110%;
+    display: none;
+    background: linear-gradient(to right, #ee0979, #ff6a00);
+    width: 110%;
+    &.pulse {
+      animation-name: pulse;
+      animation-duration: 500ms;
+      display: block;
+    }
+  }
+  & svg {
+    position: relative;
+    display: block;
+    height: 100%;
+    width: auto;
+  }
 }
 
 .st0 {
@@ -24,6 +51,19 @@
   transition: 250ms ease-in-out;
 }
 
+@keyframes pulse {
+  0% {
+    opacity: 0.5;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(1.8);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2);
+  }
+}
 // @media (orientation: landscape) {
 //   .partsIcon {
 //     display: none;
