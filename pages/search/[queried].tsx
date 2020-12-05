@@ -1,6 +1,7 @@
 import * as React from "react";
 import { Layout, ResultCard, SekndLoader } from "../../components";
 import useAPICalls from "../../swr/useAPICalls";
+import { ResultsFilter } from "../../components";
 import { NextRouter, useRouter } from "next/router";
 import { useGridState } from "../../state/SearchGridContext";
 import css from "../../styles/Queried.module.scss";
@@ -111,11 +112,7 @@ export default function Queried(): JSX.Element {
   return (
     <Layout>
       <main className={css.queriedPage}>
-        {/* <section className={css.queryDisplay}></section> */}
-        <section className={css.header}>
-          {setResultsButtons()}
-          <button className={css.sort}>Sort</button>
-        </section>
+        <ResultsFilter></ResultsFilter>
         <section className={css.sliderWrapper}>
           <div className={css.resultsSlider}>{loadingDisplayItems()}</div>
         </section>

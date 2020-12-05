@@ -149,17 +149,20 @@
 
 @media (orientation: landscape) {
   .resultCard {
-    width: clamp(500px, 45vw, 1000px);
+    width: 90%;
     background: none;
     display: grid;
+    background: #ffffff;
     grid-template-areas: "image info";
     flex-flow: row nowrap;
-    grid-template-columns: clamp(175px, 40%, 250px) auto;
+    grid-template-columns: 250px auto;
     grid-template-rows: 100%;
+    box-shadow: none;
+
     padding: 0;
     & .loadingImageSection {
       display: block;
-      width: clamp(175px, 40%, 250px);
+      width: 250px;
       position: absolute;
       float: left;
       left: 0;

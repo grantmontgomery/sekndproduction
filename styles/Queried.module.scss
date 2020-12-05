@@ -99,5 +99,10 @@
     & .sliderWrapper {
       grid-area: results;
     }
+    & .sliderWrapper {
+      background: #f5f5f5;
+      & .resultsSlider {
+      }
+    }
   }
 }

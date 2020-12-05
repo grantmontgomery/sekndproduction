@@ -1,0 +1,67 @@
+.filterSection {
+  grid-area: filter;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-flow: column nowrap;
+  & .typeButtonsWrapper {
+    height: 25%;
+    width: 100%;
+    position: relative;
+    & .buttonWrapper {
+      height: 100px;
+      width: 100%;
+      & svg {
+        height: 100%;
+        display: block;
+        width: auto;
+      }
+    }
+  }
+}
+
+@media (orientation: landscape) {
+  .filterSection {
+    grid-area: filter;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-flow: column nowrap;
+    & .typeButtonsWrapper {
+      height: 25%;
+      width: 100%;
+      position: relative;
+      & .buttonWrapper {
+        margin-top: 10px;
+        height: 40px;
+        display: flex;
+        flex-flow: row nowrap;
+        width: 75%;
+        border: solid 1px black;
+        position: relative;
+        cursor: pointer;
+        margin-right: auto;
+        margin-left: auto;
+        border-radius: 5px;
+        align-items: center;
+        & svg {
+          height: 80%;
+          display: block;
+          width: auto;
+          margin-left: 5%;
+        }
+        & span {
+          margin-left: 5%;
+          color: black;
+          height: fit-content;
+          font-weight: bold;
+          width: fit-content;
+          font-size: 1rem;
+          display: block;
+        }
+      }
+    }
+  }
+}
