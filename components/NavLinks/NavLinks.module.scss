@@ -32,6 +32,10 @@
 @media (orientation: landscape) {
   .linksWrapper {
     align-items: center;
+    display: none;
+    &.landscape {
+      display: none;
+    }
     &.landscape {
       display: flex;
       margin: 0;

@@ -3,15 +3,22 @@ import css from "./ResultsFilter.module.scss";
 
 export const ResultsFilter: React.FC<{
   resultsType: string;
-  searchType: string | null;
+  searchParams: { [key: string]: any } | null;
   resultsLoading: boolean;
   handleResultsTypeChange: (input: string) => void;
-}> = ({ resultsType, resultsLoading, handleResultsTypeChange, searchType }) => {
+}> = ({
+  resultsType,
+  resultsLoading,
+  handleResultsTypeChange,
+  searchParams,
+}) => {
   return (
     <section className={css.filterSection}>
       <div className={css.typeButtonsWrapper}>
         <div
-          className={css.buttonWrapper}
+          className={`${css.buttonWrapper} ${
+            resultsType === "places" ? css.selected : null
+          }`}
           onClick={() => handleResultsTypeChange("places")}
         >
           <svg
@@ -19,9 +26,6 @@ export const ResultsFilter: React.FC<{
             viewBox="-63 0 512 512.00026"
             width="512pt"
             xmlns="http://www.w3.org/2000/svg"
-            style={{
-              fill: "black",
-            }}
           >
             <path
               id="PLACES"
@@ -30,9 +34,12 @@ export const ResultsFilter: React.FC<{
           </svg>
           <span>Places</span>
         </div>
-        {searchType !== "PLACES" || resultsLoading ? (
+        {(searchParams && searchParams.searchType !== "PLACES") ||
+        resultsLoading ? (
           <div
-            className={css.buttonWrapper}
+            className={`${css.buttonWrapper} ${
+              resultsType === "events" ? css.selected : null
+            }`}
             onClick={() => handleResultsTypeChange("events")}
           >
             <svg
@@ -40,9 +47,6 @@ export const ResultsFilter: React.FC<{
               viewBox="0 0 512 512"
               width="512pt"
               xmlns="http://www.w3.org/2000/svg"
-              style={{
-                fill: "black",
-              }}
             >
               <path
                 id="EVENTS"
@@ -69,9 +73,7 @@ export const ResultsFilter: React.FC<{
           </div>
         ) : null}
       </div>
-      {/* <div className={css.}>
-
-      </div> */}
+      <div className={css.searchFilters}></div>
     </section>
   );
 };

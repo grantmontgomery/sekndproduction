@@ -39,13 +39,23 @@
         display: flex;
         flex-flow: row nowrap;
         width: 75%;
-        border: solid 1px black;
         position: relative;
         cursor: pointer;
         margin-right: auto;
         margin-left: auto;
         border-radius: 5px;
         align-items: center;
+        transition: 250ms ease-out;
+        &.selected {
+          transition: 250ms ease-out;
+          background: linear-gradient(#00c6ff, #0072ff);
+          svg {
+            fill: white;
+          }
+          span {
+            color: white;
+          }
+        }
         & svg {
           height: 80%;
           display: block;
