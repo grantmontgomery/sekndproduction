@@ -21,7 +21,7 @@ type SearchParams = { [key: string]: any };
 
 export default function Queried(): JSX.Element {
   const [state, setState] = React.useState<{ resultsType: string }>({
-    resultsType: "place",
+    resultsType: "places",
   });
   const router: NextRouter = useRouter();
 
@@ -31,9 +31,10 @@ export default function Queried(): JSX.Element {
       : "https://sekndapp.com";
 
   const setSearchParameters: () => { [key: string]: any } | null = () => {
+    if (!router.query.queried) return null;
+    if (router.query.searchType) return router.query;
+
     const { query } = router;
-    if (!query.queried) return null;
-    if (query.searchType) return query;
 
     const checkURLIsString: string = query.queried.toString();
     const paramValueArray: string[] = checkURLIsString.split("+");
@@ -57,34 +58,21 @@ export default function Queried(): JSX.Element {
     urlStart
   );
 
+  const handleResultsTypeChange: (input: string) => void = (input) => {
+    if (input === "places") {
+      setState({ resultsType: "places" });
+    } else {
+      setState({ resultsType: "events" });
+    }
+  };
+
   React.useEffect(() => {
     if (setSearchParameters()) {
       setSearchParameters().searchType === "EVENTS"
-        ? setState({ resultsType: "event" })
+        ? setState({ resultsType: "events" })
         : null;
     }
   }, [setSearchParameters()]);
-
-  const setResultsButtons: () => JSX.Element | null = () => {
-    if (loading) return null;
-    return setSearchParameters() &&
-      setSearchParameters().searchType === "ALL" ? (
-      <React.Fragment>
-        <button
-          className={css.typeButton}
-          onClick={() => setState({ resultsType: "place" })}
-        >
-          Places
-        </button>
-        <button
-          className={css.typeButton}
-          onClick={() => setState({ resultsType: "event" })}
-        >
-          Events
-        </button>
-      </React.Fragment>
-    ) : null;
-  };
 
   const loadingDisplayItems: () => JSX.Element | JSX.Element[] = () => {
     if (loading) {
@@ -100,7 +88,7 @@ export default function Queried(): JSX.Element {
         ? items
             .filter((item) => {
               if (setSearchParameters().searchType !== "ALL") return item;
-              return state.resultsType === "place"
+              return state.resultsType === "places"
                 ? item.type === "place"
                 : item.type === "event";
             })
@@ -112,7 +100,14 @@ export default function Queried(): JSX.Element {
   return (
     <Layout>
       <main className={css.queriedPage}>
-        <ResultsFilter></ResultsFilter>
+        <ResultsFilter
+          resultsLoading={loading}
+          resultsType={state.resultsType}
+          searchType={
+            setSearchParameters() ? setSearchParameters().searchType : null
+          }
+          handleResultsTypeChange={handleResultsTypeChange}
+        ></ResultsFilter>
         <section className={css.sliderWrapper}>
           <div className={css.resultsSlider}>{loadingDisplayItems()}</div>
         </section>
