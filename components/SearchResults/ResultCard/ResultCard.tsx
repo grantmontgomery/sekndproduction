@@ -272,6 +272,7 @@ export const ResultCard: React.FC<{
                 : imageCSS.ticketmasterImage
             }
             alt={item.name}
+            width={10}
             onLoad={() => setState({ ...state, imageLoaded: true })}
           />
         </ImageBackground>

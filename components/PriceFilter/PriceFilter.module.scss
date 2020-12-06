@@ -1,0 +1,44 @@
+.priceWrapper {
+  & .placePrice {
+    & .priceSelector {
+    }
+  }
+}
+
+@media (orientation: landscape) {
+  .priceWrapper {
+    width: 100%;
+    height: 100px;
+
+    & .placePrice {
+      height: 35px;
+      width: 75%;
+      display: flex;
+      flex-flow: row nowrap;
+      position: relative;
+      margin-left: auto;
+      margin-right: auto;
+
+      & .priceSelector {
+        width: 25%;
+        position: relative;
+        height: 100%;
+        background: red;
+        border: solid 1px white;
+        cursor: pointer;
+        & span {
+          height: fit-content;
+          position: relative;
+          font-size: 0.75rem;
+          margin-right: auto;
+          margin-left: auto;
+          font-weight: bold;
+          top: 50%;
+          transform: translate(0, -50%);
+          display: block;
+          width: fit-content;
+        }
+      }
+    }
+  }
+}

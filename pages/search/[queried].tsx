@@ -74,6 +74,14 @@ export default function Queried(): JSX.Element {
     }
   }, [setSearchParameters()]);
 
+  const itemsRefObject: React.MutableRefObject<
+    { [key: string]: any }[] | undefined
+  > = React.useRef(undefined);
+
+  React.useEffect(() => {
+    itemsRefObject.current = items;
+  }, [items]);
+
   const loadingDisplayItems: () => JSX.Element | JSX.Element[] = () => {
     if (loading) {
       return (
@@ -84,8 +92,8 @@ export default function Queried(): JSX.Element {
         </React.Fragment>
       );
     } else {
-      return items && items.length > 0
-        ? items
+      return itemsRefObject.current && itemsRefObject.current.length > 0
+        ? itemsRefObject.current
             .filter((item) => {
               if (setSearchParameters().searchType !== "ALL") return item;
               return state.resultsType === "places"

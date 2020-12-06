@@ -1,4 +1,5 @@
 import * as React from "react";
+import { PriceFilter } from "../PriceFilter";
 import css from "./ResultsFilter.module.scss";
 
 export const ResultsFilter: React.FC<{
@@ -74,6 +75,7 @@ export const ResultsFilter: React.FC<{
         ) : null}
       </div>
       <div className={css.searchFilters}></div>
+      <PriceFilter resultsType={resultsType}></PriceFilter>
     </section>
   );
 };
