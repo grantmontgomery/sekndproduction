@@ -35,7 +35,6 @@ export default function useAPICalls(
 
     async (url) => {
       const { location, radius, placeType } = setSearchParameters;
-      console.log("api function triggered");
 
       try {
         const response: Response = await fetch(url, {
