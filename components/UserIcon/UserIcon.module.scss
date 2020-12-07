@@ -10,3 +10,9 @@
   stroke-width: 5px;
   margin-right: 7.5%;
 }
+
+@media (orientation: landscape) {
+  .userIcon {
+    display: none;
+  }
+}

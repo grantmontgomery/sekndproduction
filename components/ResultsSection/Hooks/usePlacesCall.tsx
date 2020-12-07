@@ -6,17 +6,17 @@ const urlStart: string =
     ? "http://localhost:3000"
     : "https://sekndapp.com";
 
-export const usePlacesCall: () => any = (searchParams) => {
-  const triggerPlaceCall: (
-    searchParams: { [key: string]: any } | null
-  ) => void = () => {
-    return;
-  };
-
+export const usePlacesCall: (searchParams: {
+  [key: string]: any;
+}) => {
+  checkedData: { [key: string]: any }[] | null;
+  loading: boolean;
+  error: string | null;
+} = (searchParams) => {
   const {
     data,
     error,
-    isValidating,
+    isValidating: loading,
   }: responseInterface<{ [key: string]: any }[], string> = useSWR(
     searchParams ? `${urlStart}/api/yelpBusinessesAPI` : null,
     async (url) => {
@@ -35,7 +35,20 @@ export const usePlacesCall: () => any = (searchParams) => {
             price,
           }),
         });
-        return;
+        const responseJSON = await response.json();
+
+        const {
+          businesses,
+        }: { businesses: { [key: string]: any }[] } = responseJSON;
+        businesses.forEach(
+          (business) => (
+            (business["type"] = "place"),
+            (business["source"] = "yelp"),
+            (business["inParts"] = false)
+          )
+        );
+
+        return businesses;
       } catch (err) {
         return err.message;
       }
@@ -45,4 +58,10 @@ export const usePlacesCall: () => any = (searchParams) => {
       revalidateOnReconnect: false,
     }
   );
+
+  const checkedData: { [key: string]: any }[] | null = Array.isArray(data)
+    ? data
+    : [];
+
+  return { checkedData, error, loading };
 };

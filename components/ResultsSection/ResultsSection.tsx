@@ -15,6 +15,9 @@ export const ResultsSection: React.FC<{
   resultsType,
   filters,
 }) => {
+  const [placesOffset, setPlacesOffset] = React.useState<number>(0);
+  const [eventsOffset, setEventsOffset] = React.useState<number>(0);
+
   const placesRefObject: React.MutableRefObject<
     { [key: string]: any }[] | undefined
   > = React.useRef(undefined);
