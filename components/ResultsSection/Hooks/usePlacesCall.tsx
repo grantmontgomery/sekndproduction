@@ -1,28 +1,31 @@
 import * as React from "react";
 import useSWR, { responseInterface } from "swr";
 
-const urlStart: string =
-  process.env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : "https://sekndapp.com";
+export const usePlacesCall: () => {
+  placesLoading: boolean;
+  placesData: { [key: string]: any }[] | null;
+  triggerPlacesCall: (searchParams: { [key: string]: any }) => Promise<void>;
+} = () => {
+  const [placesLoading, setLoading] = React.useState<boolean>(false);
+  const [placesData, setData] = React.useState<{ [key: string]: any }[] | null>(
+    null
+  );
+  const triggerPlacesCall: (searchParams: {
+    [key: string]: any;
+  }) => Promise<void> = async (searchParams) => {
+    console.log(searchParams);
+    const urlStart: string =
+      process.env.NODE_ENV === "development"
+        ? "http://localhost:3000"
+        : "https://sekndapp.com";
 
-export const usePlacesCall: (searchParams: {
-  [key: string]: any;
-}) => {
-  checkedData: { [key: string]: any }[] | null;
-  loading: boolean;
-  error: string | null;
-} = (searchParams) => {
-  const {
-    data,
-    error,
-    isValidating: loading,
-  }: responseInterface<{ [key: string]: any }[], string> = useSWR(
-    searchParams ? `${urlStart}/api/yelpBusinessesAPI` : null,
-    async (url) => {
-      try {
-        const { location, radius, placeType, price } = searchParams;
-        const response: Response = await fetch(url, {
+    setLoading(true);
+    setData(null);
+    try {
+      const { location, radius, placeType, price, offset } = searchParams;
+      const response: Response = await fetch(
+        `${urlStart}/api/yelpBusinessesAPI`,
+        {
           headers: {
             Accept: "application/json",
             "Content-Type": "application/json",
@@ -33,35 +36,32 @@ export const usePlacesCall: (searchParams: {
             radius: parseInt(radius),
             term: placeType,
             price,
+            offset,
           }),
-        });
-        const responseJSON = await response.json();
+        }
+      );
+      const responseJSON = await response.json();
 
-        const {
-          businesses,
-        }: { businesses: { [key: string]: any }[] } = responseJSON;
-        businesses.forEach(
-          (business) => (
-            (business["type"] = "place"),
-            (business["source"] = "yelp"),
-            (business["inParts"] = false)
-          )
-        );
+      const {
+        businesses,
+      }: { businesses: { [key: string]: any }[] } = responseJSON;
+      businesses.forEach(
+        (business) => (
+          (business["type"] = "place"),
+          (business["source"] = "yelp"),
+          (business["inParts"] = false)
+        )
+      );
 
-        return businesses;
-      } catch (err) {
-        return err.message;
-      }
-    },
-    {
-      revalidateOnFocus: false,
-      revalidateOnReconnect: false,
+      setLoading(false);
+
+      setData(businesses);
+    } catch (error) {
+      setLoading(false);
+      setData(null);
+      return error.message;
     }
-  );
+  };
 
-  const checkedData: { [key: string]: any }[] | null = Array.isArray(data)
-    ? data
-    : [];
-
-  return { checkedData, error, loading };
+  return { placesLoading, triggerPlacesCall, placesData };
 };

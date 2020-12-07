@@ -1,5 +1,6 @@
 import * as React from "react";
 import { ResultCard } from "../SearchResults";
+import { usePlacesCall } from "./Hooks/usePlacesCall";
 import css from "./ResultsSection.module.scss";
 
 export const ResultsSection: React.FC<{
@@ -18,6 +19,13 @@ export const ResultsSection: React.FC<{
   const [placesOffset, setPlacesOffset] = React.useState<number>(0);
   const [eventsOffset, setEventsOffset] = React.useState<number>(0);
 
+  const { placesLoading, triggerPlacesCall, placesData } = usePlacesCall();
+
+  React.useEffect(() => {
+    if (filters.placePrice) {
+    } else {
+    }
+  }, [filters.placePrice]);
   const placesRefObject: React.MutableRefObject<
     { [key: string]: any }[] | undefined
   > = React.useRef(undefined);
@@ -31,6 +39,28 @@ export const ResultsSection: React.FC<{
   React.useEffect(() => {
     searchParamsRefObject.current = initialSearchParams;
   }, [initialSearchParams]);
+
+  console.log(filters.placePrice);
+
+  React.useEffect(() => {
+    if (filters.placePrice) {
+      setPlacesOffset(0);
+      placesRefObject.current = null;
+      searchParamsRefObject.current = {
+        ...searchParamsRefObject.current,
+        price: filters.placePrice,
+      };
+      triggerPlacesCall(searchParamsRefObject.current);
+    } else {
+    }
+  }, [filters.placePrice]);
+
+  console.log(placesData);
+
+  React.useEffect(() => {
+    if (placesOffset === 0) return;
+    triggerPlacesCall(searchParamsRefObject.current);
+  }, [placesOffset]);
 
   React.useEffect(() => {
     placesRefObject.current = initialItems
