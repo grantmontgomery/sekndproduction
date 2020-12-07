@@ -3,6 +3,7 @@ import { PriceFilter } from "../PriceFilter";
 import css from "./ResultsFilter.module.scss";
 
 export const ResultsFilter: React.FC<{
+  handlePlacePriceChange: (input: string) => void;
   resultsType: string;
   searchParams: { [key: string]: any } | null;
   resultsLoading: boolean;
@@ -12,6 +13,7 @@ export const ResultsFilter: React.FC<{
   resultsLoading,
   handleResultsTypeChange,
   searchParams,
+  handlePlacePriceChange,
 }) => {
   return (
     <section className={css.filterSection}>
@@ -75,7 +77,10 @@ export const ResultsFilter: React.FC<{
         ) : null}
       </div>
       <div className={css.searchFilters}></div>
-      <PriceFilter resultsType={resultsType}></PriceFilter>
+      <PriceFilter
+        handlePlacePriceChange={handlePlacePriceChange}
+        resultsType={resultsType}
+      ></PriceFilter>
     </section>
   );
 };

@@ -23,9 +23,15 @@ type Results = {
 type SearchParams = { [key: string]: any };
 
 export default function Queried(): JSX.Element {
-  const [state, setState] = React.useState<{ resultsType: string }>({
-    resultsType: "places",
+  const [filters, setFilters] = React.useState<{
+    placePrice: string | null;
+    eventPrice: string | null;
+  }>({
+    placePrice: null,
+    eventPrice: null,
   });
+
+  const [resultsType, setType] = React.useState<string>("places");
 
   const router: NextRouter = useRouter();
 
@@ -64,17 +70,19 @@ export default function Queried(): JSX.Element {
 
   const handleResultsTypeChange: (input: string) => void = (input) => {
     if (input === "places") {
-      setState({ resultsType: "places" });
+      setType("places");
     } else {
-      setState({ resultsType: "events" });
+      setType("events");
     }
+  };
+
+  const handlePlacePriceChange: (input: number) => void = (input) => {
+    setFilters((state) => ({ ...state, placePrice: input }));
   };
 
   React.useEffect(() => {
     if (setSearchParameters()) {
-      setSearchParameters().searchType === "EVENTS"
-        ? setState({ resultsType: "events" })
-        : null;
+      setSearchParameters().searchType === "EVENTS" ? setType("events") : null;
     }
   }, [setSearchParameters()]);
 
@@ -82,8 +90,9 @@ export default function Queried(): JSX.Element {
     <Layout>
       <main className={css.queriedPage}>
         <ResultsFilter
+          handlePlacePriceChange={handlePlacePriceChange}
           resultsLoading={initialLoading}
-          resultsType={state.resultsType}
+          resultsType={resultsType}
           handleResultsTypeChange={handleResultsTypeChange}
           searchParams={setSearchParameters() ? setSearchParameters() : null}
         ></ResultsFilter>
@@ -91,8 +100,9 @@ export default function Queried(): JSX.Element {
           <div className={css.resultsSlider}>{loadingDisplayItems()}</div>
         </section> */}
         <ResultsSection
+          filters={filters}
           initialItems={initialItems}
-          resultsType={state.resultsType}
+          resultsType={resultsType}
           initialLoad={initialLoading}
           initialSearchParams={setSearchParameters()}
         ></ResultsSection>
