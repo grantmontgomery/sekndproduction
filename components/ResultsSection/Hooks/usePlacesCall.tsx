@@ -3,26 +3,29 @@ import useSWR, { responseInterface } from "swr";
 
 export const usePlacesCall: () => {
   placesLoading: boolean;
-  placesData: { [key: string]: any }[] | null;
-  triggerPlacesCall: (searchParams: { [key: string]: any }) => Promise<void>;
+  triggerPlacesCall: (searchParams: {
+    [key: string]: any;
+  }) => Promise<{ [key: string]: any }[] | string>;
 } = () => {
   const [placesLoading, setLoading] = React.useState<boolean>(false);
-  const [placesData, setData] = React.useState<{ [key: string]: any }[] | null>(
-    null
-  );
+
   const triggerPlacesCall: (searchParams: {
     [key: string]: any;
-  }) => Promise<void> = async (searchParams) => {
-    console.log(searchParams);
+  }) => Promise<{ [key: string]: any }[] | string> = async (searchParams) => {
     const urlStart: string =
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000"
         : "https://sekndapp.com";
 
     setLoading(true);
-    setData(null);
     try {
-      const { location, radius, placeType, price, offset } = searchParams;
+      const {
+        location,
+        radius,
+        placeType,
+        placesPrice,
+        placesOffset,
+      } = searchParams;
       const response: Response = await fetch(
         `${urlStart}/api/yelpBusinessesAPI`,
         {
@@ -35,8 +38,8 @@ export const usePlacesCall: () => {
             location,
             radius: parseInt(radius),
             term: placeType,
-            price,
-            offset,
+            price: placesPrice,
+            offset: placesOffset,
           }),
         }
       );
@@ -55,13 +58,12 @@ export const usePlacesCall: () => {
 
       setLoading(false);
 
-      setData(businesses);
+      return businesses;
     } catch (error) {
       setLoading(false);
-      setData(null);
       return error.message;
     }
   };
 
-  return { placesLoading, triggerPlacesCall, placesData };
+  return { placesLoading, triggerPlacesCall };
 };

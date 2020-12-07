@@ -18,14 +18,15 @@ export const ResultsSection: React.FC<{
 }) => {
   const [placesOffset, setPlacesOffset] = React.useState<number>(0);
   const [eventsOffset, setEventsOffset] = React.useState<number>(0);
+  const [placesResults, setPlacesResults] = React.useState<
+    { [key: string]: any }[] | null
+  >(null);
+  const [eventsResults, setEventsResults] = React.useState<
+    { [key: string]: any }[] | null
+  >(null);
 
-  const { placesLoading, triggerPlacesCall, placesData } = usePlacesCall();
+  const { placesLoading, triggerPlacesCall } = usePlacesCall();
 
-  React.useEffect(() => {
-    if (filters.placePrice) {
-    } else {
-    }
-  }, [filters.placePrice]);
   const placesRefObject: React.MutableRefObject<
     { [key: string]: any }[] | undefined
   > = React.useRef(undefined);
@@ -40,36 +41,52 @@ export const ResultsSection: React.FC<{
     searchParamsRefObject.current = initialSearchParams;
   }, [initialSearchParams]);
 
-  console.log(filters.placePrice);
-
   React.useEffect(() => {
     if (filters.placePrice) {
       setPlacesOffset(0);
-      placesRefObject.current = null;
+      setPlacesResults(null);
       searchParamsRefObject.current = {
         ...searchParamsRefObject.current,
-        price: filters.placePrice,
+        placesPrice: filters.placePrice,
       };
-      triggerPlacesCall(searchParamsRefObject.current);
+      const handleAPICall: () => Promise<any> = async () => {
+        try {
+          const response = await triggerPlacesCall(
+            searchParamsRefObject.current
+          );
+          if (typeof response === "object") setPlacesResults(response);
+        } catch {
+          return;
+        }
+      };
+      handleAPICall();
     } else {
     }
   }, [filters.placePrice]);
 
-  console.log(placesData);
+  console.log(placesResults);
 
   React.useEffect(() => {
     if (placesOffset === 0) return;
+    searchParamsRefObject.current = { ...searchParamsRefObject, placesOffset };
     triggerPlacesCall(searchParamsRefObject.current);
   }, [placesOffset]);
 
   React.useEffect(() => {
-    placesRefObject.current = initialItems
-      ? initialItems.filter((item) => item.type === "place")
-      : null;
-    eventsRefObject.current = initialItems
-      ? initialItems.filter((item) => item.type === "event")
-      : null;
+    if (initialItems) {
+      setPlacesResults(initialItems.filter((item) => item.type === "place"));
+      setEventsResults(initialItems.filter((item) => item.type === "event"));
+    }
   }, [initialItems]);
+
+  // React.useEffect(() => {
+  //   placesRefObject.current = initialItems
+  //     ? initialItems.filter((item) => item.type === "place")
+  //     : null;
+  //   eventsRefObject.current = initialItems
+  //     ? initialItems.filter((item) => item.type === "event")
+  //     : null;
+  // }, [initialItems]);
 
   const loadingDisplayItems: () => JSX.Element | JSX.Element[] = () => {
     if (initialLoad)
@@ -83,15 +100,15 @@ export const ResultsSection: React.FC<{
 
     switch (resultsType) {
       case "places":
-        return placesRefObject.current && placesRefObject.current.length >= 0
-          ? placesRefObject.current.map((item) => (
+        return placesResults && placesResults.length >= 0
+          ? placesResults.map((item) => (
               <ResultCard key={item.id} item={item}></ResultCard>
             ))
           : null;
 
       case "events":
-        return eventsRefObject.current && eventsRefObject.current.length >= 0
-          ? eventsRefObject.current.map((item) => (
+        return eventsResults && eventsResults.length >= 0
+          ? eventsResults.map((item) => (
               <ResultCard key={item.id} item={item}></ResultCard>
             ))
           : null;
