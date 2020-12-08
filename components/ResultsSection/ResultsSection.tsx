@@ -1,4 +1,6 @@
+import { format } from "path";
 import * as React from "react";
+import { getEnabledCategories } from "trace_events";
 import { ResultCard } from "../SearchResults";
 import { usePlacesCall } from "./Hooks/usePlacesCall";
 import css from "./ResultsSection.module.scss";
@@ -18,6 +20,10 @@ export const ResultsSection: React.FC<{
 }) => {
   const [placesOffset, setPlacesOffset] = React.useState<number>(0);
   const [eventsOffset, setEventsOffset] = React.useState<number>(0);
+
+  const [placesRefresh, setPlacesRefresh] = React.useState<boolean>(false);
+  const [eventsRefresh, setEventsRefresh] = React.useState<boolean>(false);
+
   const [placesResults, setPlacesResults] = React.useState<
     { [key: string]: any }[] | null
   >(null);
@@ -25,14 +31,39 @@ export const ResultsSection: React.FC<{
     { [key: string]: any }[] | null
   >(null);
 
+  const observer: React.MutableRefObject<
+    IntersectionObserver | undefined
+  > = React.useRef();
+
+  const placesReloadRef: React.MutableRefObject<
+    HTMLElement | undefined
+  > = React.useRef();
+
+  React.useEffect(() => {
+    observer.current = new IntersectionObserver(
+      (entries) => {
+        console.log(entries);
+        for (let i = 0; i < entries.length; i++) {
+          if (entries[i].target === placesReloadRef.current) {
+            console.log(entries[i]);
+          }
+        }
+      },
+      {
+        threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
+      }
+    );
+
+    placesReloadRef.current = document.getElementById("placesReloadSection");
+    observer.current.observe(placesReloadRef.current);
+
+    return () => {
+      observer.current.disconnect();
+    };
+  }, []);
+
   const { placesLoading, triggerPlacesCall } = usePlacesCall();
 
-  const placesRefObject: React.MutableRefObject<
-    { [key: string]: any }[] | undefined
-  > = React.useRef(undefined);
-  const eventsRefObject: React.MutableRefObject<
-    { [key: string]: any }[] | undefined
-  > = React.useRef(undefined);
   const searchParamsRefObject: React.MutableRefObject<
     { [key: string]: any } | undefined
   > = React.useRef(undefined);
@@ -44,18 +75,20 @@ export const ResultsSection: React.FC<{
   React.useEffect(() => {
     if (filters.placePrice) {
       setPlacesOffset(0);
-      setPlacesResults(null);
       searchParamsRefObject.current = {
         ...searchParamsRefObject.current,
         placesPrice: filters.placePrice,
       };
       const handleAPICall: () => Promise<any> = async () => {
+        setPlacesRefresh(true);
         try {
           const response = await triggerPlacesCall(
             searchParamsRefObject.current
           );
+          setPlacesRefresh(false);
           if (typeof response === "object") setPlacesResults(response);
         } catch {
+          setPlacesRefresh(false);
           return;
         }
       };
@@ -63,8 +96,6 @@ export const ResultsSection: React.FC<{
     } else {
     }
   }, [filters.placePrice]);
-
-  console.log(placesResults);
 
   React.useEffect(() => {
     if (placesOffset === 0) return;
@@ -78,15 +109,6 @@ export const ResultsSection: React.FC<{
       setEventsResults(initialItems.filter((item) => item.type === "event"));
     }
   }, [initialItems]);
-
-  // React.useEffect(() => {
-  //   placesRefObject.current = initialItems
-  //     ? initialItems.filter((item) => item.type === "place")
-  //     : null;
-  //   eventsRefObject.current = initialItems
-  //     ? initialItems.filter((item) => item.type === "event")
-  //     : null;
-  // }, [initialItems]);
 
   const loadingDisplayItems: () => JSX.Element | JSX.Element[] = () => {
     if (initialLoad)
@@ -117,7 +139,11 @@ export const ResultsSection: React.FC<{
 
   return (
     <section className={css.resultsSection}>
-      <div className={css.resultsSlider}>{loadingDisplayItems()}</div>
+      <div className={css.resultsSlider}>
+        {loadingDisplayItems()}
+
+        <div id="placesReloadSection" className={css.reloadSection}></div>
+      </div>
     </section>
   );
 };

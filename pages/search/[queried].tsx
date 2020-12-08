@@ -76,8 +76,8 @@ export default function Queried(): JSX.Element {
     }
   };
 
-  const handlePlacePriceChange: (input: number) => void = (input) => {
-    setFilters((state) => ({ ...state, placePrice: input }));
+  const handlePlacePriceChange: (input: string) => void = (input) => {
+    setFilters((filters) => ({ ...filters, placePrice: input }));
   };
 
   React.useEffect(() => {
