@@ -23,9 +23,12 @@
         width: 25%;
         position: relative;
         height: 100%;
-        background: red;
-        border: solid 1px white;
+        background: #cccccc;
+        // border: solid 1px white;
         cursor: pointer;
+        &.selected {
+          background: linear-gradient(to left, #00c6ff, #0072ff);
+        }
         & span {
           height: fit-content;
           position: relative;
@@ -33,6 +36,7 @@
           margin-right: auto;
           margin-left: auto;
           font-weight: bold;
+          color: white;
           top: 50%;
           transform: translate(0, -50%);
           display: block;

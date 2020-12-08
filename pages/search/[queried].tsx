@@ -68,8 +68,6 @@ export default function Queried(): JSX.Element {
     urlStart
   );
 
-  initialItems ? console.log(initialItems) : null;
-
   const handleResultsTypeChange: (input: string) => void = (input) => {
     if (input === "places") {
       setType("places");
@@ -78,7 +76,7 @@ export default function Queried(): JSX.Element {
     }
   };
 
-  const handlePlacePriceChange: (input: string) => void = (input) => {
+  const handlePlacePriceChange: (input: string | null) => void = (input) => {
     setFilters((filters) => ({ ...filters, placePrice: input }));
   };
 
