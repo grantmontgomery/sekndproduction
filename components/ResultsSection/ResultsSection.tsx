@@ -109,7 +109,7 @@ export const ResultsSection: React.FC<{
   }, [initialItems]);
 
   const loadingDisplayItems: () => JSX.Element | JSX.Element[] = () => {
-    if (initialLoad)
+    if (initialLoad || placesLoading)
       return (
         <React.Fragment>
           <ResultCard key={"loading1"} resultsLoading={true}></ResultCard>

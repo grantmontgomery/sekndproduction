@@ -41,9 +41,9 @@ export const PriceAndType: React.FC<{
   return price ? (
     <div className={css.placePrice}>
       <span className={css.light}>{price[0]}</span>
-      <span className={price === "$$" ? css.light : null}>{price[0]}</span>
-      <span className={price === "$$$" ? css.light : null}>{price[0]}</span>
-      <span className={price === "$$$$" ? css.light : null}>{price[0]}</span>
+      <span className={price.length >= 2 ? css.light : null}>{price[0]}</span>
+      <span className={price.length >= 3 ? css.light : null}>{price[0]}</span>
+      <span className={price.length === 4 ? css.light : null}>{price[0]}</span>
       {singularType()}
       {insertCity(city)}
     </div>

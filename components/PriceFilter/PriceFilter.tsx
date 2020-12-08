@@ -1,3 +1,4 @@
+import { urlObjectKeys } from "next/dist/next-server/lib/utils";
 import * as React from "react";
 import css from "./PriceFilter.module.scss";
 
@@ -5,39 +6,59 @@ export const PriceFilter: React.FC<{
   resultsType: string;
   handlePlacePriceChange: (input: string) => void;
 }> = ({ resultsType, handlePlacePriceChange }) => {
+  const [price, setPrice] = React.useState<number | null>(null);
+
+  const handleSelect: (input: string) => void = (input) => {
+    if (price !== parseInt(input)) {
+      handlePlacePriceChange(input);
+      setPrice(parseInt(input));
+    } else {
+      handlePlacePriceChange(null);
+      setPrice(null);
+    }
+  };
+
   return (
     <div className={css.priceWrapper}>
       {resultsType === "places" ? (
         <div className={css.placePrice}>
           <div
-            className={css.priceSelector}
+            className={`${css.priceSelector} ${
+              price === 1 ? css.selected : null
+            }`}
             style={{
               borderTopLeftRadius: "35px",
               borderBottomLeftRadius: "35px",
             }}
-            onClick={() => handlePlacePriceChange("1")}
+            onClick={() => handleSelect("1")}
           >
             <span>$</span>
           </div>
           <div
-            className={css.priceSelector}
-            onClick={() => handlePlacePriceChange("2")}
+            className={`${css.priceSelector} ${
+              price === 2 ? css.selected : null
+            }`}
+            onClick={() => handleSelect("2")}
           >
             <span>$$</span>
           </div>
           <div
-            className={css.priceSelector}
-            onClick={() => handlePlacePriceChange("3")}
+            className={`${css.priceSelector} ${
+              price === 3 ? css.selected : null
+            }`}
+            onClick={() => handleSelect("3")}
           >
             <span>$$$</span>
           </div>
           <div
-            className={css.priceSelector}
+            className={`${css.priceSelector} ${
+              price === 4 ? css.selected : null
+            }`}
             style={{
               borderTopRightRadius: "35px",
               borderBottomRightRadius: "35px",
             }}
-            onClick={() => handlePlacePriceChange("4")}
+            onClick={() => handleSelect("4")}
           >
             <span>$$$$</span>
           </div>
