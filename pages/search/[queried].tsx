@@ -68,6 +68,8 @@ export default function Queried(): JSX.Element {
     urlStart
   );
 
+  initialItems ? console.log(initialItems) : null;
+
   const handleResultsTypeChange: (input: string) => void = (input) => {
     if (input === "places") {
       setType("places");

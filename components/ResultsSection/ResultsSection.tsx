@@ -42,10 +42,8 @@ export const ResultsSection: React.FC<{
   React.useEffect(() => {
     observer.current = new IntersectionObserver(
       (entries) => {
-        console.log(entries);
         for (let i = 0; i < entries.length; i++) {
           if (entries[i].target === placesReloadRef.current) {
-            console.log(entries[i]);
           }
         }
       },
