@@ -2,7 +2,6 @@ import * as React from "react";
 import Cookie from "js-cookie";
 import { NextRouter, useRouter } from "next/router";
 
-import { handleCookies } from "../../../logic";
 import { useUserDispatch } from "../../../state/UserContext";
 
 export const useLogIn: () => {
