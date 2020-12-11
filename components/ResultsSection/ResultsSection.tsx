@@ -107,7 +107,10 @@ export const ResultsSection: React.FC<{
 
   React.useEffect(() => {
     if (placesOffset === 0) return;
-    searchParamsRefObject.current = { ...searchParamsRefObject, placesOffset };
+    searchParamsRefObject.current = {
+      ...searchParamsRefObject.current,
+      placesOffset,
+    };
     triggerPlacesCall(searchParamsRefObject.current);
   }, [placesOffset]);
 
