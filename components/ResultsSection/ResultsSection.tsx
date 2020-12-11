@@ -114,8 +114,6 @@ export const ResultsSection: React.FC<{
         const response = await triggerPlacesCall(searchParamsRefObject.current);
         setOffsetLoad(false);
 
-        console.log(response);
-
         if (typeof response === "object")
           setPlacesResults((prevResults) => [...prevResults, ...response]);
       } catch (error) {
@@ -135,7 +133,7 @@ export const ResultsSection: React.FC<{
   }, [initialItems]);
 
   const loadingDisplayItems: () => JSX.Element | JSX.Element[] = () => {
-    if (initialLoad || placesLoading)
+    if (initialLoad || placesRefresh)
       return (
         <React.Fragment>
           <ResultCard key={"loading1"} resultsLoading={true}></ResultCard>
