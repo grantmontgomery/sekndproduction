@@ -1,7 +1,9 @@
 import * as React from "react";
 import css from "./SignInModal.module.scss";
 import { useLogIn, useRegister } from "./Hooks";
+import { LoadingRing } from "../LoadingRing";
 import Cookie from "js-cookie";
+
 const cookie = require("cookie");
 
 export const SignInModal: React.FC = () => {
@@ -67,12 +69,7 @@ export const SignInModal: React.FC = () => {
 
           <span className={css.loginButton} onClick={() => logIn(logInFields)}>
             {logInLoading ? (
-              <div className={css.loadingRing}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+              <LoadingRing location={"signIn"}></LoadingRing>
             ) : (
               "Log In"
             )}
@@ -135,12 +132,7 @@ export const SignInModal: React.FC = () => {
             }
           >
             {registerLoading ? (
-              <div className={css.loadingRing}>
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
+              <LoadingRing location={"signIn"}></LoadingRing>
             ) : (
               "Register"
             )}
