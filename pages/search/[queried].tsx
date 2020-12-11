@@ -40,7 +40,9 @@ export default function Queried(): JSX.Element {
       ? "http://localhost:3000"
       : "https://sekndapp.com";
 
-  const setSearchParameters: () => { [key: string]: any } | null = () => {
+  const setSearchParameters: () => {
+    [key: string]: any;
+  } | null = React.useCallback(() => {
     if (!router.query.queried) return null;
     if (router.query.searchType) return router.query;
 
@@ -61,7 +63,7 @@ export default function Queried(): JSX.Element {
       }
     });
     return SearchParams;
-  };
+  }, [router.query]);
 
   const { items: initialItems, loading: initialLoading, errors } = useAPICalls(
     setSearchParameters(),

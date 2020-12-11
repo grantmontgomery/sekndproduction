@@ -52,13 +52,6 @@ export const ResultsSection: React.FC<{
           if (entries[i].target === placesReloadRef.current) {
             if (entries[i].intersectionRatio >= 0.9) {
               setPlacesOffset((placesOffset) => placesOffset + 1);
-              setOffsetLoad(true);
-              // triggerPlacesCall({
-              //   ...searchParamsRefObject.current,
-              //   placesOffset,
-              // });
-            } else {
-              setOffsetLoad(false);
             }
           }
         }
@@ -107,11 +100,31 @@ export const ResultsSection: React.FC<{
 
   React.useEffect(() => {
     if (placesOffset === 0) return;
+
+    console.log("offset trigger");
     searchParamsRefObject.current = {
       ...searchParamsRefObject.current,
       placesOffset,
     };
-    triggerPlacesCall(searchParamsRefObject.current);
+
+    const handleOffsetCall: () => Promise<any> = async () => {
+      setOffsetLoad(true);
+
+      try {
+        const response = await triggerPlacesCall(searchParamsRefObject.current);
+        setOffsetLoad(false);
+
+        console.log(response);
+
+        if (typeof response === "object")
+          setPlacesResults((prevResults) => [...prevResults, ...response]);
+      } catch (error) {
+        setOffsetLoad(false);
+
+        return error;
+      }
+    };
+    handleOffsetCall();
   }, [placesOffset]);
 
   React.useEffect(() => {
