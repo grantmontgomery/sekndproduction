@@ -1,6 +1,8 @@
 import { format } from "path";
+import { off } from "process";
 import * as React from "react";
 import { getEnabledCategories } from "trace_events";
+import { LoadingRing } from "../LoadingRing";
 import { ResultCard } from "../SearchResults";
 import { usePlacesCall } from "./Hooks/usePlacesCall";
 import css from "./ResultsSection.module.scss";
@@ -20,9 +22,9 @@ export const ResultsSection: React.FC<{
 }) => {
   const [placesOffset, setPlacesOffset] = React.useState<number>(0);
   const [eventsOffset, setEventsOffset] = React.useState<number>(0);
-
   const [placesRefresh, setPlacesRefresh] = React.useState<boolean>(false);
   const [eventsRefresh, setEventsRefresh] = React.useState<boolean>(false);
+  const [offsetLoad, setOffsetLoad] = React.useState<boolean>(false);
 
   const [placesResults, setPlacesResults] = React.useState<
     { [key: string]: any }[] | null
@@ -39,11 +41,25 @@ export const ResultsSection: React.FC<{
     HTMLElement | undefined
   > = React.useRef();
 
+  const searchParamsRefObject: React.MutableRefObject<
+    { [key: string]: any } | undefined
+  > = React.useRef(undefined);
+
   React.useEffect(() => {
     observer.current = new IntersectionObserver(
       (entries) => {
         for (let i = 0; i < entries.length; i++) {
           if (entries[i].target === placesReloadRef.current) {
+            if (entries[i].intersectionRatio >= 0.9) {
+              setPlacesOffset((placesOffset) => placesOffset + 1);
+              setOffsetLoad(true);
+              // triggerPlacesCall({
+              //   ...searchParamsRefObject.current,
+              //   placesOffset,
+              // });
+            } else {
+              setOffsetLoad(false);
+            }
           }
         }
       },
@@ -51,20 +67,14 @@ export const ResultsSection: React.FC<{
         threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
       }
     );
-
     placesReloadRef.current = document.getElementById("placesReloadSection");
     observer.current.observe(placesReloadRef.current);
-
     return () => {
       observer.current.disconnect();
     };
   }, []);
 
   const { placesLoading, triggerPlacesCall } = usePlacesCall();
-
-  const searchParamsRefObject: React.MutableRefObject<
-    { [key: string]: any } | undefined
-  > = React.useRef(undefined);
 
   React.useEffect(() => {
     searchParamsRefObject.current = initialSearchParams;
@@ -97,7 +107,10 @@ export const ResultsSection: React.FC<{
 
   React.useEffect(() => {
     if (placesOffset === 0) return;
-    searchParamsRefObject.current = { ...searchParamsRefObject, placesOffset };
+    searchParamsRefObject.current = {
+      ...searchParamsRefObject.current,
+      placesOffset,
+    };
     triggerPlacesCall(searchParamsRefObject.current);
   }, [placesOffset]);
 
@@ -140,7 +153,11 @@ export const ResultsSection: React.FC<{
       <div className={css.resultsSlider}>
         {loadingDisplayItems()}
 
-        <div id="placesReloadSection" className={css.reloadSection}></div>
+        <div id="placesReloadSection" className={css.reloadSection}>
+          {offsetLoad ? (
+            <LoadingRing location={"resultsPage"}></LoadingRing>
+          ) : null}
+        </div>
       </div>
     </section>
   );

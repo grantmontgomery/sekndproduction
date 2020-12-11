@@ -9,7 +9,7 @@ type Params = {
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== "GET") {
-      const { location, radius, term, price } = req.body;
+      const { location, radius, term, price, offset } = req.body;
       const yelpBusinesses: URL = new URL(
           "https://api.yelp.com/v3/businesses/search"
         ),
@@ -23,6 +23,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       );
 
       if (price) yelpBusinesses.searchParams.append("price", price);
+      if (offset) yelpBusinesses.searchParams.append("offset", offset);
 
       const yelpUrlString: string = yelpBusinesses.toString();
 

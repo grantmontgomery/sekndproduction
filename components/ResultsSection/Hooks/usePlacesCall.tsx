@@ -39,7 +39,7 @@ export const usePlacesCall: () => {
             radius: parseInt(radius),
             term: placeType,
             price: placesPrice,
-            offset: placesOffset,
+            offset: placesOffset ? 1 + placesOffset * 20 : null,
           }),
         }
       );
