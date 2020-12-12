@@ -98,9 +98,7 @@ export default function Queried(): JSX.Element {
           handleResultsTypeChange={handleResultsTypeChange}
           searchParams={setSearchParameters() ? setSearchParameters() : null}
         ></ResultsFilter>
-        {/* <section className={css.sliderWrapper}>
-          <div className={css.resultsSlider}>{loadingDisplayItems()}</div>
-        </section> */}
+
         <ResultsSection
           filters={filters}
           initialItems={initialItems}

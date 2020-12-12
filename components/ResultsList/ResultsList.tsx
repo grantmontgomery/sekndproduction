@@ -1,18 +1,20 @@
 import * as React from "react";
 import { LoadingRing } from "../LoadingRing";
+import { EventsInput } from "../SearchBox/Parts";
 import { ResultCard } from "../SearchResults";
 import css from "./ResultsList.module.scss";
 
 export const ResultsList: React.FC<{
-  items: { [key: string]: any }[];
+  items: { [key: string]: any }[] | null;
   offsetLoad: boolean;
   changeOffsetNumber: (input: number) => void;
-}> = ({ items, offsetLoad, changeOffsetNumber }) => {
+  type: string;
+}> = ({ items, offsetLoad, changeOffsetNumber, type }) => {
   const observer: React.MutableRefObject<
     IntersectionObserver | undefined
   > = React.useRef();
 
-  const placesReloadRef: React.MutableRefObject<
+  const reloadRef: React.MutableRefObject<
     HTMLElement | undefined
   > = React.useRef();
 
@@ -20,8 +22,12 @@ export const ResultsList: React.FC<{
     observer.current = new IntersectionObserver(
       (entries) => {
         for (let i = 0; i < entries.length; i++) {
-          if (entries[i].target === placesReloadRef.current) {
-            if (entries[i].intersectionRatio >= 0.9) {
+          if (entries[i].target === reloadRef.current) {
+            if (
+              entries[i].intersectionRatio >= 0.9 &&
+              items &&
+              Array.isArray(items)
+            ) {
               changeOffsetNumber(1);
             }
           }
@@ -32,8 +38,8 @@ export const ResultsList: React.FC<{
       }
     );
 
-    placesReloadRef.current = document.getElementById("placesReloadSection");
-    observer.current.observe(placesReloadRef.current);
+    reloadRef.current = document.getElementById(`${type}ReloadSection`);
+    observer.current.observe(reloadRef.current);
 
     return () => {
       changeOffsetNumber(0);
@@ -43,12 +49,12 @@ export const ResultsList: React.FC<{
 
   return (
     <div className={css.resultsList}>
-      {items
-        ? items.map((item) => {
-            <ResultCard key={item.id} item={item}></ResultCard>;
-          })
+      {items && items.length > 0
+        ? items.map((item) => (
+            <ResultCard key={item.id} item={item}></ResultCard>
+          ))
         : null}
-      <div id="placesReloadSection" className={css.reloadSection}>
+      <div id={`${type}ReloadSection`} className={css.reloadSection}>
         {offsetLoad ? (
           <LoadingRing location={"resultsPage"}></LoadingRing>
         ) : null}
