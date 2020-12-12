@@ -1,7 +1,5 @@
-import { format } from "path";
-import { off } from "process";
 import * as React from "react";
-import { getEnabledCategories } from "trace_events";
+import { ResultsList } from "../ResultsList";
 import { LoadingRing } from "../LoadingRing";
 import { ResultCard } from "../SearchResults";
 import { usePlacesCall } from "./Hooks/usePlacesCall";
@@ -22,6 +20,7 @@ export const ResultsSection: React.FC<{
 }) => {
   const [placesOffset, setPlacesOffset] = React.useState<number>(0);
   const [eventsOffset, setEventsOffset] = React.useState<number>(0);
+  const [offset, setOffset] = React.useState<number>(0);
   const [placesRefresh, setPlacesRefresh] = React.useState<boolean>(false);
   const [eventsRefresh, setEventsRefresh] = React.useState<boolean>(false);
   const [offsetLoad, setOffsetLoad] = React.useState<boolean>(false);
@@ -50,15 +49,12 @@ export const ResultsSection: React.FC<{
       (entries) => {
         for (let i = 0; i < entries.length; i++) {
           if (entries[i].target === placesReloadRef.current) {
-            if (entries[i].intersectionRatio >= 0.9) {
+            if (
+              entries[i].intersectionRatio >= 0.9 &&
+              !initialLoad &&
+              !placesRefresh
+            ) {
               setPlacesOffset((placesOffset) => placesOffset + 1);
-              setOffsetLoad(true);
-              // triggerPlacesCall({
-              //   ...searchParamsRefObject.current,
-              //   placesOffset,
-              // });
-            } else {
-              setOffsetLoad(false);
             }
           }
         }
@@ -67,6 +63,7 @@ export const ResultsSection: React.FC<{
         threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
       }
     );
+
     placesReloadRef.current = document.getElementById("placesReloadSection");
     observer.current.observe(placesReloadRef.current);
     return () => {
@@ -106,12 +103,30 @@ export const ResultsSection: React.FC<{
   }, [filters.placePrice]);
 
   React.useEffect(() => {
-    if (placesOffset === 0) return;
-    searchParamsRefObject.current = {
-      ...searchParamsRefObject.current,
-      placesOffset,
-    };
-    triggerPlacesCall(searchParamsRefObject.current);
+    if (placesOffset > 0 && searchParamsRefObject.current) {
+      searchParamsRefObject.current = {
+        ...searchParamsRefObject.current,
+        placesOffset,
+      };
+
+      const handleOffsetCall: () => Promise<any> = async () => {
+        setOffsetLoad(true);
+        try {
+          const response = await triggerPlacesCall(
+            searchParamsRefObject.current
+          );
+          setOffsetLoad(false);
+
+          if (typeof response === "object")
+            setPlacesResults((prevResults) => [...prevResults, ...response]);
+        } catch (error) {
+          setOffsetLoad(false);
+
+          return error;
+        }
+      };
+      handleOffsetCall();
+    }
   }, [placesOffset]);
 
   React.useEffect(() => {
@@ -121,44 +136,44 @@ export const ResultsSection: React.FC<{
     }
   }, [initialItems]);
 
+  const changeOffsetNumber: (input: number) => void = (input) => {
+    input === 1 ? setPlacesOffset((offset) => offset + 1) : setPlacesOffset(0);
+  };
+
   const loadingDisplayItems: () => JSX.Element | JSX.Element[] = () => {
-    if (initialLoad || placesLoading)
+    if (initialLoad || placesRefresh)
       return (
-        <React.Fragment>
+        <div className={css.skeletonWrapper}>
           <ResultCard key={"loading1"} resultsLoading={true}></ResultCard>
           <ResultCard key={"loading2"} resultsLoading={true}></ResultCard>
           <ResultCard key={"loading3"} resultsLoading={true}></ResultCard>
-        </React.Fragment>
+        </div>
       );
 
     switch (resultsType) {
       case "places":
-        return placesResults && placesResults.length >= 0
-          ? placesResults.map((item) => (
-              <ResultCard key={item.id} item={item}></ResultCard>
-            ))
-          : null;
+        return (
+          <ResultsList
+            items={placesResults}
+            offsetLoad={offsetLoad}
+            changeOffsetNumber={changeOffsetNumber}
+            type="places"
+          ></ResultsList>
+        );
 
       case "events":
-        return eventsResults && eventsResults.length >= 0
-          ? eventsResults.map((item) => (
-              <ResultCard key={item.id} item={item}></ResultCard>
-            ))
-          : null;
+        return (
+          <ResultsList
+            items={eventsResults}
+            offsetLoad={offsetLoad}
+            changeOffsetNumber={changeOffsetNumber}
+            type="events"
+          ></ResultsList>
+        );
     }
   };
 
   return (
-    <section className={css.resultsSection}>
-      <div className={css.resultsSlider}>
-        {loadingDisplayItems()}
-
-        <div id="placesReloadSection" className={css.reloadSection}>
-          {offsetLoad ? (
-            <LoadingRing location={"resultsPage"}></LoadingRing>
-          ) : null}
-        </div>
-      </div>
-    </section>
+    <section className={css.resultsSection}>{loadingDisplayItems()}</section>
   );
 };
