@@ -22,6 +22,7 @@ export const ResultsSection: React.FC<{
 }) => {
   const [placesOffset, setPlacesOffset] = React.useState<number>(0);
   const [eventsOffset, setEventsOffset] = React.useState<number>(0);
+  const [offset, setOffset] = React.useState<number>(0);
   const [placesRefresh, setPlacesRefresh] = React.useState<boolean>(false);
   const [eventsRefresh, setEventsRefresh] = React.useState<boolean>(false);
   const [offsetLoad, setOffsetLoad] = React.useState<boolean>(false);
@@ -50,7 +51,11 @@ export const ResultsSection: React.FC<{
       (entries) => {
         for (let i = 0; i < entries.length; i++) {
           if (entries[i].target === placesReloadRef.current) {
-            if (entries[i].intersectionRatio >= 0.9) {
+            if (
+              entries[i].intersectionRatio >= 0.9 &&
+              !initialLoad &&
+              !placesRefresh
+            ) {
               setPlacesOffset((placesOffset) => placesOffset + 1);
             }
           }
@@ -60,6 +65,7 @@ export const ResultsSection: React.FC<{
         threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
       }
     );
+
     placesReloadRef.current = document.getElementById("placesReloadSection");
     observer.current.observe(placesReloadRef.current);
     return () => {
@@ -99,30 +105,30 @@ export const ResultsSection: React.FC<{
   }, [filters.placePrice]);
 
   React.useEffect(() => {
-    if (placesOffset === 0) return;
+    if (placesOffset > 0) {
+      searchParamsRefObject.current = {
+        ...searchParamsRefObject.current,
+        placesOffset,
+      };
 
-    console.log("offset trigger");
-    searchParamsRefObject.current = {
-      ...searchParamsRefObject.current,
-      placesOffset,
-    };
+      const handleOffsetCall: () => Promise<any> = async () => {
+        setOffsetLoad(true);
+        try {
+          const response = await triggerPlacesCall(
+            searchParamsRefObject.current
+          );
+          setOffsetLoad(false);
 
-    const handleOffsetCall: () => Promise<any> = async () => {
-      setOffsetLoad(true);
+          if (typeof response === "object")
+            setPlacesResults((prevResults) => [...prevResults, ...response]);
+        } catch (error) {
+          setOffsetLoad(false);
 
-      try {
-        const response = await triggerPlacesCall(searchParamsRefObject.current);
-        setOffsetLoad(false);
-
-        if (typeof response === "object")
-          setPlacesResults((prevResults) => [...prevResults, ...response]);
-      } catch (error) {
-        setOffsetLoad(false);
-
-        return error;
-      }
-    };
-    handleOffsetCall();
+          return error;
+        }
+      };
+      handleOffsetCall();
+    }
   }, [placesOffset]);
 
   React.useEffect(() => {
@@ -131,6 +137,10 @@ export const ResultsSection: React.FC<{
       setEventsResults(initialItems.filter((item) => item.type === "event"));
     }
   }, [initialItems]);
+
+  const changeOffsetNumber: (input: number) => void = (input) => {
+    input === 1 ? setPlacesOffset((offset) => offset + 1) : setPlacesOffset(0);
+  };
 
   const loadingDisplayItems: () => JSX.Element | JSX.Element[] = () => {
     if (initialLoad || placesRefresh)
@@ -144,11 +154,13 @@ export const ResultsSection: React.FC<{
 
     switch (resultsType) {
       case "places":
-        return placesResults && placesResults.length >= 0
-          ? placesResults.map((item) => (
+        return placesResults && placesResults.length >= 0 ? (
+          <React.Fragment>
+            {placesResults.map((item) => (
               <ResultCard key={item.id} item={item}></ResultCard>
-            ))
-          : null;
+            ))}
+          </React.Fragment>
+        ) : null;
 
       case "events":
         return eventsResults && eventsResults.length >= 0
