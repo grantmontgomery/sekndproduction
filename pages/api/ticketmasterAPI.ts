@@ -9,6 +9,8 @@ type Params = {
   segmentID?: string;
   city?: string;
   postalCode?: string;
+  size: string;
+  page?: string;
 };
 
 // Amplify.configure({...config, ssr: true})
@@ -22,6 +24,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         radius,
         location,
         segmentId,
+        page,
       } = req.body;
       const ticketmasterEvents: URL = new URL(
           "https://app.ticketmaster.com/discovery/v2/events"
@@ -30,6 +33,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           radius,
           startDateTime,
           endDateTime,
+          size: "20",
           unit: ["km"],
           apikey: `${process.env.TICKETMASTER_API_KEY}`,
         };
@@ -39,6 +43,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
       if (segmentId)
         ticketmasterEvents.searchParams.append("segmentId", segmentId);
+      if (page) ticketmasterEvents.searchParams.append("segmentId", segmentId);
 
       isNaN(parseInt(location))
         ? ticketmasterEvents.searchParams.append("city", location)

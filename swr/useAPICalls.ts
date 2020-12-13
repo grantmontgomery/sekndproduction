@@ -54,7 +54,11 @@ export default function useAPICalls(
 
         const {
           businesses,
-        }: { businesses: { [key: string]: any }[] } = responseJSON;
+          total,
+        }: {
+          businesses: { [key: string]: any }[];
+          total: number;
+        } = responseJSON;
         businesses.forEach(
           (business) => (
             (business["type"] = "place"),
@@ -108,7 +112,10 @@ export default function useAPICalls(
 
         const responseJSON = await response.json();
 
-        const { events }: { events: { [key: string]: any }[] } = responseJSON;
+        const {
+          events,
+          total,
+        }: { events: { [key: string]: any }[]; total: number } = responseJSON;
         events.forEach(
           (event) => (
             (event["type"] = "event"),
@@ -162,7 +169,11 @@ export default function useAPICalls(
         const responseJSON = await response.json();
         const {
           _embedded: { events },
-        }: { _embedded: { events: { [key: string]: any }[] } } = responseJSON;
+          page: { totalElements, totalPages },
+        }: {
+          _embedded: { events: { [key: string]: any }[] };
+          page: { [key: string]: number };
+        } = responseJSON;
 
         events.forEach(
           (event) => (

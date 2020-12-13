@@ -17,5 +17,8 @@
 @media (orientation: landscape) {
   .resultsList {
     background: #f5f5f5;
+    & .reloadSection {
+      height: 25vh;
+    }
   }
 }
