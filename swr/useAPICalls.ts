@@ -1,10 +1,14 @@
 import useSWR, { responseInterface } from "swr";
 import { inputEventCategories } from "../logic";
 
-type APIResponse = { [key: string]: any }[];
+type APIResponse = { results: { [key: string]: any }[]; total: number };
 
 type Results = {
   items: { [key: string]: any }[] | null;
+  yelpPlacesTotal: number;
+  yelpEventsTotal: number;
+  ticketmasterTotal: number;
+  loading: boolean;
   errors: {
     yelpPlacesError?: string | undefined;
     yelpEventsError?: string | undefined;
@@ -15,15 +19,7 @@ type Results = {
 export default function useAPICalls(
   setSearchParameters: { [key: string]: any } | null,
   urlStart: string
-): {
-  items: APIResponse;
-  loading: boolean;
-  errors: {
-    yelpPlacesError: string;
-    yelpEventsError: string;
-    ticketmasterError: string;
-  };
-} {
+): Results {
   const {
     data: yelpPlaces,
     error: yelpPlacesError,
@@ -54,7 +50,11 @@ export default function useAPICalls(
 
         const {
           businesses,
-        }: { businesses: { [key: string]: any }[] } = responseJSON;
+          total,
+        }: {
+          businesses: { [key: string]: any }[];
+          total: number;
+        } = responseJSON;
         businesses.forEach(
           (business) => (
             (business["type"] = "place"),
@@ -63,7 +63,7 @@ export default function useAPICalls(
           )
         );
 
-        return businesses;
+        return { results: businesses, total };
       } catch (err) {
         return err.message;
       }
@@ -108,7 +108,10 @@ export default function useAPICalls(
 
         const responseJSON = await response.json();
 
-        const { events }: { events: { [key: string]: any }[] } = responseJSON;
+        const {
+          events,
+          total,
+        }: { events: { [key: string]: any }[]; total: number } = responseJSON;
         events.forEach(
           (event) => (
             (event["type"] = "event"),
@@ -116,7 +119,7 @@ export default function useAPICalls(
             (event["inParts"] = false)
           )
         );
-        return events;
+        return { results: events, total };
       } catch (err) {
         return err.message;
       }
@@ -162,7 +165,11 @@ export default function useAPICalls(
         const responseJSON = await response.json();
         const {
           _embedded: { events },
-        }: { _embedded: { events: { [key: string]: any }[] } } = responseJSON;
+          page: { totalElements, totalPages },
+        }: {
+          _embedded: { events: { [key: string]: any }[] };
+          page: { [key: string]: number };
+        } = responseJSON;
 
         events.forEach(
           (event) => (
@@ -172,7 +179,7 @@ export default function useAPICalls(
           )
         );
 
-        return events;
+        return { results: events, total: totalElements };
       } catch (err) {
         return err.message;
       }
@@ -183,16 +190,20 @@ export default function useAPICalls(
     }
   );
 
-  const checkYelpPlacesArray: Results["items"] | [] = Array.isArray(yelpPlaces)
-    ? yelpPlaces
+  const checkYelpPlacesArray: Results["items"] | [] = Array.isArray(
+    yelpPlaces.results
+  )
+    ? yelpPlaces.results
     : [];
-  const checkYelpEventsArray: Results["items"] | [] = Array.isArray(yelpEvents)
-    ? yelpEvents
+  const checkYelpEventsArray: Results["items"] | [] = Array.isArray(
+    yelpEvents.results
+  )
+    ? yelpEvents.results
     : [];
   const checkTicketMasterArray: Results["items"] | [] = Array.isArray(
-    ticketmaster
+    ticketmaster.results
   )
-    ? ticketmaster
+    ? ticketmaster.results
     : [];
 
   return {
@@ -201,6 +212,9 @@ export default function useAPICalls(
       ...checkYelpEventsArray,
       ...checkYelpPlacesArray,
     ],
+    yelpPlacesTotal: yelpPlaces.total,
+    yelpEventsTotal: yelpEvents.total,
+    ticketmasterTotal: ticketmaster.total,
     loading: ticketmasterLoading || yelpEventsLoading || yelpPlacesLoading,
     errors: { yelpEventsError, yelpPlacesError, ticketmasterError },
   };

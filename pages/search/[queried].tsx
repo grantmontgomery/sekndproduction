@@ -65,10 +65,14 @@ export default function Queried(): JSX.Element {
     return SearchParams;
   }, [router.query]);
 
-  const { items: initialItems, loading: initialLoading, errors } = useAPICalls(
-    setSearchParameters(),
-    urlStart
-  );
+  const {
+    items: initialItems,
+    loading: initialLoading,
+    errors,
+    yelpPlacesTotal,
+    yelpEventsTotal,
+    ticketmasterTotal,
+  } = useAPICalls(setSearchParameters(), urlStart);
 
   const handleResultsTypeChange: (input: string) => void = (input) => {
     if (input === "places") {
