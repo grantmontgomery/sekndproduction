@@ -5,9 +5,9 @@ type APIResponse = { results: { [key: string]: any }[]; total: number };
 
 type Results = {
   items: { [key: string]: any }[] | null;
-  yelpPlacesTotal: number;
-  yelpEventsTotal: number;
-  ticketmasterTotal: number;
+  yelpPlacesTotal: number | null;
+  yelpEventsTotal: number | null;
+  ticketmasterTotal: number | null;
   loading: boolean;
   errors: {
     yelpPlacesError?: string | undefined;
@@ -190,21 +190,14 @@ export default function useAPICalls(
     }
   );
 
-  const checkYelpPlacesArray: Results["items"] | [] = Array.isArray(
-    yelpPlaces.results
-  )
-    ? yelpPlaces.results
-    : [];
-  const checkYelpEventsArray: Results["items"] | [] = Array.isArray(
-    yelpEvents.results
-  )
-    ? yelpEvents.results
-    : [];
-  const checkTicketMasterArray: Results["items"] | [] = Array.isArray(
-    ticketmaster.results
-  )
-    ? ticketmaster.results
-    : [];
+  const checkYelpPlacesArray: Results["items"] | [] =
+    yelpPlaces && Array.isArray(yelpPlaces.results) ? yelpPlaces.results : [];
+  const checkYelpEventsArray: Results["items"] | [] =
+    yelpEvents && Array.isArray(yelpEvents.results) ? yelpEvents.results : [];
+  const checkTicketMasterArray: Results["items"] | [] =
+    ticketmaster && Array.isArray(ticketmaster.results)
+      ? ticketmaster.results
+      : [];
 
   return {
     items: [
@@ -212,9 +205,9 @@ export default function useAPICalls(
       ...checkYelpEventsArray,
       ...checkYelpPlacesArray,
     ],
-    yelpPlacesTotal: yelpPlaces.total,
-    yelpEventsTotal: yelpEvents.total,
-    ticketmasterTotal: ticketmaster.total,
+    yelpPlacesTotal: yelpPlaces ? yelpPlaces.total : null,
+    yelpEventsTotal: yelpEvents ? yelpEvents.total : null,
+    ticketmasterTotal: ticketmaster ? ticketmaster.total : null,
     loading: ticketmasterLoading || yelpEventsLoading || yelpPlacesLoading,
     errors: { yelpEventsError, yelpPlacesError, ticketmasterError },
   };
