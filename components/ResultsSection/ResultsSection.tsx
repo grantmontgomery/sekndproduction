@@ -11,12 +11,18 @@ export const ResultsSection: React.FC<{
   initialItems: { [key: string]: any }[] | null;
   initialSearchParams: { [key: string]: any } | null;
   resultsType: string;
+  yelpPlacesTotal: number;
+  yelpEventsTotal: number;
+  ticketmasterTotal: number;
 }> = ({
   initialItems,
   initialSearchParams,
   initialLoad,
   resultsType,
   filters,
+  yelpPlacesTotal,
+  yelpEventsTotal,
+  ticketmasterTotal,
 }) => {
   const [placesOffset, setPlacesOffset] = React.useState<number>(0);
   const [eventsOffset, setEventsOffset] = React.useState<number>(0);
@@ -155,6 +161,9 @@ export const ResultsSection: React.FC<{
         return (
           <ResultsList
             items={placesResults}
+            yelpPlacesTotal={yelpPlacesTotal}
+            yelpEventsTotal={yelpEventsTotal}
+            ticketmasterTotal={ticketmasterTotal}
             offsetLoad={offsetLoad}
             changeOffsetNumber={changeOffsetNumber}
             type="places"
@@ -167,6 +176,9 @@ export const ResultsSection: React.FC<{
             items={eventsResults}
             offsetLoad={offsetLoad}
             changeOffsetNumber={changeOffsetNumber}
+            yelpPlacesTotal={yelpPlacesTotal}
+            yelpEventsTotal={yelpEventsTotal}
+            ticketmasterTotal={ticketmasterTotal}
             type="events"
           ></ResultsList>
         );

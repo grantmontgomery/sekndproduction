@@ -116,7 +116,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(200).end("Handle Authentication");
   } catch (error) {
     return res.send(error);
-  } finally {
-    return res.status(200).end("Handle Authentication");
   }
 };

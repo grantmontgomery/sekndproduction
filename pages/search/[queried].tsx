@@ -107,6 +107,9 @@ export default function Queried(): JSX.Element {
           filters={filters}
           initialItems={initialItems}
           resultsType={resultsType}
+          yelpPlacesTotal={yelpPlacesTotal}
+          yelpEventsTotal={yelpEventsTotal}
+          ticketmasterTotal={ticketmasterTotal}
           initialLoad={initialLoading}
           initialSearchParams={setSearchParameters()}
         ></ResultsSection>

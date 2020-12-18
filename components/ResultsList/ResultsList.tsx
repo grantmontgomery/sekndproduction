@@ -9,7 +9,18 @@ export const ResultsList: React.FC<{
   offsetLoad: boolean;
   changeOffsetNumber: (input: number) => void;
   type: string;
-}> = ({ items, offsetLoad, changeOffsetNumber, type }) => {
+  yelpPlacesTotal: number;
+  yelpEventsTotal: number;
+  ticketmasterTotal: number;
+}> = ({
+  items,
+  offsetLoad,
+  changeOffsetNumber,
+  type,
+  yelpEventsTotal,
+  yelpPlacesTotal,
+  ticketmasterTotal,
+}) => {
   const observer: React.MutableRefObject<
     IntersectionObserver | undefined
   > = React.useRef();
