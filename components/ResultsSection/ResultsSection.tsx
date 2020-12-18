@@ -185,6 +185,8 @@ export const ResultsSection: React.FC<{
     }
   };
 
+  console.log(placesOffset);
+
   return (
     <section className={css.resultsSection}>{loadingDisplayItems()}</section>
   );

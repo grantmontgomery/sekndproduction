@@ -58,6 +58,10 @@ export const ResultsList: React.FC<{
     };
   }, []);
 
+  React.useEffect(() => {
+    changeOffsetNumber(0);
+  }, [type]);
+
   return (
     <div className={css.resultsList}>
       {items && items.length > 0
