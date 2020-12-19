@@ -24,8 +24,6 @@ export const ResultsSection: React.FC<{
   yelpEventsTotal,
   ticketmasterTotal,
 }) => {
-  // const [placesOffset, setPlacesOffset] = React.useState<number>(0);
-  const [eventsOffset, setEventsOffset] = React.useState<number>(0);
   const [offset, setOffset] = React.useState<number>(0);
   const [placesRefresh, setPlacesRefresh] = React.useState<boolean>(false);
   const [eventsRefresh, setEventsRefresh] = React.useState<boolean>(false);
@@ -38,44 +36,9 @@ export const ResultsSection: React.FC<{
     { [key: string]: any }[] | null
   >(null);
 
-  const observer: React.MutableRefObject<
-    IntersectionObserver | undefined
-  > = React.useRef();
-
-  const placesReloadRef: React.MutableRefObject<
-    HTMLElement | undefined
-  > = React.useRef();
-
   const searchParamsRefObject: React.MutableRefObject<
     { [key: string]: any } | undefined
   > = React.useRef(undefined);
-
-  // React.useEffect(() => {
-  //   observer.current = new IntersectionObserver(
-  //     (entries) => {
-  //       for (let i = 0; i < entries.length; i++) {
-  //         if (entries[i].target === placesReloadRef.current) {
-  //           if (
-  //             entries[i].intersectionRatio >= 0.9 &&
-  //             !initialLoad &&
-  //             !placesRefresh
-  //           ) {
-  //             setPlacesOffset((placesOffset) => placesOffset + 1);
-  //           }
-  //         }
-  //       }
-  //     },
-  //     {
-  //       threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0],
-  //     }
-  //   );
-
-  //   placesReloadRef.current = document.getElementById("placesReloadSection");
-  //   observer.current.observe(placesReloadRef.current);
-  //   return () => {
-  //     observer.current.disconnect();
-  //   };
-  // }, []);
 
   const { placesLoading, triggerPlacesCall } = usePlacesCall();
 
@@ -85,7 +48,7 @@ export const ResultsSection: React.FC<{
 
   React.useEffect(() => {
     if (filters.placePrice) {
-      setPlacesOffset(0);
+      setOffset(0);
       searchParamsRefObject.current = {
         ...searchParamsRefObject.current,
         placesPrice: filters.placePrice,
@@ -133,6 +96,7 @@ export const ResultsSection: React.FC<{
           }
         };
         handleOffsetCall();
+      } else {
       }
     }
   }, [offset]);
@@ -149,7 +113,7 @@ export const ResultsSection: React.FC<{
   };
 
   const loadingDisplayItems: () => JSX.Element | JSX.Element[] = () => {
-    if (initialLoad || placesRefresh)
+    if (initialLoad || placesRefresh) {
       return (
         <div className={css.skeletonWrapper}>
           <ResultCard key={"loading1"} resultsLoading={true}></ResultCard>
@@ -157,37 +121,20 @@ export const ResultsSection: React.FC<{
           <ResultCard key={"loading3"} resultsLoading={true}></ResultCard>
         </div>
       );
-
-    switch (resultsType) {
-      case "places":
-        return (
-          <ResultsList
-            items={placesResults}
-            yelpPlacesTotal={yelpPlacesTotal}
-            yelpEventsTotal={yelpEventsTotal}
-            ticketmasterTotal={ticketmasterTotal}
-            offsetLoad={offsetLoad}
-            changeOffsetNumber={changeOffsetNumber}
-            type="places"
-          ></ResultsList>
-        );
-
-      case "events":
-        return (
-          <ResultsList
-            items={eventsResults}
-            offsetLoad={offsetLoad}
-            changeOffsetNumber={changeOffsetNumber}
-            yelpPlacesTotal={yelpPlacesTotal}
-            yelpEventsTotal={yelpEventsTotal}
-            ticketmasterTotal={ticketmasterTotal}
-            type="events"
-          ></ResultsList>
-        );
+    } else {
+      return (
+        <ResultsList
+          items={resultsType === "places" ? placesResults : eventsResults}
+          yelpPlacesTotal={yelpPlacesTotal}
+          yelpEventsTotal={yelpEventsTotal}
+          ticketmasterTotal={ticketmasterTotal}
+          offsetLoad={offsetLoad}
+          changeOffsetNumber={changeOffsetNumber}
+          type={resultsType}
+        ></ResultsList>
+      );
     }
   };
-
-  console.log(offset);
 
   return (
     <section className={css.resultsSection}>{loadingDisplayItems()}</section>
