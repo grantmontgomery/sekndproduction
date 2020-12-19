@@ -19,13 +19,7 @@ export const usePlacesCall: () => {
 
     setLoading(true);
     try {
-      const {
-        location,
-        radius,
-        placeType,
-        placesPrice,
-        placesOffset,
-      } = searchParams;
+      const { location, radius, placeType, placesPrice, offset } = searchParams;
       const response: Response = await fetch(
         `${urlStart}/api/yelpBusinessesAPI`,
         {
@@ -39,7 +33,7 @@ export const usePlacesCall: () => {
             radius: parseInt(radius),
             term: placeType,
             price: placesPrice,
-            offset: placesOffset ? 1 + placesOffset * 20 : null,
+            offset: offset ? 1 + offset * 20 : null,
           }),
         }
       );
