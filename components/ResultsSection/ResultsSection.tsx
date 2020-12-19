@@ -2,7 +2,7 @@ import * as React from "react";
 import { ResultsList } from "../ResultsList";
 import { LoadingRing } from "../LoadingRing";
 import { ResultCard } from "../SearchResults";
-import { usePlacesCall } from "./Hooks/usePlacesCall";
+import { useTicketMasterCall, useYelpEventsCall, usePlacesCall } from "./Hooks";
 import css from "./ResultsSection.module.scss";
 
 export const ResultsSection: React.FC<{
