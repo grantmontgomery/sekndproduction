@@ -4,6 +4,7 @@ import { LoadingRing } from "../LoadingRing";
 import { ResultCard } from "../SearchResults";
 import { useTicketMasterCall, useYelpEventsCall, usePlacesCall } from "./Hooks";
 import css from "./ResultsSection.module.scss";
+import { resourceLimits } from "worker_threads";
 
 export const ResultsSection: React.FC<{
   filters: { [key: string]: any };
@@ -40,11 +41,25 @@ export const ResultsSection: React.FC<{
     { [key: string]: any } | undefined
   > = React.useRef(undefined);
 
+  const currentPlacesTotal: React.MutableRefObject<
+    number | undefined
+  > = React.useRef(undefined);
+
   const { placesLoading, triggerPlacesCall } = usePlacesCall();
+  const { triggerYelpEventsCall, yelpEventsLoading } = useYelpEventsCall();
+  const {
+    triggerTicketMasterCall,
+    ticketmasterLoading,
+  } = useTicketMasterCall();
 
   React.useEffect(() => {
     searchParamsRefObject.current = initialSearchParams;
+    // switch(initialSearchParams.searchType){
+
+    // }
   }, [initialSearchParams]);
+
+  console.log(currentPlacesTotal.current);
 
   React.useEffect(() => {
     if (filters.placePrice) {
@@ -60,7 +75,10 @@ export const ResultsSection: React.FC<{
             searchParamsRefObject.current
           );
           setPlacesRefresh(false);
-          if (typeof response === "object") setPlacesResults(response);
+          if (typeof response === "object") {
+            currentPlacesTotal.current = response.total;
+            setPlacesResults(response.results);
+          }
         } catch {
           setPlacesRefresh(false);
           return;
@@ -78,25 +96,53 @@ export const ResultsSection: React.FC<{
         offset,
       };
 
-      if (resultsType === "places") {
-        const handleOffsetCall: () => Promise<any> = async () => {
-          setOffsetLoad(true);
-          try {
-            const response = await triggerPlacesCall(
-              searchParamsRefObject.current
-            );
-            setOffsetLoad(false);
+      switch (resultsType) {
+        case "places":
+          const handlePlacesOffsetCall: () => Promise<any> = async () => {
+            setOffsetLoad(true);
+            try {
+              const response = await triggerPlacesCall(
+                searchParamsRefObject.current
+              );
+              setOffsetLoad(false);
 
-            if (typeof response === "object")
-              setPlacesResults((prevResults) => [...prevResults, ...response]);
-          } catch (error) {
-            setOffsetLoad(false);
+              if (typeof response === "object")
+                setPlacesResults((prevResults) => [
+                  ...prevResults,
+                  ...response.results,
+                ]);
+            } catch (error) {
+              setOffsetLoad(false);
+              console.log(error);
+              return error;
+            }
+          };
+          handlePlacesOffsetCall();
+        case "events":
+          const handleEventsOffsetCall: () => Promise<any> = async () => {
+            try {
+              const yelpEventsResponse = await triggerYelpEventsCall(
+                searchParamsRefObject.current
+              );
+              const ticketmasterResponse = await triggerTicketMasterCall(
+                searchParamsRefObject.current
+              );
 
-            return error;
-          }
-        };
-        handleOffsetCall();
-      } else {
+              setEventsResults((prevResults) => {
+                let results = [...prevResults];
+                if (typeof yelpEventsResponse === "object")
+                  results = [...results, ...yelpEventsResponse];
+                if (typeof ticketmasterResponse === "object")
+                  results = [...results, ...ticketmasterResponse];
+                return results;
+              });
+            } catch (error) {
+              console.log(error);
+              return error;
+            }
+          };
+
+          handleEventsOffsetCall();
       }
     }
   }, [offset]);
@@ -109,7 +155,9 @@ export const ResultsSection: React.FC<{
   }, [initialItems]);
 
   const changeOffsetNumber: (input: number) => void = (input) => {
-    input === 1 ? setOffset((offset) => offset + 1) : setOffset(0);
+    setOffset((offset) => {
+      return input !== 0 ? input + offset : 0;
+    });
   };
 
   const loadingDisplayItems: () => JSX.Element | JSX.Element[] = () => {

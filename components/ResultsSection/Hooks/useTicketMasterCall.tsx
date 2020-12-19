@@ -1,3 +1,5 @@
+import * as React from "react";
+
 import { inputEventCategories } from "../../../logic";
 const url: "http://localhost:3000" | "https://sekndapp.com" =
   process.env.NODE_ENV === "development"

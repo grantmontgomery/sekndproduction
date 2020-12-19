@@ -5,13 +5,15 @@ export const usePlacesCall: () => {
   placesLoading: boolean;
   triggerPlacesCall: (searchParams: {
     [key: string]: any;
-  }) => Promise<{ [key: string]: any }[] | string>;
+  }) => Promise<{ results: { [key: string]: any }[]; total: number } | string>;
 } = () => {
   const [placesLoading, setLoading] = React.useState<boolean>(false);
 
   const triggerPlacesCall: (searchParams: {
     [key: string]: any;
-  }) => Promise<{ [key: string]: any }[] | string> = async (searchParams) => {
+  }) => Promise<
+    { results: { [key: string]: any }[]; total: number } | string
+  > = async (searchParams) => {
     const urlStart: string =
       process.env.NODE_ENV === "development"
         ? "http://localhost:3000"
@@ -41,7 +43,8 @@ export const usePlacesCall: () => {
 
       const {
         businesses,
-      }: { businesses: { [key: string]: any }[] } = responseJSON;
+        total,
+      }: { businesses: { [key: string]: any }[]; total: number } = responseJSON;
       businesses.forEach(
         (business) => (
           (business["type"] = "place"),
@@ -52,7 +55,7 @@ export const usePlacesCall: () => {
 
       setLoading(false);
 
-      return businesses;
+      return { results: businesses, total };
     } catch (error) {
       setLoading(false);
       return error.message;

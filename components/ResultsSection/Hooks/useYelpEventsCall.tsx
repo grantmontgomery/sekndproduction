@@ -1,3 +1,5 @@
+import * as React from "react";
+
 import { inputEventCategories } from "../../../logic";
 
 const url: "http://localhost:3000" | "https://sekndapp.com" =
@@ -6,8 +8,8 @@ const url: "http://localhost:3000" | "https://sekndapp.com" =
     : "https://sekndapp.com";
 
 export const useYelpEventsCall: () => any = async () => {
-  const [ticketmasterLoading, setLoading] = React.useState<boolean>(false);
-  const triggerTicketMasterCall: (searchParams: {
+  const [yelpEventsLoading, setLoading] = React.useState<boolean>(false);
+  const triggerYelpEventsCall: (searchParams: {
     [key: string]: any;
   }) => Promise<{ [key: string]: any }[] | string> = async (searchParams) => {
     setLoading(true);
@@ -57,5 +59,5 @@ export const useYelpEventsCall: () => any = async () => {
       return error.message;
     }
   };
-  return { ticketmasterLoading, triggerTicketMasterCall };
+  return { yelpEventsLoading, triggerYelpEventsCall };
 };
