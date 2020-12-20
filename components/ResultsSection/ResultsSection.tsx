@@ -25,6 +25,8 @@ export const ResultsSection: React.FC<{
   yelpEventsTotal,
   ticketmasterTotal,
 }) => {
+  ///////////////////////////////////////////////////////////State
+
   const [offset, setOffset] = React.useState<number>(0);
   const [placesRefresh, setPlacesRefresh] = React.useState<boolean>(false);
   const [eventsRefresh, setEventsRefresh] = React.useState<boolean>(false);
@@ -36,6 +38,8 @@ export const ResultsSection: React.FC<{
   const [eventsResults, setEventsResults] = React.useState<
     { [key: string]: any }[] | null
   >(null);
+
+  ///////////////////////////////////////////////////////////////Refs Set Up
 
   const searchParamsRefObject: React.MutableRefObject<
     { [key: string]: any } | undefined
@@ -53,12 +57,23 @@ export const ResultsSection: React.FC<{
     undefined
   );
 
+  //////////////////////////////////////////////////////////////////////////////////////// API HOOKS
+
   const { placesLoading, triggerPlacesCall } = usePlacesCall();
   const { triggerYelpEventsCall, yelpEventsLoading } = useYelpEventsCall();
   const {
     triggerTicketMasterCall,
     ticketmasterLoading,
   } = useTicketMasterCall();
+
+  /////////////////////////////////////////////////////////////////////////////////// UseEffect HOOKS
+
+  React.useEffect(() => {
+    if (initialItems) {
+      setPlacesResults(initialItems.filter((item) => item.type === "place"));
+      setEventsResults(initialItems.filter((item) => item.type === "event"));
+    }
+  }, [initialItems]);
 
   React.useEffect(() => {
     currentPlacesTotal.current = yelpPlacesTotal;
@@ -195,12 +210,7 @@ export const ResultsSection: React.FC<{
     }
   }, [offset]);
 
-  React.useEffect(() => {
-    if (initialItems) {
-      setPlacesResults(initialItems.filter((item) => item.type === "place"));
-      setEventsResults(initialItems.filter((item) => item.type === "event"));
-    }
-  }, [initialItems]);
+  ////////////////////////////////////////////////////////////////////// Functions
 
   const changeOffsetNumber: (input: number) => void = (input) => {
     setOffset((offset) => {

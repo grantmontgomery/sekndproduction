@@ -67,7 +67,9 @@ export const PriceFilter: React.FC<{
             <span>$$$$</span>
           </div>
         </div>
-      ) : null}
+      ) : (
+        <div></div>
+      )}
     </div>
   );
 };

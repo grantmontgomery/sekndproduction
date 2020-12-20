@@ -1,0 +1,1 @@
+export { EventsPriceFilter } from "./EventsPriceFilter";

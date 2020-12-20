@@ -1,0 +1,1 @@
+export { PlacesPriceFilter } from "./PlacesPriceFilter";
