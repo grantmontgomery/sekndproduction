@@ -45,6 +45,14 @@ export const ResultsSection: React.FC<{
     number | undefined
   > = React.useRef(undefined);
 
+  const currentYelpEventsTotal: React.MutableRefObject<number> = React.useRef(
+    undefined
+  );
+
+  const currentTicketMasterTotal: React.MutableRefObject<number> = React.useRef(
+    undefined
+  );
+
   const { placesLoading, triggerPlacesCall } = usePlacesCall();
   const { triggerYelpEventsCall, yelpEventsLoading } = useYelpEventsCall();
   const {
@@ -53,13 +61,12 @@ export const ResultsSection: React.FC<{
   } = useTicketMasterCall();
 
   React.useEffect(() => {
+    currentPlacesTotal.current = yelpPlacesTotal;
+  }, [yelpPlacesTotal]);
+
+  React.useEffect(() => {
     searchParamsRefObject.current = initialSearchParams;
-    // switch(initialSearchParams.searchType){
-
-    // }
   }, [initialSearchParams]);
-
-  console.log(currentPlacesTotal.current);
 
   React.useEffect(() => {
     if (filters.placePrice) {
@@ -98,6 +105,8 @@ export const ResultsSection: React.FC<{
 
       switch (resultsType) {
         case "places":
+          if (placesResults.length + 1 >= currentPlacesTotal.current) return;
+
           const handlePlacesOffsetCall: () => Promise<any> = async () => {
             setOffsetLoad(true);
             try {
