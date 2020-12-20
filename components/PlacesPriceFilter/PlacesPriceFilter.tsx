@@ -1,5 +1,5 @@
 import * as React from "react";
-import css from "./PriceFilter.module.scss";
+import css from "./PlacesPriceFilter.module.scss";
 
 export const PlacesPriceFilter: React.FC<{
   handlePlacePriceChange: (input: string) => void;

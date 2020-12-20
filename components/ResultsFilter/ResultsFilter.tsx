@@ -1,5 +1,7 @@
 import * as React from "react";
 import { PriceFilter } from "../PriceFilter";
+import { PlacesPriceFilter } from "../PlacesPriceFilter";
+import { EventsPriceFilter } from "../EventsPriceFilter";
 import css from "./ResultsFilter.module.scss";
 
 export const ResultsFilter: React.FC<{
@@ -77,10 +79,13 @@ export const ResultsFilter: React.FC<{
         ) : null}
       </div>
       <div className={css.searchFilters}></div>
-      <PriceFilter
-        handlePlacePriceChange={handlePlacePriceChange}
-        resultsType={resultsType}
-      ></PriceFilter>
+      {resultsType === "places" ? (
+        <PlacesPriceFilter
+          handlePlacePriceChange={handlePlacePriceChange}
+        ></PlacesPriceFilter>
+      ) : (
+        <EventsPriceFilter></EventsPriceFilter>
+      )}
     </section>
   );
 };
