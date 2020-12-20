@@ -5,5 +5,31 @@
   .eventsPriceWrapper {
     height: 100%;
     width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+
+    & select {
+      width: 75%;
+      border-radius: 5px;
+      margin-left: auto;
+      margin-right: auto;
+      height: 35px;
+      cursor: pointer;
+      border: none;
+      transition: 250ms ease-out;
+      & option {
+        background: white;
+        cursor: pointer;
+        outline: none;
+        border: none;
+      }
+      &:hover {
+        background: rgb(240, 240, 240);
+        transition: 250ms ease-out;
+      }
+      &:focus {
+        border: none;
+      }
+    }
   }
 }

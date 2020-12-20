@@ -86,6 +86,13 @@ export default function Queried(): JSX.Element {
     setFilters((filters) => ({ ...filters, placePrice: input }));
   };
 
+  // const handlePriceChange: (input: string | null) => void = (input) => {
+  //   setFilters((filters) => {
+  //     filters[resultsType === "places" ? "placePrice" : "eventPrice"] = input;
+  //     return filters;
+  //   })
+  // };
+
   React.useEffect(() => {
     if (setSearchParameters()) {
       setSearchParameters().searchType === "EVENTS" ? setType("events") : null;
