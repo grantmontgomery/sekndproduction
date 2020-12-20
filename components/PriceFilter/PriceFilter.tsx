@@ -8,6 +8,10 @@ export const PriceFilter: React.FC<{
 }> = ({ resultsType, handlePlacePriceChange }) => {
   const [price, setPrice] = React.useState<number | null>(null);
 
+  React.useEffect(() => {
+    setPrice(null);
+  }, [resultsType]);
+
   const handleSelect: (input: string) => void = (input) => {
     if (price !== parseInt(input)) {
       handlePlacePriceChange(input);
