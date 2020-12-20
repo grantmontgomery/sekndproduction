@@ -19,6 +19,7 @@ export const useTicketMasterCall: () => any = async () => {
         startFormatted,
         endFormatted,
         eventsCategory,
+        offset,
       } = searchParams;
       const response: Response = await fetch(`${url}/api/ticketmasterAPI`, {
         headers: {
@@ -32,6 +33,7 @@ export const useTicketMasterCall: () => any = async () => {
           startFormatted,
           endFormatted,
           eventsCategory,
+          page: offset ? `${offset}` : null,
           ...inputEventCategories(eventsCategory, "ticketmaster"),
         }),
       });

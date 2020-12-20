@@ -65,6 +65,14 @@ export const ResultsSection: React.FC<{
   }, [yelpPlacesTotal]);
 
   React.useEffect(() => {
+    currentYelpEventsTotal.current = yelpEventsTotal;
+  }, [yelpEventsTotal]);
+
+  React.useEffect(() => {
+    currentTicketMasterTotal.current = ticketmasterTotal;
+  }, [ticketmasterTotal]);
+
+  React.useEffect(() => {
     searchParamsRefObject.current = initialSearchParams;
   }, [initialSearchParams]);
 
@@ -128,25 +136,56 @@ export const ResultsSection: React.FC<{
           };
           handlePlacesOffsetCall();
         case "events":
+          if (
+            eventsResults.length + 2 >=
+            currentTicketMasterTotal.current + currentYelpEventsTotal.current
+          )
+            return;
+
+          const yelpEventsCurrentCount: number = eventsResults.filter(
+            (event) => event.source === "yelp"
+          ).length;
+          const ticketmasterCurrentCount: number = eventsResults.filter(
+            (event) => event.source === "ticketmaster"
+          ).length;
+
           const handleEventsOffsetCall: () => Promise<any> = async () => {
+            setOffsetLoad(true);
             try {
-              const yelpEventsResponse = await triggerYelpEventsCall(
-                searchParamsRefObject.current
-              );
-              const ticketmasterResponse = await triggerTicketMasterCall(
-                searchParamsRefObject.current
-              );
+              let yelpEventsResponse = null;
+              let ticketmasterResponse = null;
+              if (yelpEventsCurrentCount + 1 < currentYelpEventsTotal.current)
+                yelpEventsResponse = await triggerYelpEventsCall(
+                  searchParamsRefObject.current
+                );
+              if (
+                ticketmasterCurrentCount + 1 <
+                currentTicketMasterTotal.current
+              )
+                ticketmasterResponse = await triggerTicketMasterCall(
+                  searchParamsRefObject.current
+                );
 
               setEventsResults((prevResults) => {
                 let results = [...prevResults];
-                if (typeof yelpEventsResponse === "object")
+                if (
+                  yelpEventsResponse &&
+                  typeof yelpEventsResponse === "object"
+                )
                   results = [...results, ...yelpEventsResponse];
-                if (typeof ticketmasterResponse === "object")
+                if (
+                  ticketmasterResponse &&
+                  typeof ticketmasterResponse === "object"
+                )
                   results = [...results, ...ticketmasterResponse];
+
+                setOffsetLoad(false);
                 return results;
               });
             } catch (error) {
               console.log(error);
+              setOffsetLoad(false);
+
               return error;
             }
           };
