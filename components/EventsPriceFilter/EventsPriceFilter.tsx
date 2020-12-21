@@ -4,7 +4,7 @@ import css from "./EventsPriceFilter.module.scss";
 export const EventsPriceFilter: React.FC<{
   handlePriceChange: (input: string | null) => void;
 }> = ({ handlePriceChange }) => {
-  const [price, setPrice] = React.useState<string | null>(null);
+  const [price, setPrice] = React.useState<string | null>(undefined);
 
   const handleSelect: (input: string) => void = (input) => {
     setPrice(input);
@@ -12,7 +12,7 @@ export const EventsPriceFilter: React.FC<{
   };
 
   React.useEffect(() => {
-    handlePriceChange(null);
+    handlePriceChange(undefined);
   }, []);
 
   return (
@@ -24,12 +24,11 @@ export const EventsPriceFilter: React.FC<{
         value={price}
         onChange={({ target }) => handleSelect(target.value)}
       >
-        <option value={null}>Select Price Range (optional)</option>
+        <option value={undefined}>Max Price (optional)</option>
         <option value="Free">Free</option>
-        <option value="25">Under $25</option>
-        <option value="50">$25 to $50</option>
-        <option value="100">$50 to $100</option>
-        <option value="1000">$100+</option>
+        <option value="25">$25</option>
+        <option value="50">$50</option>
+        <option value="100">$100</option>
       </select>
     </div>
   );

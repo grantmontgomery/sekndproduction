@@ -5,6 +5,7 @@ import { ResultCard } from "../SearchResults";
 import { useTicketMasterCall, useYelpEventsCall, usePlacesCall } from "./Hooks";
 import css from "./ResultsSection.module.scss";
 import { resourceLimits } from "worker_threads";
+import { parse } from "path";
 
 export const ResultsSection: React.FC<{
   filters: { [key: string]: any };
@@ -72,8 +73,6 @@ export const ResultsSection: React.FC<{
     if (initialItems) {
       setPlacesResults(initialItems.filter((item) => item.type === "place"));
       setEventsResults(initialItems.filter((item) => item.type === "event"));
-
-      console.log(initialItems);
     }
   }, [initialItems]);
 
@@ -128,36 +127,62 @@ export const ResultsSection: React.FC<{
         eventsPrice: filters.eventPrice,
       };
       setEventsRefresh(true);
-      //   const handleAPICall: () => Promise<any> = async () => {
-      //     setEventsRefresh(true);
-      //     try {
-      //       let responseList: { [key: string]: any }[] = [];
-      //       const yelpEventsResponse = await triggerYelpEventsCall(
-      //         searchParamsRefObject.current
-      //       );
-      //       const ticketMasterResponse = await triggerTicketMasterCall(
-      //         searchParamsRefObject.current
-      //       );
+      // const handleAPICall: () => Promise<any> = async () => {
+      //   setEventsRefresh(true);
+      //   try {
+      //     let responseList: { [key: string]: any }[] = [];
+      //     const yelpEventsResponse = await triggerYelpEventsCall(
+      //       searchParamsRefObject.current
+      //     );
+      //     const ticketMasterResponse = await triggerTicketMasterCall(
+      //       searchParamsRefObject.current
+      //     );
 
-      //       if (typeof yelpEventsResponse === "object")
-      //         responseList = [...responseList, ...yelpEventsResponse.results];
-      //         currentYelpEventsTotal.current = yelpEventsResponse.total
-      //       if (typeof ticketMasterResponse === "object")
-      //         responseList = [...responseList, ...ticketMasterResponse.results];
-      //         currentTicketMasterTotal.current = ticketMasterResponse.total
+      //     if (typeof yelpEventsResponse === "object")
+      //       responseList = [...responseList, ...yelpEventsResponse.results];
+      //       currentYelpEventsTotal.current = yelpEventsResponse.total
+      //     if (typeof ticketMasterResponse === "object")
+      //       responseList = [...responseList, ...ticketMasterResponse.results];
+      //       currentTicketMasterTotal.current = ticketMasterResponse.total
 
-      //       setEventsRefresh(false);
-      //       setEventsResults(responseList);
-      //     } catch {
-      //       setEventsRefresh(false);
-      //     }
-      //   };
+      //     setEventsRefresh(false);
+      //     setEventsResults(responseList);
+      //   } catch {
+      //     setEventsRefresh(false);
+      //   }
       // }
 
-      // setEventsResults(previousEvents => {
+      setEventsResults((previousEvents) => {
+        if (filters.eventPrice !== "Free") {
+          const limitYelpEvents = previousEvents.filter(
+            (event) =>
+              event.source === "yelp" &&
+              event.cost &&
+              parseInt(filters.price) >= event.cost
+          );
+          const limitTicketMasterResults = previousEvents.filter(
+            (event) =>
+              event.source === "ticketmaster" &&
+              event.priceRanges &&
+              parseInt(filters.eventPrice) >= event.priceRanges[0].min
+          );
 
-      //   return
-      // })
+          return [...limitTicketMasterResults, ...limitYelpEvents];
+        } else {
+          const limitYelpEvents = previousEvents.filter(
+            (event) => event.source === "yelp" && event.is_free
+          );
+          const limitTicketMasterResults = previousEvents.filter(
+            (event) =>
+              (event.source === "ticketmaster" &&
+                event.priceRanges &&
+                event.priceRanges[0].min === 0) ||
+              !event.priceRanges
+          );
+
+          return [...limitTicketMasterResults, ...limitYelpEvents];
+        }
+      });
 
       // const limitTicketMasterResults =
 
