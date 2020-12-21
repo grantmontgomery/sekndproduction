@@ -2,19 +2,23 @@ import * as React from "react";
 import css from "./PlacesPriceFilter.module.scss";
 
 export const PlacesPriceFilter: React.FC<{
-  handlePlacePriceChange: (input: string) => void;
-}> = ({ handlePlacePriceChange }) => {
+  handlePriceChange: (input: string) => void;
+}> = ({ handlePriceChange }) => {
   const [price, setPrice] = React.useState<number | null>(null);
 
   const handleSelect: (input: string) => void = (input) => {
     if (price !== parseInt(input)) {
-      handlePlacePriceChange(input);
+      handlePriceChange(input);
       setPrice(parseInt(input));
     } else {
-      handlePlacePriceChange(null);
+      handlePriceChange(null);
       setPrice(null);
     }
   };
+
+  React.useEffect(() => {
+    handlePriceChange(null);
+  }, []);
 
   return (
     <div className={css.placePriceWrapper}>

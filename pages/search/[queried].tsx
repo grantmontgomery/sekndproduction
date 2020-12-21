@@ -82,16 +82,17 @@ export default function Queried(): JSX.Element {
     }
   };
 
-  const handlePlacePriceChange: (input: string | null) => void = (input) => {
-    setFilters((filters) => ({ ...filters, placePrice: input }));
-  };
-
-  // const handlePriceChange: (input: string | null) => void = (input) => {
-  //   setFilters((filters) => {
-  //     filters[resultsType === "places" ? "placePrice" : "eventPrice"] = input;
-  //     return filters;
-  //   })
+  // const handlePlacePriceChange: (input: string | null) => void = (input) => {
+  //   setFilters((filters) => ({ ...filters, placePrice: input }));
   // };
+
+  const handlePriceChange: (input: string | null) => void = (input) => {
+    setFilters((filters) =>
+      resultsType === "places"
+        ? { ...filters, placePrice: input }
+        : { ...filters, eventPrice: input }
+    );
+  };
 
   React.useEffect(() => {
     if (setSearchParameters()) {
@@ -103,7 +104,7 @@ export default function Queried(): JSX.Element {
     <Layout>
       <main className={css.queriedPage}>
         <ResultsFilter
-          handlePlacePriceChange={handlePlacePriceChange}
+          handlePriceChange={handlePriceChange}
           resultsLoading={initialLoading}
           resultsType={resultsType}
           handleResultsTypeChange={handleResultsTypeChange}

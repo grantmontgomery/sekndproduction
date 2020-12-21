@@ -11,7 +11,9 @@ export const useYelpEventsCall: () => any = async () => {
   const [yelpEventsLoading, setLoading] = React.useState<boolean>(false);
   const triggerYelpEventsCall: (searchParams: {
     [key: string]: any;
-  }) => Promise<{ [key: string]: any }[] | string> = async (searchParams) => {
+  }) => Promise<
+    { results: { [key: string]: any }[]; total: number } | string
+  > = async (searchParams) => {
     setLoading(true);
     try {
       const {
@@ -55,7 +57,7 @@ export const useYelpEventsCall: () => any = async () => {
       );
 
       setLoading(false);
-      return events;
+      return { results: events, total: events.length };
     } catch (error) {
       setLoading(false);
       return error.message;

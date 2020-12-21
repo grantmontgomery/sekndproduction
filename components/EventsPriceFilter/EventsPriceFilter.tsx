@@ -1,12 +1,19 @@
 import * as React from "react";
 import css from "./EventsPriceFilter.module.scss";
 
-export const EventsPriceFilter: React.FC = () => {
+export const EventsPriceFilter: React.FC<{
+  handlePriceChange: (input: string | null) => void;
+}> = ({ handlePriceChange }) => {
   const [price, setPrice] = React.useState<string | null>(null);
 
   const handleSelect: (input: string) => void = (input) => {
     setPrice(input);
+    handlePriceChange(input);
   };
+
+  React.useEffect(() => {
+    handlePriceChange(null);
+  }, []);
 
   return (
     <div className={css.eventsPriceWrapper}>

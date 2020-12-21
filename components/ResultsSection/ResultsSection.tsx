@@ -68,6 +68,7 @@ export const ResultsSection: React.FC<{
 
   /////////////////////////////////////////////////////////////////////////////////// UseEffect HOOKS
 
+  console.log(filters);
   React.useEffect(() => {
     if (initialItems) {
       setPlacesResults(initialItems.filter((item) => item.type === "place"));
@@ -115,9 +116,36 @@ export const ResultsSection: React.FC<{
         }
       };
       handleAPICall();
-    } else {
     }
   }, [filters.placePrice]);
+
+  React.useEffect(() => {
+    if (filters.eventPrice) {
+      setOffset(0);
+      searchParamsRefObject.current = {
+        ...searchParamsRefObject.current,
+        eventsPrice: filters.eventPrice,
+      };
+      const handleAPICall: () => Promise<any> = async () => {
+        setEventsRefresh(true);
+        try {
+          let responseList: { [key: string]: any }[] = [];
+          const yelpEventsResponse = await triggerYelpEventsCall(
+            searchParamsRefObject.current
+          );
+          const ticketMasterResponse = await triggerTicketMasterCall(
+            searchParamsRefObject.current
+          );
+
+          if (typeof yelpEventsResponse === "object")
+            responseList = [...responseList, ...yelpEventsResponse.results];
+          setEventsRefresh(false);
+        } catch {
+          setEventsRefresh(false);
+        }
+      };
+    }
+  }, [filters.eventPrice]);
 
   React.useEffect(() => {
     if (offset > 0 && searchParamsRefObject.current) {
