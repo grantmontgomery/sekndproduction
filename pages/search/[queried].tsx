@@ -82,10 +82,6 @@ export default function Queried(): JSX.Element {
     }
   };
 
-  // const handlePlacePriceChange: (input: string | null) => void = (input) => {
-  //   setFilters((filters) => ({ ...filters, placePrice: input }));
-  // };
-
   const handlePriceChange: (input: string | null) => void = (input) => {
     setFilters((filters) =>
       resultsType === "places"

@@ -68,11 +68,12 @@ export const ResultsSection: React.FC<{
 
   /////////////////////////////////////////////////////////////////////////////////// UseEffect HOOKS
 
-  console.log(filters);
   React.useEffect(() => {
     if (initialItems) {
       setPlacesResults(initialItems.filter((item) => item.type === "place"));
       setEventsResults(initialItems.filter((item) => item.type === "event"));
+
+      console.log(initialItems);
     }
   }, [initialItems]);
 
@@ -126,24 +127,41 @@ export const ResultsSection: React.FC<{
         ...searchParamsRefObject.current,
         eventsPrice: filters.eventPrice,
       };
-      const handleAPICall: () => Promise<any> = async () => {
-        setEventsRefresh(true);
-        try {
-          let responseList: { [key: string]: any }[] = [];
-          const yelpEventsResponse = await triggerYelpEventsCall(
-            searchParamsRefObject.current
-          );
-          const ticketMasterResponse = await triggerTicketMasterCall(
-            searchParamsRefObject.current
-          );
+      setEventsRefresh(true);
+      //   const handleAPICall: () => Promise<any> = async () => {
+      //     setEventsRefresh(true);
+      //     try {
+      //       let responseList: { [key: string]: any }[] = [];
+      //       const yelpEventsResponse = await triggerYelpEventsCall(
+      //         searchParamsRefObject.current
+      //       );
+      //       const ticketMasterResponse = await triggerTicketMasterCall(
+      //         searchParamsRefObject.current
+      //       );
 
-          if (typeof yelpEventsResponse === "object")
-            responseList = [...responseList, ...yelpEventsResponse.results];
-          setEventsRefresh(false);
-        } catch {
-          setEventsRefresh(false);
-        }
-      };
+      //       if (typeof yelpEventsResponse === "object")
+      //         responseList = [...responseList, ...yelpEventsResponse.results];
+      //         currentYelpEventsTotal.current = yelpEventsResponse.total
+      //       if (typeof ticketMasterResponse === "object")
+      //         responseList = [...responseList, ...ticketMasterResponse.results];
+      //         currentTicketMasterTotal.current = ticketMasterResponse.total
+
+      //       setEventsRefresh(false);
+      //       setEventsResults(responseList);
+      //     } catch {
+      //       setEventsRefresh(false);
+      //     }
+      //   };
+      // }
+
+      // setEventsResults(previousEvents => {
+
+      //   return
+      // })
+
+      // const limitTicketMasterResults =
+
+      setEventsRefresh(false);
     }
   }, [filters.eventPrice]);
 

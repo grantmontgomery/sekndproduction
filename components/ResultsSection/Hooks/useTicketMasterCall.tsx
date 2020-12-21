@@ -10,7 +10,9 @@ export const useTicketMasterCall: () => any = async () => {
   const [ticketmasterLoading, setLoading] = React.useState<boolean>(false);
   const triggerTicketMasterCall: (searchParams: {
     [key: string]: any;
-  }) => Promise<{ [key: string]: any }[] | string> = async (searchParams) => {
+  }) => Promise<
+    { results: { [key: string]: any }[]; total: number } | string
+  > = async (searchParams) => {
     setLoading(true);
     try {
       const {
@@ -55,7 +57,7 @@ export const useTicketMasterCall: () => any = async () => {
       );
 
       setLoading(false);
-      return events;
+      return { results: events, total: events.length };
     } catch (error) {
       setLoading(false);
       return error.message;
