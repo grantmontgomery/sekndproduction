@@ -39,6 +39,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
           <label htmlFor="">Date Parts</label>
           <input
             type="text"
+            data-testid="partsInput"
             placeholder="Another Idea?"
             value={state.input}
             onChange={({ target }) =>
