@@ -14,6 +14,7 @@ import { RectanglesProvider } from "../state/GridRectanglesContext";
 import { ModalProvider } from "../state/ModalContext";
 import { UserProvider } from "../state/UserContext";
 import { NextComponentType, NextPage, NextPageContext } from "next";
+import { AppProps } from "next/app";
 import { NextRouter, Router } from "next/router";
 
 type Props = {
@@ -26,7 +27,7 @@ export default function App({
   Component,
   pageProps,
   router,
-}: Props): JSX.Element {
+}: AppProps): JSX.Element {
   const [loading, setLoading] = React.useState<boolean>(false);
 
   React.useEffect(() => {
