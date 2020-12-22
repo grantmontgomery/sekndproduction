@@ -1,22 +1,30 @@
 import * as React from "react";
 import { DateParts } from "./DateParts";
 import { PartsProvider } from "../../state/DatePartsContext";
-import { fireEvent, render } from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
+import { toBeInTheDocument } from "@testing-library/jest-dom";
 
-test("testing DatParts input", () => {
-  const { getByTestId } = render(
-    <PartsProvider>
-      <DateParts location="nav"></DateParts>
-    </PartsProvider>
-  );
+const component = render(<DateParts location="nav"></DateParts>, {
+  wrapper: PartsProvider,
+});
+const textInput = component.getByTestId("partText") as HTMLInputElement;
+// const ColorInput = component.getByTestId("partColor");
 
-  const inputElement = getByTestId("partsInput") as HTMLInputElement;
+describe("DateParts", () => {
+  // it("should render", () => {
+  //   expect(component)();
+  // });
 
-  fireEvent.change(inputElement, {
-    target: { value: "Hike Hollywood!" },
+  it("should type in text input", () => {
+    fireEvent.change(textInput, {
+      target: { value: "Hike Hollywood!" },
+    });
+
+    expect(textInput.value).toBe("Hike Hollywood!");
   });
 
-  const inputValue: string = inputElement.value;
-
-  expect(inputValue).toBe("Hike Hollywood!");
+  // it("should click on color", () => {
+  //   const mockCallBack = jest.fn();
+  //   fireEvent.click(ColorInput);
+  // });
 });

@@ -39,7 +39,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
           <label htmlFor="">Date Parts</label>
           <input
             type="text"
-            data-testid="partsInput"
+            data-testid="partText"
             placeholder="Another Idea?"
             value={state.input}
             onChange={({ target }) =>
@@ -93,6 +93,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
             className={css.add}
             style={{ color: "white", background: state.color }}
             onClick={handlePartSubmit}
+            date-testid="partColor"
           >
             Add
           </button>
