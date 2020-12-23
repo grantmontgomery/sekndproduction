@@ -22,6 +22,33 @@ type Results = {
 
 type SearchParams = { [key: string]: any };
 
+const setSearchParameters: (router: {
+  query: { [key: string]: any };
+}) => {
+  [key: string]: any;
+} | null = (router) => {
+  if (!router.query.queried) return null;
+  if (router.query.searchType) return router.query;
+
+  const { query } = router;
+
+  const checkURLIsString: string = query.queried.toString();
+  const paramValueArray: string[] = checkURLIsString.split("+");
+
+  const SearchParams: SearchParams = {};
+
+  paramValueArray.forEach((param) => {
+    const indexOfEqual: number = param.search("=");
+    if (indexOfEqual === -1) return;
+    else {
+      const paramKey: string = param.substring(0, indexOfEqual);
+      const paramValue: string = param.substring(indexOfEqual + 1);
+      SearchParams[paramKey] = paramValue;
+    }
+  });
+  return SearchParams;
+};
+
 export default function Queried(): JSX.Element {
   const [filters, setFilters] = React.useState<{
     placePrice: string | null;
@@ -40,31 +67,6 @@ export default function Queried(): JSX.Element {
       ? "http://localhost:3000"
       : "https://sekndapp.com";
 
-  const setSearchParameters: () => {
-    [key: string]: any;
-  } | null = React.useCallback(() => {
-    if (!router.query.queried) return null;
-    if (router.query.searchType) return router.query;
-
-    const { query } = router;
-
-    const checkURLIsString: string = query.queried.toString();
-    const paramValueArray: string[] = checkURLIsString.split("+");
-
-    const SearchParams: SearchParams = {};
-
-    paramValueArray.forEach((param) => {
-      const indexOfEqual: number = param.search("=");
-      if (indexOfEqual === -1) return;
-      else {
-        const paramKey: string = param.substring(0, indexOfEqual);
-        const paramValue: string = param.substring(indexOfEqual + 1);
-        SearchParams[paramKey] = paramValue;
-      }
-    });
-    return SearchParams;
-  }, [router.query]);
-
   const {
     items: initialItems,
     loading: initialLoading,
@@ -72,7 +74,7 @@ export default function Queried(): JSX.Element {
     yelpPlacesTotal,
     yelpEventsTotal,
     ticketmasterTotal,
-  } = useAPICalls(setSearchParameters(), urlStart);
+  } = useAPICalls(setSearchParameters(router), urlStart);
 
   const handleResultsTypeChange: (input: string) => void = (input) => {
     if (input === "places") {
@@ -91,10 +93,12 @@ export default function Queried(): JSX.Element {
   };
 
   React.useEffect(() => {
-    if (setSearchParameters()) {
-      setSearchParameters().searchType === "EVENTS" ? setType("events") : null;
+    if (setSearchParameters(router)) {
+      setSearchParameters(router).searchType === "EVENTS"
+        ? setType("events")
+        : null;
     }
-  }, [setSearchParameters()]);
+  }, [setSearchParameters(router)]);
 
   return (
     <Layout>
@@ -104,7 +108,9 @@ export default function Queried(): JSX.Element {
           resultsLoading={initialLoading}
           resultsType={resultsType}
           handleResultsTypeChange={handleResultsTypeChange}
-          searchParams={setSearchParameters() ? setSearchParameters() : null}
+          searchParams={
+            setSearchParameters(router) ? setSearchParameters(router) : null
+          }
         ></ResultsFilter>
 
         <ResultsSection
@@ -115,7 +121,7 @@ export default function Queried(): JSX.Element {
           yelpEventsTotal={yelpEventsTotal}
           ticketmasterTotal={ticketmasterTotal}
           initialLoad={initialLoading}
-          initialSearchParams={setSearchParameters()}
+          initialSearchParams={setSearchParameters(router)}
         ></ResultsSection>
       </main>
     </Layout>

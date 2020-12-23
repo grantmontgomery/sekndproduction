@@ -12,12 +12,6 @@ import {
 import { shallow } from "enzyme";
 
 describe("DateParts", () => {
-  // beforeEach(() => {
-  //   const component = render(<DateParts location="nav"></DateParts>, {
-  //     wrapper: PartsProvider,
-  //   });
-  //   return component
-  // })
   it("should render", () => {
     const component = render(<DateParts location="nav"></DateParts>, {
       wrapper: PartsProvider,
@@ -52,7 +46,7 @@ describe("DateParts", () => {
     expect(fireEvent.click(addButton)).toThrow();
   });
 
-  it("should create new element", () => {
+  it("should create new Date Part", () => {
     const component = render(<DateParts location="nav"></DateParts>, {
       wrapper: PartsProvider,
     });
