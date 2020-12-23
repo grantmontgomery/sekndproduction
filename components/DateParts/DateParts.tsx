@@ -14,7 +14,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
   const dispatch = usePartsDispatch();
 
   const handlePartSubmit: () => void = () => {
-    if (state.input === "") return alert("Fill out input");
+    if (state.input === "") throw "Fill out input";
     return (
       dispatch({
         type: "ADD_PART",

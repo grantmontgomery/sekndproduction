@@ -9,20 +9,28 @@ import {
   render,
   screen,
 } from "@testing-library/react";
-
-const component = render(<DateParts location="nav"></DateParts>, {
-  wrapper: PartsProvider,
-});
-const textInput = component.getByTestId("partText") as HTMLInputElement;
-const colorInput = component.getByTestId("partColor") as HTMLElement;
-const addButton = component.getByTestId("addPart") as HTMLElement;
-const partsList: HTMLElement = component.getByTestId("partsList");
+import { shallow } from "enzyme";
 
 describe("DateParts", () => {
+  // beforeEach(() => {
+  //   const component = render(<DateParts location="nav"></DateParts>, {
+  //     wrapper: PartsProvider,
+  //   });
+  //   return component
+  // })
   it("should render", () => {
+    const component = render(<DateParts location="nav"></DateParts>, {
+      wrapper: PartsProvider,
+    });
     expect(screen.queryByText("Date Parts").textContent).toBe("Date Parts");
+    expect(component).toMatchSnapshot();
   });
   it("should type in text input", () => {
+    const component = render(<DateParts location="nav"></DateParts>, {
+      wrapper: PartsProvider,
+    });
+    const textInput = component.getByTestId("partText") as HTMLInputElement;
+
     fireEvent.change(textInput, {
       target: { value: "Hike Hollywood!" },
     });
@@ -30,26 +38,34 @@ describe("DateParts", () => {
     expect(textInput.value).toBe("Hike Hollywood!");
   });
 
+  it("should throw error on missing text field", () => {
+    const component = render(<DateParts location="nav"></DateParts>, {
+      wrapper: PartsProvider,
+    });
+
+    const colorInput = component.getByTestId("partColor") as HTMLElement;
+    const addButton = component.getByTestId("addPart") as HTMLElement;
+
+    fireEvent.click(colorInput);
+    // fireEvent.click(addButton);
+
+    expect(fireEvent.click(addButton)).toThrow();
+  });
+
   it("should create new element", () => {
+    const component = render(<DateParts location="nav"></DateParts>, {
+      wrapper: PartsProvider,
+    });
+    const textInput = component.getByTestId("partText") as HTMLInputElement;
+    const colorInput = component.getByTestId("partColor") as HTMLElement;
+    const addButton = component.getByTestId("addPart") as HTMLElement;
+
     fireEvent.change(textInput, {
       target: { value: "Hike Hollywood!" },
     });
-
     fireEvent.click(colorInput);
     fireEvent.click(addButton);
 
-    // component.getByText("Hike Hollywood!");
-    // expect(partsList.childNodes).toContain(
-    //   <DatePart
-    //     part={{
-    //       name: "Hike Hollywood!",
-    //       color: "linear-gradient(45deg, #155799, #159957)",
-    //       details: "",
-    //       id: randomId,
-    //       type: "custom",
-    //     }}
-    //     location=""
-    //   ></DatePart>
-    // );
+    expect(component.getAllByText("Hike Hollywood!").length).toBe(1);
   });
 });
