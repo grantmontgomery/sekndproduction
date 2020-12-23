@@ -22,7 +22,7 @@ type Results = {
 
 type SearchParams = { [key: string]: any };
 
-const setSearchParameters: (router: {
+export const setSearchParameters: (router: {
   query: { [key: string]: any };
 }) => {
   [key: string]: any;

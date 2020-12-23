@@ -11,6 +11,13 @@ jspm_packages
 src 
 out
 
+cypress/videos
+cypress/screenshots
+cypress/support
+
+cypress.json
+cypress.env.json
+
 /out/
 
 .env
