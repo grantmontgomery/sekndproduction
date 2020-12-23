@@ -24,7 +24,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
             color: state.color,
             type: "custom",
             details: "",
-            id: `${name}${Math.random()}`,
+            id: `${state.input}${Math.random()}`,
           },
         },
       }),
@@ -57,6 +57,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
               }
             ></button>
             <button
+              data-testid="partColor"
               onClick={() =>
                 setState((state) => ({
                   ...state,
@@ -71,6 +72,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
                   color: "linear-gradient(45deg, #ee0979, #ff6a00)",
                 }))
               }
+              date-testid="partColor"
             ></button>
             <button
               onClick={() =>
@@ -93,13 +95,13 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
             className={css.add}
             style={{ color: "white", background: state.color }}
             onClick={handlePartSubmit}
-            date-testid="partColor"
+            data-testid="addPart"
           >
             Add
           </button>
         </header>
         <div className={css.partsList}>
-          <div className={css.partsInner}>
+          <div className={css.partsInner} data-testid="partsList">
             {parts.map((part, index) => (
               <DatePart
                 index={index}
