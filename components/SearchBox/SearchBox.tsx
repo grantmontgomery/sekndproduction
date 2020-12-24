@@ -46,7 +46,7 @@ export interface SearchQuery {
 
 export const SearchBox: React.FC = (props) => {
   const [searchQuery, setSearchQuery] = React.useState<SearchQuery>({
-    searchType: "ALL",
+    searchType: "",
     eventsCategory: "",
     radius: "",
     location: "",
@@ -119,14 +119,13 @@ export const SearchBox: React.FC = (props) => {
     }
   };
 
-  const checkFieldsDisplayLink: (searchType: string) => JSX.Element = (
-    searchType
-  ) => {
+  const checkFieldsDisplayLink: () => JSX.Element = () => {
     const {
       location,
       radius,
       placeType,
       startFormatted,
+      searchType,
       endFormatted,
       unixStartDate,
       unixEndDate,
@@ -298,48 +297,34 @@ export const SearchBox: React.FC = (props) => {
     }
   };
 
-  const handleInputChange: InputChange = (key, input) => {
-    return setSearchQuery((state) => ({
+  const handleInputChange: InputChange = (key, input): void => {
+    setSearchQuery((state) => ({
       ...state,
       [key]: input,
     }));
   };
 
   const handleQueryDate: (key: string, date: Date) => void = (key, date) => {
-    if (key === "startDate") {
-      const unixStartDate: number = Math.round(new Date(date).getTime() / 1000);
-      const timeOffSet: number = date.getTimezoneOffset() * 60;
-      const localStartTimeISO: string = new Date(
-        (unixStartDate - timeOffSet) * 1000
-      ).toISOString();
-      const localStartTimeISOFormatted: string = `${localStartTimeISO.substring(
-        0,
-        19
-      )}Z`;
+    const unixDate: number = Math.round(new Date(date).getTime() / 1000);
+    const timeOffSet: number = date.getTimezoneOffset() * 60;
+    const localTimeISO: string = new Date(
+      (unixDate - timeOffSet) * 1000
+    ).toISOString();
+    const localTimeISOFormatted: string = `${localTimeISO.substring(0, 19)}Z`;
 
-      return setSearchQuery((state) => ({
-        ...state,
-        [key]: date,
-        unixStartDate,
-        startFormatted: localStartTimeISOFormatted,
-      }));
-    } else {
-      const unixEndDate: number = Math.round(new Date(date).getTime() / 1000);
-      const timeOffSet: number = date.getTimezoneOffset() * 60;
-      const localEndTimeISO: string = new Date(
-        (unixEndDate - timeOffSet) * 1000
-      ).toISOString();
-      const localEndTimeISOFormatted: string = `${localEndTimeISO.substring(
-        0,
-        19
-      )}Z`;
-      return setSearchQuery((state) => ({
-        ...state,
-        [key]: date,
-        unixEndDate,
-        endFormatted: localEndTimeISOFormatted,
-      }));
-    }
+    key === "startDate"
+      ? setSearchQuery((state) => ({
+          ...state,
+          [key]: date,
+          unixStartDate: unixDate,
+          startFormatted: localTimeISOFormatted,
+        }))
+      : setSearchQuery((state) => ({
+          ...state,
+          [key]: date,
+          unixEndDate: unixDate,
+          endFormatted: localTimeISOFormatted,
+        }));
   };
 
   return (
@@ -371,7 +356,7 @@ export const SearchBox: React.FC = (props) => {
         ></PlacesInput>
       ) : null}
 
-      {checkFieldsDisplayLink(searchQuery.searchType)}
+      {checkFieldsDisplayLink()}
     </div>
   );
 };

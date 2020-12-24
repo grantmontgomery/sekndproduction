@@ -30,12 +30,12 @@ export const WhenInput: React.FC<Props> = ({
         minDate={today}
         dateFormat="Pp"
         showTimeSelect
-        customInput={<input id="startDateTime" type="text" readOnly />}
+        customInput={<input type="text" readOnly />}
         onChange={(date) => handleDateChange("startDate", date)}
       ></DatePicker>
       <DatePicker
         className={css.to}
-        customInput={<input type="text" id="endDateTime" readOnly />}
+        customInput={<input type="text" readOnly />}
         placeholderText={"End Time"}
         autoComplete="off"
         minDate={startDate ? startDate : today}
