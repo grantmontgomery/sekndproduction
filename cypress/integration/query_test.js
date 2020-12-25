@@ -45,5 +45,6 @@ describe("Full query", () => {
     cy.get(".SearchBox_searchBox__3awOS").click();
     cy.get(".WhenInput_to__2hwtq").clear().type(endDateTime);
     cy.get(".SearchBox_searchBox__3awOS").click();
+    cy.get("SearchBox_searchButton__2okpi").click();
   });
 });

@@ -304,27 +304,30 @@ export const SearchBox: React.FC = (props) => {
     }));
   };
 
+  //ERROR HERE WHEN END TIME IS blank
   const handleQueryDate: (key: string, date: Date) => void = (key, date) => {
-    const unixDate: number = Math.round(new Date(date).getTime() / 1000);
-    const timeOffSet: number = date.getTimezoneOffset() * 60;
-    const localTimeISO: string = new Date(
-      (unixDate - timeOffSet) * 1000
-    ).toISOString();
-    const localTimeISOFormatted: string = `${localTimeISO.substring(0, 19)}Z`;
+    if (date) {
+      const unixDate: number = Math.round(new Date(date).getTime() / 1000);
+      const timeOffSet: number = date.getTimezoneOffset() * 60;
+      const localTimeISO: string = new Date(
+        (unixDate - timeOffSet) * 1000
+      ).toISOString();
+      const localTimeISOFormatted: string = `${localTimeISO.substring(0, 19)}Z`;
 
-    key === "startDate"
-      ? setSearchQuery((state) => ({
-          ...state,
-          [key]: date,
-          unixStartDate: unixDate,
-          startFormatted: localTimeISOFormatted,
-        }))
-      : setSearchQuery((state) => ({
-          ...state,
-          [key]: date,
-          unixEndDate: unixDate,
-          endFormatted: localTimeISOFormatted,
-        }));
+      key === "startDate"
+        ? setSearchQuery((state) => ({
+            ...state,
+            [key]: date,
+            unixStartDate: unixDate,
+            startFormatted: localTimeISOFormatted,
+          }))
+        : setSearchQuery((state) => ({
+            ...state,
+            [key]: date,
+            unixEndDate: unixDate,
+            endFormatted: localTimeISOFormatted,
+          }));
+    }
   };
 
   return (
