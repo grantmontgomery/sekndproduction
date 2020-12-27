@@ -3,21 +3,13 @@
   height: 100%;
   width: 100%;
   position: relative;
-  display: none;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  display: block;
   flex-flow: column nowrap;
   & .typeButtonsWrapper {
-    height: 25%;
-    width: 100%;
-    position: relative;
-    & .buttonWrapper {
-      height: 100px;
-      width: 100%;
-      & svg {
-        height: 100%;
-        display: block;
-        width: auto;
-      }
-    }
+    display: none;
+    visibility: hidden;
   }
 }
 
@@ -25,6 +17,8 @@
   .filterSection {
     grid-area: filter;
     height: 100%;
+    flex-flow: column nowrap;
+
     width: 100%;
     position: relative;
     display: flex;
@@ -33,6 +27,8 @@
       height: 25%;
       width: 100%;
       position: relative;
+      display: block;
+      visibility: visible;
       & .buttonWrapper {
         margin-top: 10px;
         height: 40px;

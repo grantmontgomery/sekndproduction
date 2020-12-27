@@ -2,13 +2,7 @@ import * as React from "react";
 import { DateParts } from "./DateParts";
 import { DatePart } from "../DatePart/DatePart";
 import { PartsProvider } from "../../state/DatePartsContext";
-import {
-  createEvent,
-  fireEvent,
-  getByText,
-  render,
-  screen,
-} from "@testing-library/react";
+import { fireEvent, render, screen } from "@testing-library/react";
 
 describe("DateParts", () => {
   it("should render", () => {

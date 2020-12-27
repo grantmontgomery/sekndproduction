@@ -99,7 +99,6 @@ export const SearchBox: React.FC = (props) => {
       eventsCategory,
       searchType,
     } = searchQuery;
-    console.log(searchType);
 
     if (searchType === "ALL") {
       Cookie.set(
