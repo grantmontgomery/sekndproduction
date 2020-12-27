@@ -5,8 +5,9 @@
   position: relative;
   overflow-x: scroll;
   overflow-y: hidden;
-  display: block;
+  display: flex;
   flex-flow: column nowrap;
+  background: white;
   & .typeButtonsWrapper {
     display: none;
     visibility: hidden;

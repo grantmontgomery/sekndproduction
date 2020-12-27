@@ -1,4 +1,5 @@
 .priceWrapper {
+  display: none;
   & .placePrice {
     & .priceSelector {
     }
@@ -9,6 +10,7 @@
   .priceWrapper {
     width: 100%;
     height: 100px;
+    display: block;
 
     & .placePrice {
       height: 35px;

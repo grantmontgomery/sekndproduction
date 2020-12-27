@@ -5,12 +5,11 @@
   position: relative;
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows: 7.5vh 82.5vh;
+  grid-template-rows: 10vh 80vh;
   grid-template-areas: "filter" "results";
   margin-left: auto;
   margin-right: auto;
-  padding-left: 5%;
-  padding-right: 5%;
+
   z-index: 0;
   flex-flow: column nowrap;
   // box-shadow: 0 0.25vh 4vh #00000015;
@@ -100,6 +99,8 @@
     grid-template-areas: "filter results";
     grid-template-columns: clamp(225px, 20vw, 350px) auto;
     grid-template-rows: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
     & .sliderWrapper {
       grid-area: results;
     }
