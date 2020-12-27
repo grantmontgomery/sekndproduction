@@ -78,16 +78,17 @@ export const ResultsFilter: React.FC<{
           </div>
         ) : null}
       </div>
-      <div className={css.searchFilters}></div>
-      {resultsType === "places" ? (
-        <PlacesPriceFilter
-          handlePriceChange={handlePriceChange}
-        ></PlacesPriceFilter>
-      ) : (
-        <EventsPriceFilter
-          handlePriceChange={handlePriceChange}
-        ></EventsPriceFilter>
-      )}
+      <div className={css.searchFilters}>
+        {resultsType === "places" ? (
+          <PlacesPriceFilter
+            handlePriceChange={handlePriceChange}
+          ></PlacesPriceFilter>
+        ) : (
+          <EventsPriceFilter
+            handlePriceChange={handlePriceChange}
+          ></EventsPriceFilter>
+        )}
+      </div>
     </section>
   );
 };
