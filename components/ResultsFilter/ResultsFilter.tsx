@@ -79,6 +79,7 @@ export const ResultsFilter: React.FC<{
         ) : null}
       </div>
       <div className={css.searchFilters}>
+        <div className={css.testButton}></div>
         {resultsType === "places" ? (
           <PlacesPriceFilter
             handlePriceChange={handlePriceChange}

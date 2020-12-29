@@ -55,6 +55,15 @@
     }
   }
   .searchFilters {
+    position: relative;
+    display: block;
+    height: 50%;
+    width: 100%;
+    & .testButton {
+      height: 100%;
+      width: 20%;
+      background: red;
+    }
   }
 }
 
@@ -115,6 +124,12 @@
           display: block;
         }
       }
+    }
+    .searchFilters {
+      position: relative;
+      display: block;
+      height: 50%;
+      width: 100%;
     }
   }
 }

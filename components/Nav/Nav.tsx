@@ -24,6 +24,8 @@ export const Nav: React.FC = () => {
   return (
     <React.Fragment>
       <nav className={css.nav}>
+        <MobileHamburger></MobileHamburger>
+
         <Link href="/">
           <svg
             xmlns="http://www.w3.org/2000/svg"

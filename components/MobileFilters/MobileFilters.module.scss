@@ -1,0 +1,13 @@
+.mobileFiltersWrapper {
+  background: white;
+  height: 40vh;
+  width: 100vw;
+  position: fixed;
+  border-radius: 2vw;
+}
+
+@media (orientation: landscape) {
+  .mobileFiltersWrapper {
+    display: none;
+  }
+}

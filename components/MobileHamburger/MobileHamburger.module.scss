@@ -3,11 +3,11 @@
   top: 50%;
   transform: translate(0, -50%);
   margin-left: 5%;
-  margin-right: auto;
+  margin-right: 0;
 
-  width: min(9vw, 5.5vh);
+  width: min(5vw, 30%);
   transform-origin: center;
-  height: min(9vw, 5.5vh);
+  height: min(5vw, 30%);
   display: flex;
   flex-flow: column nowrap;
   transition: 250ms ease-out;
