@@ -140,7 +140,6 @@ export default function Queried(): JSX.Element {
           </CSSTransition>
         ) : null}
       </TransitionGroup> */}
-        <MobileFilters></MobileFilters>
       </main>
     </Layout>
   );
