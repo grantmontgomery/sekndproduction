@@ -3,7 +3,9 @@
   height: 40vh;
   width: 100vw;
   position: fixed;
-  border-radius: 2vw;
+  border-top-left-radius: 10vw;
+  border-top-right-radius: 10vw;
+  bottom: 0;
 }
 
 @media (orientation: landscape) {

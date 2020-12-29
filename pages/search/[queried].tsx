@@ -10,6 +10,8 @@ import useAPICalls from "../../swr/useAPICalls";
 import { NextRouter, useRouter } from "next/router";
 import { useGridState } from "../../state/SearchGridContext";
 import css from "../../styles/Queried.module.scss";
+import { MobileFilters } from "../../components/MobileFilters";
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 type Results = {
   items: { [key: string]: any }[];
@@ -123,6 +125,22 @@ export default function Queried(): JSX.Element {
           initialLoad={initialLoading}
           initialSearchParams={setSearchParameters(router)}
         ></ResultsSection>
+        {/* <TransitionGroup>
+        {allowDisplay.searchBox ? (
+          <CSSTransition
+            timeout={250}
+            classNames={{
+              enter: `${css["search-enter"]}`,
+              enterActive: `${css["search-enter-active"]}`,
+              exit: `${css["search-exit"]}`,
+              exitActive: `${css["search-exit-active"]}`,
+            }}
+          >
+            
+          </CSSTransition>
+        ) : null}
+      </TransitionGroup> */}
+        <MobileFilters></MobileFilters>
       </main>
     </Layout>
   );
