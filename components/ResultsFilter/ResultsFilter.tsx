@@ -3,7 +3,8 @@ import { PriceFilter } from "../PriceFilter";
 import { PlacesPriceFilter } from "../PlacesPriceFilter";
 import { EventsPriceFilter } from "../EventsPriceFilter";
 import css from "./ResultsFilter.module.scss";
-import { MobileFilters } from "../MobileFilters";
+
+import { MobileFilters, RenderWrapper } from "../MobileFilters";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 export const ResultsFilter: React.FC<{
@@ -20,6 +21,7 @@ export const ResultsFilter: React.FC<{
   handlePriceChange,
 }) => {
   const [mobileFilters, toggleMobileFilters] = React.useState<boolean>(false);
+
   return (
     <React.Fragment>
       <section className={css.filterSection}>
@@ -102,9 +104,22 @@ export const ResultsFilter: React.FC<{
           )}
         </div>
       </section>
-      <TransitionGroup></TransitionGroup>
-
-      <MobileFilters></MobileFilters>
+      {/* <TransitionGroup>
+        {mobileFilters ? (
+          <CSSTransition
+            timeout={250}
+            classNames={{
+              enter: css["filterWidget-enter"],
+              enterActive: css["filterWidget-enter-active"],
+              exit: css["filterWidget-exit"],
+              exitActive: css["filterWidget-exit-active"],
+            }}
+          >
+            <MobileFilters></MobileFilters>
+          </CSSTransition>
+        ) : null}
+      </TransitionGroup> */}
+      <RenderWrapper mobileFilters={mobileFilters}></RenderWrapper>
     </React.Fragment>
   );
 };

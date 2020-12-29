@@ -70,6 +70,25 @@
   }
 }
 
+.filterWidget-enter {
+  transition: 250ms ease-out;
+  transform: translate(0, 100%);
+  .filterWidget-enter-active {
+    transition: 250ms ease-out;
+    transform: translate(0, 0%);
+  }
+}
+
+.filterWidget-exit {
+  transition: 250ms ease-out;
+  transform: translate(0, 0%);
+
+  .filterWidget-exit-active {
+    transition: 250ms ease-out;
+    transform: translate(0, 100%);
+  }
+}
+
 @media (orientation: landscape) {
   .filterSection {
     grid-area: filter;
