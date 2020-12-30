@@ -152,6 +152,9 @@
       display: block;
       height: 50%;
       width: 100%;
+      & .testButton {
+        display: none;
+      }
     }
   }
 }

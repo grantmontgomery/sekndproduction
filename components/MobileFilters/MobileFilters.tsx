@@ -14,8 +14,11 @@ export const MobileFilters: React.FC<{
     };
   }, []);
 
-  console.log(`mobile filters ${mobileFilters}`);
-  console.log(`appear ${appear}`);
-
-  return <div className={css.mobileFiltersWrapper}></div>;
+  return (
+    <div
+      className={`${css.mobileFiltersWrapper} ${
+        !mobileFilters ? css.slideDown : null
+      } ${appear ? css.slideUp : null}`}
+    ></div>
+  );
 };

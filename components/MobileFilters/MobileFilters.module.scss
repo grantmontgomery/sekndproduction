@@ -7,6 +7,17 @@
   border-top-right-radius: 10vw;
   bottom: 0;
   z-index: 4;
+  transform: translate(0, 100%);
+}
+
+.slideUp {
+  transition: 250ms ease-out;
+  transform: translate(0, 0);
+}
+
+.slideDown {
+  transition: 250ms ease-out;
+  transform: translate(0, 100%);
 }
 
 @media (orientation: landscape) {
