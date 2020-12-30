@@ -26,11 +26,8 @@ export const ResultsFilter: React.FC<{
   }>({ price: false });
 
   const closeMobileFilters: () => void = () => {
-    console.log("function triggered");
     toggleMobileFilters({ price: false });
   };
-
-  console.log(mobileFilters);
 
   return (
     <React.Fragment>

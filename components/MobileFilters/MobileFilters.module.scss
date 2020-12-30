@@ -8,6 +8,8 @@
   bottom: 0;
   z-index: 4;
   transform: translate(0, 100%);
+  transition: 250ms ease-out;
+
   & .exit {
     height: 10vh;
     width: 10vh;
@@ -21,17 +23,8 @@
   position: fixed;
   z-index: 3;
   bottom: 0;
-  background: rgba(200, 200, 200, 0.5);
-}
-
-.slideUp {
+  background: rgb(200, 200, 200);
   transition: 250ms ease-out;
-  transform: translate(0, 0);
-}
-
-.slideDown {
-  transition: 250ms ease-out;
-  transform: translate(0, 100%);
 }
 
 @media (orientation: landscape) {

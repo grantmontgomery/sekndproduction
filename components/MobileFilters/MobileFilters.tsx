@@ -17,16 +17,28 @@ export const MobileFilters: React.FC<{
 
   return (
     <React.Fragment>
-      {Object.values(mobileFilters).some((filter) => filter === true) ? (
-        <div className={css.modalDark} onClick={closeModalFilters}></div>
-      ) : null}
+      <div
+        className={`${css.modalDark}`}
+        style={{
+          opacity:
+            appear &&
+            Object.values(mobileFilters).some((value) => value === true)
+              ? "0.5"
+              : "0",
+        }}
+        onClick={closeModalFilters}
+      ></div>
 
       <div
-        className={`${css.mobileFiltersWrapper} ${
-          Object.values(mobileFilters).some((value) => value === false)
-            ? css.slideDown
-            : null
-        } ${appear ? css.slideUp : null}`}
+        className={css.mobileFiltersWrapper}
+        style={{
+          transform: `translate(0, ${
+            appear &&
+            Object.values(mobileFilters).some((value) => value === true)
+              ? "0"
+              : "100%"
+          })`,
+        }}
       >
         <div className={css.exit} onClick={closeModalFilters}>
           X
