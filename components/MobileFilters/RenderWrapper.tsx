@@ -1,13 +1,14 @@
 import * as React from "react";
 import { MobileFilters } from "./MobileFilters";
 
-export const RenderWrapper: React.FC<{ mobileFilters: boolean }> = ({
-  mobileFilters,
-}) => {
+export const RenderWrapper: React.FC<{
+  mobileFilters: { price: boolean };
+  closeModalFilters: () => void;
+}> = ({ mobileFilters, closeModalFilters }) => {
   const [render, setRender] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    if (mobileFilters) {
+    if (Object.values(mobileFilters).some((value) => value === true)) {
       setRender(true);
     } else {
       setTimeout(() => {
@@ -23,7 +24,10 @@ export const RenderWrapper: React.FC<{ mobileFilters: boolean }> = ({
   return (
     <React.Fragment>
       {render ? (
-        <MobileFilters mobileFilters={mobileFilters}></MobileFilters>
+        <MobileFilters
+          mobileFilters={mobileFilters}
+          closeModalFilters={closeModalFilters}
+        ></MobileFilters>
       ) : null}
     </React.Fragment>
   );

@@ -20,7 +20,17 @@ export const ResultsFilter: React.FC<{
   searchParams,
   handlePriceChange,
 }) => {
-  const [mobileFilters, toggleMobileFilters] = React.useState<boolean>(false);
+  // const [mobileFilters, toggleMobileFilters] = React.useState<boolean>(false);
+  const [mobileFilters, toggleMobileFilters] = React.useState<{
+    price: boolean;
+  }>({ price: false });
+
+  const closeMobileFilters: () => void = () => {
+    console.log("function triggered");
+    toggleMobileFilters({ price: false });
+  };
+
+  console.log(mobileFilters);
 
   return (
     <React.Fragment>
@@ -88,9 +98,9 @@ export const ResultsFilter: React.FC<{
           <div
             className={css.testButton}
             onClick={() =>
-              mobileFilters
-                ? toggleMobileFilters(false)
-                : toggleMobileFilters(true)
+              mobileFilters.price
+                ? toggleMobileFilters({ price: false })
+                : toggleMobileFilters({ price: true })
             }
           ></div>
           {resultsType === "places" ? (
@@ -119,7 +129,10 @@ export const ResultsFilter: React.FC<{
           </CSSTransition>
         ) : null}
       </TransitionGroup> */}
-      <RenderWrapper mobileFilters={mobileFilters}></RenderWrapper>
+      <RenderWrapper
+        mobileFilters={mobileFilters}
+        closeModalFilters={closeMobileFilters}
+      ></RenderWrapper>
     </React.Fragment>
   );
 };
