@@ -4,7 +4,7 @@ import { MobileFilters } from "./MobileFilters";
 export const RenderWrapper: React.FC<{
   mobileFilters: { price: boolean };
   closeModalFilters: () => void;
-}> = ({ mobileFilters, closeModalFilters }) => {
+}> = ({ mobileFilters, closeModalFilters, children }) => {
   const [render, setRender] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -27,7 +27,9 @@ export const RenderWrapper: React.FC<{
         <MobileFilters
           mobileFilters={mobileFilters}
           closeModalFilters={closeModalFilters}
-        ></MobileFilters>
+        >
+          {children}
+        </MobileFilters>
       ) : null}
     </React.Fragment>
   );

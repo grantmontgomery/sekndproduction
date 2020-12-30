@@ -1,1 +1,0 @@
-export { PriceFilter } from "./PriceFilter";

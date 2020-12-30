@@ -1,11 +1,18 @@
 import * as React from "react";
-import { PriceFilter } from "../PriceFilter";
 import { PlacesPriceFilter } from "../PlacesPriceFilter";
 import { EventsPriceFilter } from "../EventsPriceFilter";
 import css from "./ResultsFilter.module.scss";
 
 import { MobileFilters, RenderWrapper } from "../MobileFilters";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
+
+const attachFilter = (
+  stateObject: { price: boolean },
+  filterFunction?: () => void
+) => {
+  return (
+    <PlacesPriceFilter handlePriceChange={filterFunction}></PlacesPriceFilter>
+  );
+};
 
 export const ResultsFilter: React.FC<{
   handlePriceChange: (input: string) => void;
@@ -111,25 +118,12 @@ export const ResultsFilter: React.FC<{
           )}
         </div>
       </section>
-      {/* <TransitionGroup>
-        {mobileFilters ? (
-          <CSSTransition
-            timeout={250}
-            classNames={{
-              enter: css["filterWidget-enter"],
-              enterActive: css["filterWidget-enter-active"],
-              exit: css["filterWidget-exit"],
-              exitActive: css["filterWidget-exit-active"],
-            }}
-          >
-            <MobileFilters></MobileFilters>
-          </CSSTransition>
-        ) : null}
-      </TransitionGroup> */}
       <RenderWrapper
         mobileFilters={mobileFilters}
         closeModalFilters={closeMobileFilters}
-      ></RenderWrapper>
+      >
+        {}
+      </RenderWrapper>
     </React.Fragment>
   );
 };
