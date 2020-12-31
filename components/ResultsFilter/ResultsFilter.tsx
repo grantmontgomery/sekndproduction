@@ -16,6 +16,7 @@ const attachFilter = (
     case "price":
       return (
         <PlacesPriceFilter
+          location="mobileWidget"
           closeMobileFilters={closeMobileFilters}
           handlePriceChange={handlePriceChange}
         ></PlacesPriceFilter>
@@ -123,13 +124,10 @@ export const ResultsFilter: React.FC<{
             toggleFunction={handleMobileFilterToggle}
           ></MobileFilter>
 
-          <div
-            className={css.testButton}
-            onClick={() => toggleMobileFilters("test")}
-          ></div>
           {resultsType === "places" ? (
             <PlacesPriceFilter
               handlePriceChange={handlePriceChange}
+              location="desktopSection"
             ></PlacesPriceFilter>
           ) : (
             <EventsPriceFilter

@@ -4,7 +4,8 @@ import css from "./PlacesPriceFilter.module.scss";
 export const PlacesPriceFilter: React.FC<{
   handlePriceChange: (input: string) => void;
   closeMobileFilters?: () => void;
-}> = ({ handlePriceChange, closeMobileFilters }) => {
+  location: "mobileWidget" | "desktopSection";
+}> = ({ handlePriceChange, closeMobileFilters, location }) => {
   const [price, setPrice] = React.useState<number | null>(null);
 
   const handleSelect: (input: string) => void = (input) => {
@@ -24,7 +25,7 @@ export const PlacesPriceFilter: React.FC<{
   // }, []);
 
   return (
-    <div className={css.placePriceWrapper}>
+    <div className={`${css.placePriceWrapper} ${css[location]}`}>
       <div className={css.placePrice}>
         <div
           className={`${css.priceSelector} ${
