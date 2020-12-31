@@ -7,12 +7,10 @@ import { MobileFilters, RenderWrapper } from "../MobileFilters";
 import { stat } from "fs";
 
 const attachFilter = (
-  stateObject: { price: boolean },
+  filtersState: string,
   handlePriceChange: (input: string) => void
 ) => {
-  switch (
-    Object.keys(stateObject).filter((key) => stateObject[key] === true)[0]
-  ) {
+  switch (filtersState) {
     case "price":
       return (
         <PlacesPriceFilter
@@ -37,14 +35,12 @@ export const ResultsFilter: React.FC<{
   searchParams,
   handlePriceChange,
 }) => {
-  // const [mobileFilters, toggleMobileFilters] = React.useState<boolean>(false);
-  const [mobileFilters, toggleMobileFilters] = React.useState<{
-    price: boolean;
-    testKey: boolean;
-  }>({ price: false, testKey: false });
+  const [mobileFilters, toggleMobileFilters] = React.useState<
+    "price" | "test" | ""
+  >("");
 
   const closeMobileFilters: () => void = () => {
-    toggleMobileFilters({ price: false, testKey: false });
+    toggleMobileFilters("");
   };
 
   return (
@@ -112,20 +108,12 @@ export const ResultsFilter: React.FC<{
         <div className={css.searchFilters}>
           <div
             className={css.testButton}
-            onClick={() =>
-              mobileFilters.price
-                ? toggleMobileFilters((keys) => ({ ...keys, price: false }))
-                : toggleMobileFilters((keys) => ({ ...keys, price: true }))
-            }
+            onClick={() => toggleMobileFilters("price")}
           ></div>
 
           <div
             className={css.testButton}
-            onClick={() =>
-              mobileFilters.testKey
-                ? toggleMobileFilters((keys) => ({ ...keys, testKey: false }))
-                : toggleMobileFilters((keys) => ({ ...keys, testKey: true }))
-            }
+            onClick={() => toggleMobileFilters("test")}
           ></div>
           {resultsType === "places" ? (
             <PlacesPriceFilter

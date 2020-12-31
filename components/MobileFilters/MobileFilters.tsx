@@ -2,7 +2,7 @@ import * as React from "react";
 import css from "./MobileFilters.module.scss";
 
 export const MobileFilters: React.FC<{
-  mobileFilters: { price: boolean };
+  mobileFilters: string;
   closeModalFilters: () => void;
 }> = ({ mobileFilters, closeModalFilters, children }) => {
   const [appear, setAppear] = React.useState<boolean>(false);
@@ -19,11 +19,7 @@ export const MobileFilters: React.FC<{
       <div
         className={`${css.modalDark}`}
         style={{
-          opacity:
-            appear &&
-            Object.values(mobileFilters).some((value) => value === true)
-              ? "0.5"
-              : "0",
+          opacity: appear && mobileFilters != "" ? "0.5" : "0",
         }}
         onClick={closeModalFilters}
       ></div>
@@ -32,10 +28,7 @@ export const MobileFilters: React.FC<{
         className={css.mobileFiltersWrapper}
         style={{
           transform: `translate(0, ${
-            appear &&
-            Object.values(mobileFilters).some((value) => value === true)
-              ? "0"
-              : "100%"
+            appear && mobileFilters != "" ? "0" : "100%"
           })`,
         }}
       >

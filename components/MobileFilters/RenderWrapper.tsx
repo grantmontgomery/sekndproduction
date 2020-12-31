@@ -2,13 +2,13 @@ import * as React from "react";
 import { MobileFilters } from "./MobileFilters";
 
 export const RenderWrapper: React.FC<{
-  mobileFilters: { price: boolean };
+  mobileFilters: string;
   closeModalFilters: () => void;
 }> = ({ mobileFilters, closeModalFilters, children }) => {
   const [render, setRender] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    if (Object.values(mobileFilters).some((value) => value === true)) {
+    if (mobileFilters != "") {
       setRender(true);
     } else {
       setTimeout(() => {
