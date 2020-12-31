@@ -3,8 +3,9 @@ import { PlacesPriceFilter } from "../PlacesPriceFilter";
 import { EventsPriceFilter } from "../EventsPriceFilter";
 import css from "./ResultsFilter.module.scss";
 
-import { MobileFilters, RenderWrapper } from "../MobileFilters";
-import { stat } from "fs";
+import { RenderWrapper } from "../MobileFiltersWidget";
+
+import { MobileFilter } from "../MobileFilter";
 
 const attachFilter = (
   filtersState: string,
@@ -28,12 +29,17 @@ export const ResultsFilter: React.FC<{
   searchParams: { [key: string]: any } | null;
   resultsLoading: boolean;
   handleResultsTypeChange: (input: string) => void;
+  filters: {
+    placePrice: string | null;
+    eventPrice: string | null;
+  };
 }> = ({
   resultsType,
   resultsLoading,
   handleResultsTypeChange,
   searchParams,
   handlePriceChange,
+  filters,
 }) => {
   const [mobileFilters, toggleMobileFilters] = React.useState<
     "price" | "test" | ""
@@ -42,6 +48,10 @@ export const ResultsFilter: React.FC<{
   const closeMobileFilters: () => void = () => {
     toggleMobileFilters("");
   };
+
+  function handleMobileFilterToggle(input: "price" | "test"): void {
+    toggleMobileFilters(input);
+  }
 
   return (
     <React.Fragment>
@@ -106,10 +116,10 @@ export const ResultsFilter: React.FC<{
           ) : null}
         </div>
         <div className={css.searchFilters}>
-          <div
-            className={css.testButton}
-            onClick={() => toggleMobileFilters("price")}
-          ></div>
+          <MobileFilter
+            filterType="price"
+            toggleFunction={handleMobileFilterToggle}
+          ></MobileFilter>
 
           <div
             className={css.testButton}

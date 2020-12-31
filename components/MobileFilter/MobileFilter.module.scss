@@ -1,0 +1,14 @@
+.filterWrapper {
+  height: 80%;
+  width: 20%;
+  position: relative;
+  top: 50%;
+  transform: translate(0, -50%);
+  background: red;
+}
+
+@media (orientation: landscape) {
+  .filterWrapper {
+    display: none;
+  }
+}

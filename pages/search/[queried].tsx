@@ -10,17 +10,8 @@ import useAPICalls from "../../swr/useAPICalls";
 import { NextRouter, useRouter } from "next/router";
 import { useGridState } from "../../state/SearchGridContext";
 import css from "../../styles/Queried.module.scss";
-import { MobileFilters } from "../../components/MobileFilters";
+import { MobileFilters } from "../../components/MobileFiltersWidget";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-
-type Results = {
-  items: { [key: string]: any }[];
-  errors: {
-    yelpPlacesError?: string | undefined;
-    yelpEventsError?: string | undefined;
-    ticketmasterError?: string | undefined;
-  };
-};
 
 type SearchParams = { [key: string]: any };
 
@@ -60,7 +51,9 @@ export default function Queried(): JSX.Element {
     eventPrice: null,
   });
 
-  const [resultsType, setType] = React.useState<string>("places");
+  console.log(filters.placePrice);
+
+  const [resultsType, setType] = React.useState<"events" | "places">("places");
 
   const router: NextRouter = useRouter();
 
@@ -102,6 +95,14 @@ export default function Queried(): JSX.Element {
     }
   }, [setSearchParameters(router)]);
 
+  React.useEffect(() => {
+    if (resultsType === "events") {
+      setFilters((filters) => ({ ...filters, placePrice: null }));
+    } else {
+      setFilters((filters) => ({ ...filters, eventPrice: null }));
+    }
+  }, [resultsType]);
+
   return (
     <Layout>
       <main className={css.queriedPage}>
@@ -113,6 +114,7 @@ export default function Queried(): JSX.Element {
           searchParams={
             setSearchParameters(router) ? setSearchParameters(router) : null
           }
+          filters={filters}
         ></ResultsFilter>
 
         <ResultsSection
@@ -125,21 +127,6 @@ export default function Queried(): JSX.Element {
           initialLoad={initialLoading}
           initialSearchParams={setSearchParameters(router)}
         ></ResultsSection>
-        {/* <TransitionGroup>
-        {allowDisplay.searchBox ? (
-          <CSSTransition
-            timeout={250}
-            classNames={{
-              enter: `${css["search-enter"]}`,
-              enterActive: `${css["search-enter-active"]}`,
-              exit: `${css["search-exit"]}`,
-              exitActive: `${css["search-exit-active"]}`,
-            }}
-          >
-            
-          </CSSTransition>
-        ) : null}
-      </TransitionGroup> */}
       </main>
     </Layout>
   );

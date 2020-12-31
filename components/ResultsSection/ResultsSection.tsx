@@ -184,8 +184,6 @@ export const ResultsSection: React.FC<{
         }
       });
 
-      // const limitTicketMasterResults =
-
       setEventsRefresh(false);
     }
   }, [filters.eventPrice]);

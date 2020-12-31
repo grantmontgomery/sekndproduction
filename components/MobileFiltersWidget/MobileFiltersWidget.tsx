@@ -1,7 +1,7 @@
 import * as React from "react";
-import css from "./MobileFilters.module.scss";
+import css from "./MobileFiltersWidget.module.scss";
 
-export const MobileFilters: React.FC<{
+export const MobileFiltersWidget: React.FC<{
   mobileFilters: string;
   closeModalFilters: () => void;
 }> = ({ mobileFilters, closeModalFilters, children }) => {

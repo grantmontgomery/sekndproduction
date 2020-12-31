@@ -1,5 +1,5 @@
 import * as React from "react";
-import { MobileFilters } from "./MobileFilters";
+import { MobileFiltersWidget } from "./MobileFiltersWidget";
 
 export const RenderWrapper: React.FC<{
   mobileFilters: string;
@@ -24,12 +24,12 @@ export const RenderWrapper: React.FC<{
   return (
     <React.Fragment>
       {render ? (
-        <MobileFilters
+        <MobileFiltersWidget
           mobileFilters={mobileFilters}
           closeModalFilters={closeModalFilters}
         >
           {children}
-        </MobileFilters>
+        </MobileFiltersWidget>
       ) : null}
     </React.Fragment>
   );

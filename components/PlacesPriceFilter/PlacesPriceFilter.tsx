@@ -16,9 +16,9 @@ export const PlacesPriceFilter: React.FC<{
     }
   };
 
-  React.useEffect(() => {
-    handlePriceChange(null);
-  }, []);
+  // React.useEffect(() => {
+  //   handlePriceChange(null);
+  // }, []);
 
   return (
     <div className={css.placePriceWrapper}>
