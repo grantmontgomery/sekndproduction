@@ -9,12 +9,14 @@ import { MobileFilter } from "../MobileFilter";
 
 const attachFilter = (
   filtersState: string,
-  handlePriceChange: (input: string) => void
+  handlePriceChange: (input: string) => void,
+  closeMobileFilters: () => void
 ) => {
   switch (filtersState) {
     case "price":
       return (
         <PlacesPriceFilter
+          closeMobileFilters={closeMobileFilters}
           handlePriceChange={handlePriceChange}
         ></PlacesPriceFilter>
       );
@@ -140,7 +142,7 @@ export const ResultsFilter: React.FC<{
         mobileFilters={mobileFilters}
         closeModalFilters={closeMobileFilters}
       >
-        {attachFilter(mobileFilters, handlePriceChange)}
+        {attachFilter(mobileFilters, handlePriceChange, closeMobileFilters)}
       </RenderWrapper>
     </React.Fragment>
   );

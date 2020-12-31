@@ -69,6 +69,7 @@ export const ResultsList: React.FC<{
             <ResultCard key={item.id} item={item}></ResultCard>
           ))
         : null}
+
       <div id={`${type}ReloadSection`} className={css.reloadSection}>
         {offsetLoad ? (
           <LoadingRing location={"resultsPage"}></LoadingRing>

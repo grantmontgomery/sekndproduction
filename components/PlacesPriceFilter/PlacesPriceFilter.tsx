@@ -3,16 +3,19 @@ import css from "./PlacesPriceFilter.module.scss";
 
 export const PlacesPriceFilter: React.FC<{
   handlePriceChange: (input: string) => void;
-}> = ({ handlePriceChange }) => {
+  closeMobileFilters?: () => void;
+}> = ({ handlePriceChange, closeMobileFilters }) => {
   const [price, setPrice] = React.useState<number | null>(null);
 
   const handleSelect: (input: string) => void = (input) => {
     if (price !== parseInt(input)) {
       handlePriceChange(input);
       setPrice(parseInt(input));
+      if (closeMobileFilters) closeMobileFilters();
     } else {
       handlePriceChange(null);
       setPrice(null);
+      if (closeMobileFilters) closeMobileFilters();
     }
   };
 
