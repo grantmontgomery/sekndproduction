@@ -4,14 +4,24 @@ import { EventsPriceFilter } from "../EventsPriceFilter";
 import css from "./ResultsFilter.module.scss";
 
 import { MobileFilters, RenderWrapper } from "../MobileFilters";
+import { stat } from "fs";
 
 const attachFilter = (
   stateObject: { price: boolean },
-  filterFunction?: () => void
+  handlePriceChange: (input: string) => void
 ) => {
-  return (
-    <PlacesPriceFilter handlePriceChange={filterFunction}></PlacesPriceFilter>
-  );
+  switch (
+    Object.keys(stateObject).filter((key) => stateObject[key] === true)[0]
+  ) {
+    case "price":
+      return (
+        <PlacesPriceFilter
+          handlePriceChange={handlePriceChange}
+        ></PlacesPriceFilter>
+      );
+    default:
+      return;
+  }
 };
 
 export const ResultsFilter: React.FC<{
@@ -30,10 +40,11 @@ export const ResultsFilter: React.FC<{
   // const [mobileFilters, toggleMobileFilters] = React.useState<boolean>(false);
   const [mobileFilters, toggleMobileFilters] = React.useState<{
     price: boolean;
-  }>({ price: false });
+    testKey: boolean;
+  }>({ price: false, testKey: false });
 
   const closeMobileFilters: () => void = () => {
-    toggleMobileFilters({ price: false });
+    toggleMobileFilters({ price: false, testKey: false });
   };
 
   return (
@@ -103,8 +114,17 @@ export const ResultsFilter: React.FC<{
             className={css.testButton}
             onClick={() =>
               mobileFilters.price
-                ? toggleMobileFilters({ price: false })
-                : toggleMobileFilters({ price: true })
+                ? toggleMobileFilters((keys) => ({ ...keys, price: false }))
+                : toggleMobileFilters((keys) => ({ ...keys, price: true }))
+            }
+          ></div>
+
+          <div
+            className={css.testButton}
+            onClick={() =>
+              mobileFilters.testKey
+                ? toggleMobileFilters((keys) => ({ ...keys, testKey: false }))
+                : toggleMobileFilters((keys) => ({ ...keys, testKey: true }))
             }
           ></div>
           {resultsType === "places" ? (
@@ -122,7 +142,7 @@ export const ResultsFilter: React.FC<{
         mobileFilters={mobileFilters}
         closeModalFilters={closeMobileFilters}
       >
-        {}
+        {attachFilter(mobileFilters, handlePriceChange)}
       </RenderWrapper>
     </React.Fragment>
   );

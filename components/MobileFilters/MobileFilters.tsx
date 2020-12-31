@@ -4,7 +4,7 @@ import css from "./MobileFilters.module.scss";
 export const MobileFilters: React.FC<{
   mobileFilters: { price: boolean };
   closeModalFilters: () => void;
-}> = ({ mobileFilters, closeModalFilters }) => {
+}> = ({ mobileFilters, closeModalFilters, children }) => {
   const [appear, setAppear] = React.useState<boolean>(false);
 
   React.useEffect(() => {
@@ -42,6 +42,7 @@ export const MobileFilters: React.FC<{
         <div className={css.exit} onClick={closeModalFilters}>
           X
         </div>
+        {children}
       </div>
     </React.Fragment>
   );
