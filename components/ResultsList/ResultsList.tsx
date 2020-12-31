@@ -50,7 +50,7 @@ export const ResultsList: React.FC<{
     );
 
     reloadRef.current = document.getElementById(`${type}ReloadSection`);
-    observer.current.observe(reloadRef.current);
+    if (items && items.length > 5) observer.current.observe(reloadRef.current);
 
     return () => {
       changeOffsetNumber(0);

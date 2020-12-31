@@ -51,8 +51,6 @@ export default function Queried(): JSX.Element {
     eventPrice: null,
   });
 
-  console.log(filters.placePrice);
-
   const [resultsType, setType] = React.useState<"events" | "places">("places");
 
   const router: NextRouter = useRouter();
