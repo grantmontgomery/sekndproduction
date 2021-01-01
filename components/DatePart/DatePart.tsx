@@ -109,12 +109,12 @@ export const DatePart: React.FC<{
         filter: determineFilter(),
         opacity: rendered ? "1" : "0",
         transform: rendered ? "translate(0)" : "translate(15%)",
-        transitionDelay: index ? `${index * 125}ms` : null,
+        transitionDelay: index && `${index * 125}ms`,
       }}
     >
       <PartImage
         type={part.type}
-        color={part.type === "custom" ? part.color : null}
+        color={part.type === "custom" && part.color}
         imageLoaded={state.imageLoaded}
       >
         <img
@@ -125,7 +125,7 @@ export const DatePart: React.FC<{
       </PartImage>
       <div className={css.partTitle}>
         <span>{part.name}</span>
-        {location === "schedule" ? null : (
+        {location !== "schedule" && (
           <button
             className={css.delete}
             onClick={() =>

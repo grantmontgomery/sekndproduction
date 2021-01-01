@@ -17,7 +17,7 @@ export const AccountDisplay: React.FC = () => {
   return (
     <div
       className={css.accountDisplay}
-      onClick={() => (allowToggle.signIn ? handleSignInModal() : null)}
+      onClick={() => allowToggle.signIn && handleSignInModal()}
     >
       {/* <svg version="1.1" x="0px" y="0px">
         <path

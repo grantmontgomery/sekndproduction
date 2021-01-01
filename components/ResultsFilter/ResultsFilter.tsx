@@ -79,11 +79,11 @@ export const ResultsFilter: React.FC<{
             </svg>
             <span>Places</span>
           </div>
-          {(searchParams && searchParams.searchType !== "PLACES") ||
-          resultsLoading ? (
+          {((searchParams && searchParams.searchType !== "PLACES") ||
+            resultsLoading) && (
             <div
               className={`${css.buttonWrapper} ${
-                resultsType === "events" ? css.selected : null
+                resultsType === "events" && css.selected
               }`}
               onClick={() => handleResultsTypeChange("events")}
             >
@@ -116,28 +116,33 @@ export const ResultsFilter: React.FC<{
               </svg>
               <span>Events</span>
             </div>
-          ) : null}
+          )}
         </div>
         <div className={css.searchFilters}>
           <div className={css.innerMobileFilterScroll}>
             <MobileFilter
               filterType="Price"
+              priceState={filters.placePrice}
               toggleFunction={handleMobileFilterToggle}
             ></MobileFilter>
             <MobileFilter
               filterType=""
+              priceState={filters.placePrice}
               toggleFunction={handleMobileFilterToggle}
             ></MobileFilter>
             <MobileFilter
               filterType=""
+              priceState={filters.placePrice}
               toggleFunction={handleMobileFilterToggle}
             ></MobileFilter>
             <MobileFilter
               filterType=""
+              priceState={filters.placePrice}
               toggleFunction={handleMobileFilterToggle}
             ></MobileFilter>
             <MobileFilter
               filterType=""
+              priceState={filters.placePrice}
               toggleFunction={handleMobileFilterToggle}
             ></MobileFilter>
           </div>

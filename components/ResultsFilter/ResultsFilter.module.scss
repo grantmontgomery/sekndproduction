@@ -28,7 +28,6 @@
 
       &.selected {
         transition: 250ms ease-out;
-        border: solid 1px #0072ff;
 
         svg {
           fill: #0072ff;
@@ -123,6 +122,7 @@
         &.selected {
           transition: 250ms ease-out;
           background: linear-gradient(to left, #00c6ff, #0072ff);
+          border: none;
           svg {
             fill: white;
           }

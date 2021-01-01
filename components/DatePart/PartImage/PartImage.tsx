@@ -16,7 +16,7 @@ export const PartImage: React.FC<{
             : "linear-gradient(45deg, #ee0979, #ff6a00)",
       }}
     >
-      {type !== "custom" || !imageLoaded ? children : null}
+      {(type !== "custom" || !imageLoaded) && children}
     </div>
   );
 };
