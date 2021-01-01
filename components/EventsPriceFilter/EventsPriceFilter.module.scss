@@ -1,4 +1,10 @@
 .eventsPriceWrapper {
+  &.desktopSection {
+    display: none;
+  }
+  &.mobileWidget {
+    display: block;
+  }
 }
 
 @media (orientation: landscape) {
@@ -7,6 +13,12 @@
     width: 100%;
     display: flex;
     flex-flow: column nowrap;
+    &.desktopSection {
+      display: flex;
+    }
+    &.mobileWidget {
+      display: none;
+    }
 
     & select {
       width: 75%;

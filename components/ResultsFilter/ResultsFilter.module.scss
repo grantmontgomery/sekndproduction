@@ -58,14 +58,14 @@
     position: relative;
     display: block;
     height: 50%;
+    overflow-x: scroll;
     width: 100%;
-    & .testButton {
-      height: 80%;
-      width: 20%;
+    & .innerMobileFilterScroll {
+      display: flex;
       position: relative;
-      top: 50%;
-      transform: translate(0, -50%);
-      background: red;
+      height: 100%;
+      width: fit-content;
+      flex-flow: row nowrap;
     }
   }
 }
@@ -150,9 +150,11 @@
     .searchFilters {
       position: relative;
       display: block;
+      overflow-x: hidden;
+
       height: 50%;
       width: 100%;
-      & .testButton {
+      & .innerMobileFilterScroll {
         display: none;
       }
     }

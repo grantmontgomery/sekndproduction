@@ -13,7 +13,7 @@ const attachFilter = (
   closeMobileFilters: () => void
 ) => {
   switch (filtersState) {
-    case "price":
+    case "Price":
       return (
         <PlacesPriceFilter
           location="mobileWidget"
@@ -45,14 +45,14 @@ export const ResultsFilter: React.FC<{
   filters,
 }) => {
   const [mobileFilters, toggleMobileFilters] = React.useState<
-    "price" | "test" | ""
+    "Price" | "test" | ""
   >("");
 
   const closeMobileFilters: () => void = () => {
     toggleMobileFilters("");
   };
 
-  function handleMobileFilterToggle(input: "price" | "test"): void {
+  function handleMobileFilterToggle(input: "Price" | "test"): void {
     toggleMobileFilters(input);
   }
 
@@ -119,10 +119,28 @@ export const ResultsFilter: React.FC<{
           ) : null}
         </div>
         <div className={css.searchFilters}>
-          <MobileFilter
-            filterType="price"
-            toggleFunction={handleMobileFilterToggle}
-          ></MobileFilter>
+          <div className={css.innerMobileFilterScroll}>
+            <MobileFilter
+              filterType="Price"
+              toggleFunction={handleMobileFilterToggle}
+            ></MobileFilter>
+            <MobileFilter
+              filterType=""
+              toggleFunction={handleMobileFilterToggle}
+            ></MobileFilter>
+            <MobileFilter
+              filterType=""
+              toggleFunction={handleMobileFilterToggle}
+            ></MobileFilter>
+            <MobileFilter
+              filterType=""
+              toggleFunction={handleMobileFilterToggle}
+            ></MobileFilter>
+            <MobileFilter
+              filterType=""
+              toggleFunction={handleMobileFilterToggle}
+            ></MobileFilter>
+          </div>
 
           {resultsType === "places" ? (
             <PlacesPriceFilter
@@ -132,6 +150,7 @@ export const ResultsFilter: React.FC<{
           ) : (
             <EventsPriceFilter
               handlePriceChange={handlePriceChange}
+              location="desktopSection"
             ></EventsPriceFilter>
           )}
         </div>

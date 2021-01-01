@@ -3,7 +3,8 @@ import css from "./EventsPriceFilter.module.scss";
 
 export const EventsPriceFilter: React.FC<{
   handlePriceChange: (input: string | null) => void;
-}> = ({ handlePriceChange }) => {
+  location: "mobileWidget" | "desktopSection";
+}> = ({ handlePriceChange, location }) => {
   const [price, setPrice] = React.useState<string | null>(undefined);
 
   const handleSelect: (input: string) => void = (input) => {
@@ -16,7 +17,7 @@ export const EventsPriceFilter: React.FC<{
   }, []);
 
   return (
-    <div className={css.eventsPriceWrapper}>
+    <div className={`${css.eventsPriceWrapper} ${css[location]}`}>
       {/* <label htmlFor="">Price Range</label> */}
       <select
         name=""

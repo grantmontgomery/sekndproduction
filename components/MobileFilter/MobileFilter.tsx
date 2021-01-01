@@ -4,11 +4,15 @@ import css from "./MobileFilter.module.scss";
 export const MobileFilter: React.FC<{
   filterType: string;
   toggleFunction: (input: string) => void;
-}> = ({ toggleFunction, filterType }) => {
+  priceState: string | null;
+}> = ({ toggleFunction, filterType, priceState }) => {
   return (
     <div
       className={css.filterWrapper}
+      style={{ background: priceState ? "#0072ff" : "white" }}
       onClick={() => toggleFunction(filterType)}
-    ></div>
+    >
+      {priceState ? priceState : filterType}
+    </div>
   );
 };
