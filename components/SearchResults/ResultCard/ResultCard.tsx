@@ -97,7 +97,9 @@ export const ResultCard: React.FC<{
                 gridTemplateAreas: `"title" "reviews" "pricePlace" "moreDetails"`,
                 gridTemplateRows: "auto auto auto auto",
               }}
-              className={`${css.infoBar} ${state.moreInfo && css.extended}`}
+              className={`${css.infoBar} ${
+                state.moreInfo ? css.extended : undefined
+              }`}
               onClick={() =>
                 setState((state) => ({ ...state, moreInfo: true }))
               }
@@ -165,7 +167,9 @@ export const ResultCard: React.FC<{
         return (
           <React.Fragment>
             <div
-              className={`${css.infoBar} ${state.moreInfo && css.extended}`}
+              className={`${css.infoBar} ${
+                state.moreInfo ? css.extended : undefined
+              }`}
               onClick={() =>
                 setState((state) => ({ ...state, moreInfo: true }))
               }
@@ -252,9 +256,9 @@ export const ResultCard: React.FC<{
     </div>
   ) : (
     <div
-      className={`${css.resultCard} ${state.moreInfo && css.extended} ${
-        state.imageLoaded ? css.loaded : css.loading
-      }
+      className={`${css.resultCard} ${
+        state.moreInfo ? css.extended : undefined
+      } ${state.imageLoaded ? css.loaded : css.loading}
       `}
     >
       {determineImageBackgroundSource() && (
@@ -278,7 +282,7 @@ export const ResultCard: React.FC<{
       )}
 
       <span
-        className={`${css.addButton} ${state.added && css.remove}`}
+        className={`${css.addButton} ${state.added ? css.remove : undefined}`}
         onClick={(event) => (event.stopPropagation(), handlePart())}
       >
         {state.added ? "Remove from Parts -" : "Add to Parts +"}

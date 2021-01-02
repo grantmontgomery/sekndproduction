@@ -98,6 +98,7 @@ export default function Home(): JSX.Element {
       observer.current.disconnect();
     };
   }, []);
+
   return (
     <Layout>
       <main className={css.homePage}>

@@ -9,7 +9,7 @@ export const ImageBackground: React.FC<{
 }> = ({ extended, handleExtendRetract, type, source, children }) => {
   return (
     <div
-      className={`${css.imgBackground} ${extended && css.extended}`}
+      className={`${css.imgBackground} ${extended ? css.extended : undefined}`}
       onClick={handleExtendRetract}
     >
       {children}

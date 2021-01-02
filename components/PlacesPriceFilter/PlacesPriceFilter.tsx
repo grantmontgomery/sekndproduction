@@ -28,7 +28,9 @@ export const PlacesPriceFilter: React.FC<{
     <div className={`${css.placePriceWrapper} ${css[location]}`}>
       <div className={css.placePrice}>
         <div
-          className={`${css.priceSelector} ${price === 1 && css.selected}`}
+          className={`${css.priceSelector} ${
+            price === 1 ? css.selected : undefined
+          }`}
           style={{
             borderTopLeftRadius: "35px",
             borderBottomLeftRadius: "35px",
@@ -38,19 +40,25 @@ export const PlacesPriceFilter: React.FC<{
           <span>$</span>
         </div>
         <div
-          className={`${css.priceSelector} ${price === 2 && css.selected}`}
+          className={`${css.priceSelector} ${
+            price === 2 ? css.selected : undefined
+          }`}
           onClick={() => handleSelect("2")}
         >
           <span>$$</span>
         </div>
         <div
-          className={`${css.priceSelector} ${price === 3 && css.selected}`}
+          className={`${css.priceSelector} ${
+            price === 3 ? css.selected : undefined
+          }`}
           onClick={() => handleSelect("3")}
         >
           <span>$$$</span>
         </div>
         <div
-          className={`${css.priceSelector} ${price === 4 && css.selected}`}
+          className={`${css.priceSelector} ${
+            price === 4 ? css.selected : undefined
+          }`}
           style={{
             borderTopRightRadius: "35px",
             borderBottomRightRadius: "35px",

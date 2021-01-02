@@ -62,7 +62,7 @@ export const ResultsFilter: React.FC<{
         <div className={css.typeButtonsWrapper}>
           <div
             className={`${css.buttonWrapper} ${
-              resultsType === "places" && css.selected
+              resultsType === "places" ? css.selected : undefined
             }`}
             onClick={() => handleResultsTypeChange("places")}
           >
@@ -83,7 +83,7 @@ export const ResultsFilter: React.FC<{
             resultsLoading) && (
             <div
               className={`${css.buttonWrapper} ${
-                resultsType === "events" && css.selected
+                resultsType === "events" ? css.selected : undefined
               }`}
               onClick={() => handleResultsTypeChange("events")}
             >

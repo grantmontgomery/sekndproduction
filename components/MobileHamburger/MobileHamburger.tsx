@@ -17,7 +17,9 @@ export const MobileHamburger: React.FC = () => {
   };
   return (
     <div
-      className={`${css.hamburger} ${allowDisplay.mobileLinks && css.exit}`}
+      className={`${css.hamburger} ${
+        allowDisplay.mobileLinks ? css.exit : undefined
+      }`}
       onClick={() => allowToggle.mobileLinks && handleClick()}
     >
       <div className={css.topLine}></div>
