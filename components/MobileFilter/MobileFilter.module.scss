@@ -4,11 +4,17 @@
   position: relative;
   top: 50%;
   transform: translate(0, -50%);
-  background: red;
+  background: white;
   border-radius: 10vh;
   margin-left: 5%;
   text-align: center;
   align-items: center;
+  border: solid 1px black;
+  &.selected {
+    border: none;
+    color: white;
+    background: #0072ff;
+  }
 }
 
 @media (orientation: landscape) {

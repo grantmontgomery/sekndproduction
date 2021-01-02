@@ -5,6 +5,6 @@ export const usePrevious: (value: number) => number = (value) => {
 
   React.useEffect(() => {
     ref.current = value;
-  });
+  }, [value]);
   return ref.current;
 };

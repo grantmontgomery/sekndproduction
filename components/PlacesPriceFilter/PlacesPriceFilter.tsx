@@ -18,8 +18,6 @@ export const PlacesPriceFilter: React.FC<{
       : null
   );
 
-  console.log(globalPlacePrice);
-
   const handleSelect: (input: string) => void = (input) => {
     if (price !== parseInt(input)) {
       handlePriceChange(input);

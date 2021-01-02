@@ -3,7 +3,6 @@ import css from "./PartsIcon.module.scss";
 import { usePrevious } from "./Hooks";
 import { useModalDispatch, useModalState } from "../../state/ModalContext";
 import { usePartsState } from "../../state/DatePartsContext";
-import { NavState } from "../Nav";
 
 export const PartsIcon: React.FC = () => {
   const modalDispatch = useModalDispatch();
@@ -12,6 +11,7 @@ export const PartsIcon: React.FC = () => {
   const { parts } = usePartsState();
 
   const previousValue = usePrevious(parts.length);
+
   const handleClick: () => void = () => {
     if (!allowDisplay.dateParts) {
       modalDispatch({ type: "DATE_PARTS" });
@@ -21,12 +21,14 @@ export const PartsIcon: React.FC = () => {
   };
 
   React.useEffect(() => {
-    if (parts.length > previousValue) {
-      setPulse(true);
-      setTimeout(() => {
-        setPulse(false);
-      }, 500);
-    }
+    return clearTimeout();
+  }, []);
+
+  React.useEffect(() => {
+    if (parts.length > previousValue) setPulse(true);
+    setTimeout(() => {
+      setPulse(false);
+    }, 500);
     return clearTimeout();
   }, [parts.length]);
 
