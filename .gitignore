@@ -15,5 +15,10 @@ out
 /out/
 
 .env
+.env.local
 # Serverless directories
 .serverless
+
+.serverless_nextjs
+
+cypress
