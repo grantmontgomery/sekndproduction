@@ -13,3 +13,11 @@ jspm_packages
 .env
 # Serverless directories
 .serverless
+
+.serverless_nextjs
+
+cypress/videos
+
+cypress/screenshots
+
+.env.local
