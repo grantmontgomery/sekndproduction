@@ -40,7 +40,7 @@ export const ResultCard: React.FC<{
   const determineImageBackgroundSource: () => string = () => {
     switch (item.type) {
       case "place":
-        return item.source === "yelp" ? item.image_url : null;
+        return item.source === "yelp" && item.image_url;
       case "event":
         return item.source === "yelp" ? item.image_url : item.images[0].url;
       default:
@@ -93,9 +93,7 @@ export const ResultCard: React.FC<{
                 gridTemplateAreas: `"title" "reviews" "pricePlace" "moreDetails"`,
                 gridTemplateRows: "auto auto auto auto",
               }}
-              className={`${css.infoBar} ${
-                state.moreInfo ? css.extended : null
-              }`}
+              className={`${css.infoBar} ${state.moreInfo && css.extended}`}
               onClick={() =>
                 setState((state) => ({ ...state, moreInfo: true }))
               }
@@ -110,9 +108,9 @@ export const ResultCard: React.FC<{
                 city={item.location.city}
                 state={item.location.state}
                 type={
-                  item.categories && item.categories.length > 0
-                    ? item.categories[0].title
-                    : null
+                  item.categories &&
+                  item.categories.length > 0 &&
+                  item.categories[0].title
                 }
               ></PriceAndType>
               <div className={css.starsWrapper}></div>
@@ -157,15 +155,13 @@ export const ResultCard: React.FC<{
         };
 
         const ticketmasterClassification: () => any | null = () => {
-          return item.classifications ? item.classifications : null;
+          return item.classifications && item.classifications;
         };
 
         return (
           <React.Fragment>
             <div
-              className={`${css.infoBar} ${
-                state.moreInfo ? css.extended : null
-              }`}
+              className={`${css.infoBar} ${state.moreInfo && css.extended}`}
               onClick={() =>
                 setState((state) => ({ ...state, moreInfo: true }))
               }
@@ -180,7 +176,7 @@ export const ResultCard: React.FC<{
                     ? item.time_start
                     : `${item.dates.start.localDate}T${item.dates.start.localTime}`
                 }
-                endTime={item.source === "yelp" ? item.time_end : null}
+                endTime={item.source === "yelp" && item.time_end}
                 source={item.source}
                 venue={determineVenue()}
               ></EventTimesVenue>
@@ -223,18 +219,16 @@ export const ResultCard: React.FC<{
 
   const handlePart: () => void = () => {
     if (state.added) {
-      return (
-        setState((state) => ({ ...state, added: false })),
-        dispatch({ type: "REMOVE_PART", payload: { id: item.id } })
-      );
+      setState((state) => ({ ...state, added: false })),
+        dispatch({ type: "REMOVE_PART", payload: { id: item.id } });
     } else {
-      return GlobalParts.parts.length < 7
-        ? (setState((state) => ({ ...state, added: true })),
+      if (GlobalParts.parts.length < 7) {
+        setState((state) => ({ ...state, added: true })),
           dispatch({
             type: "ADD_PART",
             payload: { part: { ...item, gridIndex: null } },
-          }))
-        : null;
+          });
+      }
     }
   };
 
@@ -252,12 +246,12 @@ export const ResultCard: React.FC<{
     </div>
   ) : (
     <div
-      className={`${css.resultCard} ${state.moreInfo ? css.extended : null} ${
+      className={`${css.resultCard} ${state.moreInfo && css.extended} ${
         state.imageLoaded ? css.loaded : css.loading
       }
       `}
     >
-      {determineImageBackgroundSource() ? (
+      {determineImageBackgroundSource() && (
         <ImageBackground
           extended={state.moreInfo}
           handleExtendRetract={handleExtendRetract}
@@ -275,10 +269,10 @@ export const ResultCard: React.FC<{
             onLoad={() => setState({ ...state, imageLoaded: true })}
           />
         </ImageBackground>
-      ) : null}
+      )}
 
       <span
-        className={`${css.addButton} ${state.added ? css.remove : null}`}
+        className={`${css.addButton} ${state.added && css.remove}`}
         onClick={(event) => (event.stopPropagation(), handlePart())}
       >
         {state.added ? "Remove from Parts -" : "Add to Parts +"}

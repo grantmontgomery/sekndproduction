@@ -44,7 +44,7 @@ export const SchedulePartSelector: React.FC = () => {
     <div className={css.selectorWrapper}>
       <header className={css.selectorDisplay}>
         <h1>{customPiece ? "Assign Part" : "Click on Grid"}</h1>
-        {customPiece ? (
+        {customPiece && (
           <button
             className={css.assignButton}
             onClick={() => {
@@ -77,7 +77,7 @@ export const SchedulePartSelector: React.FC = () => {
               />
             </svg>
           </button>
-        ) : null}
+        )}
       </header>
       <div
         className={css.partsWrapper}
@@ -91,7 +91,7 @@ export const SchedulePartSelector: React.FC = () => {
             handleSelectedPartChange={handleSelectedPartChange}
             location="schedule"
             part={part}
-            selectedID={dragPart ? dragPart.id : null}
+            selectedID={dragPart && dragPart.id}
           ></DatePart>
         ))}
       </div>

@@ -345,18 +345,18 @@ export const SearchBox: React.FC = (props) => {
         startDate={searchQuery.startDate}
         endDate={searchQuery.endDate}
       ></WhenInput>
-      {searchQuery.searchType !== "PLACES" ? (
+      {searchQuery.searchType !== "PLACES" && (
         <EventsInput
           handleInputChange={handleInputChange}
           eventsCategory={searchQuery.eventsCategory}
         ></EventsInput>
-      ) : null}
-      {searchQuery.searchType !== "EVENTS" ? (
+      )}
+      {searchQuery.searchType !== "EVENTS" && (
         <PlacesInput
           handleInputChange={handleInputChange}
           placeType={searchQuery.placeType}
         ></PlacesInput>
-      ) : null}
+      )}
 
       {checkFieldsDisplayLink()}
     </div>

@@ -9,10 +9,13 @@ export const MobileFilter: React.FC<{
   return (
     <div
       className={css.filterWrapper}
-      style={{ background: priceState ? "#0072ff" : "white" }}
+      style={{
+        background: priceState ? "#0072ff" : "white",
+        border: !priceState && "solid 1px black",
+      }}
       onClick={() => toggleFunction(filterType)}
     >
-      {priceState ? priceState : filterType}
+      {priceState ? new String(`$`).repeat(parseInt(priceState)) : filterType}
     </div>
   );
 };

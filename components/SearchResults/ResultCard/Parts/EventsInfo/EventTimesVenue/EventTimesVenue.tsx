@@ -9,7 +9,7 @@ export const EventTimesVenue: React.FC<{
   venue: string | null;
 }> = ({ startTime, endTime, source, venue }) => {
   const displayVenue: () => JSX.Element | null = () => {
-    return venue ? <span className={css.venue}>{`• ${venue}`}</span> : null;
+    return venue && <span className={css.venue}>{`• ${venue}`}</span>;
   };
   const parseYelpTimes: () => JSX.Element = () => {
     const yelpStartObject: Date = new Date(startTime);

@@ -84,12 +84,11 @@ export const GridProvider: ({
 
   React.useEffect(() => {
     if (!window.sessionStorage.getItem("rectangles")) {
-      initialState
-        ? rectanglesDispatch({
-            type: "ADD_RECTANGLES",
-            payload: { numberOfRectangles: initialState.numberOfSquares },
-          })
-        : null;
+      initialState &&
+        rectanglesDispatch({
+          type: "ADD_RECTANGLES",
+          payload: { numberOfRectangles: initialState.numberOfSquares },
+        });
     }
   }, []);
 

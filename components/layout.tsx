@@ -14,19 +14,21 @@ export const Layout: React.FC = ({ children }) => {
   }, []);
 
   const applyModalTransitions: () => JSX.Element | null = () => {
-    return modalOpen ? (
-      <CSSTransition
-        timeout={250}
-        classNames={{
-          enter: `${css["modal-enter"]}`,
-          enterActive: `${css["modal-enter-active"]}`,
-          exit: `${css["modal-exit"]}`,
-          exitActive: `${css["modal-exit-active"]}`,
-        }}
-      >
-        <ModalDark></ModalDark>
-      </CSSTransition>
-    ) : null;
+    return (
+      modalOpen && (
+        <CSSTransition
+          timeout={250}
+          classNames={{
+            enter: `${css["modal-enter"]}`,
+            enterActive: `${css["modal-enter-active"]}`,
+            exit: `${css["modal-exit"]}`,
+            exitActive: `${css["modal-exit-active"]}`,
+          }}
+        >
+          <ModalDark></ModalDark>
+        </CSSTransition>
+      )
+    );
   };
 
   return (

@@ -25,10 +25,9 @@ export default function useAPICalls(
     error: yelpPlacesError,
     isValidating: yelpPlacesLoading,
   }: responseInterface<APIResponse, string> = useSWR(
-    setSearchParameters && setSearchParameters.searchType !== "EVENTS"
-      ? `${urlStart}/api/yelpBusinessesAPI`
-      : null,
-
+    setSearchParameters &&
+      setSearchParameters.searchType !== "EVENTS" &&
+      `${urlStart}/api/yelpBusinessesAPI`,
     async (url) => {
       const { location, radius, placeType } = setSearchParameters;
 
@@ -79,9 +78,9 @@ export default function useAPICalls(
     error: yelpEventsError,
     isValidating: yelpEventsLoading,
   }: responseInterface<APIResponse, string> = useSWR(
-    setSearchParameters && setSearchParameters.searchType !== "PLACES"
-      ? `${urlStart}/api/yelpEventsAPI`
-      : null,
+    setSearchParameters &&
+      setSearchParameters.searchType !== "PLACES" &&
+      `${urlStart}/api/yelpEventsAPI`,
     async (url) => {
       const {
         location,
@@ -135,9 +134,9 @@ export default function useAPICalls(
     error: ticketmasterError,
     isValidating: ticketmasterLoading,
   }: responseInterface<APIResponse, string> = useSWR(
-    setSearchParameters && setSearchParameters.searchType !== "PLACES"
-      ? `${urlStart}/api/ticketmasterAPI`
-      : null,
+    setSearchParameters &&
+      setSearchParameters.searchType !== "PLACES" &&
+      `${urlStart}/api/ticketmasterAPI`,
     async (url) => {
       const {
         location,
@@ -205,9 +204,9 @@ export default function useAPICalls(
       ...checkYelpEventsArray,
       ...checkYelpPlacesArray,
     ],
-    yelpPlacesTotal: yelpPlaces ? yelpPlaces.total : null,
-    yelpEventsTotal: yelpEvents ? yelpEvents.total : null,
-    ticketmasterTotal: ticketmaster ? ticketmaster.total : null,
+    yelpPlacesTotal: yelpPlaces && yelpPlaces.total,
+    yelpEventsTotal: yelpEvents && yelpEvents.total,
+    ticketmasterTotal: ticketmaster && ticketmaster.total,
     loading: ticketmasterLoading || yelpEventsLoading || yelpPlacesLoading,
     errors: { yelpEventsError, yelpPlacesError, ticketmasterError },
   };

@@ -23,14 +23,14 @@ export const RenderWrapper: React.FC<{
 
   return (
     <React.Fragment>
-      {render ? (
+      {render && (
         <MobileFiltersWidget
           mobileFilters={mobileFilters}
           closeModalFilters={closeModalFilters}
         >
           {children}
         </MobileFiltersWidget>
-      ) : null}
+      )}
     </React.Fragment>
   );
 };

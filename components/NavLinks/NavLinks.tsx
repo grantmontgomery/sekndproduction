@@ -15,14 +15,14 @@ export const NavLinks: React.FC<{ orientation: string }> = ({
         <Link href="/about">About</Link>
       </li>
       <li>
-        {Cookie.get("link") ? (
+        {Cookie.get("link") && (
           <Link
             href={{ pathname: "/search/[queried]" }}
             as={Cookie.get("link")}
           >
             Search Results
           </Link>
-        ) : null}
+        )}
       </li>
     </ul>
   );

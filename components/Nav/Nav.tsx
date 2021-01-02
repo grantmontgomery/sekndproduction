@@ -53,7 +53,7 @@ export const Nav: React.FC = () => {
         <PartsIcon></PartsIcon>
 
         <TransitionGroup>
-          {allowDisplay.dateParts ? (
+          {allowDisplay.dateParts && (
             <CSSTransition
               timeout={250}
               classNames={{
@@ -65,10 +65,10 @@ export const Nav: React.FC = () => {
             >
               <DateParts location="nav"></DateParts>
             </CSSTransition>
-          ) : null}
+          )}
         </TransitionGroup>
         <TransitionGroup>
-          {allowDisplay.mobileLinks ? (
+          {allowDisplay.mobileLinks && (
             <CSSTransition
               timeout={250}
               classNames={{
@@ -80,11 +80,11 @@ export const Nav: React.FC = () => {
             >
               <MobileMenu></MobileMenu>
             </CSSTransition>
-          ) : null}
+          )}
         </TransitionGroup>
       </nav>
       <TransitionGroup>
-        {allowDisplay.signIn ? (
+        {allowDisplay.signIn && (
           <CSSTransition
             timeout={250}
             classNames={{
@@ -96,10 +96,10 @@ export const Nav: React.FC = () => {
           >
             <SignInModal></SignInModal>
           </CSSTransition>
-        ) : null}
+        )}
       </TransitionGroup>
       <TransitionGroup>
-        {allowDisplay.searchBox ? (
+        {allowDisplay.searchBox && (
           <CSSTransition
             timeout={250}
             classNames={{
@@ -111,7 +111,7 @@ export const Nav: React.FC = () => {
           >
             <SearchBox></SearchBox>
           </CSSTransition>
-        ) : null}
+        )}
       </TransitionGroup>
     </React.Fragment>
   );

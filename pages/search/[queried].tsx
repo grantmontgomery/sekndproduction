@@ -8,10 +8,7 @@ import {
 } from "../../components";
 import useAPICalls from "../../swr/useAPICalls";
 import { NextRouter, useRouter } from "next/router";
-import { useGridState } from "../../state/SearchGridContext";
 import css from "../../styles/Queried.module.scss";
-import { MobileFilters } from "../../components/MobileFiltersWidget";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 type SearchParams = { [key: string]: any };
 
@@ -87,9 +84,7 @@ export default function Queried(): JSX.Element {
 
   React.useEffect(() => {
     if (setSearchParameters(router)) {
-      setSearchParameters(router).searchType === "EVENTS"
-        ? setType("events")
-        : null;
+      setSearchParameters(router).searchType === "EVENTS" && setType("events");
     }
   }, [setSearchParameters(router)]);
 
@@ -110,7 +105,7 @@ export default function Queried(): JSX.Element {
           resultsType={resultsType}
           handleResultsTypeChange={handleResultsTypeChange}
           searchParams={
-            setSearchParameters(router) ? setSearchParameters(router) : null
+            setSearchParameters(router) && setSearchParameters(router)
           }
           filters={filters}
         ></ResultsFilter>

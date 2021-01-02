@@ -46,9 +46,7 @@ export default function App({
       <ModalProvider>
         <RectanglesProvider>
           <GridProvider
-            initialState={
-              Cookie.get("grid") ? JSON.parse(Cookie.get("grid")) : null
-            }
+            initialState={Cookie.get("grid") && JSON.parse(Cookie.get("grid"))}
           >
             <PartsProvider>
               <PageTransition

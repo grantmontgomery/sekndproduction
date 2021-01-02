@@ -27,9 +27,7 @@ export const MobileScheduleParts: React.FC<{
         entries.forEach((entry) => {
           const { target, intersectionRatio } = entry;
           const entryIndex: number = parseInt(target.id[target.id.length - 1]);
-          intersectionRatio === 1
-            ? setState({ squareIndex: entryIndex })
-            : null;
+          intersectionRatio === 1 && setState({ squareIndex: entryIndex });
         });
       },
       { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] }

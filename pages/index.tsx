@@ -160,13 +160,13 @@ export default function Home(): JSX.Element {
           </div>
         </section>
         <section id="searchFeatureSection" className={css.featureSection}>
-          {loadedElements.search ? <SearchFeature></SearchFeature> : null}
+          {loadedElements.search && <SearchFeature></SearchFeature>}
         </section>
         <section id="selectFeatureSection" className={css.featureSection}>
-          {loadedElements.select ? <SelectFeature></SelectFeature> : null}
+          {loadedElements.select && <SelectFeature></SelectFeature>}
         </section>
         <section id="sheduleFeatureSection" className={css.featureSection}>
-          {loadedElements.schedule ? <ScheduleFeature></ScheduleFeature> : null}
+          {loadedElements.schedule && <ScheduleFeature></ScheduleFeature>}
         </section>
       </main>
     </Layout>

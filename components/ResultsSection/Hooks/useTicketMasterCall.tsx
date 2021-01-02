@@ -35,7 +35,7 @@ export const useTicketMasterCall: () => any = async () => {
           startFormatted,
           endFormatted,
           eventsCategory,
-          page: offset ? `${offset}` : null,
+          page: offset && `${offset}`,
           ...inputEventCategories(eventsCategory, "ticketmaster"),
         }),
       });

@@ -64,16 +64,14 @@ export const ResultsList: React.FC<{
 
   return (
     <div className={css.resultsList}>
-      {items && items.length > 0
-        ? items.map((item) => (
-            <ResultCard key={item.id} item={item}></ResultCard>
-          ))
-        : null}
+      {items &&
+        items.length > 0 &&
+        items.map((item) => (
+          <ResultCard key={item.id} item={item}></ResultCard>
+        ))}
 
       <div id={`${type}ReloadSection`} className={css.reloadSection}>
-        {offsetLoad ? (
-          <LoadingRing location={"resultsPage"}></LoadingRing>
-        ) : null}
+        {offsetLoad && <LoadingRing location={"resultsPage"}></LoadingRing>}
       </div>
     </div>
   );

@@ -71,7 +71,7 @@ export const ScheduleDragPieceDisplay: React.FC<{
   const determineImageBackgroundSource: () => string = () => {
     switch (part.type) {
       case "place":
-        return part.source === "yelp" ? part.image_url : null;
+        return part.source === "yelp" && part.image_url;
       case "event":
         return part.source === "yelp" ? part.image_url : part.images[0].url;
       default:

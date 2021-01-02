@@ -31,13 +31,13 @@ export const GridRectangle: React.FC<{
       onClick={handleAdd}
       className={css.rectangle}
     >
-      {rectangle.part ? (
+      {rectangle.part && (
         <ScheduleDragPiece
           part={
             rectangle.part !== null ? rectangle.part : { rectangleIndex: index }
           }
         ></ScheduleDragPiece>
-      ) : null}
+      )}
     </div>
   );
 };

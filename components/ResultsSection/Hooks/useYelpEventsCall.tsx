@@ -35,7 +35,7 @@ export const useYelpEventsCall: () => any = async () => {
           radius,
           start_date: parseInt(unixStartDate),
           end_date: parseInt(unixEndDate),
-          offset: offset ? 1 + offset * 20 : null,
+          offset: offset && 1 + offset * 20,
           ...inputEventCategories(eventsCategory, "yelp"),
         }),
       });

@@ -50,9 +50,8 @@ export const useRegister: () => {
 
       setLoading(false);
 
-      responseJSON.username
-        ? userDispatch({ type: "SET_USER", payload: responseJSON })
-        : null;
+      responseJSON.username &&
+        userDispatch({ type: "SET_USER", payload: responseJSON });
     } catch (error) {
       setLoading(false);
 

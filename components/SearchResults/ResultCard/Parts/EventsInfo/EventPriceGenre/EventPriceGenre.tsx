@@ -48,8 +48,8 @@ export const EventPriceGenre: React.FC<{
     let segmentString: string = "";
     let genreString: string = "";
 
-    genre[0].segment ? (segmentString = genre[0].segment.name) : null;
-    genre[0]["genre"] ? (genreString = genre[0]["genre"].name) : null;
+    genre[0].segment && (segmentString = genre[0].segment.name);
+    genre[0]["genre"] && (genreString = genre[0]["genre"].name);
 
     return (
       <span className={css.genre}>{`• ${segmentString} ${genreString}`}</span>

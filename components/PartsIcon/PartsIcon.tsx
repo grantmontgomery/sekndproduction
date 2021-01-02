@@ -33,9 +33,9 @@ export const PartsIcon: React.FC = () => {
   return (
     <div
       className={css.iconWrapper}
-      onClick={() => (allowToggle.dateParts ? handleClick() : null)}
+      onClick={() => allowToggle.dateParts && handleClick()}
     >
-      <div className={`${css.pulser} ${pulse ? css.pulse : null}`}></div>
+      <div className={`${css.pulser} ${pulse && css.pulse}`}></div>
       <svg
         version="1.1"
         id="Layer_1"
@@ -66,7 +66,7 @@ export const PartsIcon: React.FC = () => {
             />
           </g>
           <path
-            className={allowDisplay.dateParts ? css.st1 : null}
+            className={allowDisplay.dateParts && css.st1}
             d="M180.3,93.4v-4.7h-6.7v2.3h4.3v2.3h-24.3v-2.3h17.6v-2.3h-14.5V70.2l21.8-24.5c0.8-0.8,1.2-1.9,1.2-3.1
     c0-1.5-0.7-2.9-1.9-3.8c-0.8-0.6-1.7-0.9-2.7-0.9c-1.3,0-2.6,0.6-3.5,1.6l-5.1,5.8l1.8,1.6l5.1-5.8c0.4-0.5,1.1-0.8,1.7-0.8
     c0.5,0,0.9,0.1,1.3,0.4c0.6,0.4,0.9,1.1,0.9,1.8c0,0.6-0.2,1.1-0.6,1.5l-12.2,13.7l-3.4-3l5.4-6.2l-1.8-1.6L154.5,59h-4.9v-2.8

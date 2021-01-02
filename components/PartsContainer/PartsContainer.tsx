@@ -63,11 +63,12 @@ export const PartsContainer: React.FC = () => {
       (rectangle) => rectangle.part && rectangle.part.current
     );
     if (extend) {
-      customPiece && currentCustomIndex
-        ? document
-            .getElementById("innerGrid")
-            .scrollTo(0, (currentCustomIndex * window.innerHeight) / 10)
-        : null;
+      customPiece &&
+        currentCustomIndex &&
+        document
+          .getElementById("innerGrid")
+          .scrollTo(0, (currentCustomIndex * window.innerHeight) / 10);
+
       touchDispatch({ type: "STOP_TOUCH_SCROLL" });
     } else {
       touchDispatch({ type: "ACTIVATE_TOUCH_SCROLL" });

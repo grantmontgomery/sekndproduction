@@ -11,5 +11,6 @@ export { TouchProvider } from "./ScheduleGrid/Context";
 export { SchedulePartSelector } from "./SchedulePartSelector";
 export { SearchFeature } from "./SearchFeature";
 export { SelectFeature } from "./SelectFeature";
+
 export { ScheduleFeature } from "./ScheduleFeature";
 export { ResultsSection } from "./ResultsSection";

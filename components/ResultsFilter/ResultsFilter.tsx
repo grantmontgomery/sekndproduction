@@ -62,7 +62,7 @@ export const ResultsFilter: React.FC<{
         <div className={css.typeButtonsWrapper}>
           <div
             className={`${css.buttonWrapper} ${
-              resultsType === "places" ? css.selected : null
+              resultsType === "places" && css.selected
             }`}
             onClick={() => handleResultsTypeChange("places")}
           >
@@ -122,26 +122,6 @@ export const ResultsFilter: React.FC<{
           <div className={css.innerMobileFilterScroll}>
             <MobileFilter
               filterType="Price"
-              priceState={filters.placePrice}
-              toggleFunction={handleMobileFilterToggle}
-            ></MobileFilter>
-            <MobileFilter
-              filterType=""
-              priceState={filters.placePrice}
-              toggleFunction={handleMobileFilterToggle}
-            ></MobileFilter>
-            <MobileFilter
-              filterType=""
-              priceState={filters.placePrice}
-              toggleFunction={handleMobileFilterToggle}
-            ></MobileFilter>
-            <MobileFilter
-              filterType=""
-              priceState={filters.placePrice}
-              toggleFunction={handleMobileFilterToggle}
-            ></MobileFilter>
-            <MobileFilter
-              filterType=""
               priceState={filters.placePrice}
               toggleFunction={handleMobileFilterToggle}
             ></MobileFilter>

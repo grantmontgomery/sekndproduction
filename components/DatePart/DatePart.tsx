@@ -27,7 +27,7 @@ export const DatePart: React.FC<{
   const determineImageBackgroundSource: () => string = () => {
     switch (part.type) {
       case "place":
-        return part.source === "yelp" ? part.image_url : null;
+        return part.source === "yelp" && part.image_url;
       case "event":
         return part.source === "yelp" ? part.image_url : part.images[0].url;
       default:
@@ -99,7 +99,7 @@ export const DatePart: React.FC<{
 
   return (
     <div
-      className={`${css.datePiece} ${state.extend ? css.extended : null}`}
+      className={`${css.datePiece} ${state.extend && css.extended}`}
       onClick={() =>
         location !== "schedule"
           ? setState((state) => ({ ...state, extend: true }))
@@ -136,7 +136,7 @@ export const DatePart: React.FC<{
           </button>
         )}
       </div>
-      {state.extend ? determinePartDetails() : null}
+      {state.extend && determinePartDetails()}
     </div>
   );
 };

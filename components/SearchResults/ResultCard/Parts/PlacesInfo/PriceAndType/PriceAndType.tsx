@@ -8,9 +8,7 @@ export const PriceAndType: React.FC<{
   state: string;
 }> = ({ price, type, city, state }) => {
   const insertCity: (city: string) => JSX.Element | null = (city) => {
-    return city ? (
-      <span className={css.city}>{`• ${city}, ${state}`}</span>
-    ) : null;
+    return city && <span className={css.city}>{`• ${city}, ${state}`}</span>;
   };
 
   const singularType: () => JSX.Element | null = () => {
@@ -21,7 +19,7 @@ export const PriceAndType: React.FC<{
         case "s":
           return type.indexOf("ies") !== -1 ? (
             <span
-              className={`${css.type} ${price ? css.pricePresent : null}`}
+              className={`${css.type} ${price && css.pricePresent}`}
             >{`${type.substring(0, type.indexOf("ies"))}y`}</span>
           ) : (
             <span className={css.type}>
@@ -31,7 +29,7 @@ export const PriceAndType: React.FC<{
         default:
           return (
             <span
-              className={`${css.type} ${price ? css.pricePresent : null}`}
+              className={`${css.type} ${price && css.pricePresent}`}
             >{`${type}`}</span>
           );
       }
@@ -41,9 +39,9 @@ export const PriceAndType: React.FC<{
   return price ? (
     <div className={css.placePrice}>
       <span className={css.light}>{price[0]}</span>
-      <span className={price.length >= 2 ? css.light : null}>{price[0]}</span>
-      <span className={price.length >= 3 ? css.light : null}>{price[0]}</span>
-      <span className={price.length === 4 ? css.light : null}>{price[0]}</span>
+      <span className={price.length >= 2 && css.light}>{price[0]}</span>
+      <span className={price.length >= 3 && css.light}>{price[0]}</span>
+      <span className={price.length === 4 && css.light}>{price[0]}</span>
       {singularType()}
       {insertCity(city)}
     </div>
