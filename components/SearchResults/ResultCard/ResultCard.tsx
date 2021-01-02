@@ -71,7 +71,11 @@ export const ResultCard: React.FC<{
       case "event":
         return (
           <div className={css.detailsWrapper}>
-            <EventDescription description={item.description}></EventDescription>
+            {item.description && (
+              <EventDescription
+                description={item.description}
+              ></EventDescription>
+            )}
             <PartLink
               orientation="portait"
               url={item.source === "yelp" ? item.event_site_url : item.url}
@@ -195,9 +199,11 @@ export const ResultCard: React.FC<{
                 }
               ></EventPriceGenre>
               <div className={css.landscapeDetails}>
-                <EventDescription
-                  description={item.description}
-                ></EventDescription>
+                {item.description && (
+                  <EventDescription
+                    description={item.description}
+                  ></EventDescription>
+                )}
                 <PartLink
                   orientation="portrait"
                   url={item.source === "yelp" ? item.event_site_url : item.url}

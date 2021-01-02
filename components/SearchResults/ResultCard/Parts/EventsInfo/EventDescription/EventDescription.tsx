@@ -7,14 +7,12 @@ export const EventDescription: React.FC<{ description: string }> = ({
   const unwantedCharacters: RegExp = /[*]/g;
 
   return (
-    description && (
-      <div className={css.descriptionWrapper}>
-        <p className={css.description}>
-          {description.search(unwantedCharacters) !== -1
-            ? description.replace(unwantedCharacters, "")
-            : description}
-        </p>
-      </div>
-    )
+    <div className={css.descriptionWrapper}>
+      <p className={css.description}>
+        {description.search(unwantedCharacters) !== -1
+          ? description.replace(unwantedCharacters, "")
+          : description}
+      </p>
+    </div>
   );
 };
