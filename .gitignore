@@ -61,3 +61,6 @@ amplifytools.xcconfig
 .serverless
 
 .serverless_nextjs
+
+
+cypress/videos
