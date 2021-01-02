@@ -5,8 +5,20 @@ export const PlacesPriceFilter: React.FC<{
   handlePriceChange: (input: string) => void;
   closeMobileFilters?: () => void;
   location: "mobileWidget" | "desktopSection";
-}> = ({ handlePriceChange, closeMobileFilters, location }) => {
-  const [price, setPrice] = React.useState<number | null>(null);
+  globalPlacePrice?: string;
+}> = ({
+  handlePriceChange,
+  closeMobileFilters,
+  location,
+  globalPlacePrice,
+}) => {
+  const [price, setPrice] = React.useState<number | null>(
+    location === "mobileWidget" && globalPlacePrice
+      ? parseInt(globalPlacePrice)
+      : null
+  );
+
+  console.log(globalPlacePrice);
 
   const handleSelect: (input: string) => void = (input) => {
     if (price !== parseInt(input)) {
@@ -19,10 +31,6 @@ export const PlacesPriceFilter: React.FC<{
       if (closeMobileFilters) closeMobileFilters();
     }
   };
-
-  // React.useEffect(() => {
-  //   handlePriceChange(null);
-  // }, []);
 
   return (
     <div className={`${css.placePriceWrapper} ${css[location]}`}>

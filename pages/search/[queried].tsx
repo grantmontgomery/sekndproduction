@@ -40,7 +40,7 @@ export const setSearchParameters: (router: {
 };
 
 export default function Queried(): JSX.Element {
-  const [filters, setFilters] = React.useState<{
+  const [globalFilters, setGlobalFilters] = React.useState<{
     placePrice: string | null;
     eventPrice: string | null;
   }>({
@@ -75,10 +75,10 @@ export default function Queried(): JSX.Element {
   };
 
   const handlePriceChange: (input: string | null) => void = (input) => {
-    setFilters((filters) =>
+    setGlobalFilters((globalFilters) =>
       resultsType === "places"
-        ? { ...filters, placePrice: input }
-        : { ...filters, eventPrice: input }
+        ? { ...globalFilters, placePrice: input }
+        : { ...globalFilters, eventPrice: input }
     );
   };
 
@@ -90,9 +90,15 @@ export default function Queried(): JSX.Element {
 
   React.useEffect(() => {
     if (resultsType === "events") {
-      setFilters((filters) => ({ ...filters, placePrice: null }));
+      setGlobalFilters((globalFilters) => ({
+        ...globalFilters,
+        placePrice: null,
+      }));
     } else {
-      setFilters((filters) => ({ ...filters, eventPrice: null }));
+      setGlobalFilters((globalFilters) => ({
+        ...globalFilters,
+        eventPrice: null,
+      }));
     }
   }, [resultsType]);
 
@@ -107,11 +113,11 @@ export default function Queried(): JSX.Element {
           searchParams={
             setSearchParameters(router) && setSearchParameters(router)
           }
-          filters={filters}
+          globalFilters={globalFilters}
         ></ResultsFilter>
 
         <ResultsSection
-          filters={filters}
+          globalFilters={globalFilters}
           initialItems={initialItems}
           resultsType={resultsType}
           yelpPlacesTotal={yelpPlacesTotal}

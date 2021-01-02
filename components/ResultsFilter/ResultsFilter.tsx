@@ -7,32 +7,13 @@ import { RenderWrapper } from "../MobileFiltersWidget";
 
 import { MobileFilter } from "../MobileFilter";
 
-const attachFilter = (
-  filtersState: string,
-  handlePriceChange: (input: string) => void,
-  closeMobileFilters: () => void
-) => {
-  switch (filtersState) {
-    case "Price":
-      return (
-        <PlacesPriceFilter
-          location="mobileWidget"
-          closeMobileFilters={closeMobileFilters}
-          handlePriceChange={handlePriceChange}
-        ></PlacesPriceFilter>
-      );
-    default:
-      return;
-  }
-};
-
 export const ResultsFilter: React.FC<{
   handlePriceChange: (input: string) => void;
   resultsType: string;
   searchParams: { [key: string]: any } | null;
   resultsLoading: boolean;
   handleResultsTypeChange: (input: string) => void;
-  filters: {
+  globalFilters: {
     placePrice: string | null;
     eventPrice: string | null;
   };
@@ -42,18 +23,34 @@ export const ResultsFilter: React.FC<{
   handleResultsTypeChange,
   searchParams,
   handlePriceChange,
-  filters,
+  globalFilters,
 }) => {
   const [mobileFilters, toggleMobileFilters] = React.useState<
     "Price" | "test" | ""
   >("");
 
-  const closeMobileFilters: () => void = () => {
+  function closeMobileFilters(): void {
     toggleMobileFilters("");
-  };
+  }
 
   function handleMobileFilterToggle(input: "Price" | "test"): void {
     toggleMobileFilters(input);
+  }
+
+  function attachFilter(): JSX.Element {
+    switch (mobileFilters) {
+      case "Price":
+        return (
+          <PlacesPriceFilter
+            location="mobileWidget"
+            closeMobileFilters={closeMobileFilters}
+            handlePriceChange={handlePriceChange}
+            globalPlacePrice={globalFilters.placePrice}
+          ></PlacesPriceFilter>
+        );
+      default:
+        return;
+    }
   }
 
   return (
@@ -122,7 +119,7 @@ export const ResultsFilter: React.FC<{
           <div className={css.innerMobileFilterScroll}>
             <MobileFilter
               filterType="Price"
-              priceState={filters.placePrice}
+              priceState={globalFilters.placePrice}
               toggleFunction={handleMobileFilterToggle}
             ></MobileFilter>
           </div>
@@ -144,7 +141,7 @@ export const ResultsFilter: React.FC<{
         mobileFilters={mobileFilters}
         closeModalFilters={closeMobileFilters}
       >
-        {attachFilter(mobileFilters, handlePriceChange, closeMobileFilters)}
+        {attachFilter()}
       </RenderWrapper>
     </React.Fragment>
   );

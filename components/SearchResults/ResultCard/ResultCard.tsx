@@ -228,17 +228,17 @@ export const ResultCard: React.FC<{
   }> = usePartsDispatch();
 
   const handlePart: () => void = () => {
+    if (GlobalParts.parts.length > 7) return;
+
     if (state.added) {
       setState((state) => ({ ...state, added: false })),
         dispatch({ type: "REMOVE_PART", payload: { id: item.id } });
     } else {
-      if (GlobalParts.parts.length < 7) {
-        setState((state) => ({ ...state, added: true })),
-          dispatch({
-            type: "ADD_PART",
-            payload: { part: { ...item, gridIndex: null } },
-          });
-      }
+      setState((state) => ({ ...state, added: true })),
+        dispatch({
+          type: "ADD_PART",
+          payload: { part: { ...item, gridIndex: null } },
+        });
     }
   };
 

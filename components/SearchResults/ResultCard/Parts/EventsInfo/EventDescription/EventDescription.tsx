@@ -4,13 +4,11 @@ import css from "./EventDescription.module.scss";
 export const EventDescription: React.FC<{ description: string }> = ({
   description,
 }) => {
-  const unwantedCharacters: RegExp = /[*]/g;
-
   return (
     <div className={css.descriptionWrapper}>
       <p className={css.description}>
-        {description.search(unwantedCharacters) !== -1
-          ? description.replace(unwantedCharacters, "")
+        {description.search(/[*]/g) !== -1
+          ? description.replace(/[*]/g, "")
           : description}
       </p>
     </div>

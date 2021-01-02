@@ -8,7 +8,7 @@ import { resourceLimits } from "worker_threads";
 import { parse } from "path";
 
 export const ResultsSection: React.FC<{
-  filters: { [key: string]: any };
+  globalFilters: { [key: string]: any };
   initialLoad: boolean;
   initialItems: { [key: string]: any }[] | null;
   initialSearchParams: { [key: string]: any } | null;
@@ -21,7 +21,7 @@ export const ResultsSection: React.FC<{
   initialSearchParams,
   initialLoad,
   resultsType,
-  filters,
+  globalFilters,
   yelpPlacesTotal,
   yelpEventsTotal,
   ticketmasterTotal,
@@ -93,11 +93,11 @@ export const ResultsSection: React.FC<{
   }, [initialSearchParams]);
 
   React.useEffect(() => {
-    if (filters.placePrice) {
+    if (globalFilters.placePrice) {
       setOffset(0);
       searchParamsRefObject.current = {
         ...searchParamsRefObject.current,
-        placesPrice: filters.placePrice,
+        placesPrice: globalFilters.placePrice,
       };
       const handleAPICall: () => Promise<any> = async () => {
         setPlacesRefresh(true);
@@ -117,14 +117,14 @@ export const ResultsSection: React.FC<{
       };
       handleAPICall();
     }
-  }, [filters.placePrice]);
+  }, [globalFilters.placePrice]);
 
   React.useEffect(() => {
-    if (filters.eventPrice) {
+    if (globalFilters.eventPrice) {
       setOffset(0);
       searchParamsRefObject.current = {
         ...searchParamsRefObject.current,
-        eventsPrice: filters.eventPrice,
+        eventsPrice: globalFilters.eventPrice,
       };
       setEventsRefresh(true);
       // const handleAPICall: () => Promise<any> = async () => {
@@ -153,18 +153,18 @@ export const ResultsSection: React.FC<{
       // }
 
       setEventsResults((previousEvents) => {
-        if (filters.eventPrice !== "Free") {
+        if (globalFilters.eventPrice !== "Free") {
           const limitYelpEvents = previousEvents.filter(
             (event) =>
               event.source === "yelp" &&
               event.cost &&
-              parseInt(filters.price) >= event.cost
+              parseInt(globalFilters.price) >= event.cost
           );
           const limitTicketMasterResults = previousEvents.filter(
             (event) =>
               event.source === "ticketmaster" &&
               event.priceRanges &&
-              parseInt(filters.eventPrice) >= event.priceRanges[0].min
+              parseInt(globalFilters.eventPrice) >= event.priceRanges[0].min
           );
 
           return [...limitTicketMasterResults, ...limitYelpEvents];
@@ -186,7 +186,7 @@ export const ResultsSection: React.FC<{
 
       setEventsRefresh(false);
     }
-  }, [filters.eventPrice]);
+  }, [globalFilters.eventPrice]);
 
   React.useEffect(() => {
     if (offset > 0 && searchParamsRefObject.current) {
