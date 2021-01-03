@@ -1,6 +1,6 @@
 import * as React from "react";
 
-export const usePrevious: (value: number) => number = (value) => {
+export const usePrevious = (value: number) => {
   const ref = React.useRef<number>();
 
   React.useEffect(() => {

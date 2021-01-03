@@ -25,13 +25,22 @@ export const PartsIcon: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    if (parts.length > previousValue) setPulse(true);
-    setTimeout(() => {
-      setPulse(false);
-    }, 500);
-    return clearTimeout();
+    if (parts.length > previousValue) {
+      setPulse(true);
+      const pulseTimeOut = () =>
+        setTimeout(() => {
+          setPulse(false);
+        }, 500);
+
+      const pulseTimeOutId = pulseTimeOut();
+
+      return () => {
+        clearTimeout(pulseTimeOutId);
+      };
+    }
   }, [parts.length]);
 
+  console.log(pulse);
   return (
     <div
       className={css.iconWrapper}
