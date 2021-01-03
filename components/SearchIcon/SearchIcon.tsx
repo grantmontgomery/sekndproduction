@@ -1,7 +1,6 @@
 import * as React from "react";
 import css from "./SearchIcon.module.scss";
 import { useModalDispatch, useModalState } from "../../state/ModalContext";
-import { NavState } from "../Nav";
 
 export const SearchIcon: React.FC = () => {
   const { allowToggle, allowDisplay } = useModalState();

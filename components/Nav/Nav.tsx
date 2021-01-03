@@ -5,6 +5,7 @@ import { MobileHamburger } from "../MobileHamburger";
 import { MobileMenu } from "../MobileMenu";
 import { DateParts } from "../DateParts";
 import { SearchIcon } from "../SearchIcon";
+import { Search } from "../Search";
 import { SearchBox } from "../SearchBox";
 import { NavLinks } from "../NavLinks";
 import { PartsIcon } from "../PartsIcon";
@@ -49,6 +50,7 @@ export const Nav: React.FC = () => {
 
         <AccountDisplay></AccountDisplay>
         <SearchIcon></SearchIcon>
+        <Search></Search>
         <UserIcon></UserIcon>
         <PartsIcon></PartsIcon>
 

@@ -40,7 +40,6 @@ export const PartsIcon: React.FC = () => {
     }
   }, [parts.length]);
 
-  console.log(pulse);
   return (
     <div
       className={css.iconWrapper}

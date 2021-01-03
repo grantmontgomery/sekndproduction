@@ -1,0 +1,31 @@
+.searchWrapper {
+  display: none;
+}
+
+@media (orientation: landscape) {
+  .searchWrapper {
+    display: block;
+    text-align: center;
+    height: 7vh;
+    position: relative;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 100px;
+    border-radius: 5px;
+    margin-left: clamp(5px, 20px, 25px);
+    margin-right: clamp(5px, 20px, 25px);
+    cursor: pointer;
+    background: blue;
+    & span {
+      height: fit-content;
+      top: 50%;
+      transform: translate(0, -50%);
+      width: fit-content;
+      position: relative;
+      display: block;
+      margin-left: auto;
+      color: white;
+      margin-right: auto;
+    }
+  }
+}
