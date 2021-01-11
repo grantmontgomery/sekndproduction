@@ -17,18 +17,22 @@ Seknd is the first "date making" app, built to make finding a first date idea as
 
 <!-- DO NOT CHANGE -->
 
-_Last updated on Mon, Jan 11, 2021 11:53:58 AM_
+_Last updated on Mon, Jan 11, 2021 12:06:07 PM_
 
 <!-- DO NOT CHANGE -->
 
 <p align="center">
 <span>
+<kbd>
 <img src="public/images/SekndDesktopScreenshot.png" width="74.385%">
 </img>
+</kbd>
 </span>
 <span>
+<kbd>
 <img src="public/images/SekndMobileScreenshot.png" width="20.615%">
 </img>
+</kbd>
 </span>
 </p>
 
