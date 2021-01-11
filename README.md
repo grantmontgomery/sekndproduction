@@ -1,7 +1,7 @@
 <p width="100%" align="center">
 
 <a href="https://sekndapp.com" target="">
-    <img src="public/images/SekndLogo.png" width="50%">
+    <img src="public/images/SekndLogo.png" width="25%">
 </a>
 
 </p>
@@ -17,17 +17,17 @@ Seknd is the first "date making" app, built to make finding a first date idea as
 
 <!-- DO NOT CHANGE -->
 
-_Last updated on Mon, Jan 11, 2021 11:11:27 AM_
+_Last updated on Mon, Jan 11, 2021 11:53:58 AM_
 
 <!-- DO NOT CHANGE -->
 
 <p align="center">
 <span>
-<img src="static/SekndDesktopScreenshot.png" width="74.385%">
+<img src="public/images/SekndDesktopScreenshot.png" width="74.385%">
 </img>
 </span>
 <span>
-<img src="static/SekndMobileScreenshot.png" width="20.615%">
+<img src="public/images/SekndMobileScreenshot.png" width="20.615%">
 </img>
 </span>
 </p>
@@ -43,6 +43,15 @@ _Last updated on Mon, Jan 11, 2021 11:11:27 AM_
 7. [License](#License)
 
 ## Deployment
+
+`Type text in these blocks in your IDE's or code editor's terminal and hit enter.`
+
+1. **Open up a new folder in the IDE or code editor of your choice (Visual Studio Code highly suggested).**
+2. `git init`
+3. `git clone https://github.com/grantmontgomery/sekndproduction.git`
+4. **Move all files and folders outside of sekndproduction folder in to the new folder.**
+5. **Delete sekndproduction folder.**
+6. **Install dependencies** <br/>
 
 ## Motivation
 
