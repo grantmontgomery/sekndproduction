@@ -1,1 +1,1 @@
-    <img src="public/images/SekndSEOPic.png" width="50%">
+<img src="public/images/SekndSEOPic.png" width="50%">
