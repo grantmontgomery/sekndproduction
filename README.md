@@ -17,7 +17,7 @@ Seknd is the first "date making" app, built to make finding a first date idea as
 
 <!-- DO NOT CHANGE -->
 
-_Last updated on Tue, Jan 12, 2021  3:33:58 PM_
+_Last updated on Tue, Jan 12, 2021  3:48:33 PM_
 
 <!-- DO NOT CHANGE -->
 
@@ -79,9 +79,39 @@ The past decade has defined the era of matchmaking apps and has made meeting new
 
 ## Design
 
+Throughout building this app
+
 ## Features
 
+1. Search
+
+2. Schedule
+
+3. Save
+
 ## Technologies
+
+- **Languages**
+  - [TypeScript](https://github.com/microsoft/TypeScript)
+  - JavaScript
+  - SQL
+  - [GraphQL](https://graphql.org/)
+- **Markdown**
+  - HTML
+- **Styling**
+  - [Sass](https://github.com/sass/sass)
+  - [CSS Modules](https://github.com/css-modules/css-modules)
+  - CSS
+- **Libraries**
+  - [React.js](https://github.com/facebook/react)
+  - [Three.js](https://github.com/mrdoob/three.js)
+- **Frameworks**
+  - [Next.js](https://github.com/vercel/next.js)
+- **Databases**
+  - [MySQL](https://www.mysql.com/)
+- **APIs**
+  - [Yelp Fusion](https://www.yelp.com/developers/documentation/v3/get_started)
+  - [Ticketmaster Develper](https://developer.ticketmaster.com/products-and-docs/apis/getting-started/)
 
 ## Colors
 
