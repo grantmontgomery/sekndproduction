@@ -13,11 +13,11 @@ Seknd</h1>
 
 Seknd is the first "date making" app, built to make finding a first date idea as convenient as finding a match on Tinder.
 
-**_Still a work in progress. Code and features are subject to change._**
+**_Work in progress. Many features and designs are subject to change._**
 
 <!-- DO NOT CHANGE -->
 
-_Last updated on Wed, Jan 13, 2021 11:24:00 AM_
+_Last updated on Wed, Jan 13, 2021 12:03:05 PM_
 
 <!-- DO NOT CHANGE -->
 
@@ -75,7 +75,7 @@ _Last updated on Wed, Jan 13, 2021 11:24:00 AM_
 
 ## Motivation
 
-The past decade has defined the era of matchmaking apps and has made meeting new people fast and convenient. But the convenience and simplicity ends once you match with someone and the question comes up, "What should I plan for the first date?". Like many others we have to look through apps such as Yelp or Eventbrite to figure out something to do within a certain area and a certain time. For working professionals this is time consuming especially after already communicating with so many matches. I built this app with the goal of making the process of finding something to do simple, but with the ultiamte goal of eliminating the thought process totally with the use of a smart algorithm. This version is the second iteration of this idea which followed a set of design principles detailed below.
+The past decade has defined the era of matchmaking apps and has made meeting new people fast and convenient. But the convenience and simplicity ends once you match with someone and the question comes up, "What should I plan for the first date?". In order to answer this question most of us will have to look through multiple apps such as Yelp or Eventbrite to figure out something to do within a certain area and a certain time. For professionals this is can be time consuming especially after already communicating with so many matches. I built this app with the goal of making the process of finding something to do simple, but with the ultiamte goal of eliminating the thought process totally with the use of a smart algorithm. This version is the second iteration of this idea which followed a set of design principles detailed below.
 
 ## Design
 
@@ -102,7 +102,7 @@ Throughout building this app
 
 2. **Select**<br>
 
-   After making your search request and the data loads you see cards displaying the best events and places at the time you specified. From this page you can select whether you want events or places displayed. There is also pricing options on the side where you can filter the results from the cheapest to the most expensive. Keep in mind this feature changes functionality and options based on whether you're looking at places or events. When you find places or events you like hit the "Add to Parts +" button on the top right. You'll see a Yin and Yang symbol at the top right pulsate. When you click on this symbol it opens up the places you selected, like a shopping cart, but for your preferred places or events. From this section you can also create your own parts if you can't find what you're looking for in the results. Your Date Parts list will remain constant on page changes and refresh because it's stored in a React Context object and the Session Storage on your browser.
+   After making your search request and the data loads you see cards displaying the best events and places at the time you specified. From this page you can select whether you want events or places displayed. There is also pricing options on the side where you can filter the results from the cheapest to the most expensive. Keep in mind this feature changes functionality and options based on whether you're looking at places or events. This feature also implements an infinite scrolling feature where when you scroll to the bottom more results will be continuously loaded in . When you find places or events you like hit the "Add to Parts +" button on the top right. You'll see a Yin and Yang symbol at the top right pulsate. When you click on this symbol it opens up the places you selected, like a shopping cart, but for your preferred places or events. From this section you can also create your own parts if you can't find what you're looking for in the results. Your Date Parts list will remain constant on page changes and refresh because it's stored in a React Context object and the Session Storage on your browser.
 
 - **Pages**
   - [Queried Page](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/search/%5Bqueried%5D.tsx)
@@ -112,10 +112,26 @@ Throughout building this app
   - [Result Card](https://github.com/grantmontgomery/sekndproduction/tree/master/components/SearchResults/ResultCard)
   - [Date Parts](https://github.com/grantmontgomery/sekndproduction/blob/master/components/DateParts/DateParts.tsx)
   - [Date Part](https://github.com/grantmontgomery/sekndproduction/tree/master/components/DatePart)
+  - [Mobile Filter](https://github.com/grantmontgomery/sekndproduction/tree/master/components/MobileFilter)
+  - [Mobile Filter Widget](https://github.com/grantmontgomery/sekndproduction/tree/master/components/MobileFiltersWidget)
 - **Global State**
   - [Date Parts Context](https://github.com/grantmontgomery/sekndproduction/blob/master/state/DatePartsContext.tsx)
 
-3. **Schedule**
+3. **Schedule**<br>
+
+   Once you have selected all the places and events you want you can visit the Schedule Page in order to schedule the perfect night or day out. A vertical grid was created from the times you originally selected in the Search feature and is split up by 30 minute increments. Tap or click on an empty grid rectangle
+
+- **Pages**
+  - [Schedule Page](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/schedule.tsx)
+- **Relevant Components**
+
+  - [Schedule Grid](https://github.com/grantmontgomery/sekndproduction/tree/master/components/ScheduleGrid)
+  - [Schedule Drag Piece](https://github.com/grantmontgomery/sekndproduction/tree/master/components/ScheduleDragPiece)
+  - [Schedule Part Selector](https://github.com/grantmontgomery/sekndproduction/tree/master/components/SchedulePartSelector)
+
+- **Global State**
+  - [Grid Rectangles Context](https://github.com/grantmontgomery/sekndproduction/blob/master/state/GridRectanglesContext.tsx)
+  - [Search Grid Context](https://github.com/grantmontgomery/sekndproduction/blob/master/state/SearchGridContext.tsx)
 
 4. **Save** <br>
    This feature is still in the works, but it would allow users who have an account to save their scheduled nights out so that they can copy and reuse ideas for another time.
