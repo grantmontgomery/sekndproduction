@@ -1,7 +1,7 @@
 <p width="100%" align="center">
 
 <a href="https://sekndapp.com" target="">
-    <img src="public/images/SekndLogo.png" width="25%">
+    <img src="public/images/SekndLogo.png" width="40%">
 </a>
 
 </p>
@@ -17,19 +17,19 @@ Seknd is the first "date making" app, built to make finding a first date idea as
 
 <!-- DO NOT CHANGE -->
 
-_Last updated on Tue, Jan 12, 2021  3:48:33 PM_
+_Last updated on Tue, Jan 12, 2021 11:32:29 PM_
 
 <!-- DO NOT CHANGE -->
 
 <p align="center">
 <span>
-<kbd>
+<kbd width="74.385%">
 <img src="public/images/SekndDesktopScreenshot.png" width="74.385%">
 </img>
 </kbd>
 </span>
 <span>
-<kbd>
+<kbd width="20.615%">
 <img src="public/images/SekndMobileScreenshot.png" width="20.615%">
 </img>
 </kbd>
@@ -57,13 +57,13 @@ _Last updated on Tue, Jan 12, 2021  3:48:33 PM_
 5. **Delete sekndproduction folder.**
 6. **Install dependencies** <br>
 
-`npm install`
+   `npm install`
 
 7. **Run the development server** <br>
 
-`npm start`<br>
+   `npm start`<br>
 
-9. **When the build is done in the terminal a window should open up at _http://localhost:3000_ in one of your browsers, but if it doesn't visit this address in the browser of your choice.**
+8. **When the build is done in the terminal a window should open up at _http://localhost:3000_ in one of your browsers, but if it doesn't visit this address in the browser of your choice.**
 
 - Run production build. <br>
 
@@ -83,11 +83,23 @@ Throughout building this app
 
 ## Features
 
-1. Search
+1. **Search**<br>
 
-2. Schedule
+   Are you looking for places, events, or the whole shebang? The Search feature is where you begin the process of finding that great first date idea. Start by selecting what which of the three you're looking for, then where you would like to look, and then when.
+   <br>
 
-3. Save
+- **Pages**
+  - [Queried Page](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/search/%5Bqueried%5D.tsx)
+- **Relevant Components**
+  - [SearchBox](https://github.com/grantmontgomery/sekndproduction/tree/master/components/SearchBox)
+- **Backend**
+  - [Ticketmaster API](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/api/ticketmasterAPI.ts)
+  - [Yelp Businesses API](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/api/yelpBusinessesAPI.ts)
+  - [Yelp Events API](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/api/yelpEventsAPI.ts)
+
+2. **Schedule**
+
+3. **Save**
 
 ## Technologies
 
@@ -104,16 +116,26 @@ Throughout building this app
   - CSS
 - **Libraries**
   - [React.js](https://github.com/facebook/react)
-  - [Three.js](https://github.com/mrdoob/three.js)
 - **Frameworks**
   - [Next.js](https://github.com/vercel/next.js)
 - **Databases**
   - [MySQL](https://www.mysql.com/)
 - **APIs**
+
   - [Yelp Fusion](https://www.yelp.com/developers/documentation/v3/get_started)
   - [Ticketmaster Develper](https://developer.ticketmaster.com/products-and-docs/apis/getting-started/)
 
+- **Cloud Services**
+  - [Vercel](https://vercel.com)
+  - [AWS](https://aws.amazon.com)
+
 ## Colors
+
+| Color/Gradient | Hex                                                                                                                               |
+| -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Crystal Clear  | [#159957](https://via.placeholder.com/10/159957?text=+)`#159957` [#155799](https://via.placeholder.com/10/155799?text=+)`#155799` |
+| Rea            | [#FFE000](https://via.placeholder.com/10/FFE000?text=+)`#FFE000` [#799F0C](https://via.placeholder.com/10/799F0C?text=+)`#799F0C` |
+| Cosmic Fusion  | [#ff00cc](https://via.placeholder.com/10/ff00cc?text=+)`#ff00cc` [#333399](https://via.placeholder.com/10/333399?text=+)`#333399` |
 
 ## License
 
