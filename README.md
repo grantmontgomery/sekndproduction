@@ -9,7 +9,7 @@
 <h1 align="center">
 Seknd</h1>
 
-> Less time looking, more seocond dates. <br>
+> Less time looking, more second dates. <br>
 
 Seknd is the first "date making" app, built to make finding a first date idea as convenient as finding a match on Tinder.
 
@@ -17,7 +17,7 @@ Seknd is the first "date making" app, built to make finding a first date idea as
 
 <!-- DO NOT CHANGE -->
 
-_Last updated on Tue, Jan 12, 2021 11:32:29 PM_
+_Last updated on Wed, Jan 13, 2021 10:56:42 AM_
 
 <!-- DO NOT CHANGE -->
 
@@ -85,21 +85,37 @@ Throughout building this app
 
 1. **Search**<br>
 
-   Are you looking for places, events, or the whole shebang? The Search feature is where you begin the process of finding that great first date idea. Start by selecting what which of the three you're looking for, then where you would like to look, and then when.
+   Are you looking for places, events, or the whole shebang? The Search feature is where you begin the process of finding that great first date idea. Start by selecting what which of the three you're looking for, then where you would like to look, and when. The search feature sends a query to a dynamic route where API calls are made to serverless endpoints with the useSWR hook created by Vercel. The serverless functions then post queries to API endpoints provided by Ticketmaster and Yelp and the data is finally made available for users in the Select feature.
    <br>
 
 - **Pages**
+
   - [Queried Page](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/search/%5Bqueried%5D.tsx)
+
 - **Relevant Components**
   - [SearchBox](https://github.com/grantmontgomery/sekndproduction/tree/master/components/SearchBox)
+  - [SearchIcon](https://github.com/grantmontgomery/sekndproduction/tree/master/components/SearchIcon)
 - **Backend**
   - [Ticketmaster API](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/api/ticketmasterAPI.ts)
   - [Yelp Businesses API](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/api/yelpBusinessesAPI.ts)
   - [Yelp Events API](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/api/yelpEventsAPI.ts)
 
-2. **Schedule**
+2. **Select**
 
-3. **Save**
+- **Pages**
+  - [Queried Page](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/search/%5Bqueried%5D.tsx)
+- **Relevant Components**
+  - [Results Filter](https://github.com/grantmontgomery/sekndproduction/tree/master/components/ResultsFilter)
+  - [Results List](https://github.com/grantmontgomery/sekndproduction/tree/master/components/ResultsList)
+  - [Result Card](https://github.com/grantmontgomery/sekndproduction/tree/master/components/SearchResults/ResultCard)
+  - [Date Parts](https://github.com/grantmontgomery/sekndproduction/blob/master/components/DateParts/DateParts.tsx)
+  - [Date Part](https://github.com/grantmontgomery/sekndproduction/tree/master/components/DatePart)
+- **Global State**
+  - [Date Parts Context](https://github.com/grantmontgomery/sekndproduction/blob/master/state/DatePartsContext.tsx)
+
+3. **Schedule**
+
+4. **Save**
 
 ## Technologies
 
@@ -121,13 +137,13 @@ Throughout building this app
 - **Databases**
   - [MySQL](https://www.mysql.com/)
 - **APIs**
-
   - [Yelp Fusion](https://www.yelp.com/developers/documentation/v3/get_started)
   - [Ticketmaster Develper](https://developer.ticketmaster.com/products-and-docs/apis/getting-started/)
-
 - **Cloud Services**
   - [Vercel](https://vercel.com)
   - [AWS](https://aws.amazon.com)
+- **Extra Tools**
+  - [SWR](https://github.com/vercel/swr)
 
 ## Colors
 
