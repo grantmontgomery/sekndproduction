@@ -17,7 +17,7 @@ Seknd is the first "date making" app, built to make finding a first date idea as
 
 <!-- DO NOT CHANGE -->
 
-_Last updated on Wed, Jan 13, 2021 10:56:42 AM_
+_Last updated on Wed, Jan 13, 2021 11:24:00 AM_
 
 <!-- DO NOT CHANGE -->
 
@@ -100,7 +100,9 @@ Throughout building this app
   - [Yelp Businesses API](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/api/yelpBusinessesAPI.ts)
   - [Yelp Events API](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/api/yelpEventsAPI.ts)
 
-2. **Select**
+2. **Select**<br>
+
+   After making your search request and the data loads you see cards displaying the best events and places at the time you specified. From this page you can select whether you want events or places displayed. There is also pricing options on the side where you can filter the results from the cheapest to the most expensive. Keep in mind this feature changes functionality and options based on whether you're looking at places or events. When you find places or events you like hit the "Add to Parts +" button on the top right. You'll see a Yin and Yang symbol at the top right pulsate. When you click on this symbol it opens up the places you selected, like a shopping cart, but for your preferred places or events. From this section you can also create your own parts if you can't find what you're looking for in the results. Your Date Parts list will remain constant on page changes and refresh because it's stored in a React Context object and the Session Storage on your browser.
 
 - **Pages**
   - [Queried Page](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/search/%5Bqueried%5D.tsx)
@@ -115,7 +117,8 @@ Throughout building this app
 
 3. **Schedule**
 
-4. **Save**
+4. **Save** <br>
+   This feature is still in the works, but it would allow users who have an account to save their scheduled nights out so that they can copy and reuse ideas for another time.
 
 ## Technologies
 
