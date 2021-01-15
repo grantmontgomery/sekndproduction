@@ -23,8 +23,8 @@ export default interface InputProps {
   radius: string;
   eventsCategory: string;
   location: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | null;
+  endDate: Date | null;
   handleQueryDate: (key: string, date: Date) => void;
 }
 

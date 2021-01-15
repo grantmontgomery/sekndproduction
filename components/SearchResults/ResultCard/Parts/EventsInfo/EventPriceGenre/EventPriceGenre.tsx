@@ -6,7 +6,7 @@ export const EventPriceGenre: React.FC<{
   source: string;
   genre: any | null;
 }> = ({ venue, price, source, genre }) => {
-  const parsePrice: () => string = () => {
+  const parsePrice = () => {
     switch (source) {
       case "yelp":
         if (!price) return "Check link for price.";

@@ -1,7 +1,4 @@
-export const inputEventCategories: (
-  eventType: string,
-  source: string
-) => { [key: string]: string[] } = (eventType, source) => {
+export const inputEventCategories = (eventType: string, source: string) => {
   switch (eventType) {
     case "Music":
       return source === "yelp"

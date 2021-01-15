@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-type Params = {
+interface Params {
   radius: string;
   startDateTime: string;
   endDateTime: string;
@@ -11,7 +11,7 @@ type Params = {
   postalCode?: string;
   size: string;
   page?: string;
-};
+}
 
 // Amplify.configure({...config, ssr: true})
 
@@ -37,9 +37,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           unit: ["km"],
           apikey: `${process.env.TICKETMASTER_API_KEY}`,
         };
-      Object.keys(params).forEach((key) =>
-        ticketmasterEvents.searchParams.append(key, params[key])
-      );
+      Object.keys(params).forEach((key) => {
+        ticketmasterEvents.searchParams.append(key, (params as any)[key]);
+      });
 
       if (segmentId)
         ticketmasterEvents.searchParams.append("segmentId", segmentId);

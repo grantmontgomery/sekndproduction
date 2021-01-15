@@ -5,6 +5,8 @@ const db = require("../../lib/db");
 
 const cookie = require("cookie");
 
+
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== "GET") {
@@ -24,6 +26,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           ///////Check if password is correct
           if (!correctPassword)
             return res.send(`{"message": "Wrong password."}`);
+
           const refreshToken: string = sign(
             { id: user[0].id },
             process.env.REFRESH_SECRET,

@@ -9,9 +9,9 @@ export const ResultsList: React.FC<{
   offsetLoad: boolean;
   changeOffsetNumber: (input: number) => void;
   type: string;
-  yelpPlacesTotal: number;
-  yelpEventsTotal: number;
-  ticketmasterTotal: number;
+  yelpPlacesTotal: number | null;
+  yelpEventsTotal: number | null;
+  ticketmasterTotal: number | null;
 }> = ({
   items,
   offsetLoad,

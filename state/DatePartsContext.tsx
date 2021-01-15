@@ -1,32 +1,29 @@
 import * as React from "react";
 
-type PartsState = {
-  parts: { [key: string]: any }[];
-};
-type Action = {
+interface PartsState {
+  parts: { [key: string]: any }[] | any;
+}
+interface Action {
   type: string;
-  payload?: {
+  payload: {
     id?: string;
     part?: { [key: string]: any };
     details?: string;
     parts?: PartsState["parts"];
   };
-};
-const partsReducer: React.Reducer<PartsState, Action> = (
-  state: PartsState,
-  action
-) => {
+}
+const partsReducer: React.Reducer<PartsState, Action> = (state, action) => {
   switch (action.type) {
     case "ADD_PART":
       if (state.parts.length < 5)
         return { parts: [...state.parts, action.payload.part] };
     case "REMOVE_PART":
       return {
-        parts: state.parts.filter((part) => part.id !== action.payload.id),
+        parts: state.parts.filter((part: any) => part.id !== action.payload.id),
       };
     case "CHANGE_CUSTOM_DETAIL":
       return {
-        parts: state.parts.map((part) => {
+        parts: state.parts.map((part: any) => {
           if (part.id !== action.payload.id) return part;
 
           return { ...part, details: action.payload.details };
@@ -41,12 +38,12 @@ const partsReducer: React.Reducer<PartsState, Action> = (
   }
 };
 
-const PartsStateContext: React.Context<PartsState> = React.createContext(
+const PartsStateContext: React.Context<PartsState | any> = React.createContext(
   undefined
 );
 
 const PartsDispatchContext: React.Context<
-  React.Dispatch<Action> | undefined
+  React.Dispatch<Action> | any
 > = React.createContext(undefined);
 
 export const PartsProvider: ({
@@ -67,14 +64,16 @@ export const PartsProvider: ({
 
   React.useEffect(() => {
     windowObject.current = window;
+    const sessionPartsStorage = windowObject.current.sessionStorage.getItem(
+      "parts"
+    );
     if (windowObject.current.sessionStorage.getItem("parts"))
       dispatch({
         type: "UPDATE_FROM_CACHE",
         payload: {
-          parts: Array.from(
-            JSON.parse(windowObject.current.sessionStorage.getItem("parts"))
-              .parts
-          ),
+          parts: sessionPartsStorage
+            ? Array.from(JSON.parse(sessionPartsStorage).parts)
+            : [],
         },
       });
   }, []);

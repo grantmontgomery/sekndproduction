@@ -86,7 +86,7 @@ export const SchedulePartSelector: React.FC = () => {
           filter: customPiece ? "none" : "blur(1.5px)",
         }}
       >
-        {parts.map((part) => (
+        {parts.map((part: any) => (
           <DatePart
             handleSelectedPartChange={handleSelectedPartChange}
             location="schedule"

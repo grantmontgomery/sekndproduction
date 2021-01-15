@@ -13,9 +13,9 @@ export const ResultsSection: React.FC<{
   initialItems: { [key: string]: any }[] | null;
   initialSearchParams: { [key: string]: any } | null;
   resultsType: string;
-  yelpPlacesTotal: number;
-  yelpEventsTotal: number;
-  ticketmasterTotal: number;
+  yelpPlacesTotal: number | null;
+  yelpEventsTotal: number | null;
+  ticketmasterTotal: number | null;
 }> = ({
   initialItems,
   initialSearchParams,

@@ -1,15 +1,18 @@
 import * as React from "react";
 
-export const useAuthentication = (fields, token) => {
+export const useAuthentication = (fields: any, token: any) => {
   const [authLoading, setLoading] = React.useState<boolean>(false);
   const [authCalled, setCall] = React.useState<boolean>(false);
 
-  const signOut: (token) => Promise<void> = async (token) => {
+  const signOut: (token: any) => Promise<void> = async (token) => {
     try {
     } catch {}
   };
 
-  const signIn: (fields, token) => Promise<void> = async (fields, id) => {
+  const signIn: (fields: any, token: any) => Promise<void> = async (
+    fields,
+    id
+  ) => {
     setLoading(true);
     setCall(true);
     try {

@@ -84,7 +84,7 @@ export default function Queried(): JSX.Element {
 
   React.useEffect(() => {
     if (setSearchParameters(router)) {
-      setSearchParameters(router).searchType === "EVENTS" && setType("events");
+      setSearchParameters(router)?.searchType === "EVENTS" && setType("events");
     }
   }, [setSearchParameters(router)]);
 
