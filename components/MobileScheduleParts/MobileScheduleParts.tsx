@@ -46,7 +46,7 @@ export const MobileScheduleParts: React.FC<{
 
   React.useEffect(() => {
     const currentCustomIndex: number | null = rectangles.findIndex(
-      (rectangle) => rectangle.part && rectangle.part.current
+      (rectangle: any) => rectangle.part && rectangle.part.current
     );
 
     if (currentCustomIndex) {

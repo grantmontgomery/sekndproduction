@@ -34,7 +34,7 @@ export const ScheduleGrid: React.FC = () => {
           }}
           className={css.innerGrid}
         >
-          {rectangles.map((rectangle, index) => (
+          {rectangles.map((rectangle: any, index: number) => (
             <GridRectangle
               rectangle={rectangle}
               key={`rectangle${index}`}

@@ -1,24 +1,22 @@
 import * as React from "react";
 
-type State = {
-  rectangles: { part: { [key: string]: any } | null }[];
-};
+interface State {
+  rectangles: { part: { [key: string]: any } | null }[] | any;
+}
+
 type Action = {
   type: string;
   payload: {
     numberOfRectangles?: number;
     part?: { [key: string]: any } | null;
-    index?: number;
+    index?: number | null;
     pieceHeight?: number;
     id?: string;
     cache?: { part: { [key: string]: any } | null }[];
   };
 };
 
-const rectanglesReducer: React.Reducer<State, Action> = (
-  state: State,
-  action: Action
-) => {
+const rectanglesReducer: React.Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case "ADD_RECTANGLES":
       return {
@@ -30,7 +28,7 @@ const rectanglesReducer: React.Reducer<State, Action> = (
       };
     case "ADD_PART_TO_RECTANGLE":
       return {
-        rectangles: state.rectangles.map((rectangle, i) => {
+        rectangles: state.rectangles.map((rectangle: any, i: number) => {
           return i !== action.payload.index
             ? rectangle
             : { part: action.payload.part };
@@ -38,14 +36,14 @@ const rectanglesReducer: React.Reducer<State, Action> = (
       };
     case "REMOVE_PART_FROM_RECTANGLE":
       return {
-        rectangles: state.rectangles.map((rectangle, i) => {
+        rectangles: state.rectangles.map((rectangle: any, i: number) => {
           return i !== action.payload.index ? rectangle : { part: null };
         }),
       };
 
     case "CHANGE_PIECE_HEIGHT":
       return {
-        rectangles: state.rectangles.map((rectangle, i) => {
+        rectangles: state.rectangles.map((rectangle: any, i: number) => {
           return i !== action.payload.index
             ? rectangle
             : {
@@ -58,7 +56,7 @@ const rectanglesReducer: React.Reducer<State, Action> = (
       };
     case "SET_PIECE":
       return {
-        rectangles: state.rectangles.map((rectangle, i) => {
+        rectangles: state.rectangles.map((rectangle: any, i: number) => {
           return i !== action.payload.index
             ? rectangle
             : {
@@ -78,10 +76,12 @@ const rectanglesReducer: React.Reducer<State, Action> = (
   }
 };
 
-const RectanglesContext: React.Context<State> = React.createContext(undefined);
+const RectanglesContext: React.Context<State | any> = React.createContext(
+  undefined
+);
 
 const RectanglesDispatch: React.Context<
-  React.Dispatch<Action> | undefined
+  React.Dispatch<Action> | any
 > = React.createContext(undefined);
 
 export const RectanglesProvider: ({
@@ -89,13 +89,9 @@ export const RectanglesProvider: ({
 }: {
   children: React.ReactNode;
 }) => JSX.Element = ({ children }) => {
-  const [state, dispatch] = React.useReducer(
-    rectanglesReducer,
-
-    {
-      rectangles: [],
-    }
-  );
+  const [state, dispatch] = React.useReducer(rectanglesReducer, {
+    rectangles: [],
+  });
 
   const windowObject: React.MutableRefObject<
     Window | undefined
@@ -110,7 +106,13 @@ export const RectanglesProvider: ({
     windowObject.current = window;
 
     if (windowObject.current.sessionStorage.getItem("rectangles")) {
-      const { rectangles } = JSON.parse(sessionStorage.getItem("rectangles"));
+      const rectanglesSessionStorageObject = sessionStorage.getItem(
+        "rectangles"
+      );
+
+      const { rectangles } = JSON.parse(
+        rectanglesSessionStorageObject ? rectanglesSessionStorageObject : ""
+      );
       dispatch({ type: "UPDATE_FROM_CACHE", payload: { cache: rectangles } });
     }
   }, []);

@@ -16,8 +16,8 @@ type Action = {
     gridTemplate: string;
     hourStrings: string[];
     hourStringsTrue: string[];
-    startDate: Date;
-    endDate: Date;
+    startDate: Date | null;
+    endDate: Date | null;
   };
 };
 
@@ -37,10 +37,12 @@ const gridReducer: React.Reducer<State, Action> = (state: State, action) => {
   }
 };
 
-const GridStateContext: React.Context<State> = React.createContext(undefined);
+const GridStateContext: React.Context<State | any> = React.createContext(
+  undefined
+);
 
 const GridDispatchContext: React.Context<
-  React.Dispatch<Action> | undefined
+  React.Dispatch<Action> | any
 > = React.createContext(undefined);
 
 export const GridProvider: ({

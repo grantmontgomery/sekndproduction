@@ -34,8 +34,8 @@ export interface SearchQuery {
   radius: string;
   location: string;
   placeType: string;
-  endDate: Date;
-  startDate: Date;
+  endDate: Date | null;
+  startDate: Date | null;
   startFormatted: string;
   endFormatted: string;
   unixStartDate: number;
@@ -55,8 +55,8 @@ export const SearchBox: React.FC = (props) => {
     placeType: "",
     startFormatted: "",
     endFormatted: "",
-    unixStartDate: null,
-    unixEndDate: null,
+    unixStartDate: 0,
+    unixEndDate: 0,
     ticketMasterCategories: "",
     yelpCategories: "",
   });
