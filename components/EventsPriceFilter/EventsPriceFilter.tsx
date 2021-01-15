@@ -2,10 +2,10 @@ import * as React from "react";
 import css from "./EventsPriceFilter.module.scss";
 
 export const EventsPriceFilter: React.FC<{
-  handlePriceChange: (input: string | null) => void;
+  handlePriceChange: (input: string | undefined) => void;
   location: "mobileWidget" | "desktopSection";
 }> = ({ handlePriceChange, location }) => {
-  const [price, setPrice] = React.useState<string | null>(undefined);
+  const [price, setPrice] = React.useState<string | undefined>(undefined);
 
   const handleSelect: (input: string) => void = (input) => {
     setPrice(input);

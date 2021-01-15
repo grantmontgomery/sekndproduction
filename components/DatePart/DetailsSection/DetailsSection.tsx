@@ -7,7 +7,7 @@ import css from "./DetailsSection.module.scss";
 
 export const DetailsSection: React.FC<{
   id?: string;
-  location?: string;
+  location?: string | null;
   price?: string | number;
   date?: string;
   details?: string;
