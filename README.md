@@ -17,7 +17,7 @@ Seknd is the first "date making" app, built to make finding a first date idea as
 
 <!-- DO NOT CHANGE -->
 
-_Last updated on Wed, Jan 13, 2021 12:03:05 PM_
+_Last updated on Thu, Jan 14, 2021  4:38:34 PM_
 
 <!-- DO NOT CHANGE -->
 
@@ -88,6 +88,9 @@ Throughout building this app
    Are you looking for places, events, or the whole shebang? The Search feature is where you begin the process of finding that great first date idea. Start by selecting what which of the three you're looking for, then where you would like to look, and when. The search feature sends a query to a dynamic route where API calls are made to serverless endpoints with the useSWR hook created by Vercel. The serverless functions then post queries to API endpoints provided by Ticketmaster and Yelp and the data is finally made available for users in the Select feature.
    <br>
 
+     <kbd>
+   </kbd>
+
 - **Pages**
 
   - [Queried Page](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/search/%5Bqueried%5D.tsx)
@@ -104,6 +107,9 @@ Throughout building this app
 
    After making your search request and the data loads you see cards displaying the best events and places at the time you specified. From this page you can select whether you want events or places displayed. There is also pricing options on the side where you can filter the results from the cheapest to the most expensive. Keep in mind this feature changes functionality and options based on whether you're looking at places or events. This feature also implements an infinite scrolling feature where when you scroll to the bottom more results will be continuously loaded in . When you find places or events you like hit the "Add to Parts +" button on the top right. You'll see a Yin and Yang symbol at the top right pulsate. When you click on this symbol it opens up the places you selected, like a shopping cart, but for your preferred places or events. From this section you can also create your own parts if you can't find what you're looking for in the results. Your Date Parts list will remain constant on page changes and refresh because it's stored in a React Context object and the Session Storage on your browser.
 
+   <kbd>
+   </kbd>
+
 - **Pages**
   - [Queried Page](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/search/%5Bqueried%5D.tsx)
 - **Relevant Components**
@@ -119,7 +125,10 @@ Throughout building this app
 
 3. **Schedule**<br>
 
-   Once you have selected all the places and events you want you can visit the Schedule Page in order to schedule the perfect night or day out. A vertical grid was created from the times you originally selected in the Search feature and is split up by 30 minute increments. Tap or click on an empty grid rectangle
+   Once you have selected all the places and events you want you can visit the Schedule Page in order to schedule the perfect night or day out. A vertical grid was created from the times you originally selected in the Search feature and is split up by 30 minute increments. Tap or click on an empty space on the grid to create an outline piece. You can drag the piece, shorten, or extend it to fit the time block of your choice. Once it's in the spot you like you can select the part you would like to place inside of it from the selection on the left. If you change your mind and would like to remove the part just click or tap on the red "X" on the top right.
+
+     <kbd>
+   </kbd>
 
 - **Pages**
   - [Schedule Page](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/schedule.tsx)
