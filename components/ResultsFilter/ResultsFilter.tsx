@@ -8,7 +8,7 @@ import { RenderWrapper } from "../MobileFiltersWidget";
 import { MobileFilter } from "../MobileFilter";
 
 export const ResultsFilter: React.FC<{
-  handlePriceChange: (input: string) => void;
+  handlePriceChange: (input: string | null) => void;
   resultsType: string;
   searchParams: { [key: string]: any } | null;
   resultsLoading: boolean;
