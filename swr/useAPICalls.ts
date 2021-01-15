@@ -25,10 +25,11 @@ export default function useAPICalls(
     error: yelpPlacesError,
     isValidating: yelpPlacesLoading,
   }: responseInterface<APIResponse, string> = useSWR(
-    setSearchParameters &&
-      setSearchParameters.searchType !== "EVENTS" &&
-      `${urlStart}/api/yelpBusinessesAPI`,
+    setSearchParameters && setSearchParameters.searchType !== "EVENTS"
+      ? `${urlStart}/api/yelpBusinessesAPI`
+      : null,
     async (url) => {
+      if (!setSearchParameters) return null;
       const { location, radius, placeType } = setSearchParameters;
 
       try {
@@ -78,10 +79,11 @@ export default function useAPICalls(
     error: yelpEventsError,
     isValidating: yelpEventsLoading,
   }: responseInterface<APIResponse, string> = useSWR(
-    setSearchParameters &&
-      setSearchParameters.searchType !== "PLACES" &&
-      `${urlStart}/api/yelpEventsAPI`,
+    setSearchParameters && setSearchParameters.searchType !== "PLACES"
+      ? `${urlStart}/api/yelpEventsAPI`
+      : null,
     async (url) => {
+      if (!setSearchParameters) return null;
       const {
         location,
         radius,
@@ -134,10 +136,11 @@ export default function useAPICalls(
     error: ticketmasterError,
     isValidating: ticketmasterLoading,
   }: responseInterface<APIResponse, string> = useSWR(
-    setSearchParameters &&
-      setSearchParameters.searchType !== "PLACES" &&
-      `${urlStart}/api/ticketmasterAPI`,
+    setSearchParameters && setSearchParameters.searchType !== "PLACES"
+      ? `${urlStart}/api/ticketmasterAPI`
+      : null,
     async (url) => {
+      if (!setSearchParameters) return null;
       const {
         location,
         radius,
@@ -204,9 +207,9 @@ export default function useAPICalls(
       ...checkYelpEventsArray,
       ...checkYelpPlacesArray,
     ],
-    yelpPlacesTotal: yelpPlaces && yelpPlaces.total,
-    yelpEventsTotal: yelpEvents && yelpEvents.total,
-    ticketmasterTotal: ticketmaster && ticketmaster.total,
+    yelpPlacesTotal: yelpPlaces ? yelpPlaces.total : null,
+    yelpEventsTotal: yelpEvents ? yelpEvents.total : null,
+    ticketmasterTotal: ticketmaster ? ticketmaster.total : null,
     loading: ticketmasterLoading || yelpEventsLoading || yelpPlacesLoading,
     errors: { yelpEventsError, yelpPlacesError, ticketmasterError },
   };

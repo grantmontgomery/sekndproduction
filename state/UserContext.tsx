@@ -1,11 +1,12 @@
 import * as React from "react";
 import { NextRouter, Router, useRouter } from "next/router";
+import { AnyNaptrRecord } from "dns";
 
-type State = {
+interface State {
   user: any | null;
-};
+}
 
-type Action = {
+interface Action {
   type: string;
   payload?: {
     name: string;
@@ -14,9 +15,12 @@ type Action = {
     username: string;
     dates: any;
   };
-};
+}
 
-const userReducer: React.Reducer<State, Action> = (state: State, action) => {
+const userReducer: React.Reducer<State | any, Action> = (
+  state: State,
+  action
+) => {
   switch (action.type) {
     case "SET_USER":
       return { user: { ...action.payload } };
@@ -25,11 +29,11 @@ const userReducer: React.Reducer<State, Action> = (state: State, action) => {
   }
 };
 
-const UserStateContext: React.Context<State | undefined> = React.createContext(
+const UserStateContext: React.Context<State | any> = React.createContext(
   undefined
 );
 const UserDispatchContext: React.Context<
-  React.Dispatch<Action> | undefined
+  React.Dispatch<Action> | any
 > = React.createContext(undefined);
 
 export const useUserState = (): State => {

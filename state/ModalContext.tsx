@@ -1,6 +1,6 @@
 import * as React from "react";
 
-type State = {
+interface State {
   allowToggle: {
     mobileLinks: boolean;
     dateParts: boolean;
@@ -14,13 +14,13 @@ type State = {
     signIn: boolean;
   };
   modalOpen: boolean;
-};
+}
 
-type Action = {
+interface Action {
   type: string;
-};
+}
 
-const modalReducer: React.Reducer<State, Action> = (
+const modalReducer: React.Reducer<State | any, Action> = (
   state: State,
   action: Action
 ) => {
@@ -110,11 +110,9 @@ const modalReducer: React.Reducer<State, Action> = (
   }
 };
 
-const ModalContext: React.Context<State | undefined> = React.createContext(
-  undefined
-);
+const ModalContext: React.Context<State | any> = React.createContext(undefined);
 const ModalDispatch: React.Context<
-  React.Dispatch<Action> | undefined
+  React.Dispatch<Action> | any
 > = React.createContext(undefined);
 
 export const ModalProvider: ({
@@ -139,9 +137,12 @@ export const ModalProvider: ({
   });
 
   React.useEffect(() => {
-    state.modalOpen
-      ? (document.querySelector("body").style.overflowY = "hidden")
-      : (document.querySelector("body").style.overflowY = "scroll");
+    const body = document.querySelector("body");
+    if (body) {
+      state.modalOpen
+        ? (body.style.overflowY = "hidden")
+        : (body.style.overflowY = "scroll");
+    }
   }, [state.modalOpen]);
 
   return (

@@ -72,7 +72,7 @@ export const SearchBox: React.FC = (props) => {
     );
 
     newDatesInput.setGrid();
-    partsDispatch({ type: "CLEAR_PARTS" });
+    partsDispatch({ type: "CLEAR_PARTS", payload: {} });
     rectanglesDispatch({
       type: "ADD_RECTANGLES",
       payload: { numberOfRectangles: newDatesInput.numberofRectangles },
