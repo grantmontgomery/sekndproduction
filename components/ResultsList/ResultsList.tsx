@@ -25,9 +25,9 @@ export const ResultsList: React.FC<{
     IntersectionObserver | undefined
   > = React.useRef();
 
-  const reloadRef: React.MutableRefObject<
-    HTMLElement | undefined
-  > = React.useRef();
+  const reloadRef: React.MutableRefObject<HTMLElement | null> = React.useRef(
+    null
+  );
 
   React.useEffect(() => {
     observer.current = new IntersectionObserver(
@@ -50,11 +50,11 @@ export const ResultsList: React.FC<{
     );
 
     reloadRef.current = document.getElementById(`${type}ReloadSection`);
-    if (items) observer.current.observe(reloadRef.current);
+    if (items && reloadRef.current) observer.current.observe(reloadRef.current);
 
     return () => {
       changeOffsetNumber(0);
-      observer.current.disconnect();
+      observer.current && observer.current.disconnect();
     };
   }, []);
 

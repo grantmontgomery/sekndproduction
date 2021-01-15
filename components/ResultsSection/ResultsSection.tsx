@@ -42,21 +42,21 @@ export const ResultsSection: React.FC<{
 
   ///////////////////////////////////////////////////////////////Refs Set Up
 
-  const searchParamsRefObject: React.MutableRefObject<
-    { [key: string]: any } | undefined
-  > = React.useRef(undefined);
+  const searchParamsRefObject: React.MutableRefObject<{
+    [key: string]: any;
+  } | null> = React.useRef(null);
 
   const currentPlacesTotal: React.MutableRefObject<
-    number | undefined
-  > = React.useRef(undefined);
+    number | null
+  > = React.useRef(null);
 
-  const currentYelpEventsTotal: React.MutableRefObject<number> = React.useRef(
-    undefined
-  );
+  const currentYelpEventsTotal: React.MutableRefObject<
+    number | null
+  > = React.useRef(null);
 
-  const currentTicketMasterTotal: React.MutableRefObject<number> = React.useRef(
-    undefined
-  );
+  const currentTicketMasterTotal: React.MutableRefObject<
+    number | null
+  > = React.useRef(null);
 
   //////////////////////////////////////////////////////////////////////////////////////// API HOOKS
 
@@ -154,31 +154,39 @@ export const ResultsSection: React.FC<{
 
       setEventsResults((previousEvents) => {
         if (globalFilters.eventPrice !== "Free") {
-          const limitYelpEvents = previousEvents.filter(
-            (event) =>
-              event.source === "yelp" &&
-              event.cost &&
-              parseInt(globalFilters.price) >= event.cost
-          );
-          const limitTicketMasterResults = previousEvents.filter(
-            (event) =>
-              event.source === "ticketmaster" &&
-              event.priceRanges &&
-              parseInt(globalFilters.eventPrice) >= event.priceRanges[0].min
-          );
+          const limitYelpEvents = previousEvents
+            ? previousEvents.filter(
+                (event) =>
+                  event.source === "yelp" &&
+                  event.cost &&
+                  parseInt(globalFilters.price) >= event.cost
+              )
+            : [];
+          const limitTicketMasterResults = previousEvents
+            ? previousEvents.filter(
+                (event) =>
+                  event.source === "ticketmaster" &&
+                  event.priceRanges &&
+                  parseInt(globalFilters.eventPrice) >= event.priceRanges[0].min
+              )
+            : [];
 
           return [...limitTicketMasterResults, ...limitYelpEvents];
         } else {
-          const limitYelpEvents = previousEvents.filter(
-            (event) => event.source === "yelp" && event.is_free
-          );
-          const limitTicketMasterResults = previousEvents.filter(
-            (event) =>
-              (event.source === "ticketmaster" &&
-                event.priceRanges &&
-                event.priceRanges[0].min === 0) ||
-              !event.priceRanges
-          );
+          const limitYelpEvents = previousEvents
+            ? previousEvents.filter(
+                (event) => event.source === "yelp" && event.is_free
+              )
+            : [];
+          const limitTicketMasterResults = previousEvents
+            ? previousEvents.filter(
+                (event) =>
+                  (event.source === "ticketmaster" &&
+                    event.priceRanges &&
+                    event.priceRanges[0].min === 0) ||
+                  !event.priceRanges
+              )
+            : [];
 
           return [...limitTicketMasterResults, ...limitYelpEvents];
         }
@@ -197,84 +205,96 @@ export const ResultsSection: React.FC<{
 
       switch (resultsType) {
         case "places":
-          if (placesResults.length + 1 >= currentPlacesTotal.current) return;
+          if (
+            placesResults &&
+            currentPlacesTotal.current &&
+            placesResults.length + 1 <= currentPlacesTotal.current
+          ) {
+            const handlePlacesOffsetCall: () => Promise<any> = async () => {
+              setOffsetLoad(true);
+              try {
+                const response = await triggerPlacesCall(
+                  searchParamsRefObject.current
+                );
+                setOffsetLoad(false);
 
-          const handlePlacesOffsetCall: () => Promise<any> = async () => {
-            setOffsetLoad(true);
-            try {
-              const response = await triggerPlacesCall(
-                searchParamsRefObject.current
-              );
-              setOffsetLoad(false);
-
-              if (typeof response === "object")
-                setPlacesResults((prevResults) => [
-                  ...prevResults,
-                  ...response.results,
-                ]);
-            } catch (error) {
-              setOffsetLoad(false);
-              console.log(error);
-              return error;
-            }
-          };
-          handlePlacesOffsetCall();
+                if (typeof response === "object")
+                  setPlacesResults((prevResults) =>
+                    prevResults
+                      ? [...prevResults, ...response.results]
+                      : [...response.results]
+                  );
+              } catch (error) {
+                setOffsetLoad(false);
+                console.log(error);
+                return error;
+              }
+            };
+            handlePlacesOffsetCall();
+          }
         case "events":
           if (
-            eventsResults.length + 2 >=
-            currentTicketMasterTotal.current + currentYelpEventsTotal.current
-          )
-            return;
+            eventsResults &&
+            currentTicketMasterTotal.current &&
+            currentYelpEventsTotal.current &&
+            eventsResults?.length + 2 <=
+              currentTicketMasterTotal.current + currentYelpEventsTotal.current
+          ) {
+            const yelpEventsCurrentCount: number = eventsResults.filter(
+              (event) => event.source === "yelp"
+            ).length;
+            const ticketmasterCurrentCount: number = eventsResults.filter(
+              (event) => event.source === "ticketmaster"
+            ).length;
 
-          const yelpEventsCurrentCount: number = eventsResults.filter(
-            (event) => event.source === "yelp"
-          ).length;
-          const ticketmasterCurrentCount: number = eventsResults.filter(
-            (event) => event.source === "ticketmaster"
-          ).length;
-
-          const handleEventsOffsetCall: () => Promise<any> = async () => {
-            setOffsetLoad(true);
-            try {
-              let yelpEventsResponse = null;
-              let ticketmasterResponse = null;
-              if (yelpEventsCurrentCount + 1 < currentYelpEventsTotal.current)
-                yelpEventsResponse = await triggerYelpEventsCall(
-                  searchParamsRefObject.current
-                );
-              if (
-                ticketmasterCurrentCount + 1 <
-                currentTicketMasterTotal.current
-              )
-                ticketmasterResponse = await triggerTicketMasterCall(
-                  searchParamsRefObject.current
-                );
-
-              setEventsResults((prevResults) => {
-                let results = [...prevResults];
+            const handleEventsOffsetCall: () => Promise<any> = async () => {
+              setOffsetLoad(true);
+              try {
+                let yelpEventsResponse: any | null = null;
+                let ticketmasterResponse: any | null = null;
                 if (
-                  yelpEventsResponse &&
-                  typeof yelpEventsResponse === "object"
+                  currentYelpEventsTotal.current &&
+                  yelpEventsCurrentCount + 1 < currentYelpEventsTotal.current
                 )
-                  results = [...results, ...yelpEventsResponse];
+                  yelpEventsResponse = await triggerYelpEventsCall(
+                    searchParamsRefObject.current
+                  );
                 if (
-                  ticketmasterResponse &&
-                  typeof ticketmasterResponse === "object"
+                  currentTicketMasterTotal.current &&
+                  ticketmasterCurrentCount + 1 <
+                    currentTicketMasterTotal.current
                 )
-                  results = [...results, ...ticketmasterResponse];
+                  ticketmasterResponse = await triggerTicketMasterCall(
+                    searchParamsRefObject.current
+                  );
 
+                setEventsResults((prevResults) => {
+                  const prevResultsArr = prevResults ? prevResults : [];
+                  let results = [...prevResultsArr];
+                  if (
+                    yelpEventsResponse &&
+                    typeof yelpEventsResponse === "object"
+                  )
+                    results = [...results, ...yelpEventsResponse];
+                  if (
+                    ticketmasterResponse &&
+                    typeof ticketmasterResponse === "object"
+                  )
+                    results = [...results, ...ticketmasterResponse];
+
+                  setOffsetLoad(false);
+                  return results;
+                });
+              } catch (error) {
+                console.log(error);
                 setOffsetLoad(false);
-                return results;
-              });
-            } catch (error) {
-              console.log(error);
-              setOffsetLoad(false);
 
-              return error;
-            }
-          };
+                return error;
+              }
+            };
 
-          handleEventsOffsetCall();
+            handleEventsOffsetCall();
+          }
       }
     }
   }, [offset]);

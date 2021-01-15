@@ -4,9 +4,9 @@ import css from "./ScheduleFeature.module.scss";
 export const ScheduleFeature: React.FC = () => {
   const [elements, loadElements] = React.useState<boolean>(false);
   const [windowDimensions, setWindowDimensions] = React.useState<{
-    innerHeight: number | null;
-    innerWidth: number | null;
-  }>({ innerHeight: null, innerWidth: null });
+    innerHeight: number;
+    innerWidth: number;
+  }>({ innerHeight: 0, innerWidth: 0 });
   React.useEffect(() => {
     setWindowDimensions({
       innerHeight: window.innerHeight,
