@@ -2,8 +2,8 @@ import * as React from "react";
 import css from "./MobileFilter.module.scss";
 
 export const MobileFilter: React.FC<{
-  filterType: string;
-  toggleFunction: (input: string) => void;
+  filterType: "Price" | "test";
+  toggleFunction: (input: "Price" | "test") => void;
   priceState: string | null;
 }> = ({ toggleFunction, filterType, priceState }) => {
   return (

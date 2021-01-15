@@ -37,7 +37,7 @@ export const ResultsFilter: React.FC<{
     toggleMobileFilters(input);
   }
 
-  function attachFilter(): JSX.Element {
+  function attachFilter() {
     switch (mobileFilters) {
       case "Price":
         return (
@@ -48,8 +48,6 @@ export const ResultsFilter: React.FC<{
             globalPlacePrice={globalFilters.placePrice}
           ></PlacesPriceFilter>
         );
-      default:
-        return;
     }
   }
 
