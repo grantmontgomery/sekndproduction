@@ -7,7 +7,7 @@ export const PriceAndType: React.FC<{
   city: string;
   state: string;
 }> = ({ price, type, city, state }) => {
-  const insertCity: (city: string) => JSX.Element | null = (city) => {
+  const insertCity = (city: string) => {
     return city && <span className={css.city}>{`• ${city}, ${state}`}</span>;
   };
 

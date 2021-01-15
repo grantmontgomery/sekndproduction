@@ -5,8 +5,6 @@ export const Location: React.FC<{ street: string; city: string }> = ({
   street,
   city,
 }) => {
-  if (!street && !city) return null;
-
   return (
     <a href="" className={css.location}>
       <svg

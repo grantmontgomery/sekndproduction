@@ -5,7 +5,7 @@ export const EventsPriceFilter: React.FC<{
   handlePriceChange: (input: string | null) => void;
   location: "mobileWidget" | "desktopSection";
 }> = ({ handlePriceChange, location }) => {
-  const [price, setPrice] = React.useState<string | null>(undefined);
+  const [price, setPrice] = React.useState<string | undefined>(undefined);
 
   const handleSelect: (input: string) => void = (input) => {
     setPrice(input);
@@ -13,7 +13,7 @@ export const EventsPriceFilter: React.FC<{
   };
 
   React.useEffect(() => {
-    handlePriceChange(undefined);
+    handlePriceChange(null);
   }, []);
 
   return (

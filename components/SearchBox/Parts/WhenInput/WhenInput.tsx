@@ -31,7 +31,7 @@ export const WhenInput: React.FC<Props> = ({
         dateFormat="Pp"
         showTimeSelect
         customInput={<input type="text" readOnly />}
-        onChange={(date) => handleDateChange("startDate", date)}
+        onChange={(date: Date) => handleDateChange("startDate", date)}
       ></DatePicker>
       <DatePicker
         className={css.to}
@@ -42,7 +42,7 @@ export const WhenInput: React.FC<Props> = ({
         selected={endDate ? endDate : startDate}
         dateFormat="Pp"
         showTimeSelect
-        onChange={(date) => handleDateChange("endDate", date)}
+        onChange={(date: Date) => handleDateChange("endDate", date)}
       ></DatePicker>
     </div>
   );

@@ -93,9 +93,11 @@ export default function Schedule(): JSX.Element {
           </div>
         </header>
         <TouchProvider>
-          {windowDimensions.windowWidth >= windowDimensions.windowHeight && (
-            <SchedulePartSelector></SchedulePartSelector>
-          )}
+          {windowDimensions.windowHeight &&
+            windowDimensions.windowWidth &&
+            windowDimensions.windowWidth >= windowDimensions.windowHeight && (
+              <SchedulePartSelector></SchedulePartSelector>
+            )}
           <ScheduleGrid></ScheduleGrid>
           <PartsContainer></PartsContainer>
         </TouchProvider>

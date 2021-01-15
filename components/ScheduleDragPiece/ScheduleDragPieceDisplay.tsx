@@ -9,10 +9,10 @@ export const ScheduleDragPieceDisplay: React.FC<{
   translateY: number;
   touchDragging: boolean;
   mouseDragging: boolean;
-  handleTouchStart: (any) => void;
-  handleTouchEnd: (any) => void;
-  handleMouseDown: (any) => void;
-  handleMouseUp: (any) => void;
+  handleTouchStart: (arg: any) => void;
+  handleTouchEnd: (arg: any) => void;
+  handleMouseDown: (arg: any) => void;
+  handleMouseUp: (arg: any) => void;
   heightChanging: boolean;
   part: { [key: string]: any };
   heightDirection: string;

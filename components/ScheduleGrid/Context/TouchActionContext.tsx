@@ -27,10 +27,10 @@ const touchReducer: React.Reducer<State, Action> = (
   }
 };
 
-const TouchContext: React.Context<State> = React.createContext(undefined);
+const TouchContext: React.Context<State | any> = React.createContext(undefined);
 
 const TouchDispatch: React.Context<
-  React.Dispatch<Action> | undefined
+  React.Dispatch<Action> | any
 > = React.createContext(undefined);
 
 export const TouchProvider: ({

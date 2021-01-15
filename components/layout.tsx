@@ -13,27 +13,23 @@ export const Layout: React.FC = ({ children }) => {
     return modalDispatch({ type: "CLOSE_MODAL" });
   }, []);
 
-  const applyModalTransitions: () => JSX.Element | null = () => {
-    return (
-      modalOpen && (
-        <CSSTransition
-          timeout={250}
-          classNames={{
-            enter: `${css["modal-enter"]}`,
-            enterActive: `${css["modal-enter-active"]}`,
-            exit: `${css["modal-exit"]}`,
-            exitActive: `${css["modal-exit-active"]}`,
-          }}
-        >
-          <ModalDark></ModalDark>
-        </CSSTransition>
-      )
-    );
-  };
-
   return (
     <React.Fragment>
-      <TransitionGroup>{applyModalTransitions()}</TransitionGroup>
+      <TransitionGroup>
+        {modalOpen && (
+          <CSSTransition
+            timeout={250}
+            classNames={{
+              enter: `${css["modal-enter"]}`,
+              enterActive: `${css["modal-enter-active"]}`,
+              exit: `${css["modal-exit"]}`,
+              exitActive: `${css["modal-exit-active"]}`,
+            }}
+          >
+            <ModalDark></ModalDark>
+          </CSSTransition>
+        )}
+      </TransitionGroup>
       <Nav></Nav>
       {children}
     </React.Fragment>

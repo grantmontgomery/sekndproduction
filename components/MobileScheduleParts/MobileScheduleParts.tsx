@@ -33,16 +33,20 @@ export const MobileScheduleParts: React.FC<{
       { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] }
     );
     parts.forEach((part, index) => {
-      observer.current.observe(document.getElementById(`sensor${index}`));
+      const targetSensor = document.getElementById(`sensor${index}`);
+
+      observer.current &&
+        targetSensor &&
+        observer.current.observe(targetSensor);
     });
     return () => {
-      observer.current.disconnect();
+      observer.current && observer.current.disconnect();
     };
   }, []);
 
   React.useEffect(() => {
     const currentCustomIndex: number | null = rectangles.findIndex(
-      (rectangle) => rectangle.part && rectangle.part.current
+      (rectangle: any) => rectangle.part && rectangle.part.current
     );
 
     if (currentCustomIndex) {

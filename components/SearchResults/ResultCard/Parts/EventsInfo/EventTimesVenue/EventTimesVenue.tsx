@@ -4,11 +4,11 @@ import css from "./EventTimesVenue.module.scss";
 
 export const EventTimesVenue: React.FC<{
   startTime: string;
-  endTime: string | null;
+  endTime: string;
   source: string;
   venue: string | null;
 }> = ({ startTime, endTime, source, venue }) => {
-  const displayVenue: () => JSX.Element | null = () => {
+  const displayVenue = () => {
     return venue && <span className={css.venue}>{`• ${venue}`}</span>;
   };
   const parseYelpTimes: () => JSX.Element = () => {

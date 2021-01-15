@@ -19,7 +19,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           term,
         };
       Object.keys(params).forEach((key) =>
-        yelpBusinesses.searchParams.append(key, params[key])
+        yelpBusinesses.searchParams.append(key, (params as any)[key])
       );
 
       if (price) yelpBusinesses.searchParams.append("price", price);

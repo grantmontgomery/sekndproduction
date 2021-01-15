@@ -2,10 +2,10 @@ import * as React from "react";
 import css from "./PlacesPriceFilter.module.scss";
 
 export const PlacesPriceFilter: React.FC<{
-  handlePriceChange: (input: string) => void;
+  handlePriceChange: (input: string | null) => void;
   closeMobileFilters?: () => void;
   location: "mobileWidget" | "desktopSection";
-  globalPlacePrice?: string;
+  globalPlacePrice?: string | null;
 }> = ({
   handlePriceChange,
   closeMobileFilters,

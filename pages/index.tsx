@@ -28,23 +28,24 @@ export default function Home(): JSX.Element {
   > = React.useRef();
 
   const introductionSection: React.MutableRefObject<
-    HTMLElement | undefined
+    HTMLElement | any
   > = React.useRef();
 
   const searchFeatureSection: React.MutableRefObject<
-    HTMLElement | undefined
+    HTMLElement | any
   > = React.useRef();
   const selectFeatureSection: React.MutableRefObject<
-    HTMLElement | undefined
+    HTMLElement | any
   > = React.useRef();
   const sheduleFeatureSection: React.MutableRefObject<
-    HTMLElement | undefined
+    HTMLElement | any
   > = React.useRef();
 
   React.useEffect(() => {
-    document
-      .getElementById("laptopVideo")
-      .addEventListener("loadedmetadata", () => {});
+    const laptopVideoElement = document.getElementById("laptopVideo");
+
+    laptopVideoElement &&
+      laptopVideoElement.addEventListener("loadedmetadata", () => {});
   }, []);
 
   React.useEffect(() => {
@@ -54,22 +55,26 @@ export default function Home(): JSX.Element {
           if (entries[i].target === introductionSection.current) {
             if (entries[i].intersectionRatio < 0.9) {
               indicateScroll(false);
-              observer.current.unobserve(introductionSection.current);
+              observer.current &&
+                observer.current.unobserve(introductionSection.current);
             }
           } else if (entries[i].target === searchFeatureSection.current) {
             if (entries[i].intersectionRatio > 0.9) {
               loadElements((elements) => ({ ...elements, search: true }));
-              observer.current.unobserve(searchFeatureSection.current);
+              observer.current &&
+                observer.current.unobserve(searchFeatureSection.current);
             }
           } else if (entries[i].target === selectFeatureSection.current) {
             if (entries[i].intersectionRatio > 0.9) {
               loadElements((elements) => ({ ...elements, select: true }));
-              observer.current.unobserve(selectFeatureSection.current);
+              observer.current &&
+                observer.current.unobserve(selectFeatureSection.current);
             }
           } else if (entries[i].target === sheduleFeatureSection.current) {
             if (entries[i].intersectionRatio > 0.9) {
               loadElements((elements) => ({ ...elements, schedule: true }));
-              observer.current.unobserve(sheduleFeatureSection.current);
+              observer.current &&
+                observer.current.unobserve(sheduleFeatureSection.current);
             }
           }
         }
@@ -95,7 +100,7 @@ export default function Home(): JSX.Element {
     observer.current.observe(selectFeatureSection.current);
     observer.current.observe(sheduleFeatureSection.current);
     return () => {
-      observer.current.disconnect();
+      observer.current && observer.current.disconnect();
     };
   }, []);
 

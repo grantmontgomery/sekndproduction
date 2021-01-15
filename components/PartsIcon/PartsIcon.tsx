@@ -25,7 +25,7 @@ export const PartsIcon: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    if (parts.length > previousValue) {
+    if (previousValue && parts.length > previousValue) {
       setPulse(true);
       const pulseTimeOut = () =>
         setTimeout(() => {

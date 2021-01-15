@@ -8,7 +8,7 @@ import { RenderWrapper } from "../MobileFiltersWidget";
 import { MobileFilter } from "../MobileFilter";
 
 export const ResultsFilter: React.FC<{
-  handlePriceChange: (input: string) => void;
+  handlePriceChange: (input: string | null) => void;
   resultsType: string;
   searchParams: { [key: string]: any } | null;
   resultsLoading: boolean;
@@ -37,7 +37,7 @@ export const ResultsFilter: React.FC<{
     toggleMobileFilters(input);
   }
 
-  function attachFilter(): JSX.Element {
+  function attachFilter() {
     switch (mobileFilters) {
       case "Price":
         return (
@@ -48,8 +48,6 @@ export const ResultsFilter: React.FC<{
             globalPlacePrice={globalFilters.placePrice}
           ></PlacesPriceFilter>
         );
-      default:
-        return;
     }
   }
 

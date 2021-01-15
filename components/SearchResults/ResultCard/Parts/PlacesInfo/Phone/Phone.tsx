@@ -2,7 +2,6 @@ import * as React from "react";
 import css from "./Phone.module.scss";
 
 export const Phone: React.FC<{ phone: string }> = ({ phone }) => {
-  if (!phone) return null;
   return (
     <a href={`tel:${phone}`} className={css.phone}>
       <svg

@@ -53,7 +53,15 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
 
   /////////////////////////////////////  Touch Functions ////////////////////////////////////////////////////////
 
-  const handleTouchStart = ({ touches, target, currentTarget }): void => {
+  const handleTouchStart = ({
+    touches,
+    target,
+    currentTarget,
+  }: {
+    touches: any;
+    target: any;
+    currentTarget: any;
+  }): void => {
     const { clientY, clientX } = touches[0];
 
     if (target.className.includes("extendHandle")) {
@@ -66,11 +74,15 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
         origin: { y: clientY },
       }));
     } else {
-      const initialScrollTop: number = document.getElementById("innerGrid")
-        .scrollTop;
+      const innerGrid = document.getElementById("innerGrid");
+
+      const initialScrollTop: number = innerGrid ? innerGrid.scrollTop : 0;
 
       currentTarget.hidden = true;
-      const elementBelow: Element = document.elementFromPoint(clientX, clientY);
+      const elementBelow: Element | null = document.elementFromPoint(
+        clientX,
+        clientY
+      );
       currentTarget.hidden = false;
 
       setPosition((dragPosition) => ({
@@ -94,7 +106,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
           dragPosition.draggingElement.hidden = true;
           dragPosition.draggingElement.childNodes[0].hidden = true;
 
-          const elementBelow: Element = document.elementFromPoint(
+          const elementBelow: Element | null = document.elementFromPoint(
             clientX,
             clientY
           );
@@ -240,6 +252,11 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
     currentTarget,
     clientX,
     clientY,
+  }: {
+    target: any;
+    currentTarget: any;
+    clientX: any;
+    clientY: any;
   }) => void = ({ target, currentTarget, clientX, clientY }) => {
     if (target.className.includes("extendHandle")) {
       setPosition((position) => ({
@@ -258,11 +275,14 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
         touchDragging: false,
       }));
     } else {
-      const initialScrollTop: number = document.getElementById("innerGrid")
-        .scrollTop;
+      const innerGrid = document.getElementById("innerGrid");
 
+      const initialScrollTop: number = innerGrid ? innerGrid.scrollTop : 0;
       currentTarget.hidden = true;
-      const elementBelow: Element = document.elementFromPoint(clientX, clientY);
+      const elementBelow: Element | null = document.elementFromPoint(
+        clientX,
+        clientY
+      );
       currentTarget.hidden = false;
 
       setPosition((dragPosition) => ({
@@ -284,7 +304,7 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
           dragPosition.draggingElement.hidden = true;
           dragPosition.draggingElement.childNodes[0].hidden = true;
 
-          const elementBelow: Element = document.elementFromPoint(
+          const elementBelow: Element | null = document.elementFromPoint(
             clientX,
             clientY
           );
@@ -536,8 +556,8 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
       window.removeEventListener("touchmove", handleExtendRetract);
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("touchmove", handleTouchMove);
-      clearInterval(upScrollInterval.current);
-      clearInterval(downScrollInterval.current);
+      if (upScrollInterval.current) clearInterval(upScrollInterval.current);
+      if (downScrollInterval.current) clearInterval(downScrollInterval.current);
       setPosition({
         touchDragging: false,
         origin: { y: 0 },
@@ -556,17 +576,18 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
   }, []);
 
   React.useEffect(() => {
-    if (dragPosition.moveScroll) {
+    const innerGrid = document.getElementById("innerGrid");
+    if (dragPosition.moveScroll && innerGrid) {
       dragPosition.translation.y > 0
         ? (downScrollInterval.current = setInterval(() => {
-            document.getElementById("innerGrid").scrollBy(0, 1);
+            innerGrid.scrollBy(0, 1);
             setPosition((position) => ({
               ...position,
               scrollCounter: position.scrollCounter + 1,
             }));
           }, 5))
         : (upScrollInterval.current = setInterval(() => {
-            document.getElementById("innerGrid").scrollBy(0, -1);
+            innerGrid.scrollBy(0, -1);
             setPosition((position) => ({
               ...position,
               scrollCounter: position.scrollCounter - 1,
@@ -581,12 +602,12 @@ export const ScheduleDragPiece: React.FC<{ part: { [key: string]: any } }> = ({
         ...position,
         scrollCounter: 0,
       }));
-      clearInterval(upScrollInterval.current);
-      clearInterval(downScrollInterval.current);
+      if (upScrollInterval.current) clearInterval(upScrollInterval.current);
+      if (downScrollInterval.current) clearInterval(downScrollInterval.current);
     }
     return () => {
-      clearInterval(upScrollInterval.current);
-      clearInterval(downScrollInterval.current);
+      if (upScrollInterval.current) clearInterval(upScrollInterval.current);
+      if (downScrollInterval.current) clearInterval(downScrollInterval.current);
     };
   }, [dragPosition.moveScroll]);
 

@@ -22,7 +22,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           limit: 20,
         };
       Object.keys(params).forEach((key) =>
-        yelpEvents.searchParams.append(key, params[key])
+        yelpEvents.searchParams.append(key, (params as any)[key])
       );
 
       if (categories) yelpEvents.searchParams.append("categories", categories);

@@ -42,7 +42,7 @@ export const DatePart: React.FC<{
     };
   }, []);
 
-  const determinePartDetails: () => JSX.Element = () => {
+  const determinePartDetails: () => JSX.Element | null | undefined = () => {
     switch (part.type) {
       case "custom":
         return (
@@ -103,13 +103,13 @@ export const DatePart: React.FC<{
       onClick={() =>
         location !== "schedule"
           ? setState((state) => ({ ...state, extend: true }))
-          : handleSelectedPartChange(part)
+          : handleSelectedPartChange && handleSelectedPartChange(part)
       }
       style={{
         filter: determineFilter(),
         opacity: rendered ? "1" : "0",
         transform: rendered ? "translate(0)" : "translate(15%)",
-        transitionDelay: index && `${index * 125}ms`,
+        transitionDelay: index ? `${index * 125}ms` : "",
       }}
     >
       <PartImage

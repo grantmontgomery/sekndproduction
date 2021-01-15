@@ -9,6 +9,7 @@ describe("DateParts", () => {
     const component = render(<DateParts location="nav"></DateParts>, {
       wrapper: PartsProvider,
     });
+
     expect(screen.queryByText("Date Parts").textContent).toBe("Date Parts");
     expect(component).toMatchSnapshot();
   });
@@ -45,7 +46,7 @@ describe("DateParts", () => {
     });
     const textInput = component.getByTestId("partText") as HTMLInputElement;
     const colorInput = component.getByTestId("partColor") as HTMLElement;
-    const addButton = component.getByTestId("addPart") as HTMLElement;
+    const addButton ``= component.getByTestId("addPart") as HTMLElement;
 
     fireEvent.change(textInput, {
       target: { value: "Hike Hollywood!" },

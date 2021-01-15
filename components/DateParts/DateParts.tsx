@@ -102,7 +102,7 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
         </header>
         <div className={css.partsList}>
           <div className={css.partsInner} data-testid="partsList">
-            {parts.map((part, index) => (
+            {parts.map((part: any, index: number) => (
               <DatePart
                 index={index}
                 key={part.id}

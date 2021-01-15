@@ -23,8 +23,8 @@ export default interface InputProps {
   radius: string;
   eventsCategory: string;
   location: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: Date | null;
+  endDate: Date | null;
   handleQueryDate: (key: string, date: Date) => void;
 }
 
@@ -34,8 +34,8 @@ export interface SearchQuery {
   radius: string;
   location: string;
   placeType: string;
-  endDate: Date;
-  startDate: Date;
+  endDate: Date | null;
+  startDate: Date | null;
   startFormatted: string;
   endFormatted: string;
   unixStartDate: number;
@@ -55,8 +55,8 @@ export const SearchBox: React.FC = (props) => {
     placeType: "",
     startFormatted: "",
     endFormatted: "",
-    unixStartDate: null,
-    unixEndDate: null,
+    unixStartDate: 0,
+    unixEndDate: 0,
     ticketMasterCategories: "",
     yelpCategories: "",
   });
@@ -72,7 +72,7 @@ export const SearchBox: React.FC = (props) => {
     );
 
     newDatesInput.setGrid();
-    partsDispatch({ type: "CLEAR_PARTS" });
+    partsDispatch({ type: "CLEAR_PARTS", payload: {} });
     rectanglesDispatch({
       type: "ADD_RECTANGLES",
       payload: { numberOfRectangles: newDatesInput.numberofRectangles },

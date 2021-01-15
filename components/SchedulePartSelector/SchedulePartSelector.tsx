@@ -21,7 +21,7 @@ export const SchedulePartSelector: React.FC = () => {
 
   React.useEffect(() => {
     const currentCustomIndex: number | null = rectangles.findIndex(
-      (rectangle) => rectangle.part && rectangle.part.current
+      (rectangle: any) => rectangle.part && rectangle.part.current
     );
     if (dragPart)
       rectanglesDispatch({
@@ -49,7 +49,7 @@ export const SchedulePartSelector: React.FC = () => {
             className={css.assignButton}
             onClick={() => {
               const currentCustomIndex: number | null = rectangles.findIndex(
-                (rectangle) => rectangle.part && rectangle.part.current
+                (rectangle: any) => rectangle.part && rectangle.part.current
               );
               touchDispatch({ type: "REMOVE_CUSTOM_PIECE" });
               rectanglesDispatch({
@@ -86,7 +86,7 @@ export const SchedulePartSelector: React.FC = () => {
           filter: customPiece ? "none" : "blur(1.5px)",
         }}
       >
-        {parts.map((part) => (
+        {parts.map((part: any) => (
           <DatePart
             handleSelectedPartChange={handleSelectedPartChange}
             location="schedule"
