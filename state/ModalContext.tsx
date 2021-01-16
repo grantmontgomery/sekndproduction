@@ -20,10 +20,7 @@ interface Action {
   type: string;
 }
 
-const modalReducer: React.Reducer<State | any, Action> = (
-  state: State,
-  action: Action
-) => {
+const modalReducer: React.Reducer<State, Action> = (state, action) => {
   switch (action.type) {
     case "MOBILE_LINKS":
       return {
@@ -107,6 +104,8 @@ const modalReducer: React.Reducer<State | any, Action> = (
 
         modalOpen: false,
       };
+    default:
+      return state;
   }
 };
 

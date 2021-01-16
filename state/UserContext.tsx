@@ -17,15 +17,14 @@ interface Action {
   };
 }
 
-const userReducer: React.Reducer<State | any, Action> = (
-  state: State,
-  action
-) => {
+const userReducer: React.Reducer<State, Action> = (state: State, action) => {
   switch (action.type) {
     case "SET_USER":
       return { user: { ...action.payload } };
     case "LOG_OUT":
       return { user: null };
+    default:
+      return state;
   }
 };
 
