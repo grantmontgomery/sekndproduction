@@ -120,11 +120,7 @@ export const ResultCard: React.FC<{
                   price={item.price}
                   city={item.location.city}
                   state={item.location.state}
-                  type={
-                    item.categories &&
-                    item.categories.length > 0 &&
-                    item.categories[0].title
-                  }
+                  type={item.categories?.length > 0 && item.categories[0].title}
                 ></PriceAndType>
                 <div className={css.starsWrapper}></div>
                 <div className={css.landscapeDetails}>
@@ -144,15 +140,13 @@ export const ResultCard: React.FC<{
         case "event":
           const determinePrice: () =>
             | { [key: string]: any }
-            | null
-            | string = () => {
+            | string
+            | undefined = () => {
             switch (item.source) {
               case "yelp":
-                if (!item.cost) return null;
                 return item.cost;
               case "ticketmaster":
-                if (!item.priceRanges) return null;
-                return item.priceRanges[0];
+                return item.priceRanges?.[0];
             }
           };
 

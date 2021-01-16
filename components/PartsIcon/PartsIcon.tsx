@@ -13,11 +13,9 @@ export const PartsIcon: React.FC = () => {
   const previousValue = usePrevious(parts.length);
 
   const handleClick: () => void = () => {
-    if (!allowDisplay.dateParts) {
-      modalDispatch({ type: "DATE_PARTS" });
-    } else {
-      modalDispatch({ type: "CLOSE_MODAL" });
-    }
+    modalDispatch({
+      type: allowDisplay.dateParts ? "CLOSE_MODAL" : "DATE_PARTS",
+    });
   };
 
   React.useEffect(() => {

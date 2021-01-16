@@ -9,8 +9,7 @@ export const EventPriceGenre: React.FC<{
   const parsePrice = () => {
     switch (source) {
       case "yelp":
-        if (!price) return "Check link for price.";
-        return `Starting at $${price}.00`;
+        return price ? `Starting at $${price}.00` : "Check link for price.";
       case "ticketmaster":
         if (!price || !price.min) return "Check link for price";
         const truePrice: () => string = () => {
