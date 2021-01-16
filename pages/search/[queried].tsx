@@ -29,8 +29,7 @@ export const setSearchParameters: (router: {
 
   paramValueArray.forEach((param) => {
     const indexOfEqual: number = param.search("=");
-    if (indexOfEqual === -1) return;
-    else {
+    if (indexOfEqual !== -1) {
       const paramKey: string = param.substring(0, indexOfEqual);
       const paramValue: string = param.substring(indexOfEqual + 1);
       SearchParams[paramKey] = paramValue;
@@ -66,12 +65,10 @@ export default function Queried(): JSX.Element {
     ticketmasterTotal,
   } = useAPICalls(setSearchParameters(router), urlStart);
 
-  const handleResultsTypeChange: (input: string) => void = (input) => {
-    if (input === "places") {
-      setType("places");
-    } else {
-      setType("events");
-    }
+  const handleResultsTypeChange: (input: "events" | "places") => void = (
+    input
+  ) => {
+    setType(input);
   };
 
   const handlePriceChange: (input: string | null) => void = (input) => {
@@ -110,9 +107,7 @@ export default function Queried(): JSX.Element {
           resultsLoading={initialLoading}
           resultsType={resultsType}
           handleResultsTypeChange={handleResultsTypeChange}
-          searchParams={
-            setSearchParameters(router) && setSearchParameters(router)
-          }
+          searchParams={setSearchParameters(router)}
           globalFilters={globalFilters}
         ></ResultsFilter>
 

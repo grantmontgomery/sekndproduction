@@ -12,7 +12,7 @@ export const ResultsFilter: React.FC<{
   resultsType: string;
   searchParams: { [key: string]: any } | null;
   resultsLoading: boolean;
-  handleResultsTypeChange: (input: string) => void;
+  handleResultsTypeChange: (input: "places" | "events") => void;
   globalFilters: {
     placePrice: string | null;
     eventPrice: string | null;

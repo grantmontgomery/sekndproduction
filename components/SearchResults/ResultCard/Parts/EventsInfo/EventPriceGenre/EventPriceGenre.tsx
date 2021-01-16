@@ -11,7 +11,7 @@ export const EventPriceGenre: React.FC<{
       case "yelp":
         return price ? `Starting at $${price}.00` : "Check link for price.";
       case "ticketmaster":
-        if (!price || !price.min) return "Check link for price";
+        if (!price?.min) return "Check link for price";
         const truePrice: () => string = () => {
           if (price.min % 1 === 0) return `Starting at $${price.min}.00`;
           const priceString: string = price.min.toString();
@@ -28,37 +28,31 @@ export const EventPriceGenre: React.FC<{
 
   const setGenre: () => JSX.Element | null = () => {
     if (source === "yelp") {
-      if (genre.indexOf("-") !== -1 || genre.indexOf(" ") !== -1) {
-        const characterSplit: string = genre.indexOf(" ") !== -1 ? " " : "-";
-        const splitted: string[] = genre.split(characterSplit);
-        const upperCase: string[] = splitted.map(
-          (word) => `${word.substring(0, 1).toUpperCase()}${word.substring(1)}`
-        );
-        return <span className={css.genre}>{`• ${upperCase.join(" ")}`}</span>;
-      } else {
+      if (genre.indexOf("-") === 1 || genre.indexOf(" ") === 1)
         return (
           <span
             className={css.genre}
           >{`• ${genre[0].toUpperCase()}${genre.substring(1)}`}</span>
         );
-      }
+      const characterSplit: string = genre.indexOf(" ") !== -1 ? " " : "-";
+      const splitted: string[] = genre.split(characterSplit);
+      const upperCase: string[] = splitted.map(
+        (word) => `${word.substring(0, 1).toUpperCase()}${word.substring(1)}`
+      );
+      return <span className={css.genre}>{`• ${upperCase.join(" ")}`}</span>;
     }
-    if (!genre) return null;
-    let segmentString: string = "";
-    let genreString: string = "";
-
-    genre[0].segment && (segmentString = genre[0].segment.name);
-    genre[0]["genre"] && (genreString = genre[0]["genre"].name);
 
     return (
-      <span className={css.genre}>{`• ${segmentString} ${genreString}`}</span>
+      <span className={css.genre}>{`• ${genre[0].segment ?? ""} ${
+        genre[0]["genre"] ?? ""
+      }`}</span>
     );
   };
 
   return (
     <div className={css.eventPrice}>
       <span>{parsePrice()}</span>
-      {setGenre()}
+      {genre && setGenre()}
     </div>
   );
 };
