@@ -1,5 +1,5 @@
 import * as React from "react";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 import { useRectanglesDispatch } from "./GridRectanglesContext";
 import CustomDocument from "../pages/_document";
 
@@ -65,7 +65,7 @@ export const GridProvider: ({
   );
 
   React.useEffect(() => {
-    Cookie.set(
+    Cookies.set(
       "grid",
       JSON.stringify({
         ...state,

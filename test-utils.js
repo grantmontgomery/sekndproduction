@@ -2,7 +2,7 @@ import React from "react";
 import { render } from "@testing-library/react";
 import { PartsProvider } from "./state/DatePartsContext";
 import { GridProvider } from "./state/SearchGridContext";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 import { RectanglesProvider } from "./state/GridRectanglesContext";
 import { ModalProvider } from "./state/ModalContext";
 import { UserProvider } from "./state/UserContext";
@@ -13,7 +13,7 @@ const AllProviders = ({ children }) => {
       <ModalProvider>
         <GridProvider
           initialState={
-            Cookie.get("grid") ? JSON.parse(Cookie.get("grid")) : null
+            Cookies.get("grid") ? JSON.parse(Cookies.get("grid")) : null
           }
         >
           <RectanglesProvider>

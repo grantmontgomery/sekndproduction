@@ -7,7 +7,7 @@ import {
   PlacesInput,
 } from "./Parts";
 import GridClass from "./Logic/GridClass";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 import Link from "next/link";
 import { usePartsDispatch } from "../../state/DatePartsContext";
 import { useGridDispatch } from "../../state/SearchGridContext";
@@ -101,17 +101,17 @@ export const SearchBox: React.FC = (props) => {
     } = searchQuery;
 
     if (searchType === "ALL") {
-      Cookie.set(
+      Cookies.set(
         "link",
         `/search/searchType=${searchType}+location=${location}+radius=${radius}+placeType=${placeType}+startFormatted=${startFormatted}+endFormatted=${endFormatted}+unixStartDate=${unixStartDate}+unixEndDate=${unixEndDate}+eventsCategory=${eventsCategory}`
       );
     } else if (searchType === "PLACES") {
-      Cookie.set(
+      Cookies.set(
         "link",
         `/search/searchType=${searchType}+location=${location}+radius=${radius}+placeType=${placeType}+startFormatted=${startFormatted}+endFormatted=${endFormatted}`
       );
     } else if (searchType === "EVENTS") {
-      Cookie.set(
+      Cookies.set(
         "link",
         `/search/searchType=${searchType}+location=${location}+radius=${radius}+startFormatted=${startFormatted}+endFormatted=${endFormatted}+unixStartDate=${unixStartDate}+unixEndDate=${unixEndDate}+eventsCategory=${eventsCategory}`
       );

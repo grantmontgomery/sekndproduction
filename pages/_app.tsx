@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker.min.css";
 import { PageTransition } from "next-page-transitions";
 import { SekndLoader } from "../components/SekndLoader";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 import { useUserDispatch } from "../state/UserContext";
 import css from "../styles/InitialLoader.module.scss";
 import useLayoutEffect from "../logic/useIsomorphicLayoutEffect";
@@ -16,12 +16,6 @@ import { UserProvider } from "../state/UserContext";
 import { NextComponentType, NextPage, NextPageContext } from "next";
 import { AppProps } from "next/app";
 import { NextRouter, Router } from "next/router";
-
-type Props = {
-  Component: NextComponentType;
-  pageProps: NextPageContext;
-  router: NextRouter;
-};
 
 type GridJSON = {
   hourStrings: string[];
@@ -48,14 +42,6 @@ export default function App({
     Router.events.on("routeChangeStart", start);
     Router.events.on("routeChangeComplete", end);
 
-    // const cookieStringArray = document.cookie.split(";");
-
-    // cookieStringArray.forEach((cookie) => {
-    //   const gridCookieTitle = cookie.indexOf("grid=");
-    //   if (gridCookieTitle !== -1)
-    //     gridCookieString.current = cookie.substring(6);
-    // });
-
     return () => {
       Router.events.off("routeChangeStart", start);
       Router.events.off("routeChangeComplete", end);
@@ -63,7 +49,7 @@ export default function App({
   }, []);
 
   const setInitialState = (): GridJSON | undefined => {
-    const gridCookieString = Cookie.get("grid");
+    const gridCookieString = Cookies.get("grid");
 
     return gridCookieString ? JSON.parse(gridCookieString) : undefined;
   };

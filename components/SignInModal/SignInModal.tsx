@@ -2,7 +2,7 @@ import * as React from "react";
 import css from "./SignInModal.module.scss";
 import { useLogIn, useRegister } from "./Hooks";
 import { LoadingRing } from "../LoadingRing";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 
 const cookie = require("cookie");
 

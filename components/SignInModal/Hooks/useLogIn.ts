@@ -1,5 +1,5 @@
 import * as React from "react";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 import { NextRouter, useRouter } from "next/router";
 
 import { useUserDispatch } from "../../../state/UserContext";
@@ -26,7 +26,7 @@ export const useLogIn: () => {
       : "https://sekndapp.com/api/handleAuth";
 
   const logOut: () => void = () => {
-    Cookie.remove("refresh-token", {
+    Cookies.remove("refresh-token", {
       path: "/",
       domain: "localhost",
     });
@@ -34,7 +34,7 @@ export const useLogIn: () => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        Cookie: "",
+        Cookies: "",
       },
       method: "POST",
       body: JSON.stringify({

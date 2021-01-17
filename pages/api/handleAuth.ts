@@ -5,8 +5,6 @@ const db = require("../../lib/db");
 
 const cookie = require("cookie");
 
-
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (req.method !== "GET") {
@@ -42,7 +40,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             }
           );
 
-          res.setHeader("Set-Cookie", [
+          res.setHeader("Set-Cookies", [
             cookie.serialize("refresh-token", refreshToken, {
               path: "/",
               httpOnly: true,
@@ -62,7 +60,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           return res.send(user[0]);
 
         case "log-out":
-          res.setHeader("Set-Cookie", [
+          res.setHeader("Set-Cookies", [
             `refresh-token=foo; path=/; expires= expires=Thu, 01 Jan 1970 00:00:00 GMT`,
             `access-token=foo; path=/; expires= expires=Thu, 01 Jan 1970 00:00:00 GMT`,
           ]);
@@ -96,7 +94,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           expiresIn: "1d",
         }
       );
-      res.setHeader("Set-Cookie", [
+      res.setHeader("Set-Cookies", [
         cookie.serialize("refresh-token", refreshToken, {
           path: "/",
           httpOnly: true,

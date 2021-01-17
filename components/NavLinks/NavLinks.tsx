@@ -1,7 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
 import css from "./NavLinks.module.scss";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 
 export const NavLinks: React.FC<{ orientation: string }> = ({
   orientation,
@@ -15,10 +15,10 @@ export const NavLinks: React.FC<{ orientation: string }> = ({
         <Link href="/about">About</Link>
       </li>
       <li>
-        {Cookie.get("link") && (
+        {Cookies.get("link") && (
           <Link
             href={{ pathname: "/search/[queried]" }}
-            as={Cookie.get("link")}
+            as={Cookies.get("link")}
           >
             Search Results
           </Link>
