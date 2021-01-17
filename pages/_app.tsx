@@ -17,15 +17,6 @@ import { NextComponentType, NextPage, NextPageContext } from "next";
 import { AppProps } from "next/app";
 import { NextRouter, Router } from "next/router";
 
-type GridJSON = {
-  hourStrings: string[];
-  gridTemplate: string;
-  startDate: Date | null;
-  endDate: Date | null;
-  hourStringsTrue: string[];
-  numberOfSquares: number;
-};
-
 export default function App({
   Component,
   pageProps,
@@ -48,27 +39,19 @@ export default function App({
     };
   }, []);
 
-  const setInitialState = (): GridJSON | undefined => {
-    const gridCookieString = Cookies.get("grid");
-
-    return gridCookieString ? JSON.parse(gridCookieString) : undefined;
-  };
-
+  const gridCookieString = Cookies.get("grid");
   return (
     <UserProvider>
       <ModalProvider>
         <RectanglesProvider>
-          <GridProvider initialState={setInitialState()}>
+          <GridProvider
+            initialState={
+              gridCookieString ? JSON.parse(gridCookieString) : null
+            }
+          >
             <PartsProvider>
               <PageTransition
                 timeout={250}
-                // loadingComponent={<SekndLoader></SekndLoader>}
-                // loadingDelay={500}
-                // loadingTimeout={{
-                //   enter: 400,
-                //   exit: 0,
-                // }}
-
                 classNames="page-transition"
                 loadingClassNames="loading-indicator"
               >
