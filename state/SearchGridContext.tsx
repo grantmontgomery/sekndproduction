@@ -72,14 +72,20 @@ export const GridProvider: ({
   );
 
   React.useEffect(() => {
-    Cookie.set(
-      "grid",
-      JSON.stringify({
-        ...state,
-        numberOfSquares: (state.hourStrings.length + 1) * 2,
-      }),
-      { secure: true, sameSite: "strict" }
-    );
+    console.log(state);
+    document.cookie = `grid=${JSON.stringify({
+      ...state,
+      numberOfSquares: (state.hourStrings.length + 1) * 2,
+    })}; sameSite=strict; secture`;
+    console.log(typeof document.cookie);
+    // Cookie.set(
+    //   "grid",
+    //   JSON.stringify({
+    //     ...state,
+    //     numberOfSquares: (state.hourStrings.length + 1) * 2,
+    //   }),
+    //   { secure: true, sameSite: "strict" }
+    // )
   }, [state]);
 
   const rectanglesDispatch = useRectanglesDispatch();

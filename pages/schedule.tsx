@@ -19,6 +19,7 @@ export default function Schedule(): JSX.Element {
     windowWidth: number | null;
   }>({ windowHeight: null, windowWidth: null });
   const { startDate, endDate } = useGridState();
+
   const rectanglesDispatch = useRectanglesDispatch();
   const { rectangles } = useRectanglesState();
 
