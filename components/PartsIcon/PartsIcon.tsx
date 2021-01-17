@@ -10,7 +10,7 @@ export const PartsIcon: React.FC = () => {
   const [pulse, setPulse] = React.useState<boolean>(false);
   const { parts } = usePartsState();
 
-  const previousValue = usePrevious(parts.length);
+  const previousValue = usePrevious(parts.length) ?? 0;
 
   const handleClick: () => void = () => {
     modalDispatch({
@@ -23,7 +23,7 @@ export const PartsIcon: React.FC = () => {
   }, []);
 
   React.useEffect(() => {
-    if (previousValue && parts.length > previousValue) {
+    if (parts.length > previousValue) {
       setPulse(true);
       const pulseTimeOut = () =>
         setTimeout(() => {
