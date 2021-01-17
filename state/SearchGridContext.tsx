@@ -51,7 +51,7 @@ export const GridProvider: ({
   initialState,
 }: {
   children: React.ReactNode;
-  initialState: State & { numberOfSquares: number };
+  initialState: (State & { numberOfSquares: number }) | undefined;
 }) => JSX.Element = ({ children, initialState }) => {
   const [state, dispatch] = React.useReducer(
     gridReducer,
@@ -65,19 +65,14 @@ export const GridProvider: ({
   );
 
   React.useEffect(() => {
-    document.cookie = `grid=${JSON.stringify({
-      ...state,
-      numberOfSquares: (state.hourStrings.length + 1) * 2,
-    })}; sameSite=strict; secture`;
-
-    // Cookie.set(
-    //   "grid",
-    //   JSON.stringify({
-    //     ...state,
-    //     numberOfSquares: (state.hourStrings.length + 1) * 2,
-    //   }),
-    //   { secure: true, sameSite: "strict" }
-    // )
+    Cookie.set(
+      "grid",
+      JSON.stringify({
+        ...state,
+        numberOfSquares: (state.hourStrings.length + 1) * 2,
+      }),
+      { secure: true, sameSite: "strict" }
+    );
   }, [state]);
 
   const rectanglesDispatch = useRectanglesDispatch();

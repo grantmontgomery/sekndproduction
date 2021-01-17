@@ -23,6 +23,15 @@ type Props = {
   router: NextRouter;
 };
 
+type GridJSON = {
+  hourStrings: string[];
+  gridTemplate: string;
+  startDate: Date | null;
+  endDate: Date | null;
+  hourStringsTrue: string[];
+  numberOfSquares: number;
+};
+
 export default function App({
   Component,
   pageProps,
@@ -53,15 +62,17 @@ export default function App({
     };
   }, []);
 
+  const setInitialState = (): GridJSON | undefined => {
+    const gridCookieString = Cookie.get("grid");
+
+    return gridCookieString ? JSON.parse(gridCookieString) : undefined;
+  };
+
   return (
     <UserProvider>
       <ModalProvider>
         <RectanglesProvider>
-          <GridProvider
-            initialState={
-              gridCookieString.current && JSON.parse(Cookie.get("grid"))
-            }
-          >
+          <GridProvider initialState={setInitialState()}>
             <PartsProvider>
               <PageTransition
                 timeout={250}
