@@ -64,6 +64,7 @@ export const PartsProvider: ({
 
   React.useEffect(() => {
     windowObject.current = window;
+
     const sessionPartsStorage = windowObject.current.sessionStorage.getItem(
       "parts"
     );

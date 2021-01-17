@@ -30,11 +30,23 @@ export default function App({
 }: AppProps): JSX.Element {
   const [loading, setLoading] = React.useState<boolean>(false);
 
+  // const gridCookieString = React.useRef<string | undefined>();
+
   React.useEffect(() => {
     const start: () => void = () => setLoading(true);
     const end: () => void = () => setTimeout(() => setLoading(false), 500);
+
     Router.events.on("routeChangeStart", start);
     Router.events.on("routeChangeComplete", end);
+
+    // const cookieStringArray = document.cookie.split(";");
+
+    // cookieStringArray.forEach((cookie) => {
+    //   const gridCookieTitle = cookie.indexOf("grid=");
+    //   if (gridCookieTitle !== -1)
+    //     gridCookieString.current = cookie.substring(6);
+    // });
+
     return () => {
       Router.events.off("routeChangeStart", start);
       Router.events.off("routeChangeComplete", end);
@@ -46,7 +58,9 @@ export default function App({
       <ModalProvider>
         <RectanglesProvider>
           <GridProvider
-            initialState={Cookie.get("grid") && JSON.parse(Cookie.get("grid"))}
+            initialState={
+              gridCookieString.current && JSON.parse(Cookie.get("grid"))
+            }
           >
             <PartsProvider>
               <PageTransition

@@ -1,6 +1,7 @@
 import * as React from "react";
 import Cookie from "js-cookie";
 import { useRectanglesDispatch } from "./GridRectanglesContext";
+import CustomDocument from "../pages/_document";
 
 type State = {
   hourStrings: string[];
@@ -54,30 +55,21 @@ export const GridProvider: ({
 }) => JSX.Element = ({ children, initialState }) => {
   const [state, dispatch] = React.useReducer(
     gridReducer,
-    initialState
-      ? {
-          gridTemplate: initialState.gridTemplate,
-          hourStrings: initialState.hourStrings,
-          hourStringsTrue: initialState.hourStringsTrue,
-          endDate: initialState.endDate,
-          startDate: initialState.startDate,
-        }
-      : {
-          gridTemplate: "",
-          hourStrings: [],
-          hourStringsTrue: [],
-          endDate: null,
-          startDate: null,
-        }
+    initialState ?? {
+      gridTemplate: "",
+      hourStrings: [],
+      hourStringsTrue: [],
+      endDate: null,
+      startDate: null,
+    }
   );
 
   React.useEffect(() => {
-    console.log(state);
     document.cookie = `grid=${JSON.stringify({
       ...state,
       numberOfSquares: (state.hourStrings.length + 1) * 2,
     })}; sameSite=strict; secture`;
-    console.log(typeof document.cookie);
+
     // Cookie.set(
     //   "grid",
     //   JSON.stringify({
