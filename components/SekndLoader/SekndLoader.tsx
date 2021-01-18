@@ -4,10 +4,10 @@ import css from "./SekndLoader.module.scss";
 export const SekndLoader: React.FC<{ initial?: boolean }> = ({ initial }) => {
   const [fadeIn, setFadeIn] = React.useState<boolean>(false);
   React.useEffect(() => {
-    if (!initial) {
-      setTimeout(() => setFadeIn(true), 1);
-    }
-    return clearTimeout();
+    if (!initial) setTimeout(() => setFadeIn(true), 1);
+    return () => {
+      clearTimeout();
+    };
   }, []);
   return initial ? (
     <div

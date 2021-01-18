@@ -10,9 +10,7 @@ export const AccountDisplay: React.FC = () => {
   const modalDispatch = useModalDispatch();
 
   const handleSignInModal: () => void = () => {
-    allowDisplay.signIn
-      ? modalDispatch({ type: "CLOSE_MODAL" })
-      : modalDispatch({ type: "SIGN_IN" });
+    modalDispatch({ type: allowDisplay.signIn ? "CLOSE_MODAL" : "SIGN_IN" });
   };
   return (
     <div
@@ -40,7 +38,7 @@ export const AccountDisplay: React.FC = () => {
         />
       </svg> */}
 
-      <span> {user ? `${user.username}` : "Sign In"}</span>
+      <span> {user ? user.username : "Sign In"}</span>
     </div>
   );
 };

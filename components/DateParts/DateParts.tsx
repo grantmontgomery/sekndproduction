@@ -14,22 +14,20 @@ export const DateParts: React.FC<{ location: string }> = ({ location }) => {
   const dispatch = usePartsDispatch();
 
   const handlePartSubmit: () => void = () => {
-    if (state.input === "") throw "Fill out input";
-    return (
-      dispatch({
-        type: "ADD_PART",
-        payload: {
-          part: {
-            name: state.input,
-            color: state.color,
-            type: "custom",
-            details: "",
-            id: `${state.input}${Math.random()}`,
-          },
+    if (!state.input) throw "Fill out input";
+    dispatch({
+      type: "ADD_PART",
+      payload: {
+        part: {
+          name: state.input,
+          color: state.color,
+          type: "custom",
+          details: "",
+          id: `${state.input}${Math.random()}`,
         },
-      }),
-      setState((state) => ({ ...state, input: "" }))
-    );
+      },
+    });
+    setState((state) => ({ ...state, input: "" }));
   };
 
   return (

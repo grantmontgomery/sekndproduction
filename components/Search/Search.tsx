@@ -6,11 +6,9 @@ export const Search: React.FC = () => {
   const { allowToggle, allowDisplay } = useModalState();
   const modalDispatch = useModalDispatch();
   const handleClick: () => void = () => {
-    if (!allowDisplay.searchBox) {
-      modalDispatch({ type: "SEARCH_BOX" });
-    } else {
-      modalDispatch({ type: "CLOSE_MODAL" });
-    }
+    modalDispatch({
+      type: allowDisplay.searchBox ? "CLOSE_MODAL" : "SEARCH_BOX",
+    });
   };
   return (
     <div

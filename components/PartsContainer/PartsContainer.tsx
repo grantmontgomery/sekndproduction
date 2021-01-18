@@ -17,7 +17,7 @@ export const PartsContainer: React.FC = () => {
   const { customPiece } = useTouchState();
   const { rectangles } = useRectanglesState();
 
-  const handleTouchStart = ({ touches }: { touches: any }): void => {
+  const handleTouchStart = ({ touches }: any) => {
     const { clientY } = touches[0];
     setState((state) => ({
       ...state,

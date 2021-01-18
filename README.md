@@ -17,7 +17,7 @@ Seknd is the first "date making" app, built to make finding a first date idea as
 
 <!-- DO NOT CHANGE -->
 
-_Last updated on Fri, Jan 15, 2021  3:35:23 PM_
+_Last updated on Sun, Jan 17, 2021  5:26:19 PM_
 
 <!-- DO NOT CHANGE -->
 
@@ -89,6 +89,7 @@ Throughout building this app
    <br>
 
      <kbd>
+     <img src="https://media.giphy.com/media/hJhZc8VjUhAGImQa1i/giphy.gif" width="100%">
    </kbd>
 
 - **Pages**
@@ -108,6 +109,7 @@ Throughout building this app
    After making your search request and the data loads you see cards displaying the best events and places at the time you specified. From this page you can select whether you want events or places displayed. There is also pricing options on the side where you can filter the results from the cheapest to the most expensive. Keep in mind this feature changes functionality and options based on whether you're looking at places or events. This feature also implements an infinite scrolling feature where when you scroll to the bottom more results will be continuously loaded in . When you find places or events you like hit the "Add to Parts +" button on the top right. You'll see a Yin and Yang symbol at the top right pulsate. When you click on this symbol it opens up the places you selected, like a shopping cart, but for your preferred places or events. From this section you can also create your own parts if you can't find what you're looking for in the results. Your Date Parts list will remain constant on page changes and refresh because it's stored in a React Context object and the Session Storage on your browser.
 
    <kbd>
+   <img src="https://media.giphy.com/media/FMysHxa0z1RhvNHEkJ/giphy.gif" width="100%">
    </kbd>
 
 - **Pages**
@@ -115,7 +117,7 @@ Throughout building this app
 - **Relevant Components**
   - [Results Filter](https://github.com/grantmontgomery/sekndproduction/tree/master/components/ResultsFilter)
   - [Results List](https://github.com/grantmontgomery/sekndproduction/tree/master/components/ResultsList)
-  - [Result Card](https://github.com/grantmontgomery/sekndproduction/tree/master/components/SearchResults/ResultCard)
+  - [Result Card](https://github.com/grantmontgomery/sekndproduction/tree/master/components/ResultCard)
   - [Date Parts](https://github.com/grantmontgomery/sekndproduction/blob/master/components/DateParts/DateParts.tsx)
   - [Date Part](https://github.com/grantmontgomery/sekndproduction/tree/master/components/DatePart)
   - [Mobile Filter](https://github.com/grantmontgomery/sekndproduction/tree/master/components/MobileFilter)
@@ -128,6 +130,7 @@ Throughout building this app
    Once you have selected all the places and events you want you can visit the Schedule Page in order to schedule the perfect night or day out. A vertical grid was created from the times you originally selected in the Search feature and is split up by 30 minute increments. Tap or click on an empty space on the grid to create an outline piece. You can drag the piece, shorten, or extend it to fit the time block of your choice. Once it's in the spot you like you can select the part you would like to place inside of it from the selection on the left. If you change your mind and would like to remove the part just click or tap on the red "X" on the top right.
 
      <kbd>
+     <img src="https://media.giphy.com/media/HRBk9Vl3KfXv0KsIak/giphy.gif" width="100%">
    </kbd>
 
 - **Pages**
@@ -175,11 +178,13 @@ Throughout building this app
 
 ## Colors
 
-| Color/Gradient | Hex                                                                                                                               |
-| -------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Crystal Clear  | [#159957](https://via.placeholder.com/10/159957?text=+)`#159957` [#155799](https://via.placeholder.com/10/155799?text=+)`#155799` |
-| Rea            | [#FFE000](https://via.placeholder.com/10/FFE000?text=+)`#FFE000` [#799F0C](https://via.placeholder.com/10/799F0C?text=+)`#799F0C` |
-| Cosmic Fusion  | [#ff00cc](https://via.placeholder.com/10/ff00cc?text=+)`#ff00cc` [#333399](https://via.placeholder.com/10/333399?text=+)`#333399` |
+| Color/Gradient   | Hex                                                                                                                                 |
+| ---------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| Crystal Clear    | ![#159957](https://via.placeholder.com/10/159957?text=+)`#159957` ![#155799](https://via.placeholder.com/10/155799?text=+)`#155799` |
+| Rea              | ![#FFE000](https://via.placeholder.com/10/FFE000?text=+)`#FFE000` ![#799F0C](https://via.placeholder.com/10/799F0C?text=+)`#799F0C` |
+| Cosmic Fusion    | ![#ff00cc](https://via.placeholder.com/10/ff00cc?text=+)`#ff00cc` ![#333399](https://via.placeholder.com/10/333399?text=+)`#333399` |
+| Moonlit Asteroid | ![#0f2027](https://via.placeholder.com/10/0f2027?text=+)`#0f2027` ![#2c5364](https://via.placeholder.com/10/2c5364?text=+)`#2c5364` |
+| Ibiza Sunset     | ![#ee0979](https://via.placeholder.com/10/ee0979?text=+)`#ee0979` ![#ff6a00](https://via.placeholder.com/10/ff6a00?text=+)`#ff6a00` |
 
 ## License
 

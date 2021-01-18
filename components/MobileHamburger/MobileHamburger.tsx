@@ -9,11 +9,9 @@ export const MobileHamburger: React.FC = () => {
   const modalDispatch = useModalDispatch();
 
   const handleClick: () => void = () => {
-    if (!allowDisplay.mobileLinks) {
-      modalDispatch({ type: "MOBILE_LINKS" });
-    } else {
-      modalDispatch({ type: "CLOSE_MODAL" });
-    }
+    modalDispatch({
+      type: allowDisplay.mobileLinks ? "CLOSE_MODAL" : "MOBILE_LINKS",
+    });
   };
   return (
     <div

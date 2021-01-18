@@ -13,24 +13,19 @@ export const DetailsSection: React.FC<{
   details?: string;
 }> = ({ location, price, date, id, details }) => {
   const dispatch = usePartsDispatch();
-  const defineSections: () => JSX.Element = () => {
-    if (!location && !price && !date) {
-      return (
-        <textarea
-          className={css.customDetails}
-          value={details}
-          placeholder={details === "" ? "Enter in some details" : details}
-          onChange={({ target }) =>
-            dispatch({
-              type: "CHANGE_CUSTOM_DETAIL",
-              payload: { id, details: target.value },
-            })
-          }
-        />
-      );
-    } else {
-      return <p className={css.partDetails}></p>;
-    }
-  };
-  return defineSections();
+  return !location && !price && !date ? (
+    <textarea
+      className={css.customDetails}
+      value={details}
+      placeholder={details === "" ? "Enter in some details" : details}
+      onChange={({ target }) =>
+        dispatch({
+          type: "CHANGE_CUSTOM_DETAIL",
+          payload: { id, details: target.value },
+        })
+      }
+    />
+  ) : (
+    <p className={css.partDetails}></p>
+  );
 };

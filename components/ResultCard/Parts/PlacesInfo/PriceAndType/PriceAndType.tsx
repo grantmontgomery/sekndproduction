@@ -3,7 +3,7 @@ import css from "./PriceAndType.module.scss";
 
 export const PriceAndType: React.FC<{
   price: string;
-  type: string | null;
+  type: string | false;
   city: string;
   state: string;
 }> = ({ price, type, city, state }) => {

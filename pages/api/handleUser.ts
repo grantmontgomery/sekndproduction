@@ -38,7 +38,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             }
           );
 
-          res.setHeader("Set-Cookie", [
+          res.setHeader("Set-Cookies", [
             cookie.serialize("refresh-token", refreshToken, {
               path: "/",
               httpOnly: true,

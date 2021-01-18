@@ -45,9 +45,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         ticketmasterEvents.searchParams.append("segmentId", segmentId);
       if (page) ticketmasterEvents.searchParams.append("page", page);
 
-      isNaN(parseInt(location))
-        ? ticketmasterEvents.searchParams.append("city", location)
-        : ticketmasterEvents.searchParams.append("postalCode", location);
+      ticketmasterEvents.searchParams.append(
+        isNaN(parseInt(location)) ? "city" : "postalCode",
+        location
+      );
 
       const ticketmasterURLString: string = ticketmasterEvents.toString();
       //function

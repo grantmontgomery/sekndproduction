@@ -1,7 +1,7 @@
 import * as React from "react";
 import { ResultsList } from "../ResultsList";
 import { LoadingRing } from "../LoadingRing";
-import { ResultCard } from "../SearchResults";
+import { ResultCard } from "../ResultCard";
 import { useTicketMasterCall, useYelpEventsCall, usePlacesCall } from "./Hooks";
 import css from "./ResultsSection.module.scss";
 import { resourceLimits } from "worker_threads";

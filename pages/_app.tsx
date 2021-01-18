@@ -4,7 +4,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import "react-datepicker/dist/react-datepicker.min.css";
 import { PageTransition } from "next-page-transitions";
 import { SekndLoader } from "../components/SekndLoader";
-import Cookie from "js-cookie";
+import Cookies from "js-cookie";
 import { useUserDispatch } from "../state/UserContext";
 import css from "../styles/InitialLoader.module.scss";
 import useLayoutEffect from "../logic/useIsomorphicLayoutEffect";
@@ -17,12 +17,6 @@ import { NextComponentType, NextPage, NextPageContext } from "next";
 import { AppProps } from "next/app";
 import { NextRouter, Router } from "next/router";
 
-type Props = {
-  Component: NextComponentType;
-  pageProps: NextPageContext;
-  router: NextRouter;
-};
-
 export default function App({
   Component,
   pageProps,
@@ -30,34 +24,34 @@ export default function App({
 }: AppProps): JSX.Element {
   const [loading, setLoading] = React.useState<boolean>(false);
 
+  // const gridCookieString = React.useRef<string | undefined>();
+
   React.useEffect(() => {
     const start: () => void = () => setLoading(true);
     const end: () => void = () => setTimeout(() => setLoading(false), 500);
+
     Router.events.on("routeChangeStart", start);
     Router.events.on("routeChangeComplete", end);
+
     return () => {
       Router.events.off("routeChangeStart", start);
       Router.events.off("routeChangeComplete", end);
     };
   }, []);
 
+  const gridCookieString = Cookies.get("grid");
   return (
     <UserProvider>
       <ModalProvider>
         <RectanglesProvider>
           <GridProvider
-            initialState={Cookie.get("grid") && JSON.parse(Cookie.get("grid"))}
+            initialState={
+              gridCookieString ? JSON.parse(gridCookieString) : null
+            }
           >
             <PartsProvider>
               <PageTransition
                 timeout={250}
-                // loadingComponent={<SekndLoader></SekndLoader>}
-                // loadingDelay={500}
-                // loadingTimeout={{
-                //   enter: 400,
-                //   exit: 0,
-                // }}
-
                 classNames="page-transition"
                 loadingClassNames="loading-indicator"
               >

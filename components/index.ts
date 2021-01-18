@@ -5,7 +5,7 @@ export { DateParts } from "./DateParts";
 export { ResultsFilter } from "./ResultsFilter";
 export { DatePart } from "./DatePart/DatePart";
 export { PartsContainer } from "./PartsContainer";
-export { ResultCard } from "./SearchResults";
+export { ResultCard } from "./ResultCard";
 export { SekndLoader } from "./SekndLoader";
 export { TouchProvider } from "./ScheduleGrid/Context";
 export { SchedulePartSelector } from "./SchedulePartSelector";

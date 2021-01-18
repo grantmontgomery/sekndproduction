@@ -19,12 +19,13 @@ export default function Schedule(): JSX.Element {
     windowWidth: number | null;
   }>({ windowHeight: null, windowWidth: null });
   const { startDate, endDate } = useGridState();
+
   const rectanglesDispatch = useRectanglesDispatch();
   const { rectangles } = useRectanglesState();
 
   const removeCustomPart: () => void = () => {
     for (let i = 0; i < rectangles.length; i++) {
-      if (rectangles[i].part && !rectangles[i].part.name) {
+      if (!rectangles[i].part?.name) {
         rectanglesDispatch({
           type: "REMOVE_PART_FROM_RECTANGLE",
           payload: { index: i },
