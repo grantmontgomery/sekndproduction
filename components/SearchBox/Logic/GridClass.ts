@@ -57,7 +57,7 @@ export default class GridClass {
         );
       }
 
-      (rowCount % 2 === 0 && rowCount) !== 0 && hourIndex++;
+      if (rowCount % 2 === 0 && rowCount !== 0) hourIndex++;
       rowCount++;
     }
     this.templateAreas = templateAreas;
