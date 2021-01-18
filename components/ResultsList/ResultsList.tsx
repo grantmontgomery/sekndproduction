@@ -1,7 +1,7 @@
 import * as React from "react";
 import { LoadingRing } from "../LoadingRing";
 import { EventsInput } from "../SearchBox/Parts";
-import { ResultCard } from "../SearchResults";
+import { ResultCard } from "../ResultCard";
 import css from "./ResultsList.module.scss";
 
 export const ResultsList: React.FC<{

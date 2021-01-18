@@ -11,7 +11,7 @@ import {
   PartsProvider,
   usePartsDispatch,
   usePartsState,
-} from "../../../state/DatePartsContext";
+} from "../../state/DatePartsContext";
 import css from "./ResultCard.module.scss";
 import imageCSS from "./Parts/ImageBackground/ImageBackground.module.scss";
 

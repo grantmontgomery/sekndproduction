@@ -17,7 +17,7 @@ Seknd is the first "date making" app, built to make finding a first date idea as
 
 <!-- DO NOT CHANGE -->
 
-_Last updated on Thu, Jan 14, 2021  4:38:34 PM_
+_Last updated on Sun, Jan 17, 2021  4:41:04 PM_
 
 <!-- DO NOT CHANGE -->
 
@@ -115,7 +115,7 @@ Throughout building this app
 - **Relevant Components**
   - [Results Filter](https://github.com/grantmontgomery/sekndproduction/tree/master/components/ResultsFilter)
   - [Results List](https://github.com/grantmontgomery/sekndproduction/tree/master/components/ResultsList)
-  - [Result Card](https://github.com/grantmontgomery/sekndproduction/tree/master/components/SearchResults/ResultCard)
+  - [Result Card](https://github.com/grantmontgomery/sekndproduction/tree/master/components/ResultCard)
   - [Date Parts](https://github.com/grantmontgomery/sekndproduction/blob/master/components/DateParts/DateParts.tsx)
   - [Date Part](https://github.com/grantmontgomery/sekndproduction/tree/master/components/DatePart)
   - [Mobile Filter](https://github.com/grantmontgomery/sekndproduction/tree/master/components/MobileFilter)
