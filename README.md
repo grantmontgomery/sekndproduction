@@ -17,7 +17,7 @@ Seknd is the first "date making" app, built to make finding a first date idea as
 
 <!-- DO NOT CHANGE -->
 
-_Last updated on Sun, Jan 17, 2021  5:24:37 PM_
+_Last updated on Mon, Jan 18, 2021 11:08:41 AM_
 
 <!-- DO NOT CHANGE -->
 
@@ -79,18 +79,26 @@ The past decade has defined the era of matchmaking apps and has made meeting new
 
 ## Design
 
-Throughout building this app
+During the development of this app I've kept three principles in mind.
+
+1. **Speed**
+2. **Mobile first approach**
+3. **Variety of sources for data**
+
+As my skills have increased and I've picked up more knowledge in technologies and best practices I've been able to make this application faster and faster. I first built out the [first version](https://github.com/grantmontgomery/seknd) and many of it's features with plain React and Redux. But as the app and it's features scaled so did it's weight and complexity. It started becoming more and more sluggish and it was then I knew that I had to restart it's development using a faster framework with as little packages as possible. After I built my [personal site](https://github.com/grantmontgomery/grantcreates2.0) using Gatsby I saw first hand how statically generating as many pages as possible could increase performance as the app scaled. That's why I decided to build this version using Next.js to statically generate pages and it's features built on top of Webpack which add some better handling in the bundling of my JavaScript.
+
+Another problem I had was that I built
 
 ## Features
 
 1. **Search**<br>
 
    Are you looking for places, events, or the whole shebang? The Search feature is where you begin the process of finding that great first date idea. Start by selecting what which of the three you're looking for, then where you would like to look, and when. The search feature sends a query to a dynamic route where API calls are made to serverless endpoints with the useSWR hook created by Vercel. The serverless functions then post queries to API endpoints provided by Ticketmaster and Yelp and the data is finally made available for users in the Select feature.
-   <br>
-
+   <p align="center" width="100%">
      <kbd>
      <img src="https://media.giphy.com/media/hJhZc8VjUhAGImQa1i/giphy.gif" width="100%">
    </kbd>
+   </p>
 
 - **Pages**
 
@@ -107,10 +115,11 @@ Throughout building this app
 2. **Select**<br>
 
    After making your search request and the data loads you see cards displaying the best events and places at the time you specified. From this page you can select whether you want events or places displayed. There is also pricing options on the side where you can filter the results from the cheapest to the most expensive. Keep in mind this feature changes functionality and options based on whether you're looking at places or events. This feature also implements an infinite scrolling feature where when you scroll to the bottom more results will be continuously loaded in . When you find places or events you like hit the "Add to Parts +" button on the top right. You'll see a Yin and Yang symbol at the top right pulsate. When you click on this symbol it opens up the places you selected, like a shopping cart, but for your preferred places or events. From this section you can also create your own parts if you can't find what you're looking for in the results. Your Date Parts list will remain constant on page changes and refresh because it's stored in a React Context object and the Session Storage on your browser.
-
-   <kbd>
-   <img src="https://media.giphy.com/media/FMysHxa0z1RhvNHEkJ/giphy.gif" width="100%">
-   </kbd>
+   <p align="center" width="100%">
+    <kbd>
+    <img src="https://media.giphy.com/media/FMysHxa0z1RhvNHEkJ/giphy.gif" width="100%">
+    </kbd>
+   </p>
 
 - **Pages**
   - [Queried Page](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/search/%5Bqueried%5D.tsx)
@@ -128,10 +137,11 @@ Throughout building this app
 3. **Schedule**<br>
 
    Once you have selected all the places and events you want you can visit the Schedule Page in order to schedule the perfect night or day out. A vertical grid was created from the times you originally selected in the Search feature and is split up by 30 minute increments. Tap or click on an empty space on the grid to create an outline piece. You can drag the piece, shorten, or extend it to fit the time block of your choice. Once it's in the spot you like you can select the part you would like to place inside of it from the selection on the left. If you change your mind and would like to remove the part just click or tap on the red "X" on the top right.
-
+      <p align="center" width="100%">
      <kbd>
      <img src="https://media.giphy.com/media/HRBk9Vl3KfXv0KsIak/giphy.gif" width="100%">
    </kbd>
+      </p>
 
 - **Pages**
   - [Schedule Page](https://github.com/grantmontgomery/sekndproduction/blob/master/pages/schedule.tsx)
