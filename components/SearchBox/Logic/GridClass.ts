@@ -49,13 +49,11 @@ export default class GridClass {
     let hourIndex = 0;
 
     while (rowCount < this.rowAmount) {
-      if (rowCount === 0 || rowCount === this.rowAmount - 1) {
-        templateAreas = templateAreas.concat(`". rectangle${rowCount}"`);
-      } else {
-        templateAreas = templateAreas.concat(
-          `"hour${hourIndex} rectangle${rowCount}"`
-        );
-      }
+      rowCount == 0 || rowCount === this.rowAmount - 1
+        ? (templateAreas = templateAreas.concat(`". rectangle${rowCount}"`))
+        : (templateAreas = templateAreas.concat(
+            `"hour${hourIndex} rectangle${rowCount}"`
+          ));
 
       if (rowCount % 2 === 0 && rowCount !== 0) hourIndex++;
       rowCount++;
@@ -79,11 +77,11 @@ export default class GridClass {
 
     hourNumbers.forEach((hour) => {
       if (hour === 24) {
-        return hourStrings.push("12:00 a.m");
+        hourStrings.push("12:00 a.m");
       } else if (hour === 12) {
-        return hourStrings.push("12:00 p.m");
+        hourStrings.push("12:00 p.m");
       } else {
-        return hour < 12
+        hour < 12
           ? hourStrings.push(`${hour}:00 a.m`)
           : hourStrings.push(`${hour - 12}:00 p.m`);
       }
