@@ -8,6 +8,8 @@ jspm_packages
 
 .next
 
+build
+
 src 
 out
 
